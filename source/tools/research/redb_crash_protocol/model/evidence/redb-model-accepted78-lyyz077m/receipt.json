@@ -1,0 +1,1405 @@
+{
+  "freeze": {
+    "parent": "c008326bfed88eab958335412cdc5ec0e9c8130e",
+    "candidate_sha256": "bae16309c4617eea08f50fe0131ddc6dfede0d641b15363a157e92ccbce74af4",
+    "original_candidate": "source/tools/research/redb_crash_protocol/model/controls/missing_write_coverage.rs",
+    "expected": "postcondition",
+    "exec_bodies": [],
+    "proof_bodies": [
+      "outside_writes_unchanged",
+      "publication_requires_first",
+      "retained_image",
+      "submit_frame",
+      "step_retention",
+      "arbitrary_trace_retains",
+      "successful_barrier_covers",
+      "ack_is_after_second",
+      "required_two_barriers_ack_and_crash",
+      "write_establishes",
+      "acknowledged_header_and_pages",
+      "control_byte_from_one_write",
+      "covered_barrier_then_crash",
+      "coherent_nonvacuous_target",
+      "header_selection_with_complete_candidates",
+      "detected_corrupt_preserved",
+      "both_prior_modes_remain",
+      "torn_header_witness",
+      "error_can_be_fully_durable",
+      "prior_false_incomplete_secondary_witness",
+      "concrete_two_barrier_success",
+      "false_sync_without_coverage"
+    ],
+    "full_body_identities": [
+      "model::outside_writes_unchanged",
+      "model::publication_requires_first",
+      "model::retained_image",
+      "model::submit_frame",
+      "model::step_retention",
+      "model::arbitrary_trace_retains",
+      "model::successful_barrier_covers",
+      "model::ack_is_after_second",
+      "model::required_two_barriers_ack_and_crash",
+      "model::write_establishes",
+      "model::acknowledged_header_and_pages",
+      "model::control_byte_from_one_write",
+      "model::covered_barrier_then_crash",
+      "model::coherent_nonvacuous_target",
+      "model::header_selection_with_complete_candidates",
+      "model::detected_corrupt_preserved",
+      "model::both_prior_modes_remain",
+      "model::torn_header_witness",
+      "model::error_can_be_fully_durable",
+      "model::prior_false_incomplete_secondary_witness",
+      "model::concrete_two_barrier_success",
+      "model::false_sync_without_coverage"
+    ],
+    "full_spec_identities": [
+      "model::valid_write",
+      "model::covers",
+      "model::apply_write",
+      "model::allowed",
+      "model::wf",
+      "model::matches",
+      "model::frames",
+      "model::retained",
+      "model::storage_step",
+      "model::protocol_step",
+      "model::publication",
+      "model::retained_trace",
+      "model::write_covers",
+      "model::slot",
+      "model::selection",
+      "model::header_select",
+      "model::good",
+      "model::selected_good",
+      "model::published_choice",
+      "model::served_recovery",
+      "model::repair_serialize"
+    ],
+    "spec_definitions": [
+      "valid_write",
+      "covers",
+      "apply_write",
+      "allowed",
+      "wf",
+      "matches",
+      "frames",
+      "retained",
+      "storage_step",
+      "protocol_step",
+      "publication",
+      "retained_trace",
+      "write_covers",
+      "slot",
+      "selection",
+      "header_select",
+      "good",
+      "selected_good",
+      "published_choice",
+      "served_recovery",
+      "repair_serialize"
+    ],
+    "expected_infer_helpers": [],
+    "infer_helper_count": 0,
+    "prospective": true,
+    "existing_infer_registry_sha256": "91bbf8963947eaf7055a80f6961d007d0e8fe3bd95a71fc371bcc2d4b6eab883",
+    "source_coupling_proved": false,
+    "model_only": true,
+    "all_trace_domain": "arbitrary finite Seq; no bounded enumeration implied"
+  },
+  "commands": [
+    {
+      "label": "missing_write_coverage_ordinary",
+      "argv": [
+        "/tmp/redb-model-accepted78-lyyz077m/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs",
+        "--crate-type=lib",
+        "--crate-name=model",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--num-threads",
+        "1"
+      ],
+      "cwd": "/tmp/redb-model-accepted78-lyyz077m",
+      "returncode": 1,
+      "seconds": 1.2418487690156326,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-model-accepted78-lyyz077m/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-model-accepted78-lyyz077m/missing_write_coverage_ordinary-cache",
+        "CARGO_TARGET_DIR": "/tmp/redb-model-accepted78-lyyz077m/missing_write_coverage_ordinary-target"
+      }
+    },
+    {
+      "label": "missing_write_coverage_infer",
+      "argv": [
+        "/tmp/redb-model-accepted78-lyyz077m/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs",
+        "--crate-type=lib",
+        "--crate-name=model",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--num-threads",
+        "1",
+        "--export",
+        "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/missing_write_coverage_infer.vir",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-model-accepted78-lyyz077m",
+      "returncode": 1,
+      "seconds": 2.3415274329599924,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-model-accepted78-lyyz077m/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-model-accepted78-lyyz077m/missing_write_coverage_infer-cache",
+        "CARGO_TARGET_DIR": "/tmp/redb-model-accepted78-lyyz077m/missing_write_coverage_infer-target"
+      }
+    }
+  ],
+  "runs": [
+    {
+      "label": "missing_write_coverage_ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 26,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "Event::arrow_0",
+            "rust_function": "Event::arrow_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 14:22",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::Event::arrow_Buffer_0",
+            "rust_function": "Event::arrow_Buffer_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 13:17",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Crash_0",
+            "rust_function": "Event::arrow_Crash_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 14:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Persist_0",
+            "rust_function": "Event::arrow_Persist_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 13:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Submit_0",
+            "rust_function": "Event::arrow_Submit_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 13:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_SyncError_0",
+            "rust_function": "Event::arrow_SyncError_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 14:22",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::ack_is_after_second",
+            "rust_function": "ack_is_after_second",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:171:1: 171:68",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::acknowledged_header_and_pages",
+            "rust_function": "acknowledged_header_and_pages",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:207:1: 210:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::allowed",
+            "rust_function": "allowed",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:30:1: 30:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::apply_write",
+            "rust_function": "apply_write",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:27:1: 27:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::arbitrary_trace_retains",
+            "rust_function": "arbitrary_trace_retains",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:153:1: 153:85",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::both_prior_modes_remain",
+            "rust_function": "both_prior_modes_remain",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:302:1: 302:85",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::coherent_nonvacuous_target",
+            "rust_function": "coherent_nonvacuous_target",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:286:1: 286:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::concrete_two_barrier_success",
+            "rust_function": "concrete_two_barrier_success",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:350:1: 350:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::control_byte_from_one_write",
+            "rust_function": "control_byte_from_one_write",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:229:1: 229:79",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::covered_barrier_then_crash",
+            "rust_function": "covered_barrier_then_crash",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:236:1: 236:118",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::covers",
+            "rust_function": "covers",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:24:1: 24:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::detected_corrupt_preserved",
+            "rust_function": "detected_corrupt_preserved",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:298:1: 298:104",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::error_can_be_fully_durable",
+            "rust_function": "error_can_be_fully_durable",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:323:1: 323:42",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::false_sync_without_coverage",
+            "rust_function": "false_sync_without_coverage",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:395:1: 395:79",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::frames",
+            "rust_function": "frames",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:43:1: 43:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::good",
+            "rust_function": "good",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:270:1: 270:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::header_select",
+            "rust_function": "header_select",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:259:1: 259:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::header_selection_with_complete_candidates",
+            "rust_function": "header_selection_with_complete_candidates",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:290:1: 290:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::matches",
+            "rust_function": "matches",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:40:1: 40:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::outside_writes_unchanged",
+            "rust_function": "outside_writes_unchanged",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:93:1: 93:70",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::prior_false_incomplete_secondary_witness",
+            "rust_function": "prior_false_incomplete_secondary_witness",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:335:1: 335:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::protocol_step",
+            "rust_function": "protocol_step",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:66:1: 66:84",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::publication",
+            "rust_function": "publication",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:88:1: 88:78",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::publication_requires_first",
+            "rust_function": "publication_requires_first",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:98:1: 98:81",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::published_choice",
+            "rust_function": "published_choice",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:276:1: 276:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::repair_serialize",
+            "rust_function": "repair_serialize",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:294:1: 294:74",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::required_two_barriers_ack_and_crash",
+            "rust_function": "required_two_barriers_ack_and_crash",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:175:1: 178:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::retained",
+            "rust_function": "retained",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:47:1: 47:60",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::retained_image",
+            "rust_function": "retained_image",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:102:1: 102:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::retained_trace",
+            "rust_function": "retained_trace",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:148:1: 148:88",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::selected_good",
+            "rust_function": "selected_good",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:271:1: 271:64",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::selection",
+            "rust_function": "selection",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:258:1: 258:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::served_recovery",
+            "rust_function": "served_recovery",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:279:1: 279:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::slot",
+            "rust_function": "slot",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:257:1: 257:54",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::step_retention",
+            "rust_function": "step_retention",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:128:1: 128:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::storage_step",
+            "rust_function": "storage_step",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:50:1: 50:72",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::submit_frame",
+            "rust_function": "submit_frame",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:117:1: 117:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::successful_barrier_covers",
+            "rust_function": "successful_barrier_covers",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:167:1: 167:77",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::torn_header_witness",
+            "rust_function": "torn_header_witness",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:308:1: 308:35",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::valid_write",
+            "rust_function": "valid_write",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:21:1: 21:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::wf",
+            "rust_function": "wf",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:35:1: 35:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::write_covers",
+            "rust_function": "write_covers",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:197:1: 197:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::write_establishes",
+            "rust_function": "write_establishes",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:201:1: 201:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "helpers": [],
+      "stdout_sha256": "29838cb73a962237156f054a7f237106b410fc25c332d88f9655893de692ce17",
+      "stderr_sha256": "6336839a77eb108d9b4842d6512f4522f3c543563e228eecd9d21c2809529956",
+      "export_sha256": null
+    },
+    {
+      "label": "missing_write_coverage_infer",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 26,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "Event::arrow_0",
+            "rust_function": "Event::arrow_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 14:22",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::Event::arrow_Buffer_0",
+            "rust_function": "Event::arrow_Buffer_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 13:17",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Crash_0",
+            "rust_function": "Event::arrow_Crash_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 14:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Persist_0",
+            "rust_function": "Event::arrow_Persist_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 13:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Submit_0",
+            "rust_function": "Event::arrow_Submit_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 13:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_SyncError_0",
+            "rust_function": "Event::arrow_SyncError_0",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:12:1: 14:22",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::ack_is_after_second",
+            "rust_function": "ack_is_after_second",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:171:1: 171:68",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::acknowledged_header_and_pages",
+            "rust_function": "acknowledged_header_and_pages",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:207:1: 210:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::allowed",
+            "rust_function": "allowed",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:30:1: 30:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::apply_write",
+            "rust_function": "apply_write",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:27:1: 27:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::arbitrary_trace_retains",
+            "rust_function": "arbitrary_trace_retains",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:153:1: 153:85",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::both_prior_modes_remain",
+            "rust_function": "both_prior_modes_remain",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:302:1: 302:85",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::coherent_nonvacuous_target",
+            "rust_function": "coherent_nonvacuous_target",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:286:1: 286:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::concrete_two_barrier_success",
+            "rust_function": "concrete_two_barrier_success",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:350:1: 350:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::control_byte_from_one_write",
+            "rust_function": "control_byte_from_one_write",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:229:1: 229:79",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::covered_barrier_then_crash",
+            "rust_function": "covered_barrier_then_crash",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:236:1: 236:118",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::covers",
+            "rust_function": "covers",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:24:1: 24:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::detected_corrupt_preserved",
+            "rust_function": "detected_corrupt_preserved",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:298:1: 298:104",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::error_can_be_fully_durable",
+            "rust_function": "error_can_be_fully_durable",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:323:1: 323:42",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::false_sync_without_coverage",
+            "rust_function": "false_sync_without_coverage",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:395:1: 395:79",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::frames",
+            "rust_function": "frames",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:43:1: 43:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::good",
+            "rust_function": "good",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:270:1: 270:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::header_select",
+            "rust_function": "header_select",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:259:1: 259:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::header_selection_with_complete_candidates",
+            "rust_function": "header_selection_with_complete_candidates",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:290:1: 290:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::matches",
+            "rust_function": "matches",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:40:1: 40:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::outside_writes_unchanged",
+            "rust_function": "outside_writes_unchanged",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:93:1: 93:70",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::prior_false_incomplete_secondary_witness",
+            "rust_function": "prior_false_incomplete_secondary_witness",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:335:1: 335:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::protocol_step",
+            "rust_function": "protocol_step",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:66:1: 66:84",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::publication",
+            "rust_function": "publication",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:88:1: 88:78",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::publication_requires_first",
+            "rust_function": "publication_requires_first",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:98:1: 98:81",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::published_choice",
+            "rust_function": "published_choice",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:276:1: 276:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::repair_serialize",
+            "rust_function": "repair_serialize",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:294:1: 294:74",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::required_two_barriers_ack_and_crash",
+            "rust_function": "required_two_barriers_ack_and_crash",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:175:1: 178:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::retained",
+            "rust_function": "retained",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:47:1: 47:60",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::retained_image",
+            "rust_function": "retained_image",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:102:1: 102:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::retained_trace",
+            "rust_function": "retained_trace",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:148:1: 148:88",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::selected_good",
+            "rust_function": "selected_good",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:271:1: 271:64",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::selection",
+            "rust_function": "selection",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:258:1: 258:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::served_recovery",
+            "rust_function": "served_recovery",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:279:1: 279:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::slot",
+            "rust_function": "slot",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:257:1: 257:54",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::step_retention",
+            "rust_function": "step_retention",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:128:1: 128:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::storage_step",
+            "rust_function": "storage_step",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:50:1: 50:72",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::submit_frame",
+            "rust_function": "submit_frame",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:117:1: 117:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::successful_barrier_covers",
+            "rust_function": "successful_barrier_covers",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:167:1: 167:77",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::torn_header_witness",
+            "rust_function": "torn_header_witness",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:308:1: 308:35",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::valid_write",
+            "rust_function": "valid_write",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:21:1: 21:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::wf",
+            "rust_function": "wf",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:35:1: 35:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::write_covers",
+            "rust_function": "write_covers",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:197:1: 197:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::write_establishes",
+            "rust_function": "write_establishes",
+            "source": "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs:201:1: 201:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "helpers": [],
+      "stdout_sha256": "f611201de9b86ee311994de5de089aad029a8b2794beb6b0d883fcfad1a912ff",
+      "stderr_sha256": "a45f52c7ac0c2777ced1fd19a95e9256305e4af5ed297c5959cca5fb52ee4ccf",
+      "export_sha256": null
+    }
+  ],
+  "artifacts": {
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc": {
+      "sha256": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+      "size": 648536,
+      "mtime_ns": 1794253061165401039,
+      "inode": 12583580
+    },
+    "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/CASES.json": {
+      "sha256": "747f8ed028d7eb52ec86fa1873e8e2ec95fe87e7c9dd663a6285b28f161e013c",
+      "size": 5522,
+      "mtime_ns": 1794465238043867097,
+      "inode": 14711622
+    },
+    "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/CURRENT.md": {
+      "sha256": "58bf5c28bee2eafd734c7a122718e8c00bda37e8e5c2f703c8c90fd455bfca02",
+      "size": 1253,
+      "mtime_ns": 1794465238043867097,
+      "inode": 14711649
+    },
+    "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/GOAL.md": {
+      "sha256": "3928f62cb0a02e454a9e6280143de3debbd40a639c585a9015352a2dc21fa1b3",
+      "size": 6291,
+      "mtime_ns": 1794465238043867097,
+      "inode": 14711660
+    },
+    "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/PREPARATION_NOTE.md": {
+      "sha256": "cca687a73774511df17ef504f9acf3826422f9b1afe9c955ecf9ee85e430e0b1",
+      "size": 915,
+      "mtime_ns": 1794465238043867097,
+      "inode": 14711670
+    },
+    "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/WORKER_BRIEFS.md": {
+      "sha256": "fbcc125e9f5fc1f7d17ad8fa0e896768d593f67deae5d768f60d3f167ae31291",
+      "size": 4159,
+      "mtime_ns": 1794465238043867097,
+      "inode": 14711676
+    },
+    "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/ACCEPTED78_INFER_REGISTRY.json": {
+      "sha256": "91bbf8963947eaf7055a80f6961d007d0e8fe3bd95a71fc371bcc2d4b6eab883",
+      "size": 53424,
+      "mtime_ns": 1794465710165528929,
+      "inode": 14721559
+    },
+    "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/candidate.rs": {
+      "sha256": "bae16309c4617eea08f50fe0131ddc6dfede0d641b15363a157e92ccbce74af4",
+      "size": 20704,
+      "mtime_ns": 1794465940336361486,
+      "inode": 14721680
+    },
+    "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-lyyz077m/freeze.json": {
+      "sha256": "d96c12f7119234722e0f65ac3749ec9078d4ce500c88c5654f3123fe773f1802",
+      "size": 3251,
+      "mtime_ns": 1794465940337361486,
+      "inode": 14721681
+    },
+    "/home/dev/.t3/worktrees/verus/t3-4e2ebb94/source/tools/research/redb_crash_protocol/model/replay.py": {
+      "sha256": "d09b1f8dcaa1d2f6484e2de3f69f87ef0d63be57aac968ba1c40946fb21a5e4a",
+      "size": 7845,
+      "mtime_ns": 1794465887153400279,
+      "inode": 14721528
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/bundle/libverus_builtin.rlib": {
+      "sha256": "faedb6bd6ca1e43175d8c82ef59a091f828dca313755b20fd4c38268f2bc1bcf",
+      "size": 956982,
+      "mtime_ns": 1794441059083336530,
+      "inode": 3188629
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/bundle/libverus_builtin_macros.so": {
+      "sha256": "d85f0b88842a2856911b21c1ca2ae43fbe38b481a8da3f141725373fdd56b671",
+      "size": 14161240,
+      "mtime_ns": 1794441058207336453,
+      "inode": 3188630
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/bundle/libverus_state_machines_macros.so": {
+      "sha256": "c4f2d89854d5d95247e0b9f5845b513990875c5628bbb96fa7007e120d3cb860",
+      "size": 8574616,
+      "mtime_ns": 1794441070903337364,
+      "inode": 3188628
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/bundle/libvstd.rlib": {
+      "sha256": "675d5bae09fc7593de96b4216b012ef6bb28db18f91b863b0820cf2ea2db4167",
+      "size": 11094990,
+      "mtime_ns": 1794441143531334888,
+      "inode": 3188632
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/bundle/receipt.json": {
+      "sha256": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+      "size": 1015,
+      "mtime_ns": 1794441145116334696,
+      "inode": 3188627
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/bundle/rust_verify": {
+      "sha256": "52fd0be56236ec8ecd7c0a3db9628eb70d857baa5391df0a623ed216723dc6d8",
+      "size": 39049648,
+      "mtime_ns": 1794441025722332159,
+      "inode": 3188631
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/bundle/verus": {
+      "sha256": "134afc474dfc592f863126bbef2fcfb68d2b97cb4abd3ad24290f6ee7ebcd4b4",
+      "size": 4692160,
+      "mtime_ns": 1794441031727333171,
+      "inode": 3188626
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/bundle/verus-root": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "mtime_ns": 1794440592316897493,
+      "inode": 3188634
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/bundle/vstd.vir": {
+      "sha256": "b9a613f5c3321931854033da2eeaa8eb3b657885de37ea470602c99e608d0173",
+      "size": 33770791,
+      "mtime_ns": 1794441108459337664,
+      "inode": 3188633
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/bundle/z3": {
+      "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+      "size": 34954456,
+      "mtime_ns": 1794413112466532087,
+      "inode": 3188625
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/helpers/infer_eval_support.py": {
+      "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+      "size": 7981,
+      "mtime_ns": 1794465940329361491,
+      "inode": 3188637
+    },
+    "/tmp/redb-model-accepted78-lyyz077m/helpers/infer_experiment.py": {
+      "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+      "size": 11144,
+      "mtime_ns": 1794465940329361491,
+      "inode": 3188636
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/Cargo.toml": {
+      "sha256": "ada9ad18137fbfd68c1f022673a561c036f29c276382e9dbe824fa268e4fb294",
+      "size": 2745,
+      "mtime_ns": 1794253177088167806,
+      "inode": 12595622
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/db.rs": {
+      "sha256": "65c3107446039a3dacba03dae0b2a21c88109562ba81d7cadda0a8ea8c7a6169",
+      "size": 190761,
+      "mtime_ns": 1794253177306167365,
+      "inode": 12595710
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/transaction_tracker.rs": {
+      "sha256": "423252fc12806ff37aed5a61ab9f0217bf35a2c2724dc40f9930dc94dbf3519e",
+      "size": 27248,
+      "mtime_ns": 1794253177307167363,
+      "inode": 12595720
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/transactions.rs": {
+      "sha256": "02b383d6d984a14dfc4827ec04241d78637591f91ff754b42f9671b305d18bde",
+      "size": 129790,
+      "mtime_ns": 1794253177308167361,
+      "inode": 12595721
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/btree_base.rs": {
+      "sha256": "c3a1f5ca0cefdde0bc7d1b40536bc4f2d68a8bce852115433621a8b37fb9ec60",
+      "size": 90552,
+      "mtime_ns": 1794253177309167359,
+      "inode": 12595724
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/base.rs": {
+      "sha256": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+      "size": 14695,
+      "mtime_ns": 1794253177310167357,
+      "inode": 12595735
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/cached_file.rs": {
+      "sha256": "cb901d44531b23f87d1bd31f72a24f1dc69308b5417db2167b7508921ffda486",
+      "size": 56801,
+      "mtime_ns": 1794253177310167357,
+      "inode": 12595738
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/header.rs": {
+      "sha256": "35863472a48f9e0eb65a0f9ba0b2517a888a881478476aaafbcbfc77842850f9",
+      "size": 72782,
+      "mtime_ns": 1794253177311167355,
+      "inode": 12595745
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/layout.rs": {
+      "sha256": "0b559f9a739c6960bfdc0fd84c03f3bd8e083a824a74f9ea41b162f1fb99d670",
+      "size": 8105,
+      "mtime_ns": 1794253177311167355,
+      "inode": 12595746
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/page_manager.rs": {
+      "sha256": "b062608a527c3f53aa505af870f2b803da3fa7b095169194c681cc6441cb558a",
+      "size": 157364,
+      "mtime_ns": 1794253177312167353,
+      "inode": 12595749
+    }
+  },
+  "private_bundle": "/tmp/redb-model-accepted78-lyyz077m/bundle",
+  "toolchain": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+  "source_coupling_proved": false,
+  "setup_seconds": 0.9308291519992054,
+  "success": true,
+  "total_seconds": 5.792406807013322
+}

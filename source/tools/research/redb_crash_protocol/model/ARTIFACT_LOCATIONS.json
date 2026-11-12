@@ -1,0 +1,77 @@
+{
+  "evidence/redb-model-accepted78-2my5t5nn/qualified_infer.vir": {
+    "sha256": "f7e3221287eb66b341240d3345bc2d59feef7e8ff3ddc0921af9b69dbafff6fe",
+    "private_path": "/tmp/redb-model-accepted78-2my5t5nn/quarantined-exports/qualified_infer.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-2my5t5nn/qualified_ordinary.vir": {
+    "sha256": "3bda8e8e3b204bf3c23967431ed07d080a08fd97d1cd3bad3535e328d7a1837a",
+    "private_path": "/tmp/redb-model-accepted78-2my5t5nn/quarantined-exports/qualified_ordinary.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-c7e1a9x7/initial_ordinary.vir": {
+    "sha256": "70d3cfbcb42822925e3a027e0d81b72a257b6a79608b11a9fb17a19a52d007b8",
+    "private_path": "/tmp/redb-model-accepted78-c7e1a9x7/quarantined-exports/initial_ordinary.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-fgs5aoy4/early_ack_ordinary.vir": {
+    "sha256": "72802de12ee3d1162881696192be8885b55199b911f0775d0e4ae6b02485d7d5",
+    "private_path": "/tmp/redb-model-accepted78-fgs5aoy4/quarantined-exports/early_ack_ordinary.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-g58nc7l4/accepted_registry_infer.vir": {
+    "sha256": "4d6dd164d907406891245416c1da246cf77c8044f2f70a8b7ea6a52d30c198ca",
+    "private_path": "/tmp/redb-model-accepted78-g58nc7l4/quarantined-exports/accepted_registry_infer.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-g58nc7l4/accepted_registry_ordinary.vir": {
+    "sha256": "93e80effe07362be8166dbe2f68c14cf8bf77875a528ae65b7cc81d3829d9a7c",
+    "private_path": "/tmp/redb-model-accepted78-g58nc7l4/quarantined-exports/accepted_registry_ordinary.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-mzbpx4h5/nonvacuous_infer.vir": {
+    "sha256": "7892c40b4a201388532c114481596fdfd00f438bcd9bbfcb38daf898c9f6c6b1",
+    "private_path": "/tmp/redb-model-accepted78-mzbpx4h5/quarantined-exports/nonvacuous_infer.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-mzbpx4h5/nonvacuous_ordinary.vir": {
+    "sha256": "27a4a7635463f90ee4f0cf6e628fc77d6d1628b0dce33e4f8754657daaa9f13d",
+    "private_path": "/tmp/redb-model-accepted78-mzbpx4h5/quarantined-exports/nonvacuous_ordinary.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-sp75p24a/composed_infer.vir": {
+    "sha256": "59fdc1dabb8b255709bc00e8fd718becdcbfebe0c85066d1ce8e907bc3c259c6",
+    "private_path": "/tmp/redb-model-accepted78-sp75p24a/quarantined-exports/composed_infer.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-sp75p24a/composed_ordinary.vir": {
+    "sha256": "10324c53687b0b68806594265ab56d5a3d81ebace2412a390232ad7594a17c94",
+    "private_path": "/tmp/redb-model-accepted78-sp75p24a/quarantined-exports/composed_ordinary.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-tug4tj3e/header_and_pages_infer.vir": {
+    "sha256": "d23fa6fc9d0dec326578e98719721366c1444c469446626625dc76f869dc054f",
+    "private_path": "/tmp/redb-model-accepted78-tug4tj3e/quarantined-exports/header_and_pages_infer.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-tug4tj3e/header_and_pages_ordinary.vir": {
+    "sha256": "b26641749c98a1c175944876e5567a9869cdb2012fa7ad3850f118da1a65a06b",
+    "private_path": "/tmp/redb-model-accepted78-tug4tj3e/quarantined-exports/header_and_pages_ordinary.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-v1vph8ag/repaired_ordinary.vir": {
+    "sha256": "3c053f8ab1b5e95e86c39c8bfc705eda98e4d15c277223c56cf317a845339f2b",
+    "private_path": "/tmp/redb-model-accepted78-v1vph8ag/quarantined-exports/repaired_ordinary.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-y33p1f7i/final_model_infer.vir": {
+    "sha256": "2faec697dc87edf71090fc342af1312926e761589e6fa5bda16ae70c65d0683e",
+    "private_path": "/tmp/redb-model-accepted78-y33p1f7i/quarantined-exports/final_model_infer.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  },
+  "evidence/redb-model-accepted78-y33p1f7i/final_model_ordinary.vir": {
+    "sha256": "1d45d468ca242b3fb989ed06123ccddc6ae6448c835a5b92923731cedd0a5ec3",
+    "private_path": "/tmp/redb-model-accepted78-y33p1f7i/quarantined-exports/final_model_ordinary.vir",
+    "note": "relocated after checks; never imported; export presence alone is not proof evidence"
+  }
+}
