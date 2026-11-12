@@ -26,7 +26,7 @@
         "ConsensusEngine::validate_signed_session_outcome"
       ],
       "property": "concrete distinct signer membership/cardinality linked to quorum admission and insufficient-count rejection",
-      "domain_status": "actual collection/dependency domain must be frozen after source eligibility inspection",
+      "domain_status": "original source and dependency/domain inspection retained; full validation closure remains unproved",
       "proof_status": "unproved_full_consumers; standalone_setup_and_missing_checked_runtime_closure",
       "previous_component_reused": "F2 NumPeers/quorum policy proof",
       "warning": "crypto exclusion supplies no assumed callback or unproved runtime-summary bridge; partial guard proof is not full validation"
@@ -39,7 +39,7 @@
   "preflight_backlog": [
     {
       "id": "F3-bookkeeping-alternative",
-      "status": "worker_independently_preregistered_F3B_dependency_aggregation_proved; actual_bootstrap_unproved",
+      "status": "historical preflight superseded by registered F3-B dependency proof and F3-C initializer body proof; full admission remains unproved",
       "actual_caller": "Keychain::bootstrap_multi",
       "actual_dependency_transition": "aleph_bft_crypto::SignatureSet::add_signature",
       "data_path": [
@@ -75,7 +75,7 @@
       "new_trusted_contracts": 0,
       "inferred_helpers": 0,
       "automation_removal": 0,
-      "full_validation_or_bootstrap": "unproved",
+      "full_validation_or_bootstrap": "not proved by F3-B; F3-C initializer body is tracked separately",
       "independent_review": "ACCEPT_BOUNDED_PARTIAL_FIRST_REVIEW_ACCEPTANCE.json"
     }
   ],
@@ -95,5 +95,6 @@
     "result": "parent_all10_expected_outcomes_passed; providers96/0, four imported callers1/0, four intended controls1/1; independent review pending",
     "owner": "parent",
     "automation_removal": 0
-  }
+  },
+  "capability_and_audit": "CAPABILITY_MAP.md; completion still pending new independent review"
 }
