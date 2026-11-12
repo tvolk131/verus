@@ -106,7 +106,7 @@ proof fn vacant_disjoint(bs: Seq<Set<int>>, ns: Seq<int>, n: int, m: int, p: int
 // Staged interpretation obligations. Empty bodies are failures, never admissions.
 proof fn block_in_bounds(ns: Seq<int>, n: int, m: int, p: int, o: int)
     requires model_shape(ns,n,m), model_legal(ns,m,p,o),
-    ensures interval(p,o).subset_of(Set::<int>::range(0,n)),
+    ensures interval(p,o).subset_of(Set::<int>::range(0,n)), 0 <= p*width(o), (p+1)*width(o) <= n,
 {
     broadcast use vstd::set_lib::range_set_properties;
     width_positive(o);
@@ -396,8 +396,8 @@ proof fn parent_geometry(p: int, o: int)
         requires p == 2*(p/2)+p%2;
     assert((p/2+1)*(2*w) == (p+1)*w+(1-p%2)*w) by(nonlinear_arith)
         requires p == 2*(p/2)+p%2;
-    if p%2 == 0 { assert((p%2)*w == 0 && (1-p%2)*w == w); }
-    else { assert((p%2)*w == w && (1-p%2)*w == 0); }
+    vstd::arithmetic::mul::lemma_mul_nonnegative(p%2,w);
+    vstd::arithmetic::mul::lemma_mul_nonnegative(1-p%2,w);
 }
 proof fn dyadic_nested(p: int, o: int, q: int, k: int)
     requires 0 <= p, 0 <= q, 0 <= o <= k,
@@ -429,7 +429,7 @@ proof fn cover_ancestor(bs: Seq<Set<int>>, ns: Seq<int>, n: int, m: int, p: int,
     decreases o,
 {
     broadcast use vstd::set_lib::range_set_properties;
-    if !bs[o].contains(p) { assert(free_cover(bs,ns,p,o,o,p)); }
+    if !bs[o].contains(p) { assert(free_cover(bs,ns,p,o,(o,p).0,(o,p).1)); }
     else if o == 0 {
         block_point(p,o);
         let x=p*width(o);
@@ -437,7 +437,7 @@ proof fn cover_ancestor(bs: Seq<Set<int>>, ns: Seq<int>, n: int, m: int, p: int,
         page_witness(bs,ns,n,x);
         let (k,q)=choose|z: (int,int)| clear_at(bs,ns,z.0,z.1) && inside(x,z.1,z.0);
         lift_point_cover(p,o,q,k,x);
-        assert(free_cover(bs,ns,p,o,k,q));
+        assert(free_cover(bs,ns,p,o,(k,q).0,(k,q).1));
     } else {
         model_half(ns,n,m,o-1);
         assert(model_legal(ns,m,2*p,o-1) && model_legal(ns,m,2*p+1,o-1));
@@ -448,9 +448,13 @@ proof fn cover_ancestor(bs: Seq<Set<int>>, ns: Seq<int>, n: int, m: int, p: int,
         if k >= o {
             let x=2*p*width(o-1);
             block_point(2*p,o-1);
-            assert(inside(x,p,o) && inside(x,q,k));
+            assert(encloses(q,k,2*p,o-1));
+            assert(inside(x,q,k));
+            assert(interval(2*p,o-1).contains(x));
+            assert(interval(p,o).contains(x));
+            assert(inside(x,p,o));
             lift_point_cover(p,o,q,k,x);
-            assert(free_cover(bs,ns,p,o,k,q));
+            assert(free_cover(bs,ns,p,o,(k,q).0,(k,q).1));
         } else {
             same_order_cover(2*p,q,o-1);
             assert(clear_at(bs,ns,o-1,2*p));
@@ -460,15 +464,56 @@ proof fn cover_ancestor(bs: Seq<Set<int>>, ns: Seq<int>, n: int, m: int, p: int,
             if l >= o {
                 let x=(2*p+1)*width(o-1);
                 block_point(2*p+1,o-1);
-                assert(inside(x,p,o) && inside(x,r,l));
+                assert(encloses(r,l,2*p+1,o-1));
+                assert(inside(x,r,l));
+                assert(interval(2*p+1,o-1).contains(x));
+                assert(interval(p,o).contains(x));
+                assert(inside(x,p,o));
                 lift_point_cover(p,o,r,l,x);
-                assert(free_cover(bs,ns,p,o,l,r));
+                assert(free_cover(bs,ns,p,o,(l,r).0,(l,r).1));
             } else {
                 same_order_cover(2*p+1,r,o-1);
                 assert(bs[o-1].contains(2*p) || bs[o-1].contains(2*p+1));
                 assert(false);
             }
         }
+    }
+}
+proof fn legal_from_end(ns: Seq<int>, n: int, m: int, p: int, o: int)
+    requires model_shape(ns,n,m), 0 <= o <= m, 0 <= p, (p+1)*width(o) <= n,
+    ensures model_legal(ns,m,p,o),
+{
+    width_positive(o);
+    vstd::arithmetic::div_mod::lemma_div_is_ordered((p+1)*width(o),n,width(o));
+    vstd::arithmetic::div_mod::lemma_div_multiples_vanish(p+1,width(o));
+    assert((p+1)*width(o) == width(o)*(p+1)) by(nonlinear_arith);
+}
+proof fn parent_whole(bs: Seq<Set<int>>, ns: Seq<int>, n: int, m: int, p: int, o: int)
+    requires canonical(bs,ns,n,m), model_legal(ns,m,p,o), bs[o].contains(p), interval(p,o).subset_of(pages(bs,ns,n)),
+    ensures o < m, model_legal(ns,m,p/2,o+1), interval(p/2,o+1).subset_of(pages(bs,ns,n)),
+{
+    broadcast use vstd::set_lib::range_set_properties;
+    cover_ancestor(bs,ns,n,m,p,o);
+    let (k,q)=choose|z: (int,int)| free_cover(bs,ns,p,o,z.0,z.1);
+    if k == o { same_order_cover(p,q,o); assert(false); }
+    block_point(p,o); parent_geometry(p,o);
+    lift_point_cover(p/2,o+1,q,k,p*width(o));
+    block_in_bounds(ns,n,m,q,k);
+    legal_from_end(ns,n,m,p/2,o+1);
+    represented_subset(bs,ns,n,m,q,k);
+    assert forall|x: int| interval(p/2,o+1).contains(x) implies pages(bs,ns,n).contains(x) by {
+        assert(interval(q,k).contains(x));
+    }
+}
+proof fn alloc_trace_frame(bs: Seq<Set<int>>, ns: Seq<int>, p: int, o: int, m: int)
+    requires 0 <= p, 0 <= o, 0 <= m, bs.len() == m+1, ns.len() == bs.len(),
+    ensures alloc_trace(bs,ns,p,o,m).0.len() == bs.len(),
+        forall|k: int| 0 <= k < o && k < bs.len() ==> alloc_trace(bs,ns,p,o,m).0[k] == bs[k],
+    decreases m+1-o,
+{
+    reveal(alloc_trace);
+    if o <= m && p < ns[o] && bs[o].contains(p) {
+        alloc_trace_frame(bs,ns,p/2,o+1,m);
     }
 }
 #[cfg(full_semantics)]
@@ -480,7 +525,34 @@ proof fn alloc_interpret(bs: Seq<Set<int>>, ns: Seq<int>, n: int, m: int, p: int
         (t.1 ==> pages(t.0,ns,n) == pages(bs,ns,n).difference(interval(p,o))) &&
         (!t.1 ==> t.0 == bs) }),
     decreases m+1-o,
-{}
+{
+    broadcast use vstd::set_lib::range_set_properties;
+    reveal(alloc_trace);
+    if o > m || p >= ns[o] {} else if !bs[o].contains(p) {
+        remove_block(bs,ns,n,m,p,o); represented_subset(bs,ns,n,m,p,o);
+    } else {
+        alloc_interpret(bs,ns,n,m,p/2,o+1);
+        let up=alloc_trace(bs,ns,p/2,o+1,m);
+        if !up.1 {
+            if interval(p,o).subset_of(pages(bs,ns,n)) { parent_whole(bs,ns,n,m,p,o); assert(false); }
+        } else {
+            alloc_trace_frame(bs,ns,p/2,o+1,m);
+            model_half(ns,n,m,o);
+            let buddy=sibling(p);
+            assert(model_legal(ns,m,buddy,o));
+            assert(sibling(buddy) == p);
+            parent_partition(ns,n,m,p,o);
+            assert(interval(buddy,o).disjoint(pages(up.0,ns,n))) by {
+                assert forall|x: int| interval(buddy,o).contains(x) implies !pages(up.0,ns,n).contains(x) by {}
+            }
+            assert(up.0[o] == bs[o]);
+            add_block(up.0,ns,n,m,buddy,o);
+            let next=up.0.update(o,up.0[o].remove(buddy));
+            assert(interval(p,o).subset_of(pages(bs,ns,n)));
+            assert(pages(next,ns,n) =~= pages(bs,ns,n).difference(interval(p,o)));
+        }
+    }
+}
 #[cfg(any(full_semantics,free_trial))]
 proof fn free_interpret(bs: Seq<Set<int>>, ns: Seq<int>, n: int, m: int, p: int, o: int)
     requires canonical(bs,ns,n,m), model_legal(ns,m,p,o), interval(p,o).disjoint(pages(bs,ns,n)),
@@ -523,8 +595,23 @@ fn record_alloc_semantic(a: &mut BuddyAllocator, p: u32, o: u8) -> (r: bool)
         r == (legal_block(*old(a),p,o) && requested(p,o).subset_of(free_pages(*old(a)))),
         r ==> free_pages(*final(a)) == free_pages(*old(a)).difference(requested(p,o)),
         !r ==> state_eq(*old(a),*final(a)),
+        r ==> free_pages(*final(a)).len() as int + width(o as int) == free_pages(*old(a)).len() as int,
+        r ==> used_pages(*final(a)).len() as int == used_pages(*old(a)).len() as int + width(o as int),
 {
-    a.record_alloc_inner(p,o)
+    let ghost before=*a;
+    proof { valid_admission(before); actual_model(before); }
+    let r=a.record_alloc_inner(p,o);
+    proof {
+        alloc_interpret(flags(before),sizes(before),before.len as int,before.max_order as int,p as int,o as int);
+        model_actual(before,*a);
+        if r {
+            interval_cardinality(p as int,o as int);
+            assert(free_pages(before).intersect(requested(p,o)) =~= requested(p,o));
+            vstd::set_lib::lemma_set_difference_len(free_pages(before),requested(p,o));
+            page_partition(before); page_partition(*a);
+        }
+    }
+    r
 }
 #[cfg(any(full_semantics,free_trial))]
 fn free_semantic(a: &mut BuddyAllocator, p: u32, o: u8) -> (r: u8)
