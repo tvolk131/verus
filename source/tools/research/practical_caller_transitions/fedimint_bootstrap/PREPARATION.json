@@ -1,0 +1,13 @@
+{
+  "lock": "/tmp/verus-infer-cycle-20261109/applications/fedimint/Cargo.lock",
+  "runtime_receipt_sha256": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+  "inputs": {
+    "/home/dev/.t3/worktrees/verus/t3-3ad8038e/source/tools/research/practical_caller_transitions/fedimint_bootstrap/prepare_initializer.py": "b8157f39f44ddca00eac418a3d0282416546e6ebf990dcd6ede3c7abc2398e09",
+    "/tmp/verus-infer-cycle-20261109/applications/fedimint/Cargo.lock": "2c3e0e34ab540ce550c4d4fd35cd7d12c30c624909edb9909ad96af402879b7b",
+    "/tmp/practical-bootstrap-types-feature2/receipt.json": "fbb1d5730822c199df38c5405b067e00b472367016bba0a477ab60f94eec3302",
+    "/tmp/practical-bootstrap-fields-registered/receipt.json": "d960b663372d67b759dbca9d177063c3ac32d51949f544b1c96cef6baa8761ab",
+    "/tmp/practical-combined78-5ecea5fe-core/bundle/receipt.json": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853"
+  },
+  "preparation": "ONE private native conversion expansion; exact Rust source; manifests projected onto inspected active graph; no proof/crypto/C"
+}
