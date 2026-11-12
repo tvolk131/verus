@@ -1,0 +1,192 @@
+{
+  "kind": "TWO_NATIVE_NO_FAULT_SMOKE_CASES_NOT_SOURCE_PROOF",
+  "commands": [
+    {
+      "label": "prior_false",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-prepare2/target/release/redb-crash-native",
+        "false"
+      ],
+      "cwd": "/tmp/redb-crash-native-20261112-smoke1",
+      "exit_code": 0,
+      "seconds": 0.0070169849786907434,
+      "environment": {}
+    },
+    {
+      "label": "prior_true",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-prepare2/target/release/redb-crash-native",
+        "true"
+      ],
+      "cwd": "/tmp/redb-crash-native-20261112-smoke1",
+      "exit_code": 0,
+      "seconds": 0.005618804949335754,
+      "environment": {}
+    }
+  ],
+  "outcomes": [
+    {
+      "prior_requested": false,
+      "prior_header_mode": false,
+      "current_header_mode": true,
+      "commit_ok": true,
+      "reopened_pair": "new",
+      "before_len": 1056768,
+      "after_len": 1056768,
+      "fixed_layout": true,
+      "events": [
+        {
+          "kind": "write",
+          "offset": 0,
+          "len": 320,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 36864,
+          "len": 4096,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 53248,
+          "len": 4096,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 40960,
+          "len": 4096,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 57344,
+          "len": 4096,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 28672,
+          "len": 8192,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 45056,
+          "len": 8192,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "sync_success",
+          "len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 0,
+          "len": 320,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "sync_success",
+          "len": 1056768
+        }
+      ],
+      "formal_source_proof": false,
+      "configuration_match": true,
+      "stdout_sha256": "8e458fc709df526a4921ca98477314b2cd2ee903c81c6691ae1f6fe53d27629d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "prior_requested": true,
+      "prior_header_mode": true,
+      "current_header_mode": true,
+      "commit_ok": true,
+      "reopened_pair": "new",
+      "before_len": 1056768,
+      "after_len": 1056768,
+      "fixed_layout": true,
+      "events": [
+        {
+          "kind": "write",
+          "offset": 0,
+          "len": 320,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 36864,
+          "len": 4096,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 53248,
+          "len": 4096,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 40960,
+          "len": 4096,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 57344,
+          "len": 4096,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 28672,
+          "len": 8192,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 45056,
+          "len": 8192,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "sync_success",
+          "len": 1056768
+        },
+        {
+          "kind": "write",
+          "offset": 0,
+          "len": 320,
+          "old_len": 1056768,
+          "new_len": 1056768
+        },
+        {
+          "kind": "sync_success",
+          "len": 1056768
+        }
+      ],
+      "formal_source_proof": false,
+      "configuration_match": true,
+      "stdout_sha256": "202dc31fbad58c851c808ff239a3356797e86e2684556f4fe058d806a5e58a2e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "success": true,
+  "formal_source_proof": false,
+  "fault_schedules_executed": 0
+}

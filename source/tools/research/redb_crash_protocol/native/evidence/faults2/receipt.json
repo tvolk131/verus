@@ -1,0 +1,1761 @@
+{
+  "kind": "FINITE_NATIVE_FAILURE_MATRIX_NOT_SOURCE_PROOF",
+  "commands": [
+    {
+      "label": "build_fault_harness",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+        "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/native/faults.rs",
+        "--edition=2024",
+        "-O",
+        "-L",
+        "dependency=/tmp/redb-crash-native-20261112-prepare2/build/release/deps",
+        "--extern",
+        "redb=/tmp/redb-crash-native-20261112-prepare2/build/release/deps/libredb-8264aaaff1503698.rlib",
+        "-o",
+        "/tmp/redb-crash-native-20261112-faults2/faults"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 3.2052364610135555,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_write1_none",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "write1_none"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.011875751020852476,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_write1_partial",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "write1_partial"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.01469054800691083,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_sync1_none",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "sync1_none"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.031565635988954455,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_sync1_header",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "sync1_header"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.020755479985382408,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_sync1_all",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "sync1_all"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.021634551987517625,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_sync2_none",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "sync2_none"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.014962079003453255,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_sync2_all",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "sync2_all"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.01256823999574408,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_publish_none",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "publish_none"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.02765474800253287,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_publish_control",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "publish_control"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.014564904035069048,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_page1_none",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "page1_none"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.03010189300402999,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_success",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "success"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.025822270021308213,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "false_corrupt_rewrite",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "false",
+        "corrupt_rewrite"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.01589905796572566,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_write1_none",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "write1_none"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.012806791986804456,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_write1_partial",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "write1_partial"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.013432072999421507,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_sync1_none",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "sync1_none"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.026682247989811003,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_sync1_header",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "sync1_header"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.03930836002109572,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_sync1_all",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "sync1_all"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.010444552986882627,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_sync2_none",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "sync2_none"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.02200969198020175,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_sync2_all",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "sync2_all"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.017258867039345205,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_publish_none",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "publish_none"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.014787364983931184,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_publish_control",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "publish_control"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.020942825998645276,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_page1_none",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "page1_none"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.018332494015339762,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_success",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "success"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.01942319399677217,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    },
+    {
+      "label": "true_corrupt_rewrite",
+      "argv": [
+        "/tmp/redb-crash-native-20261112-faults2/faults",
+        "true",
+        "corrupt_rewrite"
+      ],
+      "cwd": "/home/dev/projects/verus",
+      "exit_code": 0,
+      "seconds": 0.011416502995416522,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "label": "false_write1_none",
+      "exit_code": 0,
+      "stdout_sha256": "159ddd0aac7893d38cc9166593a7e97ee241c2855fa6f4d6e19e28f06cdcd26e",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": false,
+        "scenario": "write1_none",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "failure",
+            "operation": "write",
+            "persisted": "prefix_0"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_write1_partial",
+      "exit_code": 0,
+      "stdout_sha256": "080d6ac4db7d0d7951687635cd0ff265bb5c0bff63fb769c73a478e17b800d97",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": false,
+        "scenario": "write1_partial",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": true,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "failure",
+            "operation": "write",
+            "persisted": "prefix_128"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_sync1_none",
+      "exit_code": 0,
+      "stdout_sha256": "2ae681a421d7f937e1deca75741181629277a5cff4d0dda12fe8c8f414850f54",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": false,
+        "scenario": "sync1_none",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "failure",
+            "operation": "sync",
+            "persisted": "none"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_sync1_header",
+      "exit_code": 0,
+      "stdout_sha256": "338cda358ac94fd09e1a6ef37e5bf3b2232c7f1c10869f9bf3048add0d70eb89",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": false,
+        "scenario": "sync1_header",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 4,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "failure",
+            "operation": "sync",
+            "persisted": "header_only"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_sync1_all",
+      "exit_code": 0,
+      "stdout_sha256": "150c4ca29dd2d4a5976673be47a9b02ce74e581542736f3f2267af734f0a76ab",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": false,
+        "scenario": "sync1_all",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "new",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "failure",
+            "operation": "sync",
+            "persisted": "all"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_sync2_none",
+      "exit_code": 0,
+      "stdout_sha256": "4984d94f5e4c30c9d15769f62bfd04d5376d9cfeaa5ed464db0928b88e3cf0ff",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": false,
+        "scenario": "sync2_none",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "new",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "sync_success"
+          },
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 8
+          },
+          {
+            "kind": "failure",
+            "operation": "sync",
+            "persisted": "none"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_sync2_all",
+      "exit_code": 0,
+      "stdout_sha256": "4a9d3b444b7d8317d10c8e4f0a071c6574aa04fdda05762a7dee7ccab8f72f2c",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": false,
+        "scenario": "sync2_all",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "new",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "sync_success"
+          },
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 8
+          },
+          {
+            "kind": "failure",
+            "operation": "sync",
+            "persisted": "all"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_publish_none",
+      "exit_code": 0,
+      "stdout_sha256": "00a5a43f7ebf2d7a64616cf01186c300621667b42918ee68e29e127d74043333",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": false,
+        "scenario": "publish_none",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "new",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "sync_success"
+          },
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 8
+          },
+          {
+            "kind": "failure",
+            "operation": "write",
+            "persisted": "prefix_0"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_publish_control",
+      "exit_code": 0,
+      "stdout_sha256": "8b707b5b60591f697a2ff6ea144af4e2097496078bbbecb6db8bef58e5527668",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": false,
+        "scenario": "publish_control",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "new",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "sync_success"
+          },
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 8
+          },
+          {
+            "kind": "failure",
+            "operation": "write",
+            "persisted": "prefix_10"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_page1_none",
+      "exit_code": 0,
+      "stdout_sha256": "3db8589e7b943751f11df8aa96da121d14e33634d97f92bb7a7948b69234082a",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": false,
+        "scenario": "page1_none",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "failure",
+            "operation": "write",
+            "persisted": "prefix_0"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_success",
+      "exit_code": 0,
+      "stdout_sha256": "952dcedf8cc4ff9ca533c51ec47236776078f30d04bdc9de39de8616739a8212",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "observation": {
+        "prior": false,
+        "scenario": "success",
+        "commit_ok": true,
+        "injection_fired": false,
+        "fixed_layout": true,
+        "reopened_pair": "new",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "sync_success"
+          },
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 8
+          },
+          {
+            "kind": "sync_success"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "false_corrupt_rewrite",
+      "exit_code": 0,
+      "stdout_sha256": "a7f98ecfd7213fd4357900a066388d3ae3841b38f86b6c268ab34209a68b0f94",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "observation": {
+        "prior": false,
+        "scenario": "corrupt_rewrite",
+        "forced_recovery_prior_mode": false,
+        "repair_aborted": true,
+        "raw_slot_preserved": true,
+        "header_rewrites": 1,
+        "repair_callbacks": 1,
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_write1_none",
+      "exit_code": 0,
+      "stdout_sha256": "9d99605e68e1e2ad0b80764c9e3a836a6b783610e9252282f0c998c907c5c85e",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": true,
+        "scenario": "write1_none",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "failure",
+            "operation": "write",
+            "persisted": "prefix_0"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_write1_partial",
+      "exit_code": 0,
+      "stdout_sha256": "3de65700f4c057b5c6b1124b0bdc476ce4661430e6a44f77d08f240c7fdf319e",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": true,
+        "scenario": "write1_partial",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": true,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "failure",
+            "operation": "write",
+            "persisted": "prefix_128"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_sync1_none",
+      "exit_code": 0,
+      "stdout_sha256": "1dc50b503803fd4c92188dac706239a635dbf9e693f27eb30facd2dc9e8fddaa",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": true,
+        "scenario": "sync1_none",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "failure",
+            "operation": "sync",
+            "persisted": "none"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_sync1_header",
+      "exit_code": 0,
+      "stdout_sha256": "b5af3ead25499ec26abb6451bbd07f25b8f25b303a1c2828f410c924cd310948",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": true,
+        "scenario": "sync1_header",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "failure",
+            "operation": "sync",
+            "persisted": "header_only"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_sync1_all",
+      "exit_code": 0,
+      "stdout_sha256": "63c5b6a4fe89414f87ddd3cd317fae905edf37552b9ed83e5f79566b814da1be",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": true,
+        "scenario": "sync1_all",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "failure",
+            "operation": "sync",
+            "persisted": "all"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_sync2_none",
+      "exit_code": 0,
+      "stdout_sha256": "519634f6738cd26d42daf314d9e0c2fb8da50928747acd21406fe0e7f9399983",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": true,
+        "scenario": "sync2_none",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "sync_success"
+          },
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 8
+          },
+          {
+            "kind": "failure",
+            "operation": "sync",
+            "persisted": "none"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_sync2_all",
+      "exit_code": 0,
+      "stdout_sha256": "d1a9f747c3aba1603a261ad3ed2be675076d5ab24ebf97367287c4992b2bce63",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": true,
+        "scenario": "sync2_all",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "new",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "sync_success"
+          },
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 8
+          },
+          {
+            "kind": "failure",
+            "operation": "sync",
+            "persisted": "all"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_publish_none",
+      "exit_code": 0,
+      "stdout_sha256": "4963fcf7fd1aeb57cbcb0318c54e692f5b6b19337bf4aeeed629c02866eddb89",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": true,
+        "scenario": "publish_none",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "sync_success"
+          },
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 8
+          },
+          {
+            "kind": "failure",
+            "operation": "write",
+            "persisted": "prefix_0"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_publish_control",
+      "exit_code": 0,
+      "stdout_sha256": "ca5c5949858bc501c55a15f1dc43e8e67766446d4376642cd4a7e5d699471454",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": true,
+        "scenario": "publish_control",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "new",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "sync_success"
+          },
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 8
+          },
+          {
+            "kind": "failure",
+            "operation": "write",
+            "persisted": "prefix_10"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_page1_none",
+      "exit_code": 0,
+      "stdout_sha256": "191c88256e66030a383cd61b0bc18b3fd0b57492d87097afb5f0e93d12031f4b",
+      "stderr_sha256": "4bd18bd8575d14eaff6b31360990b81fa0d846835a62ef62f0063954c13c9e93",
+      "observation": {
+        "prior": true,
+        "scenario": "page1_none",
+        "commit_ok": false,
+        "injection_fired": true,
+        "fixed_layout": true,
+        "reopened_pair": "old",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "failure",
+            "operation": "write",
+            "persisted": "prefix_0"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_success",
+      "exit_code": 0,
+      "stdout_sha256": "80a1ad20001716ccf4e83bb984a4e1e391a2534e33214b3cfb0fb61e0e801f8b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "observation": {
+        "prior": true,
+        "scenario": "success",
+        "commit_ok": true,
+        "injection_fired": false,
+        "fixed_layout": true,
+        "reopened_pair": "new",
+        "repair_callbacks": 3,
+        "partial_slot_invalid": null,
+        "events": [
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 1
+          },
+          {
+            "kind": "write",
+            "offset": 36864,
+            "len": 4096,
+            "ordinal": 2
+          },
+          {
+            "kind": "write",
+            "offset": 53248,
+            "len": 4096,
+            "ordinal": 3
+          },
+          {
+            "kind": "write",
+            "offset": 40960,
+            "len": 4096,
+            "ordinal": 4
+          },
+          {
+            "kind": "write",
+            "offset": 57344,
+            "len": 4096,
+            "ordinal": 5
+          },
+          {
+            "kind": "write",
+            "offset": 28672,
+            "len": 8192,
+            "ordinal": 6
+          },
+          {
+            "kind": "write",
+            "offset": 45056,
+            "len": 8192,
+            "ordinal": 7
+          },
+          {
+            "kind": "sync_success"
+          },
+          {
+            "kind": "write",
+            "offset": 0,
+            "len": 320,
+            "ordinal": 8
+          },
+          {
+            "kind": "sync_success"
+          }
+        ],
+        "formal_source_proof": false
+      },
+      "passed": true
+    },
+    {
+      "label": "true_corrupt_rewrite",
+      "exit_code": 0,
+      "stdout_sha256": "e94202ccfda533d869d6add41ceaa5f21d1e6b4b2f52f1c96eaff988eaa47cbf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "observation": {
+        "prior": true,
+        "scenario": "corrupt_rewrite",
+        "forced_recovery_prior_mode": false,
+        "repair_aborted": true,
+        "raw_slot_preserved": true,
+        "header_rewrites": 1,
+        "repair_callbacks": 1,
+        "formal_source_proof": false
+      },
+      "passed": true
+    }
+  ],
+  "formal_source_proof": false,
+  "source_coupling_proved": false,
+  "success": true,
+  "binary_sha256": "12d90d6e8c594919d4ef8a8df890e91002289e3526fc5cb65a1d3a1d27025b3f",
+  "final_guard_passed": true,
+  "total_cases": 24,
+  "passed_cases": 24
+}
