@@ -1,0 +1,29 @@
+{
+  "stage_charter": "1449c585d33b6710a54d01a576f6800ece3a0962:source/tools/research/practical_caller_transitions/NEXT_SEMANTIC_STAGE.md",
+  "worker_start": "4092d6432ef0fa90415fe5ff7eb58b83c1a2e6de",
+  "runtime_receipt": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+  "runtime_tools": {
+    "rust_verify": "52fd0be56236ec8ecd7c0a3db9628eb70d857baa5391df0a623ed216723dc6d8",
+    "verus": "134afc474dfc592f863126bbef2fcfb68d2b97cb4abd3ad24290f6ee7ebcd4b4",
+    "libverus_builtin.rlib": "faedb6bd6ca1e43175d8c82ef59a091f828dca313755b20fd4c38268f2bc1bcf",
+    "libverus_builtin_macros.so": "d85f0b88842a2856911b21c1ca2ae43fbe38b481a8da3f141725373fdd56b671",
+    "libverus_state_machines_macros.so": "c4f2d89854d5d95247e0b9f5845b513990875c5628bbb96fa7007e120d3cb860",
+    "vstd.vir": "b9a613f5c3321931854033da2eeaa8eb3b657885de37ea470602c99e608d0173",
+    "libvstd.rlib": "675d5bae09fc7593de96b4216b012ef6bb28db18f91b863b0820cf2ea2db4167",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "private_runtime": "/tmp/redb-semantic-v2-3fa15230/bundle",
+  "inherited": {
+    "FREEZE.json": "ad305a8adb92ba5e0b8314b107f60de5041e2b4961ccc02c56ee263fdddd94b5",
+    "baseline.rs": "96ce8f6ab98a34b7d6d053ddb4ec12ea4bd524dec7a7054bdedbb7416f218d88",
+    "corrected.rs": "a40b714b35d145f005568dcea06994728314da280d4dc96e70625360b4409bb8",
+    "manual.rs": "2432bf633f6c65bef6dc3052169ef97c319803e776f412e30ed40fabb7f5d889",
+    "domain.rs": "d895c194de7b3eafffc2825e52d8ffea4f27ceebaec1b7e24b667e210730b44d",
+    "checks.rs": "25e088cfbfb525cfde365ba94d84359d88b0a1106baf445ba0ff0a9c10cfb95f",
+    "replay.py": "fa3c9670e13b08b872d402b4ab51f4186bf22f9087b5ee953c8df53d6084acae",
+    "REPORT.md": "3d76cfb2d341a11add696a5cce0dd5e943c478a58319d51ee9aea8acb68537ce",
+    "RESULTS.json": "b5b9ec196e9b31da647aa49c7c4c19686b9c23c1594463a81f67fa17f09952a5",
+    "COSTS.json": "b1318332e31e949211667093c43f9e99ad9e568a87d1b585957f10ab88d5f71f"
+  },
+  "initial_semantic_source_sha256": "8ce214c74713a337448472dcb7cafe2678ccc7f5ba78ff3a0ba83f2d5e94ce5d"
+}
