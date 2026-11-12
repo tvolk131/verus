@@ -27,7 +27,10 @@ def main():
         for name, expected in freeze['inputs'].items():
             path = Path(name) if Path(name).is_absolute() else ROOT / name
             require(digest(path) == expected, 'frozen input changed: ' + name)
-        context = json.loads((a.context / 'receipt.json').read_text())
+        context_receipt = a.context / 'receipt.json'
+        require(str(context_receipt) in freeze['inputs'] and
+                digest(context_receipt) == freeze['inputs'][str(context_receipt)], 'native context is not registered in this freeze')
+        context = json.loads(context_receipt.read_text())
         require(context['success'] is True and context['native_context_only'] is True and context['crypto_proved'] is False, 'wrong native context')
         libs = [Path(x) for x in context['artifacts']]
         for path in libs:
@@ -60,9 +63,10 @@ def main():
                 require_exact(inf['functions'])
                 require_function_coverage(inf['functions'], [])
                 scope = inf['verification_scope']
-                require(verification['is-verifying-entire-crate'] is True and scope['complete_selected_scope_verified'] is True, 'incomplete field diagnostic')
+                require(verification['is-verifying-entire-crate'] is True and scope['native_collection_completed'] is True and scope['complete_selected_scope_verified'] is True, 'incomplete field diagnostic')
                 checked = [x for x in scope['native_functions'] if x['body_status'] == 'checked_exec_body']
                 require_function_coverage(checked, ['configured_length'])
+                require(all(x['selected'] is True and x['rust_function'] == 'Keychain::configured_length' and x['source'].startswith(str(source) + ':') for x in checked), 'field diagnostic identity/source mismatch')
                 require(scope['checked_exec_bodies'] == 1 and scope['checked_proof_bodies'] == 0, 'wrong field diagnostic inventory')
             r['outcomes'].append({'mode': mode, 'returncode': code, 'verification': verification, 'scope': data.get('verus-infer', {}).get('verification_scope'), 'stderr_sha256': digest(a.output / (mode + '.stderr'))})
             print(mode, verification, flush=True)
