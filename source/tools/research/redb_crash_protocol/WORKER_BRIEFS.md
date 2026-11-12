@@ -1,4 +1,12 @@
-# Initial bounded worker assignments
+# Current bounded worker assignments
+
+D2 review handoff: root has authenticated and locally integratedcc9b088c5 (production3eba70cc0 ->094b7a42f), preserving all four exact root fixes. The implementation lane is IDLE, not authorized to start a next phase automatically. Own only NEW evidence/owned-cell-d2-method-review/ for independent review of the exact private native-method authority/full-body checkpoint. Read GOAL/CURRENT, ACCEPTANCE_REFINEMENTS and implementation/D2_{INTERFACE,REPORT,RESULTS}. Authenticate the frozen eight-tool snapshot and ORIGINAL native-query executable via D2_PARENT_CHECKPOINT.json before private artifact replay. Use existing guarded helpers/fresh output/cache; disclose worker-built artifact replay separately from any independent source build. No shared/live caches, copied build tree, recursive delegates, remote publication or new trusted law. Keep raw logs private and compact evidence committed.
+
+Review exact native/current/future contracts, native metadata/MIR-to-Function correspondence, narrowly scoped field authority, canonical resolution, whole-Function/unit/object identity and backend revalidation, diagnostic authority separation, and default-off/Rev compatibility. The three false-contract queries negate only each first equality; get_mut's future equality is NOT independently falsified in that solver control. Inspect and challenge this limitation rather than counting shape controls as semantic negatives. Three private native body queries do not prove any user client or the REDB lock/cache trace. F2/F3, whole admitted/checked reconciliation, user installation and application coupling remain UNPROVED. Keep the stage inactive; no activation or follow-on implementation without review and a new value checkpoint.45 active minutes per blocker excluding real builds; no large cache copies, incremental/debug caches, or broad rebuild without a concrete validation need. Retain at least25GiB free.
+
+Completed root review4bd185de7 accepts ONLY the two metadata/crate-root corrections. Its172 VIR/226 focused/124 independent CLI results used authenticated parent-built artifacts, not an independent rebuild. It explicitly did NOT inspect D2. Earlier briefs below are historical assignments; current D2 status supersedes their cancellation/resumption and zero-private-body statements. Full F1/stage acceptance remains withheld, CP1/CP2/source coupling false, HMAC/native DEFERRED AND UNACHIEVED.
+
+# Historical bounded worker assignments
 
 Root gate correction packet: productionef662ee3 (complete metadata type-use
 traversal) andc4df45e8 (crate-root positive coverage), build/runnerd18c0f62,
