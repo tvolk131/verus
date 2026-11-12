@@ -18,11 +18,12 @@ from infer_eval_support import ArtifactGuard, digest
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--freeze', type=Path, default=HERE / 'ELIGIBILITY_FREEZE.json')
     a = p.parse_args()
     a.output.mkdir(parents=True, exist_ok=False)
     r = {'kind': 'NATIVE_UNUSED_CRYPTO_TYPE_CONTEXT_NOT_PROOF', 'commands': [], 'crypto_proved': False}
     with replay_receipt(a.output, r):
-        freeze = json.loads((HERE / 'ELIGIBILITY_FREEZE.json').read_text())
+        freeze = json.loads(a.freeze.read_text())
         for name, expected in freeze['inputs'].items():
             path = Path(name) if Path(name).is_absolute() else ROOT / name
             require(digest(path) == expected, 'frozen input changed: ' + name)
@@ -49,7 +50,7 @@ def main():
         toolchain = Path('/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu')
         rustc = toolchain / 'bin/rustc'
         source_files = [x for d in packages.values() for x in d.rglob('*') if x.is_file()]
-        guard = ArtifactGuard([rustc, HERE / 'prepare_types.py', HERE / 'ELIGIBILITY_FREEZE.json'] + [Path(x) for x in pins] + source_files)
+        guard = ArtifactGuard([rustc, HERE / 'prepare_types.py', a.freeze] + [Path(x) for x in pins] + source_files)
         r['inputs'] = {str(x): digest(x) for x in [rustc] + source_files}
         r['archives'] = pins
         libs = a.output / 'libs'
@@ -65,7 +66,9 @@ def main():
             output = libs / ('lib' + crate + '.rlib')
             cmd = [str(rustc), '--crate-name', crate, '--crate-type=rlib', '--edition=' + meta['package'].get('edition', '2015'), str(folder / 'src/lib.rs'), '-L', 'dependency=' + str(libs), '-o', str(output)]
             features = ([] if name == 'arrayvec' else ['alloc']) + (['hashes'] if name == 'secp256k1' else [])
-            require(all(feature in meta.get('features', {}) for feature in features), 'undeclared feature')
+            require(all(feature in meta.get('features', {}) or
+                        meta.get('dependencies', {}).get(feature, {}).get('optional') is True
+                        for feature in features), 'undeclared feature')
             for feature in features:
                 cmd += ['--cfg', 'feature="' + feature + '"']
             for alias, dependency in deps[name].items():
