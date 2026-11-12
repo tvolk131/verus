@@ -10,11 +10,13 @@ from infer_experiment import LoggedCommands, replay_receipt, require
 PIN = '9761b5f55405fdcb2901f6599b52973cb1e31c43'
 PARENT = Path('/tmp/owned-cell-root-gate-fixes-d18c0f62-parent-snapshot')
 RECEIPT = 'fb56f75c515ab64a6c87b8ac465a1bb282b819f0d5aa10a9069eb102cf8c8f81'
-OUT = Path('/tmp/owned-cell-root-gates-review-9761b5f5')
+OUT = Path(os.environ.get('ROOT_GATES_REVIEW_OUTPUT','/tmp/owned-cell-root-gates-review-9761b5f5'))
 HERE = Path(__file__).resolve().parent
 
 def authenticate():
-    require(subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip() == PIN, 'prepared root')
+    require(subprocess.run(['git','merge-base','--is-ancestor',PIN,'HEAD'], cwd=ROOT).returncode==0,'prepared root ancestor')
+    changed=subprocess.check_output(['git','diff','--name-only',PIN,'HEAD'],cwd=ROOT,text=True).splitlines()
+    require(all(n.startswith('evidence/owned-cell-root-gates-review/') for n in changed),'only review-owned descendant changes')
     require(digest(PARENT/'receipt.json') == RECEIPT, 'receipt pin')
     manifest = json.loads((PARENT/'receipt.json').read_text())
     paths = {n:h for n,h in manifest['tools_sha256'].items()}
@@ -73,3 +75,76 @@ def prepare():
 
 if __name__ == '__main__':
     if sys.argv[1:] == ['prepare']: prepare()
+
+def replay():
+    b = json.loads((OUT/'binding.json').read_text())
+    _, files = authenticate_snapshot_only()
+    guard = ArtifactGuard([ROOT/n for n in b['source_sha256']] +
+                          [OUT/'snapshot'/n for n in [*files,'receipt.json','verus-root']] +
+                          [PARENT/n for n in [*files,'receipt.json','verus-root']])
+    records = dict(kind='ORIGINAL_PARENT_BUILT_BINARY_REPLAY_NOT_REBUILD', commands=[], suites={},
+                   source_build=b['source_build'], binding_sha256=digest(HERE/'BINDING.json'))
+    if (OUT/'receipt.json').exists():
+        shutil.copy2(OUT/'receipt.json', OUT/('receipt-controller-attempt-'+str(len(list(OUT.glob('receipt-controller-attempt-*.json'))))+'.json'))
+        records = json.loads((OUT/'receipt.json').read_text())
+        records.pop('failure',None)
+    runner = LoggedCommands(OUT/'logs', ROOT, records['commands'], timeout=600, guard=guard)
+    selections = {
+        'refusal-tests': (5, []),
+        'admission-tests': (7, []),
+        'vir-unit-tests': (172, []),
+        'native-control-tests': (1, ['--exact','checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions']),
+    }
+    with replay_receipt(OUT, records):
+        for name,(count,filters) in selections.items():
+            e = env()
+            for var,suffix in [('TMPDIR','tmp'),('VERUS_INFER_CACHE','cache')]:
+                p = OUT/name/suffix; p.mkdir(parents=True,exist_ok=True); e[var] = str(p)
+            executable = str(OUT/'snapshot/checks'/name)
+            if not any(r['label']==name+'-list' and r['exit_code']==0 for r in records['commands']):
+                require(runner(name+'-list', [executable,*filters,'--list'], e)==0, 'list '+name)
+            listing = (OUT/'logs'/f'{name}-list.stdout').read_text()
+            inventory = re.findall(r'^(.+): test$', listing, re.M)
+            require(len(inventory)==count and len(set(inventory))==count, 'exact nonempty inventory '+name)
+            if name in ['admission-tests','refusal-tests']:
+                f = ROOT/'source/rust_verify_test/tests'/('local_checked_owned_cell'+('_admission' if name=='admission-tests' else '')+'.rs')
+                expected = re.findall(r'#\[test\]\s*fn (\w+)', f.read_text())
+                require(sorted(expected)==sorted(inventory), 'source/test inventory '+name)
+            if name=='vir-unit-tests':
+                metadata = [n for n in inventory if 'internal_representation' in n]
+                require(len(metadata)==9, 'nine internal representation tests')
+            command = [executable,*filters,'--nocapture','--test-threads=1']
+            trace = OUT/'logs'/f'{name}.execve'
+            if name in ['admission-tests','refusal-tests']:
+                command = ['/usr/bin/strace','-f','-qq','-e','trace=execve','-s','65535','-o',str(trace),*command]
+            if not any(r['label']==name and r['exit_code']==0 for r in records['commands']):
+                require(runner(name,command,e)==0, 'replay '+name)
+            stdout = (OUT/'logs'/f'{name}.stdout').read_text()
+            require(f'test result: ok. {count} passed; 0 failed;' in stdout,'pass count '+name)
+            row = dict(tests=count, inventory=inventory, original_executable_sha256=digest(executable))
+            if trace.exists():
+                text = trace.read_text()
+                calls = [s for s in text.splitlines() if f'execve("{OUT}/snapshot/rust_verify"' in s and '= 0' in s]
+                drivers = [s for s in calls if '--internal-trait-conflict-driver' in s]
+                calls = [s for s in calls if '--internal-trait-conflict-driver' not in s]
+                missing = [s for s in calls if '--no-cheating' not in s]
+                require(calls and len(missing)==(2 if name=='refusal-tests' else 0), 'exact intentional no-cheating omissions')
+                require(all('--experimental-owned-unsafe-cell' in s for s in missing), 'missing option is requested refusal control')
+                row.update(internal_trait_conflict_driver_invocations=len(drivers), compiler_invocations=len(calls), infer_invocations=sum('--infer-goals' in s for s in calls),
+                           trace_sha256=digest(trace), intentional_no_cheating_omissions=len(missing))
+            records['suites'][name] = row
+        require(sum(records['suites'][n]['compiler_invocations'] for n in ['refusal-tests','admission-tests'])==226, '226 actual compiler execs')
+        guard.check()
+        records.update(guards_passed=True, independent_builds=0, tool_transformations=0, harness_transformations=0,
+                       native_body_proofs=0,state_proofs=0, field_authorities=0)
+    print(json.dumps(dict(success=records['success'], suites={n:{k:v for k,v in r.items() if k not in ['inventory']} for n,r in records['suites'].items()})))
+
+def authenticate_snapshot_only():
+    require(digest(PARENT/'receipt.json')==RECEIPT,'parent receipt pin')
+    manifest=json.loads((PARENT/'receipt.json').read_text())
+    files={**manifest['tools_sha256'], **{'checks/'+n:v['sha256'] for n,v in manifest['checks'].items()}}
+    for n,h in files.items():
+        require(digest(PARENT/n)==h and digest(OUT/'snapshot'/n)==h,'original/private tools '+n)
+    return manifest,files
+
+if __name__=='__main__' and sys.argv[1:]==['replay']: replay()
