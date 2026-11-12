@@ -1,0 +1,9 @@
+{
+  "manual.rs": "a06c464896d7048ae0f59900063537970fe5aaeedbdf166c0a3f9eb099403b1c",
+  "client.rs": "f6162fb19460350ef278e60f345789b7afdd5dddfa66089a7368ed277f189470",
+  "corrected-baseline.rs": "229168fc104c4fbcef51c77bb5ab43904f37abeb978e922157e7d9e6762334d8",
+  "aggregation.rs": "8ba8f59fffafa521c2aca058af7bdc2f57c891d52886d97c8ea9ddfe78a3a745",
+  "replay.py": "98fb2ab1448152b5ff75a79f7dc60538a70bd14e8a51615443be2926499b5578",
+  "prepare.py": "171dbead15ad5cbc2ea3a07f2bd80c00d55405ebc0f5da337d951c6e011b558b",
+  "FIDELITY.json": "5d740ac84d777ca61adedc6942814fb25e2c127856f534dfee49cb0d3e0d1341"
+}
