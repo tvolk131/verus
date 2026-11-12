@@ -1,0 +1,4 @@
+# These are byte-exact compiler inputs/output, including diagnostic EOF whitespace.
+# Preserve their recorded hashes rather than reformat historical evidence.
+evidence/** -whitespace
+checked_publication.rs -whitespace
