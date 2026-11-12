@@ -810,9 +810,7 @@ impl Ctx {
         fndef_types: Vec<Fun>,
         resolved_typs: Vec<crate::resolve_axioms::ResolvableType>,
     ) -> Result<Self, VirErr> {
-        for datatype in &krate.datatypes {
-            crate::internal_repr::validate_datatype(datatype)?;
-        }
+        crate::internal_repr::validate_krate_uses(krate)?;
         let name_ctxt = NameCtxt::new();
         let mut datatype_is_encoded: HashMap<Dt, bool> = HashMap::new();
         for datatype in krate.datatypes.iter() {

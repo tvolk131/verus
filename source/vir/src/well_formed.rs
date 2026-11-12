@@ -167,8 +167,12 @@ fn check_one_typ(
     emit: &mut EmitErrorState,
 ) -> Result<(), VirErr> {
     match &**typ {
-        TypX::Datatype(Dt::Path(path), _, _) => {
-            let _ = check_path_and_get_datatype(ctxt, path, span, emit)?;
+        TypX::Datatype(Dt::Path(path), args, _) => {
+            if let Ok(d) = check_path_and_get_datatype(ctxt, path, span, emit)? {
+                if let DatatypeTransparency::Internal(repr) = &d.x.transparency {
+                    repr.validate_instantiation(args).map_err(|e| error(span, e))?;
+                }
+            }
             Ok(())
         }
         TypX::Dyn(path, _, _) => {

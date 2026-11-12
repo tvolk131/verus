@@ -20,6 +20,9 @@ const VALUE: u64 = 16821345337525786618;
 
 #[path = "checked_owned_cell_admission.rs"]
 mod admission;
+#[allow(dead_code)] // D1 proposals are not installed; all client requests remain inactive.
+#[path = "checked_owned_cell_lowering.rs"]
+mod lowering;
 
 type Reject = &'static str;
 
@@ -539,6 +542,7 @@ mod tests {
                 );
             }
             assert!(failures.is_empty(), "native MIR failures: {failures:?}");
+            lowering::test_actual_proposals(tcx);
             rustc_driver::Compilation::Stop
         }
     }
