@@ -1,0 +1,4 @@
+error: could not open imported library file `/tmp/redb-crash-source-validated08/supported_ordinary_client_wrong.vir`: No such file or directory (os error 2)
+
+error: aborting due to 1 previous error
+

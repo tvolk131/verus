@@ -1,0 +1,739 @@
+{
+  "func-details": {
+    "core::option::impl&%6::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_new_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::array_view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%20::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_ext_equal_deep": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_array_decreases_to_seq": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::TransactionId::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_update_same": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "alloc::boxed::impl&%15::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%16::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::array::impl&%20::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%18::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%20::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%2::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::spec_array_update": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::impl&%2::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::array_len_matches_n": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::PageNumber::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::is_some": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::TransactionId::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::spec_unwrap": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%18::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%42::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%14::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::is_none": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_update_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::clone::tuple_clone_1": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%28::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_index_decreases": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%22::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_update_different": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::Clone::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%4::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::new": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%6::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%32::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_ensures": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "verus_builtin::impl&%9::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::pervasive::cloned": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::impl&%2::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_array_has_resolved": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%12::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::lemma_array_index_decreases": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::DatabaseHeader::transaction_slots::anon_const%0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%30::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%10::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "verus_builtin::impl&%7::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_new_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_requires": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::OptionAdditionalFns::arrow_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::DatabaseHeader::published_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%6::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::DatabaseHeader::swap_primary_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::DatabaseHeader::secondary_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::DatabaseHeader::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::lemma_array_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::update": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%26::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::TransactionHeader::corrupt_bytes::anon_const%0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%48::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::View::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::DatabaseHeader::primary_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::TRANSACTION_SIZE": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_spec_array_update": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::impl&%0::arrow_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::BtreeHeader::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::DatabaseHeader::write_secondary_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "publication_wrong::TransactionHeader::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::ArrayAdditionalSpecFns::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::pervasive::strictly_cloned": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_array_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    }
+  },
+  "verification-results": {
+    "encountered-error": true,
+    "encountered-vir-error": false,
+    "success": false,
+    "verified": 11,
+    "errors": 1,
+    "is-verifying-entire-crate": true
+  },
+  "verus-infer": {
+    "schema_version": 1,
+    "verification_scope": {
+      "coverage": "selected local Verus items; not all Rust code",
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": false,
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "native_functions": [
+        {
+          "function": "publication_wrong::BtreeHeader::clone",
+          "rust_function": "<BtreeHeader as std::clone::Clone>::clone",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:13:16: 13:21",
+          "automatically_derived": true,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+          "rust_function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:13:23: 13:25",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+          "rust_function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:13:27: 13:36",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "publication_wrong::DatabaseHeader::clone",
+          "rust_function": "<DatabaseHeader as std::clone::Clone>::clone",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:30:10: 30:15",
+          "automatically_derived": true,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "publication_wrong::PageNumber::clone",
+          "rust_function": "<PageNumber as std::clone::Clone>::clone",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:5:16: 5:21",
+          "automatically_derived": true,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+          "rust_function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:5:23: 5:25",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "<PageNumber as std::cmp::PartialEq>::eq",
+          "rust_function": "<PageNumber as std::cmp::PartialEq>::eq",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:5:27: 5:36",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "publication_wrong::TransactionHeader::clone",
+          "rust_function": "<TransactionHeader as std::clone::Clone>::clone",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:19:10: 19:15",
+          "automatically_derived": true,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "publication_wrong::TransactionId::clone",
+          "rust_function": "<TransactionId as std::clone::Clone>::clone",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:11:16: 11:21",
+          "automatically_derived": true,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+          "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:11:40: 11:42",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "<TransactionId as std::cmp::Ord>::cmp",
+          "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:11:23: 11:26",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "<TransactionId as std::cmp::PartialEq>::eq",
+          "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:11:44: 11:53",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+          "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:11:28: 11:38",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "publication_wrong::DatabaseHeader::primary_slot",
+          "rust_function": "DatabaseHeader::primary_slot",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:44:5: 44:64",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "publication_wrong::DatabaseHeader::published_slot",
+          "rust_function": "DatabaseHeader::published_slot",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:56:5: 56:66",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "publication_wrong::DatabaseHeader::secondary_slot",
+          "rust_function": "DatabaseHeader::secondary_slot",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:50:5: 50:66",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "publication_wrong::DatabaseHeader::swap_primary_slot",
+          "rust_function": "DatabaseHeader::swap_primary_slot",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:66:5: 66:47",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "publication_wrong::DatabaseHeader::write_secondary_slot",
+          "rust_function": "DatabaseHeader::write_secondary_slot",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:81:5: 86:6",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+          "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+          "source": "/tmp/redb-crash-source-validated08/publication_wrong.rs:3:1: 3:30",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        }
+      ],
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ]
+    },
+    "status": "caller_proof_failed",
+    "crate_success": false,
+    "requested_functions": 0,
+    "generated_functions": 0,
+    "generation_failure": null,
+    "assistance_explanations": {
+      "enabled": false,
+      "profiles": [
+        "growth_loop",
+        "pointwise_transport",
+        "range_loop",
+        "mutable_buffer_u64_radix128"
+      ],
+      "preparation_started": false,
+      "preparation_completed": false,
+      "decisions": []
+    },
+    "word_sequence_assistance": [],
+    "buffer_observation_assistance": [],
+    "range_loop_assistance": [],
+    "set_pair_assistance": [],
+    "pointwise_assistance": [],
+    "sequence_pattern_assistance": [],
+    "mutable_selector_assistance": [],
+    "growth_loop_assistance": [],
+    "local_fold_assistance": [],
+    "factory_assistance": [],
+    "error_callback_assistance": [],
+    "array_callback_assistance": [],
+    "type_invariant_entry_assistance": [],
+    "goal_assistance": [],
+    "failed_functions": [
+      "publication_wrong::DatabaseHeader::published_slot"
+    ],
+    "functions": [],
+    "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+    "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+    "imported_inference_dependencies": [],
+    "trusted_models": [],
+    "interface_written": false,
+    "metrics": {
+      "generation_micros": 0,
+      "total_micros": 1142979
+    }
+  },
+  "times-ms": {
+    "verus-build": {
+      "profile": "release",
+      "version": "0.2026.11.11.5ecea5f"
+    },
+    "num-threads": 1,
+    "total": 1142,
+    "estimated-cpu-time": 1142,
+    "rust": {
+      "total": 56,
+      "init-and-types": 20,
+      "trait-conflicts": 35,
+      "compile": 0
+    },
+    "verification": {
+      "total": 861,
+      "vir": {
+        "total": 683,
+        "hir": 11,
+        "import": 558,
+        "rust-to-vir": 34
+      }
+    },
+    "total-verify": 159,
+    "total-verify-module-times": [
+      {
+        "module": "",
+        "time": 159
+      }
+    ],
+    "air": {
+      "total": 90,
+      "module-times": [
+        {
+          "module": "",
+          "time": 90
+        }
+      ]
+    },
+    "smt": {
+      "total": 26,
+      "smt-init": 2,
+      "rlimit-init": 1122,
+      "smt-init-module-times": [
+        {
+          "module": "",
+          "time": 2,
+          "time-micros": 2021,
+          "rlimit": 1122
+        }
+      ],
+      "smt-run": 24,
+      "rlimit-run": 55842,
+      "smt-run-module-times": [
+        {
+          "module": "",
+          "time": 24,
+          "time-micros": 24815,
+          "rlimit": 55842,
+          "function-breakdown": [
+            {
+              "function": "publication_wrong::DatabaseHeader::write_secondary_slot",
+              "mode:": "exec",
+              "time": 7,
+              "time-micros": 7491,
+              "rlimit": 19702,
+              "success": true
+            },
+            {
+              "function": "publication_wrong::TransactionId::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 133,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "publication_wrong::TransactionId::clone",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 83,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "publication_wrong::DatabaseHeader::secondary_slot",
+              "mode:": "exec",
+              "time": 3,
+              "time-micros": 3015,
+              "rlimit": 7964,
+              "success": true
+            },
+            {
+              "function": "publication_wrong::DatabaseHeader::clone",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 189,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "publication_wrong::PageNumber::clone",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 137,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "publication_wrong::DatabaseHeader::swap_primary_slot",
+              "mode:": "exec",
+              "time": 2,
+              "time-micros": 2307,
+              "rlimit": 6539,
+              "success": true
+            },
+            {
+              "function": "publication_wrong::DatabaseHeader::primary_slot",
+              "mode:": "exec",
+              "time": 3,
+              "time-micros": 3249,
+              "rlimit": 6262,
+              "success": true
+            },
+            {
+              "function": "publication_wrong::TRANSACTION_SIZE",
+              "mode:": "spec",
+              "time": 0,
+              "time-micros": 110,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "publication_wrong::BtreeHeader::clone",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 168,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "publication_wrong::DatabaseHeader::published_slot",
+              "mode:": "exec",
+              "time": 7,
+              "time-micros": 7779,
+              "rlimit": 15361,
+              "success": false
+            },
+            {
+              "function": "publication_wrong::TransactionHeader::clone",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 151,
+              "rlimit": 2,
+              "success": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "verus": {
+    "profile": "release",
+    "version": "0.2026.11.11.5ecea5f",
+    "platform": {
+      "os": "linux",
+      "arch": "x86_64"
+    },
+    "toolchain": "1.99.1-x86_64-unknown-linux-gnu",
+    "commit": "5ecea5fe81c2bc2ef0c9050cdb29cea0c7ef21c4"
+  }
+}

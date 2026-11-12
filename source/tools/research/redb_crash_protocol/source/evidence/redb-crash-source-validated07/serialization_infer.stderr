@@ -1,0 +1,38 @@
+error: The verifier does not yet support the following Rust feature: function pointer types
+   --> /tmp/redb-crash-source-validated07/serialization.rs:404:5
+    |
+404 |     accum_stripe: unsafe fn(&mut [u64; 8], &[u8], &[u8]),
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: The verifier does not yet support the following Rust feature: function pointer types
+   --> /tmp/redb-crash-source-validated07/serialization.rs:421:5
+    |
+421 |     scramble: unsafe fn(&mut [u64; 8], &[u8]),
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: The verifier does not yet support the following Rust feature: function pointer types
+   --> /tmp/redb-crash-source-validated07/serialization.rs:590:5
+    |
+590 |     generate: unsafe fn(u64) -> [u8; DEFAULT_SECRET.len()],
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: The verifier does not yet support the following Rust feature: function pointer types
+   --> /tmp/redb-crash-source-validated07/serialization.rs:796:5
+    |
+796 |     generate: unsafe fn(u64) -> [u8; DEFAULT_SECRET.len()],
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function is marked `open` but not marked `pub`; for the body of a function to be visible, the function symbol must also be visible
+   --> /tmp/redb-crash-source-validated07/serialization.rs:942:1
+    |
+942 | pub(crate) const MAGICNUMBER: [u8; 9] = [b'r', b'e', b'd', b'b', 0x1A, 0x0A, 0xA9, 0x0D, 0x0A];
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function is marked `open` but not marked `pub`; for the body of a function to be visible, the function symbol must also be visible
+   --> /tmp/redb-crash-source-validated07/serialization.rs:954:1
+    |
+954 | pub(crate) const DB_HEADER_SIZE: usize = TRANSACTION_1_OFFSET + TRANSACTION_SIZE;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: aborting due to 6 previous errors
+

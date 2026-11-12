@@ -1,0 +1,24 @@
+warning: Verus does not (yet) support autoderive Clone impl when the clone is not a copy; continuing, but without adding a specification for the derived Clone impl
+  --> /tmp/redb-crash-source-probe05/supported.rs:19:10
+   |
+19 | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: to suppress this warning, use `#[verifier::allow(autoderive_clone_without_spec)]` on the surrounding function, datatype, or module or `#![verifier::allow(autoderive_clone_without_spec)]` in the module or crate
+
+warning: Verus does not (yet) support autoderive Clone impl when the clone is not a copy; continuing, but without adding a specification for the derived Clone impl
+  --> /tmp/redb-crash-source-probe05/supported.rs:30:10
+   |
+30 | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: to suppress this warning, use `#[verifier::allow(autoderive_clone_without_spec)]` on the surrounding function, datatype, or module or `#![verifier::allow(autoderive_clone_without_spec)]` in the module or crate
+
+error: cannot call function `supported::slot_domain` with mode proof
+   --> /tmp/redb-crash-source-probe05/supported.rs:134:5
+    |
+134 |     slot_domain(0);
+    |     ^^^^^^^^^^^^^^
+
+error: aborting due to 1 previous error; 2 warnings emitted
+

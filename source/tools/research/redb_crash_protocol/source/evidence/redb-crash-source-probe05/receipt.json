@@ -1,0 +1,1494 @@
+{
+  "kind": "BOUNDED_ORIGINAL_BODY_ELIGIBILITY_NOT_APPLICATION_THEOREM",
+  "commands": [
+    {
+      "label": "supported_ordinary",
+      "argv": [
+        "/tmp/redb-crash-source-probe05/bundle/verus",
+        "/tmp/redb-crash-source-probe05/supported.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "supported",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "8",
+        "--export",
+        "/tmp/redb-crash-source-probe05/supported_ordinary.vir"
+      ],
+      "cwd": "/tmp/redb-crash-source-probe05",
+      "exit_code": 1,
+      "seconds": 0.7451137519674376,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-crash-source-probe05/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-crash-source-probe05/cache_supported_ordinary"
+      }
+    },
+    {
+      "label": "supported_infer",
+      "argv": [
+        "/tmp/redb-crash-source-probe05/bundle/verus",
+        "/tmp/redb-crash-source-probe05/supported.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "supported",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "8",
+        "--export",
+        "/tmp/redb-crash-source-probe05/supported_infer.vir",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-crash-source-probe05",
+      "exit_code": 1,
+      "seconds": 0.7456325819948688,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-crash-source-probe05/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-crash-source-probe05/cache_supported_infer"
+      }
+    },
+    {
+      "label": "backend_sync_ordinary",
+      "argv": [
+        "/tmp/redb-crash-source-probe05/bundle/verus",
+        "/tmp/redb-crash-source-probe05/backend_sync.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "backend_sync",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "8",
+        "--export",
+        "/tmp/redb-crash-source-probe05/backend_sync_ordinary.vir"
+      ],
+      "cwd": "/tmp/redb-crash-source-probe05",
+      "exit_code": 1,
+      "seconds": 1.1060933760018088,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-crash-source-probe05/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-crash-source-probe05/cache_backend_sync_ordinary"
+      }
+    },
+    {
+      "label": "backend_sync_infer",
+      "argv": [
+        "/tmp/redb-crash-source-probe05/bundle/verus",
+        "/tmp/redb-crash-source-probe05/backend_sync.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "backend_sync",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "8",
+        "--export",
+        "/tmp/redb-crash-source-probe05/backend_sync_infer.vir",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-crash-source-probe05",
+      "exit_code": 1,
+      "seconds": 0.7461589490412734,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-crash-source-probe05/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-crash-source-probe05/cache_backend_sync_infer"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "label": "supported_ordinary",
+      "classification": "frontend",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "<BtreeHeader as std::clone::Clone>::clone",
+              "rust_function": "<BtreeHeader as std::clone::Clone>::clone",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:13:16: 13:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:13:23: 13:25",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+              "rust_function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:13:27: 13:36",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<DatabaseHeader as std::clone::Clone>::clone",
+              "rust_function": "<DatabaseHeader as std::clone::Clone>::clone",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:30:10: 30:15",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<PageNumber as std::clone::Clone>::clone",
+              "rust_function": "<PageNumber as std::clone::Clone>::clone",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:5:16: 5:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:5:23: 5:25",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<PageNumber as std::cmp::PartialEq>::eq",
+              "rust_function": "<PageNumber as std::cmp::PartialEq>::eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:5:27: 5:36",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionHeader as std::clone::Clone>::clone",
+              "rust_function": "<TransactionHeader as std::clone::Clone>::clone",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:19:10: 19:15",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::clone::Clone>::clone",
+              "rust_function": "<TransactionId as std::clone::Clone>::clone",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:11:16: 11:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:11:40: 11:42",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::Ord>::cmp",
+              "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:11:23: 11:26",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::PartialEq>::eq",
+              "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:11:44: 11:53",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+              "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:11:28: 11:38",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::primary_slot",
+              "rust_function": "DatabaseHeader::primary_slot",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:44:5: 44:57",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::published_slot",
+              "rust_function": "DatabaseHeader::published_slot",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:56:5: 56:59",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::secondary_slot",
+              "rust_function": "DatabaseHeader::secondary_slot",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:50:5: 50:59",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::swap_primary_slot",
+              "rust_function": "DatabaseHeader::swap_primary_slot",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:66:5: 66:40",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::write_secondary_slot",
+              "rust_function": "DatabaseHeader::write_secondary_slot",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:81:5: 86:6",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+              "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:3:1: 3:30",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "publication_witness",
+              "rust_function": "publication_witness",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:121:1: 121:85",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "slot_domain",
+              "rust_function": "slot_domain",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:114:1: 114:35",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": false,
+          "profiles": [
+            "growth_loop",
+            "pointwise_transport",
+            "range_loop",
+            "mutable_buffer_u64_radix128"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "word_sequence_assistance": [],
+        "buffer_observation_assistance": [],
+        "range_loop_assistance": [],
+        "set_pair_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 710440
+        }
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.11.5ecea5f"
+        },
+        "num-threads": 1,
+        "total": 710,
+        "estimated-cpu-time": 710,
+        "rust": {
+          "total": 22,
+          "init-and-types": 22,
+          "trait-conflicts": 0,
+          "compile": 0
+        },
+        "verification": {
+          "total": 447,
+          "vir": {
+            "total": 447,
+            "hir": 9,
+            "import": 437,
+            "rust-to-vir": 0
+          }
+        },
+        "total-verify": 0,
+        "total-verify-module-times": [],
+        "air": {
+          "total": 0,
+          "module-times": []
+        }
+      },
+      "export_exists": false,
+      "stderr_sha256": "ff29270ad74cc4fe5e4c7b68d48dd350e4e1b4be565adffba82787c1e8d2b611"
+    },
+    {
+      "label": "supported_infer",
+      "classification": "frontend",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "<BtreeHeader as std::clone::Clone>::clone",
+              "rust_function": "<BtreeHeader as std::clone::Clone>::clone",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:13:16: 13:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:13:23: 13:25",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+              "rust_function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:13:27: 13:36",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<DatabaseHeader as std::clone::Clone>::clone",
+              "rust_function": "<DatabaseHeader as std::clone::Clone>::clone",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:30:10: 30:15",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<PageNumber as std::clone::Clone>::clone",
+              "rust_function": "<PageNumber as std::clone::Clone>::clone",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:5:16: 5:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:5:23: 5:25",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<PageNumber as std::cmp::PartialEq>::eq",
+              "rust_function": "<PageNumber as std::cmp::PartialEq>::eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:5:27: 5:36",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionHeader as std::clone::Clone>::clone",
+              "rust_function": "<TransactionHeader as std::clone::Clone>::clone",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:19:10: 19:15",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::clone::Clone>::clone",
+              "rust_function": "<TransactionId as std::clone::Clone>::clone",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:11:16: 11:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:11:40: 11:42",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::Ord>::cmp",
+              "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:11:23: 11:26",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::PartialEq>::eq",
+              "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:11:44: 11:53",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+              "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:11:28: 11:38",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::primary_slot",
+              "rust_function": "DatabaseHeader::primary_slot",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:44:5: 44:57",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::published_slot",
+              "rust_function": "DatabaseHeader::published_slot",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:56:5: 56:59",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::secondary_slot",
+              "rust_function": "DatabaseHeader::secondary_slot",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:50:5: 50:59",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::swap_primary_slot",
+              "rust_function": "DatabaseHeader::swap_primary_slot",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:66:5: 66:40",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::write_secondary_slot",
+              "rust_function": "DatabaseHeader::write_secondary_slot",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:81:5: 86:6",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+              "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:3:1: 3:30",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "publication_witness",
+              "rust_function": "publication_witness",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:121:1: 121:85",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "slot_domain",
+              "rust_function": "slot_domain",
+              "source": "/tmp/redb-crash-source-probe05/supported.rs:114:1: 114:35",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": true,
+          "profiles": [
+            "growth_loop",
+            "pointwise_transport",
+            "range_loop",
+            "mutable_buffer_u64_radix128"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "word_sequence_assistance": [],
+        "buffer_observation_assistance": [],
+        "range_loop_assistance": [],
+        "set_pair_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 713927
+        }
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.11.5ecea5f"
+        },
+        "num-threads": 1,
+        "total": 713,
+        "estimated-cpu-time": 713,
+        "rust": {
+          "total": 20,
+          "init-and-types": 20,
+          "trait-conflicts": 0,
+          "compile": 0
+        },
+        "verification": {
+          "total": 429,
+          "vir": {
+            "total": 429,
+            "hir": 9,
+            "import": 419,
+            "rust-to-vir": 0
+          }
+        },
+        "total-verify": 0,
+        "total-verify-module-times": [],
+        "air": {
+          "total": 0,
+          "module-times": []
+        }
+      },
+      "export_exists": false,
+      "stderr_sha256": "ff29270ad74cc4fe5e4c7b68d48dd350e4e1b4be565adffba82787c1e8d2b611"
+    },
+    {
+      "label": "backend_sync_ordinary",
+      "classification": "frontend",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "<StorageError as std::convert::From<std::io::Error>>::from",
+              "rust_function": "<StorageError as std::convert::From<std::io::Error>>::from",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:133:5: 133:44",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "BackendError::arrow_0",
+              "rust_function": "BackendError::arrow_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:6:1: 8:17",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "BackendError::arrow_Io_0",
+              "rust_function": "BackendError::arrow_Io_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:6:1: 8:17",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "CheckedBackend::check_failure",
+              "rust_function": "CheckedBackend::check_failure",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:138:5: 138:42",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "CheckedBackend::sync_data",
+              "rust_function": "CheckedBackend::sync_data",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:149:5: 149:38",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::VERUS_SPEC__len",
+              "rust_function": "StorageBackend::VERUS_SPEC__len",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:27:5: 27:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::VERUS_SPEC__read",
+              "rust_function": "StorageBackend::VERUS_SPEC__read",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:32:5: 32:87",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::VERUS_SPEC__set_len",
+              "rust_function": "StorageBackend::VERUS_SPEC__set_len",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:37:5: 37:71",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::VERUS_SPEC__sync_data",
+              "rust_function": "StorageBackend::VERUS_SPEC__sync_data",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:40:5: 40:63",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::VERUS_SPEC__write",
+              "rust_function": "StorageBackend::VERUS_SPEC__write",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:43:5: 43:85",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::close",
+              "rust_function": "StorageBackend::close",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:52:5: 52:59",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::len",
+              "rust_function": "StorageBackend::len",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:27:5: 27:59",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::lock_range",
+              "rust_function": "StorageBackend::lock_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:83:5: 87:48",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::lock_shared_range",
+              "rust_function": "StorageBackend::lock_shared_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:94:5: 98:48",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::query_lock_range",
+              "rust_function": "StorageBackend::query_lock_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:119:5: 123:50",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::read",
+              "rust_function": "StorageBackend::read",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:32:5: 32:88",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::set_len",
+              "rust_function": "StorageBackend::set_len",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:37:5: 37:72",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::sync_data",
+              "rust_function": "StorageBackend::sync_data",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:40:5: 40:64",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::try_lock_range",
+              "rust_function": "StorageBackend::try_lock_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:60:5: 64:50",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::try_lock_shared_range",
+              "rust_function": "StorageBackend::try_lock_shared_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:72:5: 76:50",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::unlock_range",
+              "rust_function": "StorageBackend::unlock_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:107:5: 111:48",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::write",
+              "rust_function": "StorageBackend::write",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:43:5: 43:86",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_Corrupted_0",
+              "rust_function": "StorageError::arrow_Corrupted_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:12:1: 14:21",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_Io_0",
+              "rust_function": "StorageError::arrow_Io_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:12:1: 17:17",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_LockPoisoned_0",
+              "rust_function": "StorageError::arrow_LockPoisoned_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:12:1: 22:51",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_ValueTooLarge_0",
+              "rust_function": "StorageError::arrow_ValueTooLarge_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:12:1: 16:24",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": false,
+          "profiles": [
+            "growth_loop",
+            "pointwise_transport",
+            "range_loop",
+            "mutable_buffer_u64_radix128"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "word_sequence_assistance": [],
+        "buffer_observation_assistance": [],
+        "range_loop_assistance": [],
+        "set_pair_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 1074523
+        }
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.11.5ecea5f"
+        },
+        "num-threads": 1,
+        "total": 1074,
+        "estimated-cpu-time": 1074,
+        "rust": {
+          "total": 16,
+          "init-and-types": 16,
+          "trait-conflicts": 0,
+          "compile": 0
+        },
+        "verification": {
+          "total": 846,
+          "vir": {
+            "total": 846,
+            "hir": 442,
+            "import": 403,
+            "rust-to-vir": 0
+          }
+        },
+        "total-verify": 0,
+        "total-verify-module-times": [],
+        "air": {
+          "total": 0,
+          "module-times": []
+        }
+      },
+      "export_exists": false,
+      "stderr_sha256": "7154d5c06e04f69a9ea8109ffba515365b1292e57be6984bd49a41ae20262a0c"
+    },
+    {
+      "label": "backend_sync_infer",
+      "classification": "frontend",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "<StorageError as std::convert::From<std::io::Error>>::from",
+              "rust_function": "<StorageError as std::convert::From<std::io::Error>>::from",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:133:5: 133:44",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "BackendError::arrow_0",
+              "rust_function": "BackendError::arrow_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:6:1: 8:17",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "BackendError::arrow_Io_0",
+              "rust_function": "BackendError::arrow_Io_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:6:1: 8:17",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "CheckedBackend::check_failure",
+              "rust_function": "CheckedBackend::check_failure",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:138:5: 138:42",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "CheckedBackend::sync_data",
+              "rust_function": "CheckedBackend::sync_data",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:149:5: 149:38",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::VERUS_SPEC__len",
+              "rust_function": "StorageBackend::VERUS_SPEC__len",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:27:5: 27:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::VERUS_SPEC__read",
+              "rust_function": "StorageBackend::VERUS_SPEC__read",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:32:5: 32:87",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::VERUS_SPEC__set_len",
+              "rust_function": "StorageBackend::VERUS_SPEC__set_len",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:37:5: 37:71",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::VERUS_SPEC__sync_data",
+              "rust_function": "StorageBackend::VERUS_SPEC__sync_data",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:40:5: 40:63",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::VERUS_SPEC__write",
+              "rust_function": "StorageBackend::VERUS_SPEC__write",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:43:5: 43:85",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::close",
+              "rust_function": "StorageBackend::close",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:52:5: 52:59",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::len",
+              "rust_function": "StorageBackend::len",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:27:5: 27:59",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::lock_range",
+              "rust_function": "StorageBackend::lock_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:83:5: 87:48",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::lock_shared_range",
+              "rust_function": "StorageBackend::lock_shared_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:94:5: 98:48",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::query_lock_range",
+              "rust_function": "StorageBackend::query_lock_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:119:5: 123:50",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::read",
+              "rust_function": "StorageBackend::read",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:32:5: 32:88",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::set_len",
+              "rust_function": "StorageBackend::set_len",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:37:5: 37:72",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::sync_data",
+              "rust_function": "StorageBackend::sync_data",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:40:5: 40:64",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::try_lock_range",
+              "rust_function": "StorageBackend::try_lock_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:60:5: 64:50",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::try_lock_shared_range",
+              "rust_function": "StorageBackend::try_lock_shared_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:72:5: 76:50",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::unlock_range",
+              "rust_function": "StorageBackend::unlock_range",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:107:5: 111:48",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageBackend::write",
+              "rust_function": "StorageBackend::write",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:43:5: 43:86",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_Corrupted_0",
+              "rust_function": "StorageError::arrow_Corrupted_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:12:1: 14:21",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_Io_0",
+              "rust_function": "StorageError::arrow_Io_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:12:1: 17:17",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_LockPoisoned_0",
+              "rust_function": "StorageError::arrow_LockPoisoned_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:12:1: 22:51",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_ValueTooLarge_0",
+              "rust_function": "StorageError::arrow_ValueTooLarge_0",
+              "source": "/tmp/redb-crash-source-probe05/backend_sync.rs:12:1: 16:24",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": true,
+          "profiles": [
+            "growth_loop",
+            "pointwise_transport",
+            "range_loop",
+            "mutable_buffer_u64_radix128"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "word_sequence_assistance": [],
+        "buffer_observation_assistance": [],
+        "range_loop_assistance": [],
+        "set_pair_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 713783
+        }
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.11.5ecea5f"
+        },
+        "num-threads": 1,
+        "total": 713,
+        "estimated-cpu-time": 713,
+        "rust": {
+          "total": 16,
+          "init-and-types": 16,
+          "trait-conflicts": 0,
+          "compile": 0
+        },
+        "verification": {
+          "total": 471,
+          "vir": {
+            "total": 471,
+            "hir": 5,
+            "import": 465,
+            "rust-to-vir": 0
+          }
+        },
+        "total-verify": 0,
+        "total-verify-module-times": [],
+        "air": {
+          "total": 0,
+          "module-times": []
+        }
+      },
+      "export_exists": false,
+      "stderr_sha256": "7154d5c06e04f69a9ea8109ffba515365b1292e57be6984bd49a41ae20262a0c"
+    }
+  ],
+  "source_coupling_proved": false,
+  "success": true,
+  "fixtures": {
+    "publication": {
+      "sha256": "0b489d318039ed6dd5290dabacceceb93b3d3cd58716df54afe766a4d7922979",
+      "bytes": 5152
+    },
+    "selection": {
+      "sha256": "96909449a408ff3af55328bb6273063c1cb8778fb828139355ac68192cf996cb",
+      "bytes": 7624
+    },
+    "supported": {
+      "sha256": "4da5bf02a64e5de5cbcddd4fe0dd083518a99bd73b755c309943d679f5f5c683",
+      "bytes": 6514
+    },
+    "publication_wrong": {
+      "sha256": "bc8119a77ba1cc723c9bac03b1e936f9a32b3c95df6e43abd6a474bbf7720c0f",
+      "bytes": 5152
+    },
+    "publication_unsafe": {
+      "sha256": "2047aca457e765198aed561f6f85fac493eb73a466ebc0e2ed6a6bc7fce98b1e",
+      "bytes": 4876
+    },
+    "serialization": {
+      "sha256": "e10d4c1ab3d2ee30ee1fbd8457875d0fa0a4158658ef4670c9be9ca8be8778f4",
+      "bytes": 39550
+    },
+    "backend_sync": {
+      "sha256": "59cc33c8bea1fee08c61dd6b45caefb9c9fe1ed8dbcdd28ae89a41cde1f4f7f9",
+      "bytes": 5314
+    }
+  },
+  "guard_passed": true
+}

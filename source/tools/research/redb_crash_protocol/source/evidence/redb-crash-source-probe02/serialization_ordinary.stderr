@@ -1,0 +1,9 @@
+error[E0433]: cannot find `tree_store` in the crate root
+ --> /tmp/redb-crash-source-probe02/serialization.rs:1:12
+  |
+1 | use crate::tree_store::page_store::{PageImpl, PageMut, ScopedBorrow, hash128_with_seed};
+  |            ^^^^^^^^^^ could not find `tree_store` in the crate root
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0433`.

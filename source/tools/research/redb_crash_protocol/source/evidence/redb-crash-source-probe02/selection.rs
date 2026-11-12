@@ -1,0 +1,198 @@
+use vstd::prelude::*;
+verus! {
+const TRANSACTION_SIZE: usize = 128;
+type Checksum = u128;
+#[derive(Copy, Clone, Eq, PartialEq)]
+pub(crate) struct PageNumber {
+    pub(crate) region: u32,
+    pub(crate) page_index: u32,
+    pub(crate) page_order: u8,
+}
+#[derive(Copy, Clone, Eq, PartialEq)]
+pub(crate) struct TransactionId(u64);
+
+impl TransactionId {
+    pub(crate) fn new(value: u64) -> TransactionId {
+        Self(value)
+    }
+
+    pub(crate) fn raw_id(self) -> u64 {
+        self.0
+    }
+
+    pub(crate) fn next(self) -> TransactionId {
+        TransactionId(self.0 + 1)
+    }
+
+    pub(crate) fn increment(&mut self) -> TransactionId {
+        let next = self.next();
+        *self = next;
+        next
+    }
+}
+#[derive(Copy, Clone, Eq, PartialEq)]
+pub(crate) struct BtreeHeader {
+    pub(crate) root: PageNumber,
+    pub(crate) checksum: Checksum,
+    pub(crate) length: u64,
+}
+#[derive(Clone)]
+pub(crate) struct TransactionHeader {
+    pub(crate) version: u8,
+    pub(crate) user_root: Option<BtreeHeader>,
+    pub(crate) system_root: Option<BtreeHeader>,
+    pub(crate) transaction_id: TransactionId,
+    // When present, the original on-disk bytes of a slot whose checksum did not verify. They are
+    // written back verbatim, so a slot that failed verification keeps its invalid checksum instead
+    // of being re-serialized as if it were valid. `None` once the slot holds a new commit.
+    corrupt_bytes: Option<[u8; TRANSACTION_SIZE]>,
+}
+#[derive(Clone)]
+pub(crate) struct DatabaseHeader {
+    primary_slot: usize,
+    pub(crate) recovery_required: bool,
+    pub(crate) two_phase_commit: bool,
+    pub(crate) primary_unflushed: bool,
+    page_size: u32,
+    region_header_pages: u32,
+    region_max_data_pages: u32,
+    full_regions: u32,
+    trailing_partial_region_pages: u32,
+    transaction_slots: [TransactionHeader; 2],
+}
+impl DatabaseHeader {
+    pub(crate) fn primary_slot(&self) -> (r: &TransactionHeader) 
+requires self.primary_slot < 2, (self.primary_slot ^ 1) < 2,
+ensures *r == self.transaction_slots[self.primary_slot as int],
+{
+        &self.transaction_slots[self.primary_slot]
+    }
+    pub(crate) fn secondary_slot(&self) -> (r: &TransactionHeader) 
+requires self.primary_slot < 2, (self.primary_slot ^ 1) < 2,
+ensures *r == self.transaction_slots[(self.primary_slot ^ 1) as int],
+{
+        &self.transaction_slots[self.primary_slot ^ 1]
+    }
+    pub(crate) fn published_slot(&self) -> (r: &TransactionHeader) 
+requires self.primary_slot < 2, (self.primary_slot ^ 1) < 2,
+ensures *r == self.transaction_slots[(if self.primary_unflushed { self.primary_slot ^ 1 } else { self.primary_slot }) as int],
+{
+        if self.primary_unflushed {
+            self.secondary_slot()
+        } else {
+            self.primary_slot()
+        }
+    }
+    pub(crate) fn swap_primary_slot(&mut self) 
+requires old(self).primary_slot < 2, (old(self).primary_slot ^ 1) < 2,
+ensures final(self).primary_slot == old(self).primary_slot ^ 1,
+final(self).transaction_slots == old(self).transaction_slots,
+final(self).recovery_required == old(self).recovery_required,
+final(self).two_phase_commit == old(self).two_phase_commit,
+final(self).primary_unflushed == old(self).primary_unflushed,
+final(self).page_size == old(self).page_size,
+final(self).region_header_pages == old(self).region_header_pages,
+final(self).region_max_data_pages == old(self).region_max_data_pages,
+final(self).full_regions == old(self).full_regions,
+final(self).trailing_partial_region_pages == old(self).trailing_partial_region_pages,
+{
+        self.primary_slot ^= 1;
+    }
+    pub(crate) fn write_secondary_slot(
+        &mut self,
+        transaction_id: TransactionId,
+        user_root: Option<BtreeHeader>,
+        system_root: Option<BtreeHeader>,
+    ) 
+requires old(self).primary_slot < 2, (old(self).primary_slot ^ 1) < 2,
+ensures final(self).primary_slot == old(self).primary_slot,
+final(self).transaction_slots[old(self).primary_slot as int] == old(self).transaction_slots[old(self).primary_slot as int],
+final(self).transaction_slots[(old(self).primary_slot ^ 1) as int].transaction_id == transaction_id,
+final(self).transaction_slots[(old(self).primary_slot ^ 1) as int].user_root == user_root,
+final(self).transaction_slots[(old(self).primary_slot ^ 1) as int].system_root == system_root,
+final(self).transaction_slots[(old(self).primary_slot ^ 1) as int].corrupt_bytes == None,
+final(self).transaction_slots[(old(self).primary_slot ^ 1) as int].version == old(self).transaction_slots[(old(self).primary_slot ^ 1) as int].version,
+final(self).recovery_required == old(self).recovery_required,
+final(self).two_phase_commit == old(self).two_phase_commit,
+final(self).primary_unflushed == old(self).primary_unflushed,
+final(self).page_size == old(self).page_size,
+final(self).region_header_pages == old(self).region_header_pages,
+final(self).region_max_data_pages == old(self).region_max_data_pages,
+final(self).full_regions == old(self).full_regions,
+final(self).trailing_partial_region_pages == old(self).trailing_partial_region_pages,
+{
+        let slot = &mut self.transaction_slots[self.primary_slot ^ 1];
+        slot.transaction_id = transaction_id;
+        slot.user_root = user_root;
+        slot.system_root = system_root;
+        slot.corrupt_bytes = None;
+    }
+}
+
+use std::io;
+use core::panic;
+pub enum StorageError {
+    /// The Database is corrupted
+    Corrupted(String),
+    /// The value being inserted exceeds the maximum of 3GiB
+    ValueTooLarge(usize),
+    Io(io::Error),
+    /// The backend does not support a required storage operation.
+    Unsupported,
+    PreviousIo,
+    DatabaseClosed,
+    LockPoisoned(&'static panic::Location<'static>),
+}
+pub type Result<T = (), E = StorageError> = core::result::Result<T, E>;
+pub(crate) struct UnrepairedDatabaseHeader {
+    inner: DatabaseHeader,
+    primary_corrupted: bool,
+    secondary_corrupted: bool,
+}
+impl UnrepairedDatabaseHeader {
+    fn select_primary_slot(&mut self) -> Result<bool> {
+        // If the primary was written using 2-phase commit, it's guaranteed to be valid. Don't look
+        // at the secondary; even if it happens to have a valid checksum, Durability::Paranoid means
+        // we can't trust it
+        if self.inner.two_phase_commit {
+            if self.primary_corrupted {
+                return Err(StorageError::Corrupted(
+                    "Primary is corrupted despite 2-phase commit".to_string(),
+                ));
+            }
+            return Ok(true);
+        }
+
+        // Pick whichever slot is newer, assuming it has a valid checksum. This handles an edge case
+        // where we crash during fsync(), and the only data that got written to disk was the god byte
+        // update swapping the primary -- in that case, the primary contains a valid but out-of-date
+        // transaction, so we need to load from the secondary instead
+        if self.primary_corrupted {
+            if self.secondary_corrupted {
+                return Err(StorageError::Corrupted(
+                    "Both commit slots are corrupted".to_string(),
+                ));
+            }
+            self.inner.swap_primary_slot();
+            return Ok(false);
+        }
+
+        let secondary_newer =
+            self.inner.secondary_slot().transaction_id > self.inner.primary_slot().transaction_id;
+        if secondary_newer && !self.secondary_corrupted {
+            self.inner.swap_primary_slot();
+            return Ok(false);
+        }
+
+        Ok(true)
+    }
+    pub(crate) fn finalize_transaction_slots(self) -> Result<DatabaseHeader> {
+        if self.primary_corrupted {
+            return Err(StorageError::Corrupted(
+                "Primary commit slot is corrupted".to_string(),
+            ));
+        }
+        Ok(self.inner)
+    }
+}
+}

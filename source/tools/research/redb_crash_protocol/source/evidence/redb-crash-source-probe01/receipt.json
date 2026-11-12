@@ -1,0 +1,869 @@
+{
+  "kind": "BOUNDED_ORIGINAL_BODY_ELIGIBILITY_NOT_APPLICATION_THEOREM",
+  "commands": [
+    {
+      "label": "publication_ordinary",
+      "argv": [
+        "/tmp/redb-crash-source-probe01/bundle/verus",
+        "/tmp/redb-crash-source-probe01/publication.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "publication",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "8",
+        "--export",
+        "/tmp/redb-crash-source-probe01/publication_ordinary.vir"
+      ],
+      "cwd": "/tmp/redb-crash-source-probe01",
+      "exit_code": 1,
+      "seconds": 0.10980182397179306,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-crash-source-probe01/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-crash-source-probe01/cache_publication_ordinary"
+      }
+    },
+    {
+      "label": "publication_infer",
+      "argv": [
+        "/tmp/redb-crash-source-probe01/bundle/verus",
+        "/tmp/redb-crash-source-probe01/publication.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "publication",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "8",
+        "--export",
+        "/tmp/redb-crash-source-probe01/publication_infer.vir",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-crash-source-probe01",
+      "exit_code": 1,
+      "seconds": 0.09499488899018615,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-crash-source-probe01/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-crash-source-probe01/cache_publication_infer"
+      }
+    },
+    {
+      "label": "selection_ordinary",
+      "argv": [
+        "/tmp/redb-crash-source-probe01/bundle/verus",
+        "/tmp/redb-crash-source-probe01/selection.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "selection",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "8",
+        "--export",
+        "/tmp/redb-crash-source-probe01/selection_ordinary.vir"
+      ],
+      "cwd": "/tmp/redb-crash-source-probe01",
+      "exit_code": 1,
+      "seconds": 0.07911428401712328,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-crash-source-probe01/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-crash-source-probe01/cache_selection_ordinary"
+      }
+    },
+    {
+      "label": "selection_infer",
+      "argv": [
+        "/tmp/redb-crash-source-probe01/bundle/verus",
+        "/tmp/redb-crash-source-probe01/selection.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "selection",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "8",
+        "--export",
+        "/tmp/redb-crash-source-probe01/selection_infer.vir",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-crash-source-probe01",
+      "exit_code": 1,
+      "seconds": 0.08060019003460184,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-crash-source-probe01/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-crash-source-probe01/cache_selection_infer"
+      }
+    },
+    {
+      "label": "serialization_ordinary",
+      "argv": [
+        "/tmp/redb-crash-source-probe01/bundle/verus",
+        "/tmp/redb-crash-source-probe01/serialization.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "serialization",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "8",
+        "--export",
+        "/tmp/redb-crash-source-probe01/serialization_ordinary.vir"
+      ],
+      "cwd": "/tmp/redb-crash-source-probe01",
+      "exit_code": 1,
+      "seconds": 0.0850460139918141,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-crash-source-probe01/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-crash-source-probe01/cache_serialization_ordinary"
+      }
+    },
+    {
+      "label": "serialization_infer",
+      "argv": [
+        "/tmp/redb-crash-source-probe01/bundle/verus",
+        "/tmp/redb-crash-source-probe01/serialization.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "serialization",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "8",
+        "--export",
+        "/tmp/redb-crash-source-probe01/serialization_infer.vir",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-crash-source-probe01",
+      "exit_code": 1,
+      "seconds": 0.09329157101456076,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-crash-source-probe01/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-crash-source-probe01/cache_serialization_infer"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "label": "publication_ordinary",
+      "classification": "context",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": false,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": false,
+          "profiles": [
+            "growth_loop",
+            "pointwise_transport",
+            "range_loop",
+            "mutable_buffer_u64_radix128"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "word_sequence_assistance": [],
+        "buffer_observation_assistance": [],
+        "range_loop_assistance": [],
+        "set_pair_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 86435
+        }
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.11.5ecea5f"
+        },
+        "num-threads": 1,
+        "total": 86,
+        "estimated-cpu-time": 86,
+        "rust": {
+          "total": 82,
+          "init-and-types": 82,
+          "trait-conflicts": 0,
+          "compile": 0
+        },
+        "verification": {
+          "total": 0,
+          "vir": {
+            "total": 0,
+            "hir": 0,
+            "import": 0,
+            "rust-to-vir": 0
+          }
+        },
+        "total-verify": 0,
+        "total-verify-module-times": [],
+        "air": {
+          "total": 0,
+          "module-times": []
+        },
+        "smt": {
+          "total": 0,
+          "smt-init": 0,
+          "rlimit-init": 0,
+          "smt-init-module-times": [],
+          "smt-run": 0,
+          "rlimit-run": 0,
+          "smt-run-module-times": []
+        }
+      },
+      "export_exists": false,
+      "stderr_sha256": "f78717e005338c71c836c21e86f55f5c3d161f3d06a4f62293204bd38d8113b5"
+    },
+    {
+      "label": "publication_infer",
+      "classification": "context",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": false,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": true,
+          "profiles": [
+            "growth_loop",
+            "pointwise_transport",
+            "range_loop",
+            "mutable_buffer_u64_radix128"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "word_sequence_assistance": [],
+        "buffer_observation_assistance": [],
+        "range_loop_assistance": [],
+        "set_pair_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 63622
+        }
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.11.5ecea5f"
+        },
+        "num-threads": 1,
+        "total": 63,
+        "estimated-cpu-time": 63,
+        "rust": {
+          "total": 59,
+          "init-and-types": 59,
+          "trait-conflicts": 0,
+          "compile": 0
+        },
+        "verification": {
+          "total": 0,
+          "vir": {
+            "total": 0,
+            "hir": 0,
+            "import": 0,
+            "rust-to-vir": 0
+          }
+        },
+        "total-verify": 0,
+        "total-verify-module-times": [],
+        "air": {
+          "total": 0,
+          "module-times": []
+        },
+        "smt": {
+          "total": 0,
+          "smt-init": 0,
+          "rlimit-init": 0,
+          "smt-init-module-times": [],
+          "smt-run": 0,
+          "rlimit-run": 0,
+          "smt-run-module-times": []
+        }
+      },
+      "export_exists": false,
+      "stderr_sha256": "f78717e005338c71c836c21e86f55f5c3d161f3d06a4f62293204bd38d8113b5"
+    },
+    {
+      "label": "selection_ordinary",
+      "classification": "context",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": false,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": false,
+          "profiles": [
+            "growth_loop",
+            "pointwise_transport",
+            "range_loop",
+            "mutable_buffer_u64_radix128"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "word_sequence_assistance": [],
+        "buffer_observation_assistance": [],
+        "range_loop_assistance": [],
+        "set_pair_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 57570
+        }
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.11.5ecea5f"
+        },
+        "num-threads": 1,
+        "total": 57,
+        "estimated-cpu-time": 57,
+        "rust": {
+          "total": 54,
+          "init-and-types": 54,
+          "trait-conflicts": 0,
+          "compile": 0
+        },
+        "verification": {
+          "total": 0,
+          "vir": {
+            "total": 0,
+            "hir": 0,
+            "import": 0,
+            "rust-to-vir": 0
+          }
+        },
+        "total-verify": 0,
+        "total-verify-module-times": [],
+        "air": {
+          "total": 0,
+          "module-times": []
+        },
+        "smt": {
+          "total": 0,
+          "smt-init": 0,
+          "rlimit-init": 0,
+          "smt-init-module-times": [],
+          "smt-run": 0,
+          "rlimit-run": 0,
+          "smt-run-module-times": []
+        }
+      },
+      "export_exists": false,
+      "stderr_sha256": "98bf6d51935c6ffa9e032dde325b03b9c9282e646ae1cd95c2ee8f270e828add"
+    },
+    {
+      "label": "selection_infer",
+      "classification": "context",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": false,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": true,
+          "profiles": [
+            "growth_loop",
+            "pointwise_transport",
+            "range_loop",
+            "mutable_buffer_u64_radix128"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "word_sequence_assistance": [],
+        "buffer_observation_assistance": [],
+        "range_loop_assistance": [],
+        "set_pair_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 58134
+        }
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.11.5ecea5f"
+        },
+        "num-threads": 1,
+        "total": 58,
+        "estimated-cpu-time": 58,
+        "rust": {
+          "total": 54,
+          "init-and-types": 54,
+          "trait-conflicts": 0,
+          "compile": 0
+        },
+        "verification": {
+          "total": 0,
+          "vir": {
+            "total": 0,
+            "hir": 0,
+            "import": 0,
+            "rust-to-vir": 0
+          }
+        },
+        "total-verify": 0,
+        "total-verify-module-times": [],
+        "air": {
+          "total": 0,
+          "module-times": []
+        },
+        "smt": {
+          "total": 0,
+          "smt-init": 0,
+          "rlimit-init": 0,
+          "smt-init-module-times": [],
+          "smt-run": 0,
+          "rlimit-run": 0,
+          "smt-run-module-times": []
+        }
+      },
+      "export_exists": false,
+      "stderr_sha256": "98bf6d51935c6ffa9e032dde325b03b9c9282e646ae1cd95c2ee8f270e828add"
+    },
+    {
+      "label": "serialization_ordinary",
+      "classification": "context",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": false,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": false,
+          "profiles": [
+            "growth_loop",
+            "pointwise_transport",
+            "range_loop",
+            "mutable_buffer_u64_radix128"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "word_sequence_assistance": [],
+        "buffer_observation_assistance": [],
+        "range_loop_assistance": [],
+        "set_pair_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 61594
+        }
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.11.5ecea5f"
+        },
+        "num-threads": 1,
+        "total": 61,
+        "estimated-cpu-time": 61,
+        "rust": {
+          "total": 57,
+          "init-and-types": 57,
+          "trait-conflicts": 0,
+          "compile": 0
+        },
+        "verification": {
+          "total": 0,
+          "vir": {
+            "total": 0,
+            "hir": 0,
+            "import": 0,
+            "rust-to-vir": 0
+          }
+        },
+        "total-verify": 0,
+        "total-verify-module-times": [],
+        "air": {
+          "total": 0,
+          "module-times": []
+        },
+        "smt": {
+          "total": 0,
+          "smt-init": 0,
+          "rlimit-init": 0,
+          "smt-init-module-times": [],
+          "smt-run": 0,
+          "rlimit-run": 0,
+          "smt-run-module-times": []
+        }
+      },
+      "export_exists": false,
+      "stderr_sha256": "5b7b43358a232775c8237132dfec12f38954e1646ed03cccae544fc4b7915b41"
+    },
+    {
+      "label": "serialization_infer",
+      "classification": "context",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": false,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": true,
+          "profiles": [
+            "growth_loop",
+            "pointwise_transport",
+            "range_loop",
+            "mutable_buffer_u64_radix128"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "word_sequence_assistance": [],
+        "buffer_observation_assistance": [],
+        "range_loop_assistance": [],
+        "set_pair_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 68312
+        }
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.11.5ecea5f"
+        },
+        "num-threads": 1,
+        "total": 68,
+        "estimated-cpu-time": 68,
+        "rust": {
+          "total": 64,
+          "init-and-types": 64,
+          "trait-conflicts": 0,
+          "compile": 0
+        },
+        "verification": {
+          "total": 0,
+          "vir": {
+            "total": 0,
+            "hir": 0,
+            "import": 0,
+            "rust-to-vir": 0
+          }
+        },
+        "total-verify": 0,
+        "total-verify-module-times": [],
+        "air": {
+          "total": 0,
+          "module-times": []
+        },
+        "smt": {
+          "total": 0,
+          "smt-init": 0,
+          "rlimit-init": 0,
+          "smt-init-module-times": [],
+          "smt-run": 0,
+          "rlimit-run": 0,
+          "smt-run-module-times": []
+        }
+      },
+      "export_exists": false,
+      "stderr_sha256": "5b7b43358a232775c8237132dfec12f38954e1646ed03cccae544fc4b7915b41"
+    }
+  ],
+  "source_coupling_proved": false,
+  "success": true,
+  "fixtures": {
+    "publication": {
+      "sha256": "eda5e6a8bca01ccf9e989f708a280ee600cb8c73fa7b1f910138d65ab62dbdce",
+      "bytes": 5249
+    },
+    "selection": {
+      "sha256": "6a98593f8a06f11b3f48a65611395e90aba83c03fae7fd85ae9ae4ba1e5cbbc9",
+      "bytes": 7721
+    },
+    "publication_wrong": {
+      "sha256": "f6385d677db792ed1f7f6a1e7bc9c6b0c2d4a79ff9b35b53e945740c1649173e",
+      "bytes": 5249
+    },
+    "publication_unsafe": {
+      "sha256": "3b99de7745db529bc1a1fad04c25a03d6afd53069eca700b8ff6bd56fead11af",
+      "bytes": 5111
+    },
+    "serialization": {
+      "sha256": "d178812b668443512b8d91272a227c8a380014e75ed131ec7dd2b3d65f5bb632",
+      "bytes": 11964
+    }
+  },
+  "guard_passed": true
+}
