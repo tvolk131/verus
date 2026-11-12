@@ -1,4 +1,6 @@
-# Active isolated worker briefs
+# First-checkpoint worker briefs — delivered
+
+Both original assignments below are completed bounded checkpoints, not full-goal acceptance. Active follow-on work is defined in [NEXT_SEMANTIC_STAGE.md](NEXT_SEMANTIC_STAGE.md): REDB's original trace-to-interval semantics; integration-lead preflight of actual Fedimint bootstrap; and a NEW independent review of the fixed first checkpoints. Preserve the first freezes/results and do not silently extend their acceptance claims.
 
 Read [GOAL.md](GOAL.md) and [CURRENT.md](CURRENT.md) first. Prepared checkout base includes this charter and the accepted previous milestone. Work only in the assigned new research directory; protect all earlier freezes, specifications, fixtures and reports. No production engine/vstd edits before a parent value checkpoint, no subdelegates, no pushes/PRs. Do not read live parent/sibling work, enumerate unrelated processes, broadly discover files outside the named project or create a worktree in the shell.
 
