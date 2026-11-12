@@ -1,7 +1,7 @@
 {
   "source_coupling_proved": false,
   "goal_complete": false,
-  "independent_review": "pending",
+  "independent_review": "accepted exact partial scope;5bdb5910",
   "runs": [
     {
       "path": "/tmp/redb-crash-selection-derive-20261112-v1",

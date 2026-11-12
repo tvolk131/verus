@@ -29,4 +29,4 @@ python3 -B -O source/tools/research/redb_crash_protocol/storage_boundary/probe.p
   --output /tmp/UNUSED-redb-backend-negative
 ```
 
-Normal --no-cheating/lifetime/trait/WF/mode/body/erasure checks remain active on accepted78 tools and private copies/caches. No engine/vstd/native rebuild, new trust or Infer gain. Earlier freezes bind their corresponding historical controller epochs; original failures remain intact. RESULTS.json records raw identities and logged costs. Fresh independent review remains required for this bounded continuation.
+Normal --no-cheating/lifetime/trait/WF/mode/body/erasure checks remain active on accepted78 tools and private copies/caches. No engine/vstd/native rebuild, new trust or Infer gain. Earlier freezes bind their corresponding historical controller epochs; original failures remain intact. RESULTS.json records raw identities and logged costs. Independent review5bdb5910 reproduced both strict stages and accepted this bounded body/conversion scope, explicitly excluding native backend effects and source coupling.

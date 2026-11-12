@@ -1,0 +1,164 @@
+{
+  "source_coupling_proved": false,
+  "application_bodies_checked": 0,
+  "new_production_facts": 0,
+  "runs": [
+    {
+      "path": "/tmp/redb-crash-effect-observation-20261112-v1",
+      "receipt_success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "actual native mutex frontier"
+      },
+      "compiler_seconds": 6.286831855948549,
+      "outcomes": [
+        {
+          "label": "atomic_body_ordinary",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "atomic_body_infer",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "atomic_read_true_ordinary",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "atomic_read_true_infer",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        }
+      ],
+      "raw_files": {
+        "/tmp/redb-crash-effect-observation-20261112-v1/receipt.json": "fb8d2aa4e8c3b16e95327cce307fe8fa8b1ac76f78bcf48ca0a33cf3d68bdeb1",
+        "/tmp/redb-crash-effect-observation-20261112-v1/atomic_body_infer.stdout": "7c6a3f5a534d7f87435959691df9db03983abf572176363a2f19f6a9468a059e",
+        "/tmp/redb-crash-effect-observation-20261112-v1/atomic_body_ordinary.stdout": "70a520af86b1d054169cf6ed31e4bf65be8da1f9a2ad21a3884910fb938a8510",
+        "/tmp/redb-crash-effect-observation-20261112-v1/atomic_read_true_infer.stdout": "425ecdfc85d84057e272b4dcbe8dbbdc2d0c68741419112f060e3697f3233877",
+        "/tmp/redb-crash-effect-observation-20261112-v1/atomic_read_true_ordinary.stdout": "94faba570ea83ceb7dff9e54fbf79f608f3f181a2380075d8e4eb99e13e2fe21",
+        "/tmp/redb-crash-effect-observation-20261112-v1/native_lock_ordinary.stdout": "67d45fe39629ca5fa62d4b3fb2c269cb93afbad54d4db3ac3088f4ee03aa9407",
+        "/tmp/redb-crash-effect-observation-20261112-v1/atomic_body_infer.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/redb-crash-effect-observation-20261112-v1/atomic_body_ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/redb-crash-effect-observation-20261112-v1/atomic_read_true_infer.stderr": "995efe2132c83bea27bd7e5cbc70b66ac2464ac4c46c01c22484cb5fe86a2f27",
+        "/tmp/redb-crash-effect-observation-20261112-v1/atomic_read_true_ordinary.stderr": "995efe2132c83bea27bd7e5cbc70b66ac2464ac4c46c01c22484cb5fe86a2f27",
+        "/tmp/redb-crash-effect-observation-20261112-v1/native_lock_ordinary.stderr": "4895b1b4c901b91eca4b31491ca272996df8ac9bbcf64daed413de337bcaa136",
+        "/tmp/redb-crash-effect-observation-20261112-v1/atomic_body.rs": "0285494034b60d47e645192b26078f60ad341d4c5baba66e62534c5201d16d97",
+        "/tmp/redb-crash-effect-observation-20261112-v1/atomic_read_true.rs": "f054cfcdb180be6351b07811591749356c9a2f5e6bf3edc1f590ebc49f326ce6",
+        "/tmp/redb-crash-effect-observation-20261112-v1/native_lock.rs": "b8d0831f45e4c57f2c7d0850a18b348cb0942d1cf473086b3b6fca7cefb80cbb"
+      }
+    },
+    {
+      "path": "/tmp/redb-crash-effect-observation-20261112-v2",
+      "receipt_success": true,
+      "failure": null,
+      "compiler_seconds": 6.766634111001622,
+      "outcomes": [
+        {
+          "label": "atomic_body_ordinary",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "atomic_body_infer",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "atomic_read_true_ordinary",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "atomic_read_true_infer",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "native_lock_ordinary",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          }
+        },
+        {
+          "label": "native_lock_infer",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          }
+        }
+      ],
+      "raw_files": {
+        "/tmp/redb-crash-effect-observation-20261112-v2/receipt.json": "38924024fe31c5d40856449effd9446d743d59433128cd507304d9b48de8382c",
+        "/tmp/redb-crash-effect-observation-20261112-v2/atomic_body_infer.stdout": "2bb806d46b90a2fc123a47ee7f198979a4bfc8032f0f7be734aec0ddc90fecfd",
+        "/tmp/redb-crash-effect-observation-20261112-v2/atomic_body_ordinary.stdout": "0669725f0ccad7eadf1e992c623f1a34604bc539120b699cbb4b445832a28c0f",
+        "/tmp/redb-crash-effect-observation-20261112-v2/atomic_read_true_infer.stdout": "6d61d679b6946b890f228ae157a062fa310bc70c16d4b9a5c5179ed8d450c6fd",
+        "/tmp/redb-crash-effect-observation-20261112-v2/atomic_read_true_ordinary.stdout": "0f76ed548a9e4fc2be2784d956b156fdd529ca0df99ee03844f4643cb04b2ef1",
+        "/tmp/redb-crash-effect-observation-20261112-v2/native_lock_infer.stdout": "576fe72fdc9ff199bb50bcd6eda919dd19d823cd3ded7ca71aca9b49e553cedf",
+        "/tmp/redb-crash-effect-observation-20261112-v2/native_lock_ordinary.stdout": "cd5722eb1711e347697b35ce89110ab18422f69116c97d467986335691033aa2",
+        "/tmp/redb-crash-effect-observation-20261112-v2/atomic_body_infer.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/redb-crash-effect-observation-20261112-v2/atomic_body_ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/redb-crash-effect-observation-20261112-v2/atomic_read_true_infer.stderr": "2296781f6443a7b8ba7f913f25435d8735a9bf97769015ec315b62c2193246f0",
+        "/tmp/redb-crash-effect-observation-20261112-v2/atomic_read_true_ordinary.stderr": "2296781f6443a7b8ba7f913f25435d8735a9bf97769015ec315b62c2193246f0",
+        "/tmp/redb-crash-effect-observation-20261112-v2/native_lock_infer.stderr": "75c053eb27500dc6bd3d933857b83a8622043d0b79bcbe3bedb4e20826d23e29",
+        "/tmp/redb-crash-effect-observation-20261112-v2/native_lock_ordinary.stderr": "75c053eb27500dc6bd3d933857b83a8622043d0b79bcbe3bedb4e20826d23e29",
+        "/tmp/redb-crash-effect-observation-20261112-v2/atomic_body.rs": "0285494034b60d47e645192b26078f60ad341d4c5baba66e62534c5201d16d97",
+        "/tmp/redb-crash-effect-observation-20261112-v2/atomic_read_true.rs": "f054cfcdb180be6351b07811591749356c9a2f5e6bf3edc1f590ebc49f326ce6",
+        "/tmp/redb-crash-effect-observation-20261112-v2/native_lock.rs": "b8d0831f45e4c57f2c7d0850a18b348cb0942d1cf473086b3b6fca7cefb80cbb"
+      }
+    }
+  ]
+}
