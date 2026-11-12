@@ -25,7 +25,7 @@ Counts overlap and must not be summed into a total. All remaining path/ancestor/
 | Exec-local proof blocks |9|7|
 | Bit-vector directives |3|0|
 
-R2 still authors six loop-entry predicates, three exit predicates, fuel/triggers/decreases, all remaining helper bodies and the clear_not_full full-view library call PLUS bridge assertion. Generated work is additional: two snapshots, two quantified proof blocks, two checked pointwise calls and20 Set calls. The new ordinary library contains one Set and three word proof bodies; its proof calls/BV work are charged separately. The redundant default range broadcast earns no credit.
+R2 still authors six loop-entry predicates, three exit predicates, fuel/triggers/decreases, all remaining helper bodies and the clear_not_full full-view library call PLUS bridge assertion. Retained representation/loop bookkeeping definitions, including word_change, pending and pending_at, also remain authored mechanical work; the proof-helper table does not count or relabel them as semantic-only input. Generated work is additional: two snapshots, two quantified proof blocks, two checked pointwise calls and20 Set calls. The new ordinary library contains one Set and three word proof bodies; its proof calls/BV work are charged separately. The redundant default range broadcast earns no credit.
 
 F2 removes all four original mechanical Set-lemma calls and two conditional blocks without replacement author glue, paying32 generated calls over its three semantic theorem bodies. Policy meaning, universe/quorum/fault/count assumptions and the disclosed checked FromSpec adaptation remain authored. Numeric arithmetic and post-equality insert/remove count algebra already worked in the baseline and earn no new gain.
 
