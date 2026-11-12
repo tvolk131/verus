@@ -27,10 +27,11 @@ def load(path, name):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--freeze', type=Path, default=HERE / 'FREEZE.json')
     a = p.parse_args()
     out = a.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
-    freeze = json.loads((HERE / 'FREEZE.json').read_text())
+    freeze = json.loads(a.freeze.read_text())
     root = HERE.parents[4]
     redb = HERE.parent / 'redb'
     scope = load(HERE.parents[1] / 'practical_redb_fedimint/common_set/replay_s1.py', 'r3_import_scope')
@@ -63,7 +64,7 @@ def main():
         receipt['provider_api_sha256'] = digest(source)
         receipt['client_sha256'] = digest(client)
         inventory = json.loads((redb / 'RUN_FREEZE_V2.json').read_text())
-        guard = ArtifactGuard(frozen + [HERE / 'FREEZE.json', source, client, bundle / 'receipt.json'] +
+        guard = ArtifactGuard(frozen + [a.freeze, source, client, bundle / 'receipt.json'] +
                               [bundle / n for n in freeze['runtime_tools']])
         run = LoggedCommands(out, out, receipt['commands'], timeout=180, guard=guard)
         base_env = dict(os.environ, PATH='/home/dev/.cargo/bin:' + os.environ.get('PATH', ''),

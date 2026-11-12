@@ -14,6 +14,7 @@ pub fn repeated_allocation(a: &mut BuddyAllocator, p: u32, o: u8) -> (r: (bool, 
             width_positive(o as int);
             broadcast use vstd::set_lib::range_set_properties;
             let x = p as int * width(o as int);
+            assert((p as int + 1) * width(o as int) == x + width(o as int)) by(nonlinear_arith);
             assert(requested(p, o).contains(x));
             assert(free_pages(middle).contains(x));
             assert(!free_pages(middle).contains(x));
