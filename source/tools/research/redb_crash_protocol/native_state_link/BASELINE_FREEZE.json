@@ -1,0 +1,37 @@
+{
+  "parent": "28af5df240e62c253c562e383396e79766a58474",
+  "inputs": {
+    "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/native_state_link/INTERFACE.md": "c71970e88cc1bf47cdde89fe4a41aff9d14b41cfe7c1438806a0e18f6e19bbaf",
+    "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/native_state_link/owned_native.rs": "29c59c2507b2e50671622184e56ee4445ea3f237e9e9a5dcfea8394e49f5cf70",
+    "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/native_state_link/owned_goals.rs": "428799275f71323f1683b21f40b0a48aa228b8ebb3b2918295df4d0a404558be",
+    "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/native_state_link/baseline.py": "34a3213e776f20b4f799235cd2dda34781293149c24545446462f0524d2fbcb5",
+    "/home/dev/projects/verus/source/rust_verify/src/internal_repr.rs": "720e485261951eae905132f072235abd1dd501cd1a365df15326d546ecd2075d",
+    "/home/dev/projects/verus/source/vir/src/internal_repr.rs": "2a7334fb2ecfdbf0d4089f04b3883a174746cbc60058e44eaa94217398b820d3",
+    "/home/dev/projects/verus/source/vstd/cell.rs": "a66412faf7fa4f88cad6c1401088ed26a71b12ae420d5f83972ee05216885365",
+    "/home/dev/projects/verus/source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+    "/home/dev/projects/verus/source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cell.rs": "4d3d3c7938a167875ee8979b62bf05cc11ef79d4946c8862753e591d2c82fc86"
+  },
+  "runtime": {
+    "bundle": "/tmp/practical-combined78-5ecea5fe-core/bundle",
+    "receipt_sha256": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+    "tool_hashes": {
+      "rust_verify": "52fd0be56236ec8ecd7c0a3db9628eb70d857baa5391df0a623ed216723dc6d8",
+      "verus": "134afc474dfc592f863126bbef2fcfb68d2b97cb4abd3ad24290f6ee7ebcd4b4",
+      "libverus_builtin.rlib": "faedb6bd6ca1e43175d8c82ef59a091f828dca313755b20fd4c38268f2bc1bcf",
+      "libverus_builtin_macros.so": "d85f0b88842a2856911b21c1ca2ae43fbe38b481a8da3f141725373fdd56b671",
+      "libverus_state_machines_macros.so": "c4f2d89854d5d95247e0b9f5845b513990875c5628bbb96fa7007e120d3cb860",
+      "vstd.vir": "b9a613f5c3321931854033da2eeaa8eb3b657885de37ea470602c99e608d0173",
+      "libvstd.rlib": "675d5bae09fc7593de96b4216b012ef6bb28db18f91b863b0820cf2ea2db4167",
+      "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+    },
+    "schema": 39,
+    "policy": 78,
+    "cache": 81
+  },
+  "toolchain": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+  "native_bridge_proved": false,
+  "source_coupling_proved": false,
+  "domain": "all u64 values; native owned constructor/consuming read and exclusive mutable access; no client permission or equality premise"
+}
