@@ -1,0 +1,3812 @@
+{
+  "commands": [
+    {
+      "label": "header_true",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-False-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-False-preflight/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 3.4886101330048405,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-False-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "header_true",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-False-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-False-F1/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 3.4554574560024776,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-False-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "header_true",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-True-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-True-preflight/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 8.972034133039415,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-True-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "header_true",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-True-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-True-F1/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 9.212263815046754,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-True-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "header_false",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-False-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-False-preflight/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 3.890172690968029,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-False-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "header_false",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-False-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-False-F1/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 3.5279003779869527,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-False-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "header_false",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-True-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-True-preflight/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 9.3595711189555,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-True-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "header_false",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-True-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-True-F1/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 10.074958630022593,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-True-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_spec_helper",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-preflight/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 4.098380171053577,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_spec_helper",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-F1/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 4.198054283042438,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_spec_helper",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-preflight/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 11.207488559011836,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_spec_helper",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-F1/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 9.677342201990541,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_tuple",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-False-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-False-preflight/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 3.8553060879930854,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-False-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_tuple",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-False-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-False-F1/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 3.9975456240354106,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-False-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_tuple",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-True-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-True-preflight/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 9.326934045006055,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-True-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_tuple",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-True-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-True-F1/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 9.482763639010955,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-True-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_quantifier",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-False-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-False-preflight/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 3.4057299559935927,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-False-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_quantifier",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-False-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-False-F1/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 3.447441148047801,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-False-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_quantifier",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-True-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-True-preflight/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 9.066990665975027,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-True-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "scalar_quantifier",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-True-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-True-F1/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 9.862462388002314,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-True-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "overflow",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-False-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-False-preflight/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 4.29141772899311,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-False-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "overflow",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-False-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-False-F1/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 3.998250463977456,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-False-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "overflow",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-True-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-True-preflight/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 9.596264493011404,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-True-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "overflow",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-True-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-True-F1/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 9.047702363983262,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-True-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "builtin_reexport",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-False-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-False-preflight/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 3.502908746013418,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-False-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "builtin_reexport",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-False-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-False-F1/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 3.5508323420071974,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-False-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "builtin_reexport",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-True-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-True-preflight/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 9.650420908001252,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-True-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "builtin_reexport",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-True-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-True-F1/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 0,
+      "seconds": 9.276297832024284,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-True-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "builtin_reexport_false",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-False-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-False-preflight/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 3.597895532962866,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-False-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "builtin_reexport_false",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-False-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-False-F1/libcompatibility.rlib"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 3.4679871289990842,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-False-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "builtin_reexport_false",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-True-preflight/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-True-preflight/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 9.609442240034696,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/preflight-bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-True-preflight/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    },
+    {
+      "label": "builtin_reexport_false",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-True-F1/input.rs",
+        "--crate-type=lib",
+        "--crate-name=compatibility",
+        "--edition=2024",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-True-F1/libcompatibility.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e",
+      "exit_code": 1,
+      "seconds": 9.605576495989226,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-True-F1/fresh-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "label": "header_true",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-False-preflight/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-False-F1/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "header_true",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-True-preflight/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-True-F1/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "header_false",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-False-preflight/input.rs:1:79: 1:100",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-False-F1/input.rs:1:79: 1:100",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "header_false",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-True-preflight/input.rs:1:79: 1:100",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-True-F1/input.rs:1:79: 1:100",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_spec_helper",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-preflight/input.rs:1:84: 1:108",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-preflight/input.rs:1:115: 1:137",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-F1/input.rs:1:84: 1:108",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-F1/input.rs:1:115: 1:137",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_spec_helper",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-preflight/input.rs:1:84: 1:108",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-preflight/input.rs:1:115: 1:137",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-F1/input.rs:1:84: 1:108",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-F1/input.rs:1:115: 1:137",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_tuple",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-False-preflight/input.rs:1:79: 1:125",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-False-F1/input.rs:1:79: 1:125",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_tuple",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-True-preflight/input.rs:1:79: 1:125",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-True-F1/input.rs:1:79: 1:125",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_quantifier",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-False-preflight/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-False-F1/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_quantifier",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-True-preflight/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-True-F1/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "overflow",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-False-preflight/input.rs:1:79: 1:97",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-False-F1/input.rs:1:79: 1:97",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "overflow",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-True-preflight/input.rs:1:79: 1:97",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-True-F1/input.rs:1:79: 1:97",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-False-preflight/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-False-F1/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-True-preflight/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-True-F1/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport_false",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-False-preflight/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-False-F1/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport_false",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-True-preflight/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-True-F1/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    }
+  ],
+  "baseline_tool_hashes": {
+    "rust_verify": "33cbc5e138d3ce97494d55dbc9d8ee3d1a98afb8ce23f878f56132ad038f3afc",
+    "verus": "980e705f81ffd234726ee0f4a829c5a345df6d1cd4517f7d0b8a7406db1c5442",
+    "libverus_builtin.rlib": "60f5ff618d302075783eb2d48bc65f403433b8b0120ac41cc1dc27bd5b58c0db",
+    "libverus_builtin_macros.so": "265d3e82bf9ce06e8e8caaa43b0da575d8588e3e5ae3c58dbe9922e545279c39",
+    "libverus_state_machines_macros.so": "f8b500b05f72c03c6b4e851ead0e3671a7a63321731d30c87f6f852706329443",
+    "vstd.vir": "e0364f9982ac0c119b019f7ea13013d49ce893a5b4c764535c0ea8f3acf5104d",
+    "libvstd.rlib": "7906b4a490da4dc8fb8f113bce723ece4aba23d4a46f22a561af0f133cb2cf13",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "success": true,
+  "guard_passed": true,
+  "unexpected": [
+    {
+      "label": "header_true",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-False-preflight/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-False-F1/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "header_true",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-True-preflight/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_true-True-F1/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "header_false",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-False-preflight/input.rs:1:79: 1:100",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-False-F1/input.rs:1:79: 1:100",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "header_false",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-True-preflight/input.rs:1:79: 1:100",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/header_false-True-F1/input.rs:1:79: 1:100",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_spec_helper",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-preflight/input.rs:1:84: 1:108",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-preflight/input.rs:1:115: 1:137",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-F1/input.rs:1:84: 1:108",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-False-F1/input.rs:1:115: 1:137",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_spec_helper",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-preflight/input.rs:1:84: 1:108",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-preflight/input.rs:1:115: 1:137",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-F1/input.rs:1:84: 1:108",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_spec_helper-True-F1/input.rs:1:115: 1:137",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_tuple",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-False-preflight/input.rs:1:79: 1:125",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-False-F1/input.rs:1:79: 1:125",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_tuple",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-True-preflight/input.rs:1:79: 1:125",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_tuple-True-F1/input.rs:1:79: 1:125",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_quantifier",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-False-preflight/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-False-F1/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_quantifier",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-True-preflight/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/scalar_quantifier-True-F1/input.rs:1:79: 1:101",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "overflow",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-False-preflight/input.rs:1:79: 1:97",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-False-F1/input.rs:1:79: 1:97",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "overflow",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-True-preflight/input.rs:1:79: 1:97",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/overflow-True-F1/input.rs:1:79: 1:97",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-False-preflight/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-False-F1/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-True-preflight/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport-True-F1/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport_false",
+      "infer": false,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-False-preflight/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-False-F1/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport_false",
+      "infer": true,
+      "equal": false,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-True-preflight/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "source": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/compatibility/builtin_reexport_false-True-F1/input.rs:1:96: 1:119",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    }
+  ]
+}

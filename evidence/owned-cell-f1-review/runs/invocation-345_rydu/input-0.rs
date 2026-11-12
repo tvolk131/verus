@@ -1,0 +1,1 @@
+use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { struct HasDrop; impl Drop for HasDrop {fn drop(&mut self){}} }

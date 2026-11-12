@@ -1,0 +1,1 @@
+use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn bad(x:&mut u64)->&mut C {C::from_mut(x)} }

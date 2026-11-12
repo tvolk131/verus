@@ -1,0 +1,31 @@
+{
+  "commands": [
+    {
+      "label": "compile",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/verus",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/tmp/.tmpoSsyvt/case.rs",
+        "--crate-type=lib",
+        "--crate-name=case",
+        "--edition=2024",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/tmp/.tmpoSsyvt/libcase.rlib",
+        "--experimental-owned-unsafe-cell",
+        "--no-cheating",
+        "--infer-goals",
+        "--no-verify"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/harness",
+      "exit_code": 1,
+      "seconds": 0.039378679008223116,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/bundle/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/tmp/.tmpoSsyvt/infer-cache",
+        "CARGO_TARGET_DIR": "/home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/target"
+      }
+    }
+  ],
+  "success": true,
+  "exit": 1
+}

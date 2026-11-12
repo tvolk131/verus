@@ -1,0 +1,1 @@
+use vstd::prelude::*;use std::cell::UnsafeCell as Native;type One=Native<u64>;type Two=One;verus!{fn pass(v:u64)->u64{let c=Two::new(v);c.into_inner()}}

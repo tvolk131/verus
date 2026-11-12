@@ -1,0 +1,1 @@
+macro_rules! raw { ($c:expr)=>{$c as *mut C}; } use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn bad(c:&mut C)->u64 {let p=raw!(c);0} }

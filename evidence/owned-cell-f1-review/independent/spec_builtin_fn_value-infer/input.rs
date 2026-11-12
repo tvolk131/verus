@@ -1,0 +1,1 @@
+use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn bad(v:u64)->(r:u64) ensures {let f=verus_builtin::spec_eq::<u64,u64>;true}, {v}}

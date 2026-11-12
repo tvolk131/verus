@@ -1,0 +1,1 @@
+use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { struct Wrap {c:C} pub fn bad(v:u64)->u64 {v} }

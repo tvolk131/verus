@@ -1,0 +1,5 @@
+warning: verus was compiled in debug mode, which will result in worse performance
+error: experimental owned UnsafeCell admission: spec surface/capture must be scalar or scalar tuple; cells/references/closures/quantifiers are forbidden: FnDef(DefId(23:1849 ~ verus_builtin[100f]::spec_eq), Binder { value: [u64, u64], bound_vars: [] })
+
+error: aborting due to 1 previous error
+

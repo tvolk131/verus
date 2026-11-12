@@ -1,0 +1,1 @@
+use vstd::prelude::*;#[verifier::verify] fn bad(c:core::cell::UnsafeCell<u64>)->u64{verus_builtin::ensures(|r:u64|[verus_builtin::constrain_type(r,bad(c)),{let x=c;true}]);0}

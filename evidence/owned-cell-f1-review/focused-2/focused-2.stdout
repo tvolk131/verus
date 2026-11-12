@@ -1,0 +1,19 @@
+
+running 5 tests
+test cargo_and_explicit_outputs_are_both_invalidated_on_refusal_and_parse_failure ... ok
+test default_off_preserves_scalar_checks_in_both_modes ... ok
+test frozen_native_bodies_remain_inactive_in_both_modes ... ok
+test local_only_request_invalidates_seeded_export_even_without_a_cell_or_helper ... ok
+test request_cannot_disable_checks_or_select_partial_verification ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 32.41s
+
+
+running 4 tests
+test complete_unit_rejects_typed_escapes_captures_modes_and_recursion ... ok
+test imported_direct_abstract_dyn_and_projected_escapes_are_refused ... ok
+test macros_fake_headers_and_unverified_items_receive_no_exemptions ... ok
+test unchanged_positives_and_scalar_headers_reach_only_later_inactive_gate ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.47s
+

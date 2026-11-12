@@ -1,0 +1,1 @@
+use vstd::prelude::*;#[verifier::verify] fn ensures(v:u64)->u64{v} #[verifier::verify] fn bad(v:u64)->u64{let x=ensures;v}

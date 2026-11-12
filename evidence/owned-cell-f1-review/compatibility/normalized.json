@@ -1,0 +1,1473 @@
+{
+  "normalization": "Remove only per-function source path labels. Preserve exit/result/verification scope/body count/function inventory and diagnostic category.",
+  "cases": [
+    {
+      "label": "header_true",
+      "infer": false,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "header_true",
+      "infer": true,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "header_false",
+      "infer": false,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "header_false",
+      "infer": true,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::bad",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_spec_helper",
+      "infer": false,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_spec_helper",
+      "infer": true,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::eq",
+                "rust_function": "eq",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "specification_definition_or_declaration",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              },
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::eq",
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_tuple",
+      "infer": false,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_tuple",
+      "infer": true,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_quantifier",
+      "infer": false,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "scalar_quantifier",
+      "infer": true,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "overflow",
+      "infer": false,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "overflow",
+      "infer": true,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::bad",
+                "rust_function": "bad",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": false
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": true,
+          "functions": [
+            "compatibility::bad"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport",
+      "infer": false,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport",
+      "infer": true,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 0,
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 1,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "checked_exec_body",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": false,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport_false",
+      "infer": false,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "builtin_reexport_false",
+      "infer": true,
+      "equal_after_removing_only_source_paths": true,
+      "observed": [
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        },
+        {
+          "exit": 1,
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "scope": {
+            "coverage": "selected local Verus items; not all Rust code",
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0,
+            "native_functions": [
+              {
+                "function": "compatibility::pass",
+                "rust_function": "pass",
+                "automatically_derived": false,
+                "selected": true,
+                "body_status": "selected_body_not_certified_by_successful_full_run",
+                "inference_candidate": false,
+                "ordinary_contract": true
+              }
+            ],
+            "limitations": [
+              "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+              "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+              "A checked body is not a claim that unverified callers satisfy its preconditions.",
+              "This report does not certify a requested application property or replace an authored scope/trust inventory."
+            ]
+          },
+          "postcondition_failure": true,
+          "overflow_failure": false,
+          "functions": [
+            "compatibility::pass",
+            "vstd::function::axiom_fn_mut_call_ensures",
+            "vstd::function::axiom_fn_mut_call_requires"
+          ]
+        }
+      ]
+    }
+  ]
+}

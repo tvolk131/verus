@@ -1,0 +1,1 @@
+use vstd::prelude::*;#[verifier::verify] pub fn checked(v:u64)->u64{core::cell::UnsafeCell::new(v).into_inner()}

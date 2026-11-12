@@ -1,0 +1,5 @@
+warning: verus was compiled in debug mode, which will result in worse performance
+error: experimental owned UnsafeCell admission: expression/effect is outside the closed typed grammar (arrays/promotions, quantifiers, loops, drop/unwind and unknown operations are unsupported)
+
+error: aborting due to 1 previous error
+

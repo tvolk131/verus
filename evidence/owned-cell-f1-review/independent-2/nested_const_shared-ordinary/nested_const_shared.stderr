@@ -1,0 +1,21 @@
+warning: verus was compiled in debug mode, which will result in worse performance
+error[E0106]: missing lifetime specifier
+ --> /home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/independent-2/nested_const_shared-ordinary/input.rs:1:106
+  |
+1 | use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn bad(v:u64)->u64{const K:&u64=&0u64;v}}
+  |                                                                                                          ^ expected named lifetime parameter
+  |
+  = help: this function's return type contains a borrowed value, but there is no value for it to be borrowed from
+help: consider using the `'static` lifetime, but this is uncommon unless you're returning a borrowed value from a `const` or a `static`
+  |
+1 | use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn bad(v:u64)->u64{const K:&'static u64=&0u64;v}}
+  |                                                                                                           +++++++
+help: instead, you are more likely to want to return an owned value
+  |
+1 - use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn bad(v:u64)->u64{const K:&u64=&0u64;v}}
+1 + use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn bad(v:u64)->u64{const K:u64=&0u64;v}}
+  |
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0106`.

@@ -1,0 +1,1 @@
+use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { spec fn recurse(v:u64)->bool {recurse(v)} }

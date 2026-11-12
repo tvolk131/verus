@@ -1,0 +1,1 @@
+use vstd::prelude::*;#[verifier::verify] fn bad(c:&mut core::cell::UnsafeCell<u64>)->&mut u64{verus_builtin::ensures(|r:&mut u64|[verus_builtin::constrain_type(r,bad(c)),true]);c.get_mut()}

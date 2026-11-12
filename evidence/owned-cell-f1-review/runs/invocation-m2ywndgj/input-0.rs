@@ -1,0 +1,1 @@
+use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn pair(v:(u64,bool))->(r:(u64,bool)) ensures r==v, {v} }

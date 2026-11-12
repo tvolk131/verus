@@ -1,0 +1,1 @@
+macro_rules! capture { ($c:expr)=>{move || $c.into_inner()}; } use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn bad(v:u64)->u64 {let c=C::new(v);let f=capture!(c);f()} }

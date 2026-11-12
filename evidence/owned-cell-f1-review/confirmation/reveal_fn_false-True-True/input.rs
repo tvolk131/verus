@@ -1,0 +1,1 @@
+use vstd::prelude::*;#[verifier::verify] #[verus::internal(reveal_fn)] pub fn skipped(v:u64)->u64{verus_builtin::ensures(|r:u64|[verus_builtin::constrain_type(r,skipped(v)),false]);v}

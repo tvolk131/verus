@@ -1,0 +1,1 @@
+use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn bad(v:u64)->impl Sized{v}}

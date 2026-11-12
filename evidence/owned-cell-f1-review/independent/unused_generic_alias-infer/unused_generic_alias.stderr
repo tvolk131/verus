@@ -1,0 +1,9 @@
+warning: verus was compiled in debug mode, which will result in worse performance
+error: extern location for vstd does not exist: /home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/private/environment/bundle/libvstd.rlib
+ --> /home/dev/.t3/worktrees/verus/t3-bad6bb5e/evidence/owned-cell-f1-review/independent/unused_generic_alias-infer/input.rs:1:34
+  |
+1 | type Hidden<T>=UnsafeCell<T>;use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn ok(v:u64)->u64{v}}
+  |                                  ^^^^
+
+error: aborting due to 1 previous error
+

@@ -1,0 +1,1 @@
+use vstd::prelude::*; verus! {pub fn scalar()->u64 {0}}

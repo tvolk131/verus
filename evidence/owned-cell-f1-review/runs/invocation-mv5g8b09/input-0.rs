@@ -1,0 +1,1 @@
+use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { spec fn eq(v:u64,w:u64)->bool {v==w} pub fn client(v:u64)->(r:u64) ensures eq(r,v), {v} }

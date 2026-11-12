@@ -1,0 +1,1 @@
+use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn bad(v:u64)->(r:u64) ensures r==v, {let c=C::new(v);callbacks::mutate(&c);c.into_inner()} }

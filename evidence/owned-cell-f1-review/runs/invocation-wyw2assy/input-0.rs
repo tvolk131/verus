@@ -1,0 +1,1 @@
+use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { #[verifier::returns(spec)] pub fn bad(v:u64)->C {C::new(v)} }

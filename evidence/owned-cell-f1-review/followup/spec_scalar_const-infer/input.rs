@@ -1,0 +1,1 @@
+use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{spec const K:u64=7;fn pass(v:u64)->u64{K}}

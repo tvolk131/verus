@@ -1,0 +1,111 @@
+{
+  "kind": "INDEPENDENT_FROZEN_F1_REVIEW_REQUEST_CHANGES",
+  "prepared_root": "f95473bb8376e9f5ef05885c2d18d276b2363b1b",
+  "implementation_checkpoint": "2cb432c6",
+  "early_interface_commit": "26682715",
+  "finding": "F1-REVIEW-1: source internal const_body/reveal_fn and ancestor skip markers pass admission",
+  "scoped_recommendation": "Request changes to F1; retain stage inactivity; no production fix in this review",
+  "independently_replayed": {
+    "F1_original_invocations": 116,
+    "inherited_invocations": 32,
+    "supporting_imported_fixture_native_compiles": 1,
+    "independent_second_attempt": 84,
+    "independent_typed_credit_second_attempt": 82,
+    "nested_const_fixture_corrections_in_followup": true,
+    "followup_invocations": 18,
+    "confirmation_invocations": 24,
+    "default_off_differential_invocations": 32,
+    "default_off_comparisons": 16,
+    "default_off_comparisons_equal": 16
+  },
+  "compatibility_compared_fields": "Exit, verification results, scope/body status/counts, function names and postcondition/overflow diagnostic categories; source path labels removed only",
+  "original_frozen_inventory": {
+    "functions": 3,
+    "bodies": 6,
+    "headers": 3
+  },
+  "native_MIR_corruption_controls_independently_rerun": 0,
+  "native_signature_controls_independently_rerun": 0,
+  "worker_native_controls_source_inspected": {
+    "MIR": 54,
+    "signature": 4
+  },
+  "F1_generated_native_functions": 0,
+  "F1_native_body_proofs": 0,
+  "F1_checked_exec_bodies": 0,
+  "F1_checked_proof_bodies": 0,
+  "F1_interfaces_written": false,
+  "feature_active": false,
+  "full_stage_accepted": false,
+  "F2": "ABSENT",
+  "F3": "ABSENT",
+  "authority": "ABSENT",
+  "native_body_translation": "ABSENT",
+  "correspondence": "ABSENT",
+  "state_query": "ABSENT",
+  "CP1": false,
+  "CP2": false,
+  "source_coupling_proved": false,
+  "hmac_native": "DEFERRED AND UNACHIEVED",
+  "vstd": "2257/0 inherited; not rebuilt or independently reverified",
+  "costs": {
+    "focused": {
+      "commands": 1,
+      "command_wall_seconds": 2.5141875189729035,
+      "success": false
+    },
+    "focused-2": {
+      "commands": 1,
+      "command_wall_seconds": 51.49177847697865,
+      "success": true
+    },
+    "independent": {
+      "commands": 84,
+      "command_wall_seconds": 3.9239628081559204,
+      "success": true
+    },
+    "independent-2": {
+      "commands": 84,
+      "command_wall_seconds": 4.8964745561243035,
+      "success": true
+    },
+    "followup": {
+      "commands": 18,
+      "command_wall_seconds": 0.8672928049927577,
+      "success": true
+    },
+    "confirmation": {
+      "commands": 24,
+      "command_wall_seconds": 87.8964593349956,
+      "success": true
+    },
+    "compatibility": {
+      "commands": 32,
+      "command_wall_seconds": 212.80240340018645,
+      "success": true
+    },
+    "original_148_nested_compiler_calls": {
+      "commands": 148,
+      "command_wall_seconds": 36.68591045733774,
+      "note": "Nested inside focused-2; do not add twice."
+    }
+  },
+  "focused_harness_dependency_build_wall_seconds": 8.59,
+  "compiler_or_vstd_builds": 0,
+  "conservative_start_utc": "2026-11-12T16:23:00Z",
+  "freeze_utc": "2026-11-12T16:41:42.484556+00:00",
+  "conservative_active_seconds_upper_bound_without_build_subtraction": 1122.4845559597015,
+  "build_excluded_seconds": 8.59,
+  "monetary_meter_available": false,
+  "excluded_attempts": {
+    "initial_independent_wrong_VERUS_ROOT": 84,
+    "first_focused_missing_cached_serde_json_version": true,
+    "independent_missing_static_lifetime": 2
+  },
+  "authentication": {
+    "snapshot_guard_unchanged": true,
+    "private_F1_tools_unchanged": true,
+    "receipt_sha256": "51ae6b41380ac4bdd8dd362889a4818df7b352d86aa032d306055377a6b98bf1",
+    "utc": "2026-11-12T16:41:42Z"
+  }
+}

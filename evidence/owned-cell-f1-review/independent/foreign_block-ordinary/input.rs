@@ -1,0 +1,1 @@
+unsafe extern "C" {fn hidden(v:u64)->u64;}use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn ok(v:u64)->u64{v}}

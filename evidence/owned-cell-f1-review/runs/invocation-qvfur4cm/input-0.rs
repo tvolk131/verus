@@ -1,0 +1,1 @@
+use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn bad<H:callbacks::Hook>(h:&H,c:&C)->u64 {h.run(c);0} }

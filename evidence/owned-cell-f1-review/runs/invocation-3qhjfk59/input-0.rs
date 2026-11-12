@@ -1,0 +1,1 @@
+use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn q(v:u64)->(r:u64) ensures forall|x:u64| x==x, r==v, {v} }

@@ -1,0 +1,1 @@
+use vstd::prelude::*;#[verifier::verify] const K:u64=7; #[verifier::verify] fn pass(v:u64)->u64{K}

@@ -1,0 +1,1 @@
+use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{spec fn live(c:&C)->u64{0} fn bad(v:u64)->u64{v}}
