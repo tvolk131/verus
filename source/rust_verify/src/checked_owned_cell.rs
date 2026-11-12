@@ -18,6 +18,9 @@ const CORE: u64 = 17281971461272426270;
 const CELL: u64 = 11949802078424953320;
 const VALUE: u64 = 16821345337525786618;
 
+#[path = "checked_owned_cell_admission.rs"]
+mod admission;
+
 type Reject = &'static str;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -339,9 +342,8 @@ pub(crate) fn check_request(
         );
         inspect(tcx, cell, op, &body).map_err(fail)?;
     }
-    Err(fail(
-        "inactive: complete typed-unit admission, compiler-owned field authority, emitted-body correspondence and final-input-state gates are not implemented",
-    ))
+    let admitted = admission::admit(tcx, cell, args)?;
+    Err(admitted.later_phase_refusal())
 }
 
 #[cfg(test)]

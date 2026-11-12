@@ -2581,20 +2581,31 @@ fn get_impl_paths<'tcx>(
     )
 }
 
-fn check_is_builtin_constrain_typ<'tcx>(bctx: &BodyCtxt<'tcx>, e: &'tcx Expr<'tcx>) -> bool {
+/// Shared identity boundary for the existing header erasure machinery and
+/// pre-import owned-cell admission. This does not by itself admit a subtree;
+/// admission additionally validates its full canonical type-only shape.
+pub(crate) fn is_erased_constrain_type(
+    items: &crate::verus_items::VerusItems,
+    e: &Expr<'_>,
+) -> bool {
     if let ExprKind::Call(fun, ..) = e.kind {
         if let ExprKind::Path(QPath::Resolved(_, path)) = fun.kind {
             if let Some(def_id) = path.res.opt_def_id() {
-                if bctx.ctxt.get_verus_item(def_id)
-                    == Some(&VerusItem::BuiltinFunction(BuiltinFunctionItem::ConstrainType))
-                {
-                    record_call(bctx, e, ResolvedCall::MiscEraseAbsolutely);
-                    return false;
-                }
+                return items.id_to_name.get(&def_id)
+                    == Some(&VerusItem::BuiltinFunction(BuiltinFunctionItem::ConstrainType));
             }
         }
     }
-    true
+    false
+}
+
+fn check_is_builtin_constrain_typ<'tcx>(bctx: &BodyCtxt<'tcx>, e: &'tcx Expr<'tcx>) -> bool {
+    if is_erased_constrain_type(&bctx.ctxt.verus_items, e) {
+        record_call(bctx, e, ResolvedCall::MiscEraseAbsolutely);
+        false
+    } else {
+        true
+    }
 }
 
 fn extract_ensures<'tcx>(
