@@ -1,6 +1,6 @@
-# Practical capability map — proved components, final regression audit pending
+# Practical capability map — completed bounded milestone
 
-The [replacement goal](GOAL.md) is active. Both frozen component properties now pass on the fresh combined engine, and [independent combined review](../../../../evidence/practical-word-combined-review/REVIEW.md) accepts the bounded implementation and causal removal. Parent broader matching regressions and final completion audit remain open. Original baseline75 and preregistrations stay unchanged; combined schema39/policy78/cache81 uses the distinct checked-set-and-word-sequence cache tag.
+The [replacement goal](GOAL.md) is achieved within the selected component scope. Both frozen component properties now pass on the fresh combined engine, and [independent combined review](../../../../evidence/practical-word-combined-review/REVIEW.md) accepts the bounded implementation and causal removal. Parent broader matching regressions and final completion audit pass; see [FINAL_REPORT.md](FINAL_REPORT.md). Original baseline75 and preregistrations stay unchanged; combined schema39/policy78/cache81 uses the distinct checked-set-and-word-sequence cache tag.
 
 | Attempt | Property and current evidence | Limits |
 |---|---|---|
@@ -39,8 +39,8 @@ Ordinary full Function/source projection, fresh IDs/binders across both passes/i
 
 Trust remains the existing frontend/macros, Verus backend/pinned SMT and inherited vstd models/admissions. Conditional32/64 verifier semantics and host x86_64 compilation are not native equivalence or execution on32-bit hardware. Original R2 finite-Set and F2 FromSpec corrections were disclosed before automation credit. No cache hit, RSS reduction or speedup is claimed.
 
-## Validation and unfinished acceptance
+## Validation and accepted scope
 
 Parent combined replay: `/tmp/practical-combined78-5ecea5fe-core/trials/receipt.json`, SHA256 `575d7d495b5d886886af7c070d86495b27e142bbb7371207653e7681957062e1`,25 outcomes,84.121 compiler-wall seconds excluding setup/hash checks. Fresh parent release build478.148s and NORMAL vstd47.404s; AIR145/VIR171 pass. Independent review separately rebuilds/verifies the combined engine, runs the same25 outcomes, narrow ablations, compiler-library8 and focused7+3. [Review](../../../../evidence/practical-word-combined-review/REVIEW.md) records exact receipts, commands, assumptions, costs, source restoration and excluded failures. [Registration](common_set/COMBINED_REGISTRATION.md) and [replay](common_set/replay_s1.py) preserve the fixed inputs and inventories.
 
-Parent broader40-target execution is still pending completion; the older299-test S1 result is not relabeled combined evidence. Final goal completion remains unproved until those matching regressions, reproducible final inventory and requirement-by-requirement audit pass. No new layer beyond S1/S2, prerequisite chain or custom evidence subsystem is authorized;45 active minutes per blocker excluding builds then checkpoint. Earlier HMAC/native is explicitly **DEFERRED AND UNACHIEVED**. No whole-database/protocol/cryptographic/crash/native theorem, push or PR is claimed.
+Parent broader40-target coverage passes729 cases with no missing/duplicate cases, zero failures and one pre-existing ignore; Python148 normal+148 optimized and retained canonical26/observer23 pass on the same combined runtime. Final requirement-by-requirement audit passes. Historical299-test S1 evidence is not relabeled combined coverage. No new layer beyond S1/S2, prerequisite chain or custom evidence subsystem is authorized;45 active minutes per blocker excluding builds then checkpoint. Earlier HMAC/native is explicitly **DEFERRED AND UNACHIEVED**. No whole-database/protocol/cryptographic/crash/native theorem, push or PR is claimed.
