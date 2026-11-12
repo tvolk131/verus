@@ -1,0 +1,417 @@
+{
+  "kind": "D1_INACTIVE_DESCRIPTOR_AND_NATIVE_BODY_PROPOSALS_NO_PROOF_CREDIT",
+  "source_base": "2cb432c64",
+  "interface_commit": "af389f366",
+  "production_commit": "a942fba8f",
+  "runner_commit": "3ee281c6d",
+  "source_sha256": {
+    "source/rust_verify/src/checked_owned_cell.rs": "d09cdd3ae60b659ac04024a47ac3f70f32b5bf1804dce3b5f51a081f2c97aa5e",
+    "source/rust_verify/src/checked_owned_cell_lowering.rs": "0cac8c807e041ac162e7a43ca1ce138c376d69caf1c070c250d4e09f3bfebe90",
+    "source/vir/src/internal_repr.rs": "1d6320098b8573cd18ee86ba8eddaa131a401ee5e7e7ffe04be54f22a2dd0e7c",
+    "source/vir/src/context.rs": "2e3648601f75c67d68b39dd252cdc964bc3f035227aecf450834f681e7ee1694",
+    "source/vir/src/well_formed.rs": "00bf03a1403f9417498cc7795c203621bd4fb0856fba54f481bca15299d5b47f",
+    "source/rust_verify/src/checked_owned_cell_admission.rs": "b2614b6f45776993a9983e879ef26493d34e7bf0c0e6bbe5cbfe67319c4f6e49",
+    "source/rust_verify/src/config.rs": "224fc7a59360601caf4134c1c64d607b321de86f2c2902023eac8716884b39a1",
+    "source/rust_verify_test/tests/local_checked_owned_cell.rs": "b313ab34d6e627b72c4cca6be47b901968c5e7966ca4fa61aa020083431bcaa0",
+    "source/rust_verify_test/tests/local_checked_owned_cell_admission.rs": "3bc1ebe6eece1beab4b880b7aa065c4b9909540d8517a9109725175ba2ae6bd6",
+    "source/tools/research/redb_crash_protocol/native_state_link/owned_goals.rs": "428799275f71323f1683b21f40b0a48aa228b8ebb3b2918295df4d0a404558be",
+    "source/tools/research/redb_crash_protocol/native_state_link/implementation/D1_INTERFACE.md": "b448b43af822604458deb48d5c58f7e2008b3efe63ccd8019a9e25a4f14e8b85",
+    "source/tools/research/redb_crash_protocol/native_state_link/implementation/d1.py": "bf30610afc6728c9d7c645660bb342581d4d5501544123d9b4027f9e085c08bd"
+  },
+  "stage_accepted": false,
+  "feature_active": false,
+  "native_bridge_proved": false,
+  "source_coupling_proved": false,
+  "CP1": false,
+  "CP2": false,
+  "hmac_native": "DEFERRED AND UNACHIEVED",
+  "root_P1": {
+    "immutable_commit": "9cc0f65c5e8ebb75f6858475277991e3bfd940d7",
+    "read_or_applied_here": false,
+    "reason": "admission untouched; root owns repair and independent recheck",
+    "own_historical_F1_omission_present": true,
+    "F1_independent_acceptance": "PENDING"
+  },
+  "historical_snapshots": [
+    {
+      "path": "/tmp/owned-cell-preflight-6e5fb54d-parent-snapshot",
+      "receipt_sha256": "25ccaf84cf2ae40c0e4c84c081ce9924b58ab1eb6257d43828158e1cde1d757b",
+      "tools_sha256": {
+        "rust_verify": "33cbc5e138d3ce97494d55dbc9d8ee3d1a98afb8ce23f878f56132ad038f3afc",
+        "verus": "980e705f81ffd234726ee0f4a829c5a345df6d1cd4517f7d0b8a7406db1c5442",
+        "libverus_builtin.rlib": "60f5ff618d302075783eb2d48bc65f403433b8b0120ac41cc1dc27bd5b58c0db",
+        "libverus_builtin_macros.so": "265d3e82bf9ce06e8e8caaa43b0da575d8588e3e5ae3c58dbe9922e545279c39",
+        "libverus_state_machines_macros.so": "f8b500b05f72c03c6b4e851ead0e3671a7a63321731d30c87f6f852706329443",
+        "vstd.vir": "e0364f9982ac0c119b019f7ea13013d49ce893a5b4c764535c0ea8f3acf5104d",
+        "libvstd.rlib": "7906b4a490da4dc8fb8f113bce723ece4aba23d4a46f22a561af0f133cb2cf13",
+        "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+      },
+      "all_eight_authenticated": true,
+      "not_modified": true
+    },
+    {
+      "path": "/tmp/owned-cell-F1-2cb432c6-parent-snapshot",
+      "receipt_sha256": "51ae6b41380ac4bdd8dd362889a4818df7b352d86aa032d306055377a6b98bf1",
+      "tools_sha256": {
+        "rust_verify": "812e3e94c9994039371b8624dfa9646dd5468242f034be917cd285b6f1c1ad88",
+        "verus": "980e705f81ffd234726ee0f4a829c5a345df6d1cd4517f7d0b8a7406db1c5442",
+        "libverus_builtin.rlib": "60f5ff618d302075783eb2d48bc65f403433b8b0120ac41cc1dc27bd5b58c0db",
+        "libverus_builtin_macros.so": "265d3e82bf9ce06e8e8caaa43b0da575d8588e3e5ae3c58dbe9922e545279c39",
+        "libverus_state_machines_macros.so": "f8b500b05f72c03c6b4e851ead0e3671a7a63321731d30c87f6f852706329443",
+        "vstd.vir": "e0364f9982ac0c119b019f7ea13013d49ce893a5b4c764535c0ea8f3acf5104d",
+        "libvstd.rlib": "7906b4a490da4dc8fb8f113bce723ece4aba23d4a46f22a561af0f133cb2cf13",
+        "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+      },
+      "all_eight_authenticated": true,
+      "not_modified": true
+    }
+  ],
+  "experimental_runtime": {
+    "private_mutable_bundle": "/tmp/owned-cell-implementation-20261112/bundle",
+    "tools_sha256": {
+      "rust_verify": "d6f766f264925bf350980f26fa087163ced9839196ce448bdb3b187b1f5f670c",
+      "verus": "980e705f81ffd234726ee0f4a829c5a345df6d1cd4517f7d0b8a7406db1c5442",
+      "libverus_builtin.rlib": "60f5ff618d302075783eb2d48bc65f403433b8b0120ac41cc1dc27bd5b58c0db",
+      "libverus_builtin_macros.so": "265d3e82bf9ce06e8e8caaa43b0da575d8588e3e5ae3c58dbe9922e545279c39",
+      "libverus_state_machines_macros.so": "f8b500b05f72c03c6b4e851ead0e3671a7a63321731d30c87f6f852706329443",
+      "vstd.vir": "e0364f9982ac0c119b019f7ea13013d49ce893a5b4c764535c0ea8f3acf5104d",
+      "libvstd.rlib": "7906b4a490da4dc8fb8f113bce723ece4aba23d4a46f22a561af0f133cb2cf13",
+      "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+    },
+    "seven_noncompiler_tools_match_F1_snapshot": true,
+    "vstd_rebuilt": false,
+    "vstd_inherited_verified": 2257,
+    "vstd_inherited_errors": 0,
+    "compiler_distinct_from_F1": true
+  },
+  "inventory": {
+    "original_clients": [
+      "owned_roundtrip",
+      "exclusive_update",
+      "exclusive_borrow"
+    ],
+    "original_client_runtime_source_unchanged": true,
+    "original_native_methods": [
+      "UnsafeCell::<u64>::new",
+      "UnsafeCell::<u64>::into_inner",
+      "UnsafeCell::<u64>::get_mut"
+    ],
+    "proposed_full_functions": 3,
+    "proposed_postconditions": 4,
+    "initial_crate_WF_passed": true,
+    "full_Function_WF_passed": 0,
+    "full_Function_WF_private_field_refusals": 3,
+    "field_authorities": 0,
+    "installed_user_helpers": 0,
+    "helper_body_queries": 0,
+    "native_client_body_proofs": 0,
+    "F2_queries": 0,
+    "F3_erasure_entries": 0
+  },
+  "focused_validation": {
+    "final_command_labels": [
+      "D1-final-compiler-build",
+      "D1-final-native-controls",
+      "D1-Rev-regressions",
+      "D1-existing-admission-refusal-regressions"
+    ],
+    "native_MIR_corruptions": 54,
+    "native_signature_region_corruptions": 4,
+    "new_descriptor_corruptions": 8,
+    "new_invalid_type_argument_vectors": 6,
+    "wire_directions_rejected": 2,
+    "WF_backend_wrong_width_hooks_rejected": 2,
+    "new_actual_Function_origin_read_target_corruptions": 45,
+    "Rev_tests_passed": 8,
+    "existing_refusal_tests_passed": 5,
+    "existing_admission_tests_passed": 4,
+    "existing_compiler_invocations": 148,
+    "ordinary_and_Infer": true,
+    "root_P1_specific_work_duplicated": false
+  },
+  "gates": {
+    "frozen_inputs": "historically authenticated; both immutable implementation snapshots reauthenticated",
+    "actual_native_metadata_signature_MIR": "existing preflight plus actual emitted computation controls pass; full authority/correspondence incomplete",
+    "complete_typed_unit": "historical F1 tests pass; root P1 repair/recheck and admitted-versus-translated inventory required",
+    "full_correspondence": "PARTIAL computation only; contracts/current/future/client state/store/writeback missing",
+    "normal_verification": "INCOMPLETE: all three proposed Functions fail normal private-field WF; no mode/lifetime/SMT credit",
+    "ordinary_and_Infer_native_proofs": "UNACHIEVED: all native requests inactive",
+    "local_export_import_cache": "existing early refusal regressions and descriptor wire controls pass; full activated-boundary gates pending",
+    "native_erasure_and_F2_state": "UNIMPLEMENTED"
+  },
+  "first_unproved_obligation": "Ordinary full Function WF: disallowed field expression for opaque datatype; no original-native-method field authority exists",
+  "failures": [
+    {
+      "label": "D1-proposal-build-first",
+      "reason": "five Rust API/name-shadowing/borrow compile errors: skip_norm_wip, shadowed root helper (three), borrowed span move; corrected"
+    },
+    {
+      "label": "D1-native-proposal-unit-first",
+      "reason": "test API new_typed absent; corrected to new_typ"
+    }
+  ],
+  "cost": {
+    "start_utc": "2026-11-12T16:26:02+00:00",
+    "freeze_utc": "2026-11-12T17:02:30.995305+00:00",
+    "wall_seconds": 2188.995305,
+    "conservative_active_seconds": 2188.995305,
+    "real_build_exclusion_needed": false,
+    "command_count": 10,
+    "command_wall_seconds": 577.0245582400239,
+    "build_attempt_command_seconds": 215.9343605330214,
+    "native_test_actual_final_seconds": 0.11,
+    "Rev_tests_actual_seconds": 0.34,
+    "refusal_suite_actual_seconds": 33.02,
+    "admission_suite_actual_seconds": 7.75,
+    "cpu_seconds": null,
+    "monetary_cost": null,
+    "reason": "No CPU/dollar meter; command wall includes compilation, conservative charged wall includes all waits/builds"
+  },
+  "commands": [
+    {
+      "label": "D1-Rev-regressions",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "vir",
+        "internal_representation",
+        "--",
+        "--test-threads=1"
+      ],
+      "exit": 0,
+      "seconds": 60.705081284977496,
+      "receipt": "/tmp/owned-cell-implementation-20261112/D1-Rev-regressions/receipt.json",
+      "receipt_sha256": "9812c4681d47e0ccb0199ec9072a6713f16cb9846b9becb4463497aacfbc0f32",
+      "source_guard_passed": true,
+      "stdout_sha256": "e10b2f13ef936669e1dee9d2987f172078e140e77890d7df33054335210ed70d",
+      "stderr_sha256": "8421ad0cbe570582f75ba6787dcca5d4a7980cbf62a606de9e6db502c8d014d7"
+    },
+    {
+      "label": "D1-descriptor-build-first",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "-j",
+        "2",
+        "-p",
+        "rust_verify",
+        "-p",
+        "verus",
+        "-p",
+        "verus_builtin",
+        "-p",
+        "verus_builtin_macros",
+        "-p",
+        "verus_state_machines_macros",
+        "-p",
+        "vstd_build"
+      ],
+      "exit": 0,
+      "seconds": 119.49036843399517,
+      "receipt": "/tmp/owned-cell-implementation-20261112/D1-descriptor-build-first/receipt.json",
+      "receipt_sha256": "af4ca4c94768752ea32332ce7586141ed5de3a9e7c0d4a7c4ddd34523b8ba1c4",
+      "source_guard_passed": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "fa632e4c844f58b43e3e02258357879be99fabbe2d235e35b4c61b4a57f09a40"
+    },
+    {
+      "label": "D1-existing-admission-refusal-regressions",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify_test",
+        "--test",
+        "local_checked_owned_cell",
+        "--test",
+        "local_checked_owned_cell_admission",
+        "--",
+        "--test-threads=1"
+      ],
+      "exit": 0,
+      "seconds": 107.92822210700251,
+      "receipt": "/tmp/owned-cell-implementation-20261112/D1-existing-admission-refusal-regressions/receipt.json",
+      "receipt_sha256": "f990bf126fa1f0d398785077de02236b48b3ebd6479b1491c140e375d6f20916",
+      "source_guard_passed": true,
+      "stdout_sha256": "6dc97ea30f40b999b356c932b16938c0c1247dd4797d862b7a889b6e94de915a",
+      "stderr_sha256": "ca7260b14aceb9b3404570043cb33158dbba9cc315937144d1f93e2fd87f7aa3"
+    },
+    {
+      "label": "D1-final-compiler-build",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify"
+      ],
+      "exit": 0,
+      "seconds": 53.79584661399713,
+      "receipt": "/tmp/owned-cell-implementation-20261112/D1-final-compiler-build/receipt.json",
+      "receipt_sha256": "793a365dc96a4fd31a27de91bbd3e227243795ebd8a94a8bc39290cd43ebdd95",
+      "source_guard_passed": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "fdefdf104f35136fa3d18b544e2a4a5ada3a5fd00b84bc272ed9097ef2466fff"
+    },
+    {
+      "label": "D1-final-native-controls",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit": 0,
+      "seconds": 13.539032991044223,
+      "receipt": "/tmp/owned-cell-implementation-20261112/D1-final-native-controls/receipt.json",
+      "receipt_sha256": "3dea8948443d741be41577ca141ae5e4655a469284fd57c15111975712dade86",
+      "source_guard_passed": true,
+      "stdout_sha256": "6d42f396a5e6747012c0bf91387fff2eca2c002e12fcc41df79c62f2f8571ac2",
+      "stderr_sha256": "a4042fe877c69340340dd7d734133ea70371fae07177826aa2ca5cd81d577f51"
+    },
+    {
+      "label": "D1-native-proposal-unit-first",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit": 101,
+      "seconds": 53.46892182697775,
+      "receipt": "/tmp/owned-cell-implementation-20261112/D1-native-proposal-unit-first/receipt.json",
+      "receipt_sha256": "2c8caeca5dad3a6aed865cb010248b99cb1833e2c79119522e4961f9d27e0c21",
+      "source_guard_passed": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e760f1c45ab835781910da7b3add03b7c68fe5f069835b578bbf46254d33c7a4"
+    },
+    {
+      "label": "D1-native-proposal-unit-second",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit": 0,
+      "seconds": 33.043768014002126,
+      "receipt": "/tmp/owned-cell-implementation-20261112/D1-native-proposal-unit-second/receipt.json",
+      "receipt_sha256": "66001f392c86c654210246de80d5ca6136fe0c6ef4f3d8fabe80beff25a05b74",
+      "source_guard_passed": true,
+      "stdout_sha256": "6d42f396a5e6747012c0bf91387fff2eca2c002e12fcc41df79c62f2f8571ac2",
+      "stderr_sha256": "32124b21a9b3ebc22eb00a4266ccb62f9afbd14020dcf2ec80be1e9440582105"
+    },
+    {
+      "label": "D1-native-proposal-unit-third",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit": 0,
+      "seconds": 92.40517148299841,
+      "receipt": "/tmp/owned-cell-implementation-20261112/D1-native-proposal-unit-third/receipt.json",
+      "receipt_sha256": "5cd3db9cd57531e867cf3fe31b5f69f24631febba38fa2c6cea10e88f376b072",
+      "source_guard_passed": true,
+      "stdout_sha256": "039e7790d22ce1f34041cb1d1f5391e242262ea13656d2a1e8bcfe3839418197",
+      "stderr_sha256": "ef812b51a48163b119a1655682bda45c22c6848f19669c9d353b22bb0261dd65"
+    },
+    {
+      "label": "D1-proposal-build-first",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "-j",
+        "2",
+        "-p",
+        "rust_verify",
+        "-p",
+        "verus",
+        "-p",
+        "verus_builtin",
+        "-p",
+        "verus_builtin_macros",
+        "-p",
+        "verus_state_machines_macros",
+        "-p",
+        "vstd_build"
+      ],
+      "exit": 101,
+      "seconds": 24.14219620503718,
+      "receipt": "/tmp/owned-cell-implementation-20261112/D1-proposal-build-first/receipt.json",
+      "receipt_sha256": "00aa24611fbbaa8f06072ef0a2176157be58767b15aaa7ac0eca2e724b5f3251",
+      "source_guard_passed": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "cc60ce00f2a4a41fbae51733d0f0aa236f6a5cbf21d747abd12205ed6f2b9ce4"
+    },
+    {
+      "label": "D1-proposal-build-second",
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "-j",
+        "2",
+        "-p",
+        "rust_verify",
+        "-p",
+        "verus",
+        "-p",
+        "verus_builtin",
+        "-p",
+        "verus_builtin_macros",
+        "-p",
+        "verus_state_machines_macros",
+        "-p",
+        "vstd_build"
+      ],
+      "exit": 0,
+      "seconds": 18.50594927999191,
+      "receipt": "/tmp/owned-cell-implementation-20261112/D1-proposal-build-second/receipt.json",
+      "receipt_sha256": "c31b306aca1150ab28c6e1bff35a99ba7827c46e0edb5e03fd3724971eb2864d",
+      "source_guard_passed": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "12b6260d5fa9644d3fbc892146eb156874339a558b876bd67d877917c320d4f9"
+    }
+  ]
+}
