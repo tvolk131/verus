@@ -1,5 +1,5 @@
 {
-  "stage": "preflight_candidates_before_proof_trials",
+  "stage": "registered_caller_proofs_and_independent_acceptance",
   "parent_base": "d1668d0d9d425e274860d2e8cb304cbaf1861bcc",
   "engine_source": "5ecea5fe81c2bc2ef0c9050cdb29cea0c7ef21c4",
   "schema": 39,
@@ -14,8 +14,8 @@
         "BuddyAllocator::free_inner"
       ],
       "property": "exact allocation/free split-merge effect, represented-block consistency/non-overlap/conservation, logical no-change on rejected allocation",
-      "domain_status": "must be established from real allocator invariants and callers before trial freeze",
-      "proof_status": "both_full_semantic_guarantees_locally_checked96/0; parent_reproduced; NEW_independent_review_pending",
+      "domain_status": "frozen_original_valid_and_legal_free; arbitrary_u32_lengths_pages_and_u8_orders; configured_max_order0through20",
+      "proof_status": "full_semantic_guarantees96/0_parent_and_independent_reproduction_ACCEPTED; API_native_integration_excluded",
       "previous_component_reused": "R2 bitmap-tree mutation and frame proof"
     },
     {
@@ -76,7 +76,7 @@
       "inferred_helpers": 0,
       "automation_removal": 0,
       "full_validation_or_bootstrap": "unproved",
-      "independent_review": "pending"
+      "independent_review": "ACCEPT_BOUNDED_PARTIAL_FIRST_REVIEW_ACCEPTANCE.json"
     }
   ],
   "registered_next_stage": {
@@ -86,5 +86,13 @@
     "bootstrap_proof": "pending_exact_initializer_closure",
     "owner": "isolated_initializer_implementation",
     "no_new_engine_or_behaviour_laws": true
+  },
+  "additional_registered_validation": {
+    "id": "R3-import",
+    "scope": "redb_imports/SCOPE.md",
+    "current_freeze": "redb_imports/FREEZE_3.json",
+    "result": "parent_all10_expected_outcomes_passed; providers96/0, four imported callers1/0, four intended controls1/1; independent review pending",
+    "owner": "parent",
+    "automation_removal": 0
   }
 }

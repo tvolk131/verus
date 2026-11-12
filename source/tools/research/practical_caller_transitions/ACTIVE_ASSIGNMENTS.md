@@ -1,12 +1,16 @@
 # Active next assignments after full REDB local proof
 
-REDB V2 is integrated through96447dcb; parent independently reproduced both ordinary/Infer96/0 and all six intended96/1 controls. Original full allocation/free semantics, valid-state preservation, exact interval effects and semantic conservation are locally checked through original-call wrappers. A NEW reviewer must assess this stronger scope; the earlier accepted partial review does not accept it. Runtime weighted counting, construction/search/resize, crashes and whole-database correctness remain excluded.
+REDB V2 is integrated through96447dcb; parent independently reproduced both ordinary/Infer96/0 and all six intended96/1 controls. A NEW independent full-semantic review has now accepted the original-body wrappers, validity preservation, exact interval effects and semantic conservation. REDB_SEMANTIC_ACCEPTANCE.json binds reviewed source86fb0f9c and integrated evidence5c88acc7/cae10729. The earlier partial review remains a separate historical scope. Runtime weighted counting, construction/search/resize, crashes and whole-database correctness remain excluded.
 
 The fixed first checkpoints are independently accepted only within their partial/diagnostic scopes; FIRST_REVIEW_ACCEPTANCE.json binds that review. Historical scope/failure files remain unchanged.
 
-## REDB full semantic reviewer
+## REDB full semantic reviewer — completed
 
-New isolated evidence-only assignment, fixed source snapshot. Check original domain/predicate/body fidelity, actual caller composition, abstract/actual premise discharge, proved coverage/ancestor property, canonical/non-overlap/merge interpretation, semantic conservation, complete body inventories, controls and costs. Reproduce replay_v2.py --full --controls on a private accepted78 bundle. No implementation changes, builds or broader/native claims. Future F3 bootstrap work is outside this review.
+The fixed-source isolated evidence-only review completed with scoped acceptance and no blocking findings. Fresh full replay passed all eight expected outcomes; all25 executable/47 proof bodies and the full source/domain/premise discharge were inspected. Fedimint initializer and future imported API stages are outside that review. Do not resume or poll the completed reviewer.
+
+## Parent REDB imported caller validation
+
+Own only redb_imports/ and integration/status files. The preregistered visibility-only compiled provider retains private fields and all original formulas/bodies. A separate arbitrary-domain client must prove that repeated allocation of the same interval cannot both succeed. Charge explicit library lemmas/assertions and preserve failed development trials. No engine change or Infer reduction is claimed. Finish within the bounded scope, then review the delivered API adaptation separately; the accepted V2 review does not certify future changes.
 
 ## Fedimint initializer implementation — isolated ownership handoff
 

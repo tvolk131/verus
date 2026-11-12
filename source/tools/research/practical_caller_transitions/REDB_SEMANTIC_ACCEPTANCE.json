@@ -1,0 +1,51 @@
+{
+  "kind": "PARENT_ACCEPTANCE_OF_INDEPENDENT_FULL_R3_REVIEW",
+  "reviewed_parent": "86fb0f9ce5a6fc5b0b812ca4a99022fe32d3a5ab",
+  "worker_review_commits": [
+    "f41e4625",
+    "7c598159"
+  ],
+  "integrated_review_commits": [
+    "5c88acc7",
+    "cae10729"
+  ],
+  "report": "evidence/practical-redb-full-semantic-review/REVIEW.md",
+  "report_sha256": "b6880d30f177548daad7b6baf94a5b225d0ffc45d835a88b6e86652206766bcb",
+  "fresh_review_receipt": "/tmp/practical-redb-full-semantic-review-86fb0f9c/full/receipt.json",
+  "fresh_review_receipt_sha256": "735154ceed22ecdd1467cd20cd4693fb2a8d6a66f0ce625cb41ad9a2d4c67535",
+  "parent_receipt": "/tmp/practical-r3-v2-parent-final/receipt.json",
+  "parent_receipt_sha256": "c50b04f62d31619dbe94b7590f3e38edc6ab7f5dd52a84551d5f3bdb16463cfa",
+  "verdict": "ACCEPT_EXACT_CONDITIONAL_ORIGINAL_BODY_SEMANTICS",
+  "ordinary_infer": "96/0 each",
+  "six_semantic_safety_controls": "96/1 each, isolated named failures, stale Infer exports removed",
+  "body_scope": {
+    "exec": 25,
+    "proof": 47,
+    "inferred_helpers": 0
+  },
+  "manual_cost": {
+    "new_proof_helpers": 32,
+    "definitions": 17,
+    "assertions": 125,
+    "polynomial_assertions": 15,
+    "removed_annotations": 0
+  },
+  "scope": [
+    "full original valid-state domain",
+    "allocation success iff legal interval wholly free",
+    "exact free-set removal and valid-state preservation on allocation",
+    "logical rejection identity",
+    "legal free exact interval addition and maximal canonical merge",
+    "semantic free/used complement cardinality conservation"
+  ],
+  "excluded": [
+    "native/API crate integration",
+    "separate public imported API",
+    "runtime count_free_pages or weighted count identity",
+    "construction/resize/search",
+    "whole database or crash consistency",
+    "Fedimint initializer and full admission"
+  ],
+  "full_goal_complete": false,
+  "hmac_native": "DEFERRED AND UNACHIEVED"
+}
