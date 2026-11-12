@@ -9,7 +9,7 @@ SNAPSHOTS = [Path('/tmp/owned-cell-preflight-6e5fb54d-parent-snapshot'),
              Path('/tmp/owned-cell-F1-2cb432c6-parent-snapshot')]
 
 def inputs():
-    return [HERE/'d1.py', HERE/'D1_INTERFACE.md', HERE/'D2_INTERFACE.md',
+    return [HERE/'d1.py', HERE/'D1_INTERFACE.md', HERE/'D2_INTERFACE.md', HERE/'C1_INTERFACE.md',
             check.ROOT/'source/rust_verify_test/tests/local_checked_owned_cell_admission.rs',
             *[check.ROOT/('source/vir/src/'+n) for n in
               ['internal_repr.rs', 'context.rs', 'well_formed.rs', 'ast_to_sst_func.rs', 'ast_to_sst_crate.rs',
@@ -21,8 +21,11 @@ def main():
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--label', required=True)
     a = p.parse_args()
-    if not a.label.startswith(('D1-', 'D2-')): p.error('new D1-/D2- labels required')
-    if a.label.startswith('D2-'):
+    if not a.label.startswith(('D1-', 'D2-', 'C1-')): p.error('new D1-/D2-/C1- labels required')
+    if a.label.startswith('C1-'):
+        os.environ.update(CARGO_PROFILE_DEV_DEBUG='0', CARGO_PROFILE_TEST_DEBUG='0')
+        if shutil.disk_usage('/tmp').free < 25*1024**3: p.error('less than25GiB free; checkpoint')
+    if a.label.startswith(('D2-', 'C1-')):
         os.environ['CARGO_INCREMENTAL'] = '0'
         SNAPSHOTS.append(Path('/tmp/owned-cell-D1-2e7b8b319-parent-snapshot'))
         check.require(digest(SNAPSHOTS[-1]/'receipt.json') ==
