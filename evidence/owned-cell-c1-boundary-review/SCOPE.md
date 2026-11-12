@@ -1,0 +1,11 @@
+# NEW evidence-only C1 review
+
+Prepared root67ab4860e1868fa3b95e1152279c9f950258af8b. Own only NEW evidence/owned-cell-c1-boundary-review/. Conservative active start2026-11-12T20:22:00Z; cap45 active minutes, excluding documented real builds only. Commit honest checkpoint and STOP; no next phase.
+
+Read exact ancestor paths (no AGENTS.md found), GOAL/CURRENT/WORKER_BRIEFS, ACCEPTANCE_REFINEMENTS, C1_INTERFACE/REPORT/RESULTS/PARENT_CHECKPOINT and inherited D2 evidence needed for context. BINDING.json authenticates13 exact sources, eight frozen tools, ORIGINAL native-client-test, manifest,16 terminal receipt/log sets including failures, parent replay receipt and controller before replay. Terminal original logs are hash inputs only. No actor live source/build/bundle/cache read. Sandbox wrapper fails before commands (bwrap RTM_NEWADDR); local authorized commands use escalation.
+
+Inspect907e4de5d and369123796 plus necessary inherited validators. Audit exact Positive/FalseFirst/FalseFuture body/contract/unit/backend separation; ordinary intended-postcondition Invalid, actual original HIR/Function/owner/runtime correspondence,24 structural mutations and precise0/3 WF boundaries. Comparator is observation/new test TCB only. Inspect inactive wiring, stable-span fix and scoped authority. Assess next native-declaration/binding obligation only from code, without implementing it.
+
+Replay both ORIGINAL tests unchanged and separately with existing guards/receipts, fresh private output/cache/TMPDIR, normal settings and absent C1_PRIVATE_SOURCE_CASE. No compiler rebuild. Fresh complete VIR --lib test build justified by changed diagnostic role; own offline dependency/build directory via existing check.setup, jobs<=2, debug/incremental0, >=25GiB free. No copied build trees, broad compiler/macro/vstd build, doctests, unrelated regressions, general semantics research, live sibling/root caches, shell-created checkouts, delegates or remote actions.
+
+No production fix, installation, call rewrite, source permission or activation. Parent alone decides acceptance/value/scope. Client proofs/F2/F3=0; complete checked inventory false; native bridge/CP1/CP2/source coupling false; HMAC/native DEFERRED AND UNACHIEVED.
