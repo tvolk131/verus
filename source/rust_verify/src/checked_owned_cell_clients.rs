@@ -417,11 +417,11 @@ fn original_frontend_inventory_and_first_unproved_native_boundary() {
     {
         let source = if raw {
             include_str!(
-                "../../tools/research/redb_crash_protocol/native_state_link/owned_native.rs"
+                "../../rust_verify_test/fixtures/infer/native_cell/owned_native.rs"
             )
         } else if frozen {
             include_str!(
-                "../../tools/research/redb_crash_protocol/native_state_link/owned_goals.rs"
+                "../../rust_verify_test/fixtures/infer/native_cell/owned_goals.rs"
             )
         } else if case == "scalar_mut" {
             "use vstd::prelude::*; verus! {pub fn scalar(mut v:u64)->(r:u64) ensures r==v, {v}}"

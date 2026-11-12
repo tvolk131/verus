@@ -9,8 +9,8 @@ fn one_error(e: TestErr, expected: &str) {
     assert!(e.errors[0].message.contains(expected));
 }
 
-const ZIP: &str = include_str!("../../tools/research/buffer_observation_goal/prefix-zip.rs");
-const PLAIN: &str = include_str!("../../tools/research/buffer_observation_goal/plain.rs");
+const ZIP: &str = include_str!("../fixtures/infer/buffer_observation/zip_prefix.rs");
+const PLAIN: &str = include_str!("../fixtures/infer/buffer_observation/plain.rs");
 
 test_verify_one_file_with_options! {
     #[test] zip_prefix_checked ["vstd", "--infer-goals", "--no-cheating"] => ZIP.to_string() => Ok(())
@@ -72,37 +72,37 @@ test_verify_one_file_with_options! {
 }
 test_verify_one_file_with_options! {
     #[test] declaration_move_alias_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] =>
-        include_str!("../../../evidence/shared-buffer-fix-review/repros/move-let-after.rs").to_string() => Ok(())
+        include_str!("../fixtures/infer/buffer_observation/alias_write_after_loop.rs").to_string() => Ok(())
 }
 test_verify_one_file_with_options! {
     #[test] mutable_pattern_before_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] =>
-        include_str!("../../../evidence/shared-buffer-fix-review/repros/pattern-ref-before.rs").to_string() => Ok(())
+        include_str!("../fixtures/infer/buffer_observation/pattern_alias_before_loop.rs").to_string() => Ok(())
 }
 test_verify_one_file_with_options! {
     #[test] mutable_pattern_after_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] =>
-        include_str!("../../../evidence/shared-buffer-fix-review/repros/pattern-ref-after.rs").to_string() => Ok(())
+        include_str!("../fixtures/infer/buffer_observation/pattern_alias_after_loop.rs").to_string() => Ok(())
 }
 test_verify_one_file_with_options! {
     #[test] match_move_alias_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] =>
-        include_str!("../../../evidence/shared-buffer-fix-review/repros/match-move-after.rs").to_string() => Ok(())
+        include_str!("../fixtures/infer/buffer_observation/match_alias_after_loop.rs").to_string() => Ok(())
 }
 test_verify_one_file_with_options! {
     #[test] readonly_target_value_keeps_prefix_assistance ["vstd", "--infer-goals", "--no-cheating"] =>
         ZIP.replace("    for (b_i, b_h)", "    let _first = ipad[0];\n    for (b_i, b_h)") => Ok(())
 }
 const WRONG_LOOP: &str =
-    include_str!("../../tools/research/mutable_buffer_goal/constructor-loop-mismatch.rs");
+    include_str!("../fixtures/infer/buffer_observation/unrelated_loop_origin.rs");
 test_verify_one_file_with_options! {
     #[test] reassigned_zip_key_local_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] =>
-        include_str!("../../../evidence/observer-origin-review/repros/zip-key-local-reassigned.rs").to_string() => Ok(())
+        include_str!("../fixtures/infer/buffer_observation/reassigned_local_key.rs").to_string() => Ok(())
 }
 test_verify_one_file_with_options! {
     #[test] reassigned_zip_key_parameter_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] =>
-        include_str!("../../../evidence/observer-origin-review/repros/zip-key-parameter-same-lifetime.rs").to_string() => Ok(())
+        include_str!("../fixtures/infer/buffer_observation/reassigned_parameter_key.rs").to_string() => Ok(())
 }
 test_verify_one_file_with_options! {
     #[test] executable_zip_key_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] =>
-        include_str!("../../../evidence/observer-origin-review/repros/zip-helper-key.rs").to_string() => Ok(())
+        include_str!("../fixtures/infer/buffer_observation/helper_key.rs").to_string() => Ok(())
 }
 test_verify_one_file_with_options! {
     #[test] unrelated_constructor_is_not_the_loop_origin ["vstd", "--infer-goals", "--no-cheating"] =>
@@ -115,7 +115,7 @@ test_verify_one_file_with_options! {
 }
 test_verify_one_file_with_options! {
     #[test] full_suffix_remains_unproved ["vstd", "--infer-goals", "--no-cheating"] =>
-        include_str!("../../tools/research/buffer_observation_goal/full-zip.rs").to_string() => Err(e) => one_error(e, "postcondition not satisfied")
+        include_str!("../fixtures/infer/buffer_observation/full_suffix_unproved.rs").to_string() => Err(e) => one_error(e, "postcondition not satisfied")
 }
 test_verify_one_file_with_options! {
     #[test] two_matching_functions ["vstd", "--infer-goals", "--no-cheating"] => {

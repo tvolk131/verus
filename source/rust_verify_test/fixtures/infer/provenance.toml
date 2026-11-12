@@ -1,0 +1,124 @@
+schema_version = 1
+archive_commit = "7dcabedaa93299a3607746b6ec25f5e4778288a4"
+archive_tag = "archive/infer-research-2026-11-12"
+
+[[fixtures]]
+path = "buffer_observation/helper_key.rs"
+origin = "evidence/observer-origin-review/repros/zip-helper-key.rs"
+sha256 = "8dc37f74721bb29cf69c104077e4b60426ceafad49ccfe19c7dee3f649d1cb7a"
+
+[[fixtures]]
+path = "buffer_observation/reassigned_local_key.rs"
+origin = "evidence/observer-origin-review/repros/zip-key-local-reassigned.rs"
+sha256 = "6cad8b26017e41bc511c4fdd0bc59ba45bda980265e9abf6607c58a6d4861ead"
+
+[[fixtures]]
+path = "buffer_observation/reassigned_parameter_key.rs"
+origin = "evidence/observer-origin-review/repros/zip-key-parameter-same-lifetime.rs"
+sha256 = "45b72321e95656330ac0d04cf9e53337663f9781a0833962f03c7b1ab4cb2edb"
+
+[[fixtures]]
+path = "buffer_observation/match_alias_after_loop.rs"
+origin = "evidence/shared-buffer-fix-review/repros/match-move-after.rs"
+sha256 = "3ca2f7dd7ce55635516efbd60dc9e3756d082df34b73738d60cda9aaca11327c"
+
+[[fixtures]]
+path = "buffer_observation/alias_write_after_loop.rs"
+origin = "evidence/shared-buffer-fix-review/repros/move-let-after.rs"
+sha256 = "37f6b1a30f394d0a1a0fc3ffd42e80837f0ae850c6e101a78e1898f06b5b014a"
+
+[[fixtures]]
+path = "buffer_observation/pattern_alias_after_loop.rs"
+origin = "evidence/shared-buffer-fix-review/repros/pattern-ref-after.rs"
+sha256 = "1eba9016bda5e2bb93c459ad0ce85c253a5f7846e47573c9c62af049f91bd34e"
+
+[[fixtures]]
+path = "buffer_observation/pattern_alias_before_loop.rs"
+origin = "evidence/shared-buffer-fix-review/repros/pattern-ref-before.rs"
+sha256 = "c380a42b8f82f22ac5a6799fe90f2f2929f09a905c83885a946cede74c725ef5"
+
+[[fixtures]]
+path = "buffer_observation/full_suffix_unproved.rs"
+origin = "source/tools/research/buffer_observation_goal/full-zip.rs"
+sha256 = "cf0953a388fc95f69bf89b6dfd34e2f5c38118909fb897a4b7033906fb410679"
+
+[[fixtures]]
+path = "buffer_observation/plain.rs"
+origin = "source/tools/research/buffer_observation_goal/plain.rs"
+sha256 = "39887c248188ccefc528beb9e435188cb7da1d2ae23b1b1ca84548ea26bb20a5"
+
+[[fixtures]]
+path = "buffer_observation/zip_prefix.rs"
+origin = "source/tools/research/buffer_observation_goal/prefix-zip.rs"
+sha256 = "4dec5bcebf6720989321823917897a0fbcbe9a463898408c07816ce4590e269f"
+
+[[fixtures]]
+path = "constructor_functions/bortag.rs"
+origin = "source/tools/research/constructor_function_value/bortag.rs"
+sha256 = "83de98b781d2140c4881c081c5924689f2c5c22290e6fb5c1b9c58cc489d56ee"
+
+[[fixtures]]
+path = "buffer_observation/unrelated_loop_origin.rs"
+origin = "source/tools/research/mutable_buffer_goal/constructor-loop-mismatch.rs"
+sha256 = "1a91eda1ae3686fabc7136b459a20b9273c7293dc7ebf26c7217cf035ece5ff3"
+
+[[fixtures]]
+path = "word_sequence/redb_tree_controls.rs"
+origin = "source/tools/research/practical_redb_fedimint/redb_tree/controls.rs"
+sha256 = "d7c0969db806595886d0a7ffd1cb40a280c74e9ade56ab516c73684af32bb853"
+
+[[fixtures]]
+path = "word_sequence/redb_tree_reduced.rs"
+origin = "source/tools/research/practical_redb_fedimint/word_frame/s2-reduced.rs"
+sha256 = "f6650e723717ff03e41b3e1533ff998430ea190e91cac54023e9320da5488a20"
+
+[[fixtures]]
+path = "native_cell/owned_goals.rs"
+origin = "source/tools/research/redb_crash_protocol/native_state_link/owned_goals.rs"
+sha256 = "428799275f71323f1683b21f40b0a48aa228b8ebb3b2918295df4d0a404558be"
+
+[[fixtures]]
+path = "native_cell/owned_native.rs"
+origin = "source/tools/research/redb_crash_protocol/native_state_link/owned_native.rs"
+sha256 = "29c59c2507b2e50671622184e56ee4445ea3f237e9e9a5dcfea8394e49f5cf70"
+
+[[fixtures]]
+path = "varint/canonical_manual.rs"
+origin = "source/tools/research/varint_canonical_goal/candidate-004.rs"
+sha256 = "a8de5ba6a08bfa8f56bd28926693e247e4fca24d7e0c576dcb214968ae051e77"
+
+[[fixtures]]
+path = "varint/canonical_assisted.rs"
+origin = "source/tools/research/varint_canonical_goal/candidate-008.rs"
+sha256 = "4c11f4c1fa9705ef96e98d9b321fde7271da5e950ab84e74e6bae6003de1b4d5"
+
+[[fixtures]]
+path = "applications/fedimint_quorum.rs"
+origin = "source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs"
+sha256 = "e6cdd62ef5d7278e18bd7afae10dab0e7802324d6010b40377a23b9b02fc4600"
+[[fixtures.components]]
+path = "source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs"
+sha256 = "e6cdd62ef5d7278e18bd7afae10dab0e7802324d6010b40377a23b9b02fc4600"
+
+[[fixtures]]
+path = "applications/redb_allocator.rs"
+origin = "source/tools/research/practical_caller_transitions/redb/manual.rs"
+sha256 = "7380d8cea929172721838357f66da496aa10e234c8c77c6892fc48a26d908124"
+[[fixtures.components]]
+path = "source/tools/research/practical_caller_transitions/redb/manual.rs"
+sha256 = "2432bf633f6c65bef6dc3052169ef97c319803e776f412e30ed40fabb7f5d889"
+[[fixtures.components]]
+path = "source/tools/research/practical_caller_transitions/redb/domain.rs"
+sha256 = "d895c194de7b3eafffc2825e52d8ffea4f27ceebaec1b7e24b667e210730b44d"
+[[fixtures.components]]
+path = "source/tools/research/practical_caller_transitions/redb/checks.rs"
+sha256 = "25e088cfbfb525cfde365ba94d84359d88b0a1106baf445ba0ff0a9c10cfb95f"
+[[fixtures.components]]
+path = "source/tools/research/practical_caller_transitions/redb/semantic_v2.rs"
+sha256 = "ba9850a8105fbe2096d58d1986b37d65d96b216d47f5ca9a63c6949bf11c0224"
+[[fixtures.components]]
+path = "source/tools/research/practical_caller_transitions/redb/controls_v2.rs"
+sha256 = "f1aee72acdf7f6540ea29df961430610e60f86ac0c9fafa51195b64109f30e54"
+[[fixtures.components]]
+path = "source/tools/research/practical_caller_transitions/redb/cases_v2.rs"
+sha256 = "33f919240e1b916481e1f9355a117743f61c5998dddfb0e1aa96b379f464d3fd"

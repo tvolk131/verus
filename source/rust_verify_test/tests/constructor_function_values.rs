@@ -8,7 +8,7 @@ use common::*;
 fn original_nonzero() {
     verify_one_file(
         "original_nonzero",
-        include_str!("../../tools/research/constructor_function_value/bortag.rs").to_string(),
+        include_str!("../fixtures/infer/constructor_functions/bortag.rs").to_string(),
         &["vstd", "--no-cheating"],
     )
     .unwrap();
@@ -183,7 +183,7 @@ test_verify_one_file_with_options! {
 
 #[test]
 fn payload_get_roundtrip() {
-    let source = include_str!("../../tools/research/constructor_function_value/bortag.rs")
+    let source = include_str!("../fixtures/infer/constructor_functions/bortag.rs")
         .to_string()
         + r#"
 verus! {

@@ -39,20 +39,8 @@ jobs:
         run: python3 -B -m unittest discover -s source/tools -p 'test_redb*.py'
       - name: Python Fedimint transfer evidence tests
         run: python3 -B -m unittest discover -s source/tools -p 'test_fedimint*.py'
-      - name: Frozen research source guards
-        run: |
-          python3 -B source/tools/research/redb_single_word_set/test_replay.py
-          python3 -B source/tools/research/word_goal_automation/test_replay.py
-          python3 -B -O source/tools/research/word_goal_automation/test_replay.py
-          python3 -B source/tools/research/scalar_tuple_output/test_replay.py
-          python3 -B -O source/tools/research/scalar_tuple_output/test_replay.py
-          python3 -B -m unittest discover -s evidence/transfer-fedimint-full-request -p test_replay.py
-          python3 -B - <<'PY'
-          import runpy
-          checks = runpy.run_path("evidence/verus-infer-varint-3b05c191/check_results.py")
-          checks["source_guard"]()
-          checks["check_manual_sources"]()
-          PY
+      - name: Canonical Infer regression fixtures
+        run: python3 -B -m unittest discover -s source/tools -p 'test_infer_fixtures.py'
       - name: setup rust for assurance policy mutations
         uses: dtolnay/rust-toolchain@master
         with:

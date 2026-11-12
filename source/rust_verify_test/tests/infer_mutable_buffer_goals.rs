@@ -3,8 +3,8 @@
 mod common;
 use common::*;
 
-const MANUAL: &str = include_str!("../../tools/research/varint_canonical_goal/candidate-004.rs");
-const AUTOMATIC: &str = include_str!("../../tools/research/varint_canonical_goal/candidate-008.rs");
+const MANUAL: &str = include_str!("../fixtures/infer/varint/canonical_manual.rs");
+const AUTOMATIC: &str = include_str!("../fixtures/infer/varint/canonical_assisted.rs");
 
 fn check(name: &str, text: String, goals: bool, success: bool) {
     let options = if goals {

@@ -5,7 +5,7 @@ mod common;
 use common::infer::InferCrates;
 
 const FROZEN: &str =
-    include_str!("../../tools/research/redb_crash_protocol/native_state_link/owned_goals.rs");
+    include_str!("../fixtures/infer/native_cell/owned_goals.rs");
 const REQUEST: &str = "--experimental-owned-unsafe-cell";
 
 fn run(source: &str, options: &[&str]) -> std::process::Output {

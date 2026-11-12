@@ -559,7 +559,7 @@ mod tests {
             format!(
                 "{}\n{}",
                 include_str!(
-                    "../../tools/research/redb_crash_protocol/native_state_link/owned_native.rs"
+                    "../../rust_verify_test/fixtures/infer/native_cell/owned_native.rs"
                 ),
                 r#"
 fn separate<'a,'b>(_: &'a mut core::cell::UnsafeCell<u64>) -> &'b mut u64 {loop{}}

@@ -5,7 +5,7 @@ use common::infer::InferCrates;
 const FLAG: &str = "--experimental-owned-unsafe-cell";
 const LATER: &str = "inactive: F1 admission passed;";
 const FROZEN: &str =
-    include_str!("../../tools/research/redb_crash_protocol/native_state_link/owned_goals.rs");
+    include_str!("../fixtures/infer/native_cell/owned_goals.rs");
 fn source(body: &str) -> String {
     format!(
         "use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! {{ {body} }}"
