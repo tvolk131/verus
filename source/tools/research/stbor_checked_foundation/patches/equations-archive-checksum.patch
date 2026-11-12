@@ -1,9 +1,0 @@
---- a/coq-2020/released/packages/coq-equations/coq-equations.1.2.1+8.9/opam
-+++ b/coq-2020/released/packages/coq-equations/coq-equations.1.2.1+8.9/opam
-@@ -35,5 +35,5 @@
- url {
-   src:
-     "https://github.com/mattam82/Coq-Equations/archive/v1.2.1-8.9.tar.gz"
--  checksum: "sha512=c887b46943f11bd04c069e345ad7061a6866b99a28fc0fae7550bcd272dc07121eeca71dbb3da1b611a296343ff650edbe41d2dc3b97b13bc88d315aa604a04a"
-+  checksum: "sha256=d93428fd1fe9befd795719122a4f363f89d5cca7e083b90c9aa8ae533d8a4d0a"
- }

@@ -1,5 +1,0 @@
-warning: verus was compiled in debug mode, which will result in worse performance
-error: experimental owned UnsafeCell admission: type is outside closed scalar/tuple/native-cell/exclusive-reference grammar: (std::cell::UnsafeCell<u64>, u64)
-
-error: aborting due to 1 previous error
-

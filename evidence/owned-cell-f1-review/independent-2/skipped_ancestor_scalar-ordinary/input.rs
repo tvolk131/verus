@@ -1,1 +1,0 @@
-use vstd::prelude::*;#[verifier::external] mod hidden {#[verifier::verify] pub fn inner(v:u64)->u64{v}} use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn ok(v:u64)->u64{v}}

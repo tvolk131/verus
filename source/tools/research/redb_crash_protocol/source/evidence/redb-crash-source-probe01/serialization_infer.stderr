@@ -1,9 +1,0 @@
-error[E0425]: cannot find function `hash128_with_seed` in this scope
-   --> /tmp/redb-crash-source-probe01/serialization.rs:271:5
-    |
-271 |     hash128_with_seed(data, 0)
-    |     ^^^^^^^^^^^^^^^^^ not found in this scope
-
-error: aborting due to 1 previous error
-
-For more information about this error, try `rustc --explain E0425`.

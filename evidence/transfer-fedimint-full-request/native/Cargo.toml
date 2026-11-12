@@ -1,7 +1,0 @@
-[package]
-name = "fedimint_full_native"
-version = "0.0.0"
-edition = "2024"
-[dependencies]
-bitcoin = { version = "=0.32.8", features = ["serde"] }
-serde = { version = "=1.0.229", features = ["derive"] }

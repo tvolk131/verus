@@ -145,6 +145,7 @@
     - [Experimental contract inference](infer.md)
       - [Capabilities and authored inputs](infer_capabilities.md)
       - [Adopting inference in an existing codebase](infer_adoption.md)
+      - [Implementation and testing](infer_design.md)
       - [Loops produced by Rust macros](macro_loop_adapter.md)
 - [Specification language](./reference-specification-language.md)
   - [Type Interpretations](./reference-types.md)

@@ -1,5 +1,0 @@
-warning: verus was compiled in debug mode, which will result in worse performance
-error: experimental owned UnsafeCell admission: local trait/type/projection bounds are forbidden; only region binders are admitted
-
-error: aborting due to 1 previous error
-

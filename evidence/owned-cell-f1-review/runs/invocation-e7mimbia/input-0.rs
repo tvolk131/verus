@@ -1,1 +1,0 @@
-use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { fn make(v:u64)->C { C::new(v) } fn read(c:C)->u64 {c.into_inner()} pub fn client(v:u64)->(r:u64) ensures r==v, {read(make(v))} }

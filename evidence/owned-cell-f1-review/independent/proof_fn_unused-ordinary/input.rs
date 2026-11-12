@@ -1,1 +1,0 @@
-use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{proof fn hidden(){} fn ok(v:u64)->u64{v}}

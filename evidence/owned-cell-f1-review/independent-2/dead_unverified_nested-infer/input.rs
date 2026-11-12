@@ -1,1 +1,0 @@
-use vstd::prelude::*;#[verifier::verify] fn bad(v:u64)->u64{if false{fn hidden(c:&core::cell::UnsafeCell<u64>){};}v}

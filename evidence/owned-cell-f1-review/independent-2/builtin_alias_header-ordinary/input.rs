@@ -1,1 +1,0 @@
-use vstd::prelude::*;use verus_builtin::{ensures as E,constrain_type as T};#[verifier::verify] fn pass(v:u64)->u64{E(|r:u64|[T(r,pass(v)),r==v]);v}

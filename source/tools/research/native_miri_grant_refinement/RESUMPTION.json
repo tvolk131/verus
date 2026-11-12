@@ -1,8 +1,0 @@
-{
-  "private_output": "/tmp/native-miri-grant-resumed-pa16x1fp",
-  "base": "e401fc23bfb410921cd2b6409ad695fecdef75d0",
-  "recovered_commit": "b28cc0a39db5a2e734d319e0c8a0bf5d15bd0ca5",
-  "checkpoint": "bc512ae2",
-  "original_task_metadata_sha256": "3e1b7ba4d3fe18253d3f16705bfa0cee0a8b0a31b248b4bb0cfdf211d6d7906f",
-  "candidate_source_sha256": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6"
-}

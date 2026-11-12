@@ -1,1 +1,0 @@
-use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn pass(c:&mut C)->&mut C{c}}

@@ -1,1 +1,0 @@
-use vstd::prelude::*; #[verifier::verify] pub fn bad(v:u64)->u64 {verus_builtin::ensures(|r:u64| [verus_builtin::constrain_type(r,bad(v+1)),true]);v}

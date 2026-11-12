@@ -1,7 +1,0 @@
-{
-  "before_trial": true,
-  "change": "inline directed library law calls, bounded positivity assertion instead of inductive helper; semantic input unchanged",
-  "files": {
-    "candidate-006.rs": "995e21fac893ddf235c6084b834a80474b8bd728063e8eb22c3518f452c0a96b"
-  }
-}

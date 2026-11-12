@@ -1,8 +1,0 @@
-{
-  "policy": "same pre-frozen domain and semantic contracts; explicit generic representation symbol alias; existing inferred mask helper measured separately",
-  "files": {
-    "automatic_alias.rs": "1323f409be8290d61c61e2e9b0082d06893252d761be1820add2511d6a51eeb4",
-    "automatic_inferred_mask.rs": "7a48fc5dcaf2657051865a562da11ce20585e6e0e95bc81bedbfd98bc58b595c",
-    "representation_equivalence.rs": "1316af38fcef86f55b60a2d6c8218d60b8179c4280922fc2247434727401cbd2"
-  }
-}

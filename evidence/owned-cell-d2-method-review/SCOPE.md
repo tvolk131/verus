@@ -1,9 +1,0 @@
-# Independent D2 method review — initial binding
-
-Frozen root 3a1f9fce40f635b96fe012620594974b18d934ec; D2 production 3eba70cc0 integrated as 094b7a42f, runner e50581bd3 / 5f737a2da. Own only this evidence directory. No production fixes, continuation, delegates, mutable sibling/root caches, remote publication, or new law. Parent retains acceptance.
-
-Read exact ancestor paths (no AGENTS.md found), GOAL/CURRENT/WORKER_BRIEFS, ACCEPTANCE_REFINEMENTS, D2_INTERFACE/REPORT/RESULTS and D2_PARENT_CHECKPOINT. BINDING.json authenticates all fourteen source hashes, eight immutable tools, original native test executable and snapshot receipt before copying/replay. Root replay receipt also matches the supplied SHA256. No actor checkout/build/bundle inspected.
-
-Audit all six production files and relevant inherited validators, including typed metadata/MIR, complete Function contracts, object-bound field authority, canonical resolution, ordinary backend paths, diagnostic separation, default-off and Rev behavior. Replay original native test unchanged using existing guards/receipts and unique private outputs. If feasible, independently build complete VIR tests with fresh offline dependencies (no copied build tree), and replay original refusal/admission binaries against D2 tools. Preserve failures. At most 45 active minutes per blocker excluding documented real builds; stop at a bounded committed checkpoint. Start charged conservatively at 18:58 UTC, 2026-11-12.
-
-Three positive method-body queries and three false FIRST equalities are the exact claim; get_mut future equality has no false-future solver control. They cannot authorize user source/client/native/application facts. Source clients/F2/F3 remain zero; complete REDB theorem, CP1/CP2/source coupling false; HMAC/native DEFERRED AND UNACHIEVED. The earlier root review covers metadata/root fixes only and is not D2 acceptance.

@@ -1,1 +1,0 @@
-{"file": "candidates/kernel-v3/kernel.rs", "positive": true, "proof_bodies": ["embedding", "one_step_frame", "trace_frame", "step_preserves_typing"]}

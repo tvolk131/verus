@@ -17,9 +17,9 @@ that, for example, manipulates raw pointers.
 ## Verus Infer branch
 
 This branch develops experimental contract inference and checked proof assistance.
-Start with the [direction and active roadmap](VERUS_INFER_DIRECTION.md),
-[adoption guide](source/docs/guide/src/infer_adoption.md), or
-[feature reference](source/docs/guide/src/infer.md).
+Start with the [user guide](source/docs/guide/src/infer.md),
+[capability and application status](source/docs/guide/src/infer_capabilities.md),
+or [implementation/testing reference](source/docs/guide/src/infer_design.md).
 
 ## Status
 

@@ -1,1 +1,0 @@
-use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn bad(v:u64)->u64{let ghost p=&(0u64,true);v}}

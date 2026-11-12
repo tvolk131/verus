@@ -1,1 +1,0 @@
-use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{const H:C=C::new(0);fn ok(v:u64)->u64{v}}

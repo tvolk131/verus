@@ -1,1 +1,0 @@
-{"file":"candidates/drop-v1/probe.rs","positive":false,"exec_bodies":["native_handoff"],"proof_bodies":[],"failure_kind":"postcondition not satisfied","verified":0}

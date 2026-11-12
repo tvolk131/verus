@@ -1,1 +1,0 @@
-use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn bad(v:u64)->u64 {callbacks::identity(C::new(v)).into_inner()} }

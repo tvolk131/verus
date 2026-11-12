@@ -1,3 +1,0 @@
-review_positive_ordinary {'encountered-error': False, 'encountered-vir-error': False, 'success': True, 'verified': 26, 'errors': 0, 'is-verifying-entire-crate': True}
-review_positive_infer {'encountered-error': False, 'encountered-vir-error': False, 'success': True, 'verified': 26, 'errors': 0, 'is-verifying-entire-crate': True}
-/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/evidence/redb-model-accepted78-wxgduuk9

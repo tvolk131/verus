@@ -1,1 +1,0 @@
-{"file": "candidates/semantic-controls-v2/duplicate-custodian.rs", "positive": false, "proof_bodies": ["embedding", "one_step_frame", "trace_frame", "step_preserves_typing", "run_cons", "unissued_suffix", "reborrow_unsize_metadata", "array_offset_safe", "pointer_window", "subregion_example", "rejected"], "failure_kind": "postcondition not satisfied", "verified": 12}

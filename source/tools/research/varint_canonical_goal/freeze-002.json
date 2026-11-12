@@ -1,7 +1,0 @@
-{
-  "before_trial": true,
-  "change": "repair invalid trigger on dereference; semantic content unchanged",
-  "files": {
-    "candidate-002.rs": "d8934f5cdeff0a221fe2ca631e941e85fa87209be9a2a9d8a6fd3098faa68b31"
-  }
-}

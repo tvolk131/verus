@@ -1,1 +1,0 @@
-use vstd::prelude::*; #[verifier::spec] fn fake(a:u64,b:u64)->bool {true} #[verifier::verify] pub fn bad(v:u64)->u64 {verus_builtin::ensures(|r:u64| [fake(r,bad(v)),true]);v}

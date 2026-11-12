@@ -1,9 +1,0 @@
-{
-  "recorded_at_utc": "2026-11-09T19:56:02.099138+00:00",
-  "after_first_baseline": true,
-  "reason": "--no-cheating rejects historical global size_of declaration as external_body/assume_specification. Remove only that authored layout declaration; do not disable policy. Required full input domain and selected executable code unchanged. Verus may reason with either 32/64-bit usize; no platform premise added.",
-  "files_sha256": {
-    "diagnostics/application-no-layout-inferred.rs": "be3c6647e70ea54e5966d911517dd964cd9b77999b476adf2dfaa33e5073ad74",
-    "diagnostics/application-no-layout-ordinary.rs": "78bbe95cfbec322ebec967f7bdf8e0cce70bf8d537b3b4cbc41a3332984ec9e4"
-  }
-}

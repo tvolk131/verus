@@ -1,9 +1,0 @@
-[package]
-name = "native-borrow-entry-extract"
-version = "0.1.0"
-edition = "2024"
-publish = false
-[workspace]
-[dependencies]
-serde_json = "=1.0.149"
-sha2 = "=0.10.9"

@@ -1,1 +1,0 @@
-use vstd::prelude::*;#[verifier::verify] fn pass(v:u64)->u64{verus_builtin::ensures(move |r:u64|[verus_builtin::constrain_type(r,pass(v)),r==v]);v}

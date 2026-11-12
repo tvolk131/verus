@@ -1,1 +1,0 @@
-use vstd::prelude::*;#[verifier::verify] #[verus::internal(reveal_fn)] pub fn skipped(v:u64)->u64{v+1}

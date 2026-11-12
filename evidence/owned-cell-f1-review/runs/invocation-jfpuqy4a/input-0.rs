@@ -1,1 +1,0 @@
-use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { fn inner<'a>(c:&'a mut C)->&'a mut u64 {c.get_mut()} pub fn client(c:&mut C,v:u64)->(r:u64) ensures r==v, {*inner(c)=v;*inner(c)} }

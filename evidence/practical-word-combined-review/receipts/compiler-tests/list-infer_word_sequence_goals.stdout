@@ -1,9 +1,0 @@
-assistance_disabled_only_word_writers_fail: test
-changed_executable_update_does_not_receive_an_assumed_frame: test
-false_membership_count_and_frame_are_rejected: test
-field_and_application_names_are_irrelevant: test
-full_tree_physical_frame_including_padding_and_repeats: test
-missing_valid_bit_safety_domain_is_not_invented: test
-unrelated_valid_and_false_programs_remain_compatible: test
-
-7 tests, 0 benchmarks

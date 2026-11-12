@@ -1,1 +1,0 @@
-macro_rules! use_cell { ($c:expr)=>{ {let x=$c;true} }; } use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn bad(cell:C)->(r:u64) ensures use_cell!(cell), {0} }

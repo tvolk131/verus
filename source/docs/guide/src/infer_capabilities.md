@@ -1,75 +1,49 @@
-# Inference capabilities and authored inputs
+# Capabilities and authored inputs
 
-This map locates the implemented profiles. A listed area is not general Rust
-support: follow its reference for signature, shape, observation and budget
-restrictions. Use a matching compiler/macros/vstd bundle and the current version
-identities at the top of the [feature reference](infer.md).
+These are bounded profiles, not coverage guarantees for arbitrary Rust. A source
+shape must be eligible, its dependencies modeled or checked, and all required
+queries completed. The current [guide](infer.md) explains modes and reports.
 
-The author chooses the application property and required input domain.
-Inference describes implementation behavior; assistance proposes ordinary proof
-steps. Neither chooses the intended policy. An application function can prove
-an authored contract over inferred helpers without itself being an exact
-inference candidate.
-
-| Area | Implemented automation | Inputs that remain authored |
+| Area | Mechanical support | Still authored or outside scope |
 | --- | --- | --- |
-| [Scalar arithmetic and control flow](infer.md#supported-code-and-safety-policy) | Exact bounded integer/Boolean summaries, supported branches, casts and arithmetic policies; explicit bounded sound approximations | Required input coverage and intended behavior; handling of inputs outside the checked safe domain |
-| [Flat scalar-pair outputs](infer.md#exact-flat-scalar-pairs) | Whole-pair exact contracts, immutable pair locals/projections and eager safety for both operands | The meaning and required domain of the two outputs; tuple inputs and nested tuples remain unsupported |
-| [Scalar wrappers and operators](infer.md#scalar-wrappers-and-inherent-methods) | Supported projections, conversions, assignment/binary operators and explicit native derives, checked against actual implementations | Public abstraction and trait meaning beyond supported structural models; required domain |
-| [Local core conversion and packing](infer.md#checked-local-bool-conversion-and-packing) | Ordinary checking of the actual core bool-to-u64 body; closed checked unsigned shift, mask and packing proposals in eligible local crates | Field meaning, views, range requirements and intended postconditions; certified imports require the matching compiler/core/target and complete dependency evidence |
-| [Local NonZero ordering](infer.md#local-nonzero-carrier-ordering) | Checked actual `NonZero<u64>::cmp`, requested original wrapper Ord/PartialOrd derives and exact boolean comparisons, with fresh ordinary helper and precision proofs | Intended caller property; only nongeneric genuine single-field `NonZero<u64>` wrappers; ordering imports unsupported and ordering-using crates cannot export VIR |
-| [Arrays and shared slices](infer.md#supported-code-and-safety-policy) | Supported finite values, indices, subslices and complete output observations | Semantic meaning of contents; goals connecting representation to that meaning |
-| [Option/Result and callbacks](infer.md#shared-native-option-calls-in-exact-readonly-values) | Bounded tagged values, shared projections, readonly native Option callbacks and selected typed error-mapping assistance | Success/error policy, error priority and dependency/clone laws needed by the application |
-| [Vectors and mutable records](infer.md#bounded-mutable-records) | Supported read/effect summaries, exact modeled record state and unchanged-state frames; explicitly sound single-slot vector updates | Views, validity predicates and intended transition properties |
-| [Private representations](infer.md#private-vector-wrappers-with-supplied-views) | Composition through supported supplied sequence/tuple views and checked observation contracts | The abstraction, distinctions it retains and semantic interface laws |
-| [Opaque foreign fields](infer.md#declared-opaque-foreign-fields-in-readonly-queries) | Exact shared-reference queries retain eligible declared foreign types as whole nested leaves | An explicit external type declaration and dependency trust; no representation or crypto law is discovered |
-| [Owned construction and finite folds](infer.md#owned-collection-construction-and-round-advancement) | Bounded construction/advancement profiles; checked fold decorations inside selected larger ordinary functions | Abstract result meaning and contracts for opaque suffixes or external operations |
-| [Numeric counted loops](infer.md#counted-numeric-loops) | Exact supported unsigned accumulator patterns, inductive annotations and termination measures | The caller's intended arithmetic property and expected domain; arbitrary loops are outside this profile |
-| [Growth/range loops and selectors](infer.md#checked-growth-and-transition-loops) | Supported prefix induction, frames, bounded history growth and mutable-selector contracts | Invariants, final-state/length/selection goals and checked transition interfaces |
-| [Clone transport](infer.md#checked-pointwise-transport-through-cloned-fields) | Checked pointwise bridges for supported invariant-preservation goals through cloned fields | The supplied invariant and checked clone relation; Rust `Clone` alone does not imply arbitrary identity |
-| [Ordinary scalar caller goals](infer.md#demand-driven-scalar-proof-assistance) | Bounded checked bit-vector proposals from exact published relations, including supported records, arrays, casts and relational premises | The assertions/contracts to prove; unsupported or failed proposals do not establish them |
-| [Word-view goals](infer.md#bounded-u64-word-view-assistance) | Scoped selection of checked membership, sequence-update/count and padding laws for supplied generic word views | The semantic invariant, domain and explicit representation vocabulary; arbitrary wrapper bridges remain unsupported |
-| [Canonical byte encoding](infer.md#checked-canonical-byte-encoding) | Checked arithmetic, byte-mask and iterator annotations for the bounded u64/radix-128/ten-byte encoder | Canonical meaning and inductive semantic/exit clauses; the full independent HMAC suffix frame remains unproved |
-| [Mutable byte-loop observations](infer.md#checked-canonical-byte-encoding) | Checked view snapshots, lengths and referent bridges for a single native mutable ten- or 128-byte array loop, optionally zipped with a shared byte slice | Semantic prefix/exit invariants; no native unused-tail frame or general mutable-iterator model is supplied |
-| [Cross-crate use](infer.md#cross-crate-inference-and-cargo) | Certified interface composition, dependency/model fingerprints and candidate reuse with fresh proofs | Dependency specifications and trust assumptions; unverified callers must respect preconditions |
+| Scalar values | Supported integer arithmetic, branches, casts, checked/wrapping/saturating operations and composition | Intended meaning, required domain and caller property |
+| Tuples, arrays and slices | Selected complete outputs, indexing, lengths, subslices and frames | Representation meaning and high-level content properties |
+| Option/Result | Supported tagged returns, early exits, readonly callbacks and typed error paths | Application success/error policy and unmodeled callbacks |
+| Wrappers and records | Supplied sequence/tuple views, supported operators/derives and bounded state summaries | Abstraction, validity, dependency laws and private semantic interfaces |
+| Collections and loops | Selected construction/fold/counting, pointwise/growth/range and selector profiles | Semantic invariants, exit goals, termination/domain constraints outside recognized forms |
+| Ordinary caller goals | Checked scalar/bit-vector/packing and finite-set proposals | Assertions, postconditions and semantic relationships to prove |
+| Word/sequence frames | Checked generic word laws and selected update/count/padding transport | Word view, canonical representation and application invariants |
+| Canonical byte encoding | Bounded u64/radix128/ten-byte arithmetic and iterator annotations | Canonical predicate and semantic prefix/exit invariants |
+| Mutable-loop observations | Selected snapshots and current/future referent bridges | General untouched-tail frame and native ownership refinement |
+| Foreign code | Closed recognized body-backed bool conversion and local NonZero ordering support | General foreign calls, unsupported derives/callbacks and native representation laws |
+| Cross-crate use | Certified supported interfaces with dependency/model/version checks | Library trust and local-only capabilities that refuse export |
 
-## Diagnose the boundary
+## Application status
 
-Use `--infer-goals --output-json` to inspect proposals and required proof
-outcomes separately. [Assistance explanations](infer.md#assistance-explanations)
-currently cover growth loops, range loops, pointwise clone transport and bounded
-canonical byte encoding. Other
-strategies retain their separate assistance fields; an absent decision does not
-mean a strategy was attempted or failed.
+| Case | Established scope | Unproved boundary |
+| --- | --- | --- |
+| REDB bitmap/tree | Selected membership/count/frame and ancestor propagation contracts | Whole database, all native containers/callers |
+| REDB allocator | Authored canonical validity, exact allocation/free intervals, logical rejection and conservation wrappers | Executable weighted counting, full API/native integration, durability/crash recovery |
+| Fedimint quorum | Numeric policy and authored set-based intersection/honesty corollaries | Membership/admission, cryptography and runtime protocol wiring |
+| Fedimint signer map | Selected insertion/replacement and initializer bookkeeping in recorded contexts | Native count consumers, recognized-peer and full signature-validation linkage |
+| Canonical varint | Full selected u64 canonical predicate with supplied semantic invariants | Arbitrary encoders/iterators and automatic semantic discovery |
+| HMAC pad loop | Selected prefix observation proof | Full native unused-suffix frame; original HMAC/native objective deferred and unachieved |
+| Native owned-cell experiment | Historical private helper/control queries and frontend observations | Original clients, final-input-state, erasure and application coupling; archived separately |
 
-Keep these outcomes distinct:
+The portable allocator and quorum sources are maintained regression inputs.
+Other historical contexts, including their manual costs, exclusions and failed
+attempts, are at `archive/infer-research-2026-11-12`. Do not infer full application
+coverage from a successful helper, a model theorem or a finite native test.
 
-- Unsupported syntax or profile shape needs an adapter, another profile, an
-  authored proof or a bounded engine extension.
-- A generation budget limit is not a solver timeout or a counterexample.
-- A proposed annotation or exact helper contract can coexist with a failed
-  application goal. Inspect the original goal and required domain.
-- Successful inference does not establish every required input is admitted.
-  An ordinary application caller can check that the expected domain implies
-  the inferred precondition.
-- An imported assumed model is a trust input, not a newly verified native body.
+## What counts as progress
 
-General recursion, arbitrary invariant/abstraction discovery, general mutable
-iteration and general unsafe Rust are not implemented by these bounded profiles.
-The macro-loop adapter addresses syntax processing; it does not establish
-iterator semantics, invariants or application properties.
+Freeze a meaningful property and its full intended domain before adding
+assistance. Report semantic definitions separately from mechanical annotations.
+Measure which local assertions/lemmas/invariants are actually removed; retain
+unsupported cases in the coverage denominator. A feature enabled in two projects
+is not demonstrated shared value unless its assistance is necessary in both.
 
-## Evaluate an application slice
-
-Follow the [adoption workflow](infer_adoption.md). Before extending the engine,
-freeze original source bodies, one useful property, its domain and the semantic
-definitions supplied by the author. Record executable adapters, remaining
-implementation proof annotations, exclusions and trusted interfaces separately.
-An honestly blocked baseline is useful evidence.
-
-The [pinned transfer front door](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/INFER_TRANSFERS.md)
-replays selected Fedimint/redb helpers with source guards and fresh proof,
-semantic/safety/auxiliary-negative and publication controls. Its acceptance
-does not imply whole-gateway fund safety or whole-database correctness.
-Progress means less manual implementation proof work for unchanged meaningful
-properties and domains, with successful transfer beyond the motivating fixture.
+A useful result has ordinary checking, healthy dependency proofs, named body and
+helper coverage, and semantic/safety/export controls. A false postcondition must
+fail for that postcondition, not because a helper, parser or resource limit failed.
+The [adoption workflow](infer_adoption.md) describes this process.

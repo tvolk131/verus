@@ -1,1 +1,0 @@
-use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn req(v:u64)->(r:u64) requires v==v, ensures r==v, {v} }

@@ -1,1 +1,0 @@
-type Hidden=<callbacks::Witness as callbacks::Associated>::Cell; use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn bad(c:Hidden)->u64 {c.into_inner()} }

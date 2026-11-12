@@ -1,1 +1,0 @@
-use vstd::prelude::*;#[verus::internal(const_body)] mod skipped {#[verifier::verify] pub fn hidden(v:u64)->u64{core::cell::UnsafeCell::new(v).into_inner()}}

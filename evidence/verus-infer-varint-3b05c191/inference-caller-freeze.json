@@ -1,9 +1,0 @@
-{
-  "frozen_at_utc": "2026-11-09T19:43:21.702843+00:00",
-  "before_first_trial": true,
-  "reason": "Source inspection: infer/eligibility.rs rejects handwritten contracts on inferred functions. Original direct-combination trials remain; caller variants put the same authored full-domain canonical goal in an ordinary wrapper and leave inferred u64 without a contract. This is not a domain reduction.",
-  "files_sha256": {
-    "fixtures/adapted-inferred-caller.rs": "405bc523c756e59f8da92be097c3c7f842790674ad296fbceddd532a258574ef",
-    "fixtures/inferred-caller.rs": "e8fd7856e1f82f332bb706ed4cd25392f165b6526d1c079e16e1806e6261129a"
-  }
-}

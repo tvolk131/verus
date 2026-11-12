@@ -1,9 +1,0 @@
---- a/default-2020/packages/coq/coq.8.9.1/opam
-+++ b/default-2020/packages/coq/coq.8.9.1/opam
-@@ -41,5 +41,5 @@
- 
- url {
-   src: "https://github.com/coq/coq/archive/V8.9.1.tar.gz"
--  checksum: "md5=b0e47c588ca498073ad35eb5627a8852"
-+  checksum: "sha256=4e264ac4640be1a7db33f9e6911b6f40579ebba158673c156a52862ec375b6fd"
- }

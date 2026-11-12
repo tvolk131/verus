@@ -1,1 +1,0 @@
-use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{spec fn looped(v:u64)->bool{looped(v)} fn bad(v:u64)->(r:u64) ensures looped(r), {v}}

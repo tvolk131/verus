@@ -1,6 +1,0 @@
-     Locking 24 packages to highest compatible versions
-      Adding serde_json v1.0.150 (available: v1.0.151)
-error: failed to download `serde_json v1.0.150`
-
-Caused by:
-  attempting to make an HTTP request, but --offline was specified

@@ -1,1 +1,0 @@
-{"file": "candidates/trace-v2/trace.rs", "positive": true, "proof_bodies": ["embedding", "one_step_frame", "trace_frame", "checked_drop_trace"]}

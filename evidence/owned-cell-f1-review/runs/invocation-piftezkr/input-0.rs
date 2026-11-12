@@ -1,1 +1,0 @@
-use vstd::prelude::*; use core::cell::UnsafeCell; type C=UnsafeCell<u64>; verus! { pub fn outer(v:u64)->u64 { #[verifier::verify] fn inner(v:u64)->u64 {v} inner(v) } }

@@ -1,1 +1,0 @@
-use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{spec fn eq(a:u64,b:u64)->bool{a==b} fn pass(v:u64)->(r:u64) ensures forall|a:u64| eq(a,a)&&r==v, {v}}

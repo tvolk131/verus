@@ -1,1 +1,0 @@
-use vstd::prelude::*;use core::cell::UnsafeCell;type C=UnsafeCell<u64>;verus!{fn bad(c:C)->(r:u64) ensures forall|n:u64| {let ghost x=c;true}, {0}}

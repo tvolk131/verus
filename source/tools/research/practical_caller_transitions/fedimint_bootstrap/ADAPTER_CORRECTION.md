@@ -1,3 +1,0 @@
-# Erased FromSpec interface syntax correction, before further trials
-
-Frozen baseline.rs had four illegal `pub` qualifiers on trait implementation spec methods. Both initial ordinary/Infer attempts fail E0449 before proof checking (0/0), /tmp/fedimint-bootstrap-baseline1-3ad8038e/receipt.json. Preserve source/receipt. corrected-baseline.rs removes exactly those four qualifiers; trait items inherit trait visibility. No domain/property/body/conversion algorithm or trust change. This is authored adapter setup, not semantic failure or automation gain. Existing FromSpec interfaces and actual macro-generated bodies remain the frozen targets.
