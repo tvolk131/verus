@@ -239,7 +239,10 @@ fn inspect<'tcx>(
     let input = body.local_decls[mir::Local::from_usize(1)].ty;
     let output = body.local_decls[mir::RETURN_PLACE].ty;
     let bb = &body.basic_blocks[mir::START_BLOCK];
-    if bb.is_cleanup || !matches!(bb.terminator().kind, mir::TerminatorKind::Return) {
+    let Some(terminator) = bb.terminator.as_ref() else {
+        return Err("native cell MIR missing terminator");
+    };
+    if bb.is_cleanup || !matches!(terminator.kind, mir::TerminatorKind::Return) {
         return Err("native cell MIR cleanup/terminator");
     }
     let [statement] = bb.statements.as_slice() else {
@@ -384,7 +387,7 @@ mod tests {
                     failures.push((op, e));
                     continue;
                 }
-                for change in 0..15 {
+                for change in 0..16 {
                     let mut bad = body.clone();
                     match change {
                         0 => bad.arg_count = 0,
@@ -503,6 +506,7 @@ mod tests {
                                 _ => unreachable!(),
                             }
                         }
+                        15 => bad.basic_blocks.as_mut()[mir::START_BLOCK].terminator = None,
                         _ => unreachable!(),
                     }
                     assert!(inspect(tcx, cell, op, &bad).is_err(), "{op:?} corruption {change}");
