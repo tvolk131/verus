@@ -50,9 +50,9 @@ def env(out):
         VERUS_IN_VARGO='1', VERUS_TEST_LOG_DIR=str(out/'test-logs'))
     return e
 
-def run(out,label,argv):
+def run(out,label,argv,extra_inputs=()):
     d=out/label;d.mkdir(exist_ok=False)
-    paths=[*sorted((ROOT/'source/rust_verify/src').glob('*.rs')),HERE/'check.py',ROOT/'source/Cargo.lock',ROOT/'source/rust_verify_test/tests/local_checked_owned_cell.rs']
+    paths=[*sorted((ROOT/'source/rust_verify/src').glob('*.rs')),HERE/'check.py',ROOT/'source/Cargo.lock',ROOT/'source/rust_verify_test/tests/local_checked_owned_cell.rs',*extra_inputs]
     guard=ArtifactGuard(paths)
     receipt=dict(commands=[],source={str(p.relative_to(ROOT)):digest(p) for p in paths})
     with replay_receipt(d,receipt):
