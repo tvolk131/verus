@@ -1,0 +1,491 @@
+{
+  "parent": "c008326bfed88eab958335412cdc5ec0e9c8130e",
+  "redb_commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+  "source_sha256": {
+    "Cargo.toml": "ada9ad18137fbfd68c1f022673a561c036f29c276382e9dbe824fa268e4fb294",
+    "src/db.rs": "65c3107446039a3dacba03dae0b2a21c88109562ba81d7cadda0a8ea8c7a6169",
+    "src/transactions.rs": "02b383d6d984a14dfc4827ec04241d78637591f91ff754b42f9671b305d18bde",
+    "src/transaction_tracker.rs": "423252fc12806ff37aed5a61ab9f0217bf35a2c2724dc40f9930dc94dbf3519e",
+    "src/tree_store/btree_base.rs": "c3a1f5ca0cefdde0bc7d1b40536bc4f2d68a8bce852115433621a8b37fb9ec60",
+    "src/tree_store/page_store/header.rs": "35863472a48f9e0eb65a0f9ba0b2517a888a881478476aaafbcbfc77842850f9",
+    "src/tree_store/page_store/page_manager.rs": "b062608a527c3f53aa505af870f2b803da3fa7b095169194c681cc6441cb558a",
+    "src/tree_store/page_store/cached_file.rs": "cb901d44531b23f87d1bd31f72a24f1dc69308b5417db2167b7508921ffda486",
+    "src/tree_store/page_store/base.rs": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+    "src/tree_store/page_store/layout.rs": "0b559f9a739c6960bfdc0fd84c03f3bd8e083a824a74f9ea41b162f1fb99d670",
+    "src/error.rs": "b7d0aaa4074d7746ce9af95188deb9472a08578ebf3214a9aa20f8f008e32266",
+    "src/sync.rs": "933159b9b6b93500df1d517f961fe8c07c3fc07ed54aa2527a0f95a4ffea5016",
+    "src/lib.rs": "b04787960158d8b8cb80ef8e3f705737cf8627abd603c90609a4f3ded0cafe95",
+    "src/tree_store/page_store/lru_cache.rs": "a5896391195b2da0b94b14d1641fb2916528fb520406214162544e8253dcdcd4",
+    "src/tree_store/table_tree.rs": "8e8c537558cdc7dd76aa6792aa9f657d35533e67205fef29843b4ac4d7eebe31",
+    "src/tree_store/table_tree_base.rs": "506252bc6576fe98bbea58beb509939b126219db36e37731abce941eec358b30",
+    "src/tree_store/page_store/file_backend/mod.rs": "bb7a2e1ac88d3c2cbf9045266c7122ce7768dea456aa2ceeb89d39d097daf441",
+    "src/tree_store/page_store/file_backend/optimized.rs": "c1b8ad3c235be3d778f54861f7e21c0f4b0c8114989172459c7ce7f7db18c182",
+    "src/tree_store/page_store/file_backend/fallback.rs": "95df75e618e6817b169b716248414fe90843706396755ded380a33411336d5a7"
+  },
+  "additional_dependencies_registered_before_trials": [
+    "src/error.rs",
+    "src/sync.rs",
+    "src/lib.rs",
+    "src/tree_store/page_store/lru_cache.rs",
+    "src/tree_store/table_tree.rs",
+    "src/tree_store/table_tree_base.rs",
+    "src/tree_store/page_store/file_backend/mod.rs",
+    "src/tree_store/page_store/file_backend/optimized.rs",
+    "src/tree_store/page_store/file_backend/fallback.rs"
+  ],
+  "runtime": {
+    "bundle": "/tmp/practical-combined78-5ecea5fe-core/bundle",
+    "receipt_sha256": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+    "tool_hashes": {
+      "rust_verify": "52fd0be56236ec8ecd7c0a3db9628eb70d857baa5391df0a623ed216723dc6d8",
+      "verus": "134afc474dfc592f863126bbef2fcfb68d2b97cb4abd3ad24290f6ee7ebcd4b4",
+      "libverus_builtin.rlib": "faedb6bd6ca1e43175d8c82ef59a091f828dca313755b20fd4c38268f2bc1bcf",
+      "libverus_builtin_macros.so": "d85f0b88842a2856911b21c1ca2ae43fbe38b481a8da3f141725373fdd56b671",
+      "libverus_state_machines_macros.so": "c4f2d89854d5d95247e0b9f5845b513990875c5628bbb96fa7007e120d3cb860",
+      "vstd.vir": "b9a613f5c3321931854033da2eeaa8eb3b657885de37ea470602c99e608d0173",
+      "libvstd.rlib": "675d5bae09fc7593de96b4216b012ef6bb28db18f91b863b0820cf2ea2db4167",
+      "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+    },
+    "schema": 39,
+    "policy": 78,
+    "cache": 81
+  },
+  "toolchain": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+  "items": [
+    {
+      "file": "src/transactions.rs",
+      "name": "AllocatorStateLatch",
+      "start_line": 899,
+      "end_line": 901,
+      "sha256": "6588c836bac4a3dde88b9f7cd703568fed8ffaf64acc8dc241287f6dfeec6f47",
+      "bytes": 84
+    },
+    {
+      "file": "src/transactions.rs",
+      "name": "WriteTransaction",
+      "start_line": 928,
+      "end_line": 950,
+      "sha256": "e0b94da615dacfe4df9e809def24e19de18f6d8f30193394aa39b0f348e973fb",
+      "bytes": 961
+    },
+    {
+      "file": "src/transactions.rs",
+      "name": "commit",
+      "start_line": 1752,
+      "end_line": 1754,
+      "sha256": "33593e2427364181a5155e9ba523d223c229052b8029cc3fee29102cf17b1fd6",
+      "bytes": 89
+    },
+    {
+      "file": "src/transactions.rs",
+      "name": "commit_with",
+      "start_line": 1757,
+      "end_line": 1768,
+      "sha256": "685c7c95fbe00918f4adbb369a556b82961151ba24410cee37b98a14e8704bc1",
+      "bytes": 444
+    },
+    {
+      "file": "src/transactions.rs",
+      "name": "commit_inner",
+      "start_line": 1770,
+      "end_line": 1779,
+      "sha256": "45014ab74e97929fd3c676589faca08805d5dd55615b14bd6078ec7838af6073",
+      "bytes": 480
+    },
+    {
+      "file": "src/transactions.rs",
+      "name": "commit_inner_helper",
+      "start_line": 1781,
+      "end_line": 1868,
+      "sha256": "3377524186ca3a2f9f7dd7354f45cb00775a30884e8758569cc1d97f8e5635e1",
+      "bytes": 3536
+    },
+    {
+      "file": "src/transactions.rs",
+      "name": "durable_commit",
+      "start_line": 2061,
+      "end_line": 2178,
+      "sha256": "99e522f0b9f6a1fd925292eb37394124b7af9ea240df2fa38a5e917f12237b3c",
+      "bytes": 5445
+    },
+    {
+      "file": "src/transactions.rs",
+      "name": "process_data_freed_pages_after_commit",
+      "start_line": 2180,
+      "end_line": 2261,
+      "sha256": "c42e1fbb01552d7bce2bafa5e0243ced26b3c5ef341fc69e4dbde2f8c9507649",
+      "bytes": 3777
+    },
+    {
+      "file": "src/tree_store/page_store/page_manager.rs",
+      "name": "InMemoryState",
+      "start_line": 322,
+      "end_line": 329,
+      "sha256": "7a1b4729220fad4c4afc7cb24ef31efcd339812e65298df537b084671d6c8f3d",
+      "bytes": 403
+    },
+    {
+      "file": "src/tree_store/page_store/page_manager.rs",
+      "name": "TransactionalMemory",
+      "start_line": 653,
+      "end_line": 689,
+      "sha256": "11fa68e4ad1b338f52e5c64248a9a5ebe2b67b1e683028973f278c760ace6eeb",
+      "bytes": 1981
+    },
+    {
+      "file": "src/tree_store/page_store/page_manager.rs",
+      "name": "read_file_header",
+      "start_line": 868,
+      "end_line": 875,
+      "sha256": "85c76f31098935eef60a1a833c340bebe1239c33e8465538a1b084c5b2ff86e5",
+      "bytes": 327
+    },
+    {
+      "file": "src/tree_store/page_store/page_manager.rs",
+      "name": "read_header",
+      "start_line": 879,
+      "end_line": 925,
+      "sha256": "f316e20f7ba5919f397d3c91a32ebdfed3f4d13c475f24e314fcdddbde3157aa",
+      "bytes": 1958
+    },
+    {
+      "file": "src/tree_store/page_store/page_manager.rs",
+      "name": "read_shared_header",
+      "start_line": 931,
+      "end_line": 950,
+      "sha256": "1331d7760a4c48237769c32171e75322f49d79a591de1287f89377f2d322496b",
+      "bytes": 839
+    },
+    {
+      "file": "src/tree_store/page_store/page_manager.rs",
+      "name": "reload_for_write",
+      "start_line": 1421,
+      "end_line": 1471,
+      "sha256": "9ea19ac86c332d56b43d872b5a0d769e5fe4a897134c1cb582aaa6a8351b5ce5",
+      "bytes": 2726
+    },
+    {
+      "file": "src/tree_store/page_store/page_manager.rs",
+      "name": "begin_writable",
+      "start_line": 1473,
+      "end_line": 1480,
+      "sha256": "22d2898d6764b22e1c621ed801ae24ca7eec5429259455bbca2df3e86adf2baf",
+      "bytes": 349
+    },
+    {
+      "file": "src/tree_store/page_store/cached_file.rs",
+      "name": "CheckedBackend",
+      "start_line": 125,
+      "end_line": 129,
+      "sha256": "e390421bd11cf18db621101b363b747da3b256aedfe98fa46ce85618bd8b970c",
+      "bytes": 111
+    },
+    {
+      "file": "src/tree_store/page_store/cached_file.rs",
+      "name": "sync_data",
+      "start_line": 242,
+      "end_line": 249,
+      "sha256": "3ed2d12f9b016ae44f3fa166aa3a3039ceb8e61dc4a2a65b7f9aa9e5e7e10520",
+      "bytes": 261
+    },
+    {
+      "file": "src/tree_store/page_store/cached_file.rs",
+      "name": "write",
+      "start_line": 251,
+      "end_line": 258,
+      "sha256": "229f9f24eefdcd18d1f3248423dd7eb7f42921b955516874d89165df445d24df",
+      "bytes": 291
+    },
+    {
+      "file": "src/tree_store/page_store/cached_file.rs",
+      "name": "PagedCachedFile",
+      "start_line": 279,
+      "end_line": 336,
+      "sha256": "28661760c2f1c80e8d0ffff3cb1a9213d740a446522e345b1f4062670bf0f973",
+      "bytes": 2996
+    },
+    {
+      "file": "src/tree_store/page_store/cached_file.rs",
+      "name": "flush_write_buffer",
+      "start_line": 490,
+      "end_line": 525,
+      "sha256": "9a66a0b79e6dd4a756259febbabfeaf902707a7e008f9c6ab9480d871719f2ad",
+      "bytes": 1751
+    },
+    {
+      "file": "src/tree_store/page_store/cached_file.rs",
+      "name": "flush",
+      "start_line": 596,
+      "end_line": 600,
+      "sha256": "119e65e131f5af759ee492ceab8ae10338b000038b244a88d3d2fc2c72132f21",
+      "bytes": 115
+    },
+    {
+      "file": "src/tree_store/page_store/cached_file.rs",
+      "name": "flush_lowest_priority",
+      "start_line": 823,
+      "end_line": 853,
+      "sha256": "d8cac92f5a4d7ed1d5e4ceec36f5d640803c216e5f82d16156f61b983a1217dd",
+      "bytes": 1112
+    },
+    {
+      "file": "src/tree_store/page_store/cached_file.rs",
+      "name": "flush_buffered_pages",
+      "start_line": 859,
+      "end_line": 877,
+      "sha256": "d1ef0187f50d357f59a1708ec2aea0b124e9f5b2de28d6f167bd033a7ff8709d",
+      "bytes": 727
+    },
+    {
+      "file": "src/tree_store/page_store/cached_file.rs",
+      "name": "write",
+      "start_line": 881,
+      "end_line": 979,
+      "sha256": "be08a274977bfc3b34c26329ba8bb0872d209aee01910936a725b3b1ed8f8bae",
+      "bytes": 4620
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "UnrepairedDatabaseHeader",
+      "start_line": 101,
+      "end_line": 105,
+      "sha256": "539721a583a0f89b675577b129e221ee0fef96ca30cf953c23f789857705218a",
+      "bytes": 133
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "DatabaseHeader",
+      "start_line": 108,
+      "end_line": 119,
+      "sha256": "7414ff2d076267ec8947f1f62ef7fc8a0b0744d956cb0bd2f3ff802dc60591ef",
+      "bytes": 372
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "from_bytes",
+      "start_line": 123,
+      "end_line": 213,
+      "sha256": "c2e975fafc2cf03e1b2cdfc2787f5734fb3d62cac53da694e146feb28dd64dc6",
+      "bytes": 4697
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "finalize",
+      "start_line": 243,
+      "end_line": 281,
+      "sha256": "a47e2ec06716f3dbe539764188822bb303255baab83faeb36a40ecbeeb948e3e",
+      "bytes": 2358
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "select_primary_slot",
+      "start_line": 324,
+      "end_line": 359,
+      "sha256": "b2f5b9a5748a65c98ab36bd9ba6ff36b8fc61b48c8e47d66caa686eca40e32e7",
+      "bytes": 1556
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "finalize_transaction_slots",
+      "start_line": 364,
+      "end_line": 371,
+      "sha256": "9c2ee34b502113d69dbfdb041d62d652c6ff8fdb5dd14ec1b649b40690397962",
+      "bytes": 281
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "primary_slot",
+      "start_line": 448,
+      "end_line": 450,
+      "sha256": "76846bac1f3da66dd247a0008c0878c4bbefb9f8d88b56e70a3188d31e4293ca",
+      "bytes": 118
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "secondary_slot",
+      "start_line": 452,
+      "end_line": 454,
+      "sha256": "43ebe6060dc714263d937d11e4e4964352ad93068ef3dbc44c49930761afe597",
+      "bytes": 124
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "published_slot",
+      "start_line": 458,
+      "end_line": 464,
+      "sha256": "1354a8463499d7939c6612780772e6af638d077219bbec61d1a1854ada157c07",
+      "bytes": 198
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "write_secondary_slot",
+      "start_line": 467,
+      "end_line": 478,
+      "sha256": "036d6ff10fcc32a2479cb9743fd3f50489fe0d63127a9b1f372794caba330dca",
+      "bytes": 421
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "swap_primary_slot",
+      "start_line": 480,
+      "end_line": 482,
+      "sha256": "4083beddb01a5cac24313493a816c5bde001b2d50a6ea0300451232919f4c4fe",
+      "bytes": 86
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "to_bytes",
+      "start_line": 484,
+      "end_line": 516,
+      "sha256": "44a89ffb00984c7d222d77004d4e71e8d09976533fa116334cd961e4b94e69ac",
+      "bytes": 1784
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "TransactionHeader",
+      "start_line": 520,
+      "end_line": 529,
+      "sha256": "645314a2dd63463fcb37f7aae5a9245f83c88f4ba3a31f672c8653cb2abe3fa1",
+      "bytes": 550
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "from_bytes",
+      "start_line": 543,
+      "end_line": 597,
+      "sha256": "b93089a22e279a39521a0a1c33abd0c80543ae1a54a9523286ea9491e4c2b0df",
+      "bytes": 1952
+    },
+    {
+      "file": "src/tree_store/page_store/header.rs",
+      "name": "to_bytes",
+      "start_line": 599,
+      "end_line": 624,
+      "sha256": "d83af32f046f901f81d74833c1610a67549e8c43cc063ba9bc3dc7fdf5f08812",
+      "bytes": 1306
+    },
+    {
+      "file": "src/db.rs",
+      "name": "StorageBackend",
+      "start_line": 69,
+      "end_line": 170,
+      "sha256": "9686bb6c7f5f52bbeb7ce330a5a4aaf17fd81ec19732913fc2e121c555d8c5cd",
+      "bytes": 3697
+    },
+    {
+      "file": "src/db.rs",
+      "name": "new",
+      "start_line": 229,
+      "end_line": 231,
+      "sha256": "52f304e1827f1f6882b0426222515065ef0d403f2fca578d1efc6507eda77bab",
+      "bytes": 73
+    },
+    {
+      "file": "src/db.rs",
+      "name": "new",
+      "start_line": 253,
+      "end_line": 255,
+      "sha256": "52f304e1827f1f6882b0426222515065ef0d403f2fca578d1efc6507eda77bab",
+      "bytes": 73
+    },
+    {
+      "file": "src/db.rs",
+      "name": "new",
+      "start_line": 286,
+      "end_line": 293,
+      "sha256": "367f13b46820351fb8e289b497955e5caa7866ffc0532698c2e4d05ca5b87cd0",
+      "bytes": 203
+    },
+    {
+      "file": "src/db.rs",
+      "name": "new",
+      "start_line": 346,
+      "end_line": 353,
+      "sha256": "367f13b46820351fb8e289b497955e5caa7866ffc0532698c2e4d05ca5b87cd0",
+      "bytes": 203
+    },
+    {
+      "file": "src/db.rs",
+      "name": "new",
+      "start_line": 674,
+      "end_line": 718,
+      "sha256": "f9d8b3c75baaf13f1b855d54ddc524c63f62c0bffb67c7362e57c6224d551404",
+      "bytes": 1725
+    },
+    {
+      "file": "src/db.rs",
+      "name": "verify_primary_checksums",
+      "start_line": 806,
+      "end_line": 810,
+      "sha256": "f3c1147058c05c568486bbca17442cb84c7c07eba3d3699e10581fa2f8d758f6",
+      "bytes": 251
+    },
+    {
+      "file": "src/db.rs",
+      "name": "verify_checksums",
+      "start_line": 814,
+      "end_line": 840,
+      "sha256": "3ce790feb9dc7c5eb8d238c0e531dbc81ce81631eff10ef79f9f4ef5ac6bcaf7",
+      "bytes": 800
+    },
+    {
+      "file": "src/db.rs",
+      "name": "primary_verifies",
+      "start_line": 1400,
+      "end_line": 1406,
+      "sha256": "cc7aa13cb4a986c296b35d179db89aa235c48b8c46a987c72525f6e814b0bda4",
+      "bytes": 283
+    },
+    {
+      "file": "src/db.rs",
+      "name": "do_repair",
+      "start_line": 1408,
+      "end_line": 1453,
+      "sha256": "a193d470469a979b401fb1b3cfd8ecda39a3c42482623a0fe400853e8838c2ca",
+      "bytes": 2052
+    },
+    {
+      "file": "src/db.rs",
+      "name": "rebuild_allocator_state",
+      "start_line": 1465,
+      "end_line": 1522,
+      "sha256": "4367f8a91fad5ce06edd42f590e75a4445c77210699cb4467553a47fee51e38d",
+      "bytes": 2405
+    },
+    {
+      "file": "src/db.rs",
+      "name": "new",
+      "start_line": 1561,
+      "end_line": 1650,
+      "sha256": "41616cfb72ad6d76807b1ccd1bd2262df3222da46a7aeec3562771df58d6337d",
+      "bytes": 4012
+    },
+    {
+      "file": "src/db.rs",
+      "name": "get_allocator_state_table",
+      "start_line": 1652,
+      "end_line": 1692,
+      "sha256": "966190319756ce76907016e27a49ff3796a66a99c5cc95939c12c19f0afe8cd9",
+      "bytes": 1488
+    },
+    {
+      "file": "src/db.rs",
+      "name": "new",
+      "start_line": 1978,
+      "end_line": 1983,
+      "sha256": "9a2984bca303deb323296d8bb3b09bb85fa629d65a756729437609c7cef00544",
+      "bytes": 127
+    },
+    {
+      "file": "src/db.rs",
+      "name": "new",
+      "start_line": 2068,
+      "end_line": 2079,
+      "sha256": "ff2211ba1d615326daeca43e1ac5fe4f783a4e30c3c55498681788131029e406",
+      "bytes": 570
+    }
+  ],
+  "source_coupling_proved": false,
+  "trial_status": "NOT_RUN",
+  "note": "Full files are the authoritative freeze; item hashes cover complete bodies/fields. No source truncation is proof evidence."
+}
