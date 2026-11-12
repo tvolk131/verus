@@ -1,0 +1,15 @@
+{
+  "source/tools/research/redb_crash_protocol/GOAL.md": "0091ff6ef609e069a69791bc32f03543805bec25044286f6cb9df2f3b9dfc818",
+  "source/tools/research/redb_crash_protocol/CURRENT.md": "9adbebeaab74517372e4b172da4eb2fce4e3c7bc2dff20f9ebc30cf28979a67c",
+  "source/tools/research/redb_crash_protocol/WORKER_BRIEFS.md": "a94992be73ff63839c6ebc5b9fe000a2e47346ff30c80b86de39763b49a8e6be",
+  "source/tools/research/redb_crash_protocol/native_state_link/ACCEPTANCE_REFINEMENTS.md": "c8ae4ecc6fd29c326051d84ebe1d9488a2a849868208c379c060f56af9d66800",
+  "source/rust_verify/src/checked_owned_cell_admission.rs": "f17c864ea42feb353dcafe05c41a314e342c1d2159423ef6d6dd26aa7cb4b624",
+  "source/rust_verify/src/rust_to_vir.rs": "59e6edf3dd6531913575089c4cc104a900dcce63267ffa2be4366faa94f095cd",
+  "source/rust_verify/src/rust_to_vir_func.rs": "7669cc555b61f763e5f5cf5cb05f66e1ce23b7d0902af896582ceb3413041490",
+  "source/rust_verify/src/attributes.rs": "267b72ad6097f3d822a2562b2b80d1072fd091891222252ea5e39055ba450263",
+  "source/rust_verify_test/tests/local_checked_owned_cell.rs": "b313ab34d6e627b72c4cca6be47b901968c5e7966ca4fa61aa020083431bcaa0",
+  "source/rust_verify_test/tests/local_checked_owned_cell_admission.rs": "67b8a56c70fafb99f68e4fdedb983e591da527a04336753eabc920c984b1b2a1",
+  "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+  "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+  "source/tools/research/redb_crash_protocol/native_state_link/implementation/check.py": "dc53696a21e05377eaf2be38ca08db17137b311f91e1e5fc3be9bf9273254e73"
+}
