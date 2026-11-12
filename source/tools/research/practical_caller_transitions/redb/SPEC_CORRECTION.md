@@ -1,3 +1,5 @@
 # Finite-set constructor correction before corrected baseline trials
 
 Frozen baseline.rs remains unchanged. Its first ordinary/Infer runs failed Rust type checking: this vstd's finite Set::new returns Option<Set>, not Set. No caller solver obligation was reached. corrected.rs replaces the two set constructors with finite Set::range and range.filter; interval membership is identical. No source algorithm, domain, invariant or theorem is weakened. This is a setup/frontend correction, not automation progress. The original failed target remains in the denominator and the baseline logs/receipt are retained. The first runtime launch also failed rustup discovery; replay now adds the existing /home/dev/.cargo/bin to its private child PATH. No install or build.
+
+The corrected finite-set baseline then reached a trigger-selection frontend error in the maximal-merging quantifier. One explicit flag(a,o,2*p) trigger was added before the next trial. This is mechanical quantifier spelling; the quantified formula is unchanged. Both failed frontend runs remain in baselines2/baselines3.

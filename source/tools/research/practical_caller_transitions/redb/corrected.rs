@@ -369,7 +369,7 @@ spec fn valid(a: BuddyAllocator) -> bool {
         ==> (p+1)*width(o) <= q*width(k) || (q+1)*width(k) <= p*width(o)) &&
     // Existing in-range buddies cannot both be represented free below the maximum.
     (forall|o: int, p: int| 0 <= o < a.max_order && 0 <= p && 2*p+1 < order_len(a,o)
-        ==> flag(a,o,2*p) || flag(a,o,2*p+1))
+        ==> #[trigger] flag(a,o,2*p) || flag(a,o,2*p+1))
 }
 spec fn free_pages(a: BuddyAllocator) -> Set<int> {
     Set::<int>::range(0,a.len as int).filter(|x: int| exists|o: int, p: int| 0 <= o <= a.max_order &&
