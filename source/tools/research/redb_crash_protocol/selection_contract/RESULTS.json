@@ -1,0 +1,1119 @@
+{
+  "source_coupling_proved": false,
+  "goal_complete": false,
+  "independent_review": "pending",
+  "runs": [
+    {
+      "path": "/tmp/redb-crash-selection-derive-20261112-v1",
+      "receipt_success": true,
+      "failure": null,
+      "command_count": 4,
+      "compiler_seconds": 10.13449672301067,
+      "outcomes": [
+        {
+          "label": "original_contract_ordinary",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 17,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "original_contract_infer",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 17,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "checked_derives_ordinary",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "checked_derives::TransactionId::eq",
+              "source": "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/selection_contract/checked_derives.rs:3:44: 3:53 (#20)",
+              "candidate_id": "478208b9122b4dd633f3b54410ab0efb87a56d3b324d0d98278d5efdddb18368",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&checked_derives::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&checked_derives::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 660,
+                "solver_micros": 1504,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 15,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "checked_derives_infer",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "checked_derives::TransactionId::eq",
+              "source": "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/selection_contract/checked_derives.rs:3:44: 3:53 (#20)",
+              "candidate_id": "b413afa6aa77984790fec01a31466fd794be30b6ab025fb6fb63a85216cf7c00",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&checked_derives::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&checked_derives::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 601,
+                "solver_micros": 1619,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 15,
+          "checked_proof_bodies": 0
+        }
+      ],
+      "raw_files": {
+        "/tmp/redb-crash-selection-derive-20261112-v1/receipt.json": "168721e305c5402cadf5c71a26d965129530cd8f77655d22646aab30c6c25dd5",
+        "/tmp/redb-crash-selection-derive-20261112-v1/checked_derives_infer.stdout": "3ccaab0c2f4e989e578986ae8cde9d1654fd3b144fc377f55693e6c129753971",
+        "/tmp/redb-crash-selection-derive-20261112-v1/checked_derives_ordinary.stdout": "f7a3cd4dcc18dc2fb2cdbb7a4afc00716dab330e4ed9876457cbde1cecd3d7e0",
+        "/tmp/redb-crash-selection-derive-20261112-v1/original_contract_infer.stdout": "585baf662f687df2bb7f21f8f95bc62ade2f752f170786b3abcd1ae37681dcae",
+        "/tmp/redb-crash-selection-derive-20261112-v1/original_contract_ordinary.stdout": "09c5e071045420d594791f8c2f66ca544bc8c14e74ba11d513f8299ed37efa59",
+        "/tmp/redb-crash-selection-derive-20261112-v1/checked_derives_infer.stderr": "0f5609ae571416db6de6af787c67911432c7fd94d291206ac8dd6ba03e8cbe05",
+        "/tmp/redb-crash-selection-derive-20261112-v1/checked_derives_ordinary.stderr": "0f5609ae571416db6de6af787c67911432c7fd94d291206ac8dd6ba03e8cbe05",
+        "/tmp/redb-crash-selection-derive-20261112-v1/original_contract_infer.stderr": "16e76ac5cdc93bcf7671a5ed5a7d5564ed5f2eeca7e0c7ef66d66f02d6e71340",
+        "/tmp/redb-crash-selection-derive-20261112-v1/original_contract_ordinary.stderr": "16e76ac5cdc93bcf7671a5ed5a7d5564ed5f2eeca7e0c7ef66d66f02d6e71340",
+        "/tmp/redb-crash-selection-derive-20261112-v1/checked_derives_infer.vir": "69435cbb9855456ed606d3f359e1cfd41d844e55f0744964b0299c1849910bb6",
+        "/tmp/redb-crash-selection-derive-20261112-v1/checked_derives_ordinary.vir": "f09502f5fca23b306701de17b2a3912aff374a988a81a2bf80bb4e717fecd687",
+        "/tmp/redb-crash-selection-derive-20261112-v1/original_contract_ordinary.vir": "b8f963629018ff065d3e7de80e0bf47d729003977b39d0b66cd68a9f6bdc13eb"
+      }
+    },
+    {
+      "path": "/tmp/redb-crash-selection-strict-20261112-v1",
+      "receipt_success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "mixed failure kinds"
+      },
+      "command_count": 4,
+      "compiler_seconds": 5.317523357924074,
+      "outcomes": [
+        {
+          "label": "ordinary_provider_cold",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v1/provider.rs:3:44: 3:53 (#20)",
+              "candidate_id": "4abfe706557e7c3ca9ececf0ed037ea3a53e9e11eb6ad7ba78c8fa2e9d938920",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 533,
+                "solver_micros": 1448,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 15,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "ordinary_provider_warm",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v1/provider.rs:3:44: 3:53 (#20)",
+              "candidate_id": "8f2a259fda6452dfb5abd8c696749fee040be815957d03c8dbeec25d3de45a7a",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 430,
+                "solver_micros": 1622,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 15,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "ordinary_wrong",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v1/wrong.rs:3:44: 3:53 (#20)",
+              "candidate_id": "209d695e1f2b9655b624732a4981e5f13ebfd3737f53877081caf753feb8ab84",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": false,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 440,
+                "solver_micros": 1703,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        }
+      ],
+      "raw_files": {
+        "/tmp/redb-crash-selection-strict-20261112-v1/receipt.json": "ccd7dc457586bf961238d5141149f19041e52c9df03c585eda72cea11aa7c7da",
+        "/tmp/redb-crash-selection-strict-20261112-v1/ordinary_provider_cold.stdout": "b3da20052371add1d20eb21c3e817809f77ed21170d6f78cc04d3eb66679f5d6",
+        "/tmp/redb-crash-selection-strict-20261112-v1/ordinary_provider_warm.stdout": "037ccc7ff593c67346ea666137f1ff76b64a7462b3ddffb9dd2ebbff7d62ad7a",
+        "/tmp/redb-crash-selection-strict-20261112-v1/ordinary_unsafe.stdout": "5ce30485b0c5fd26581f8144e02fbb1661c0c3f642cfaa75c33a098d5be25d2d",
+        "/tmp/redb-crash-selection-strict-20261112-v1/ordinary_wrong.stdout": "48a60b36e5d64653215a41181ae426acf67f6fc74c5a6eefea7d59da7311d7f3",
+        "/tmp/redb-crash-selection-strict-20261112-v1/ordinary_provider_cold.stderr": "2d4eee18190ec8fbc23f6abea7ab0db0458e62b5d98e3b1abac7af23af65e071",
+        "/tmp/redb-crash-selection-strict-20261112-v1/ordinary_provider_warm.stderr": "2d4eee18190ec8fbc23f6abea7ab0db0458e62b5d98e3b1abac7af23af65e071",
+        "/tmp/redb-crash-selection-strict-20261112-v1/ordinary_unsafe.stderr": "54180aeff19762bb32cca11babcfaeeac79d8fff6ea05fd59d765739b91da503",
+        "/tmp/redb-crash-selection-strict-20261112-v1/ordinary_wrong.stderr": "884d13aa408dd5d5b0b36073bb541024ba888f39c1be2573746fabcc000ae28a",
+        "/tmp/redb-crash-selection-strict-20261112-v1/provider.rs": "f022ea9009b16163dc3219580adc353c67e61502c9a2402a141ec141d6d7b1b2",
+        "/tmp/redb-crash-selection-strict-20261112-v1/unsafe.rs": "9d11844092a5682637fe932693b45e3152b1497fc577c6a0ed0e8488053d6771",
+        "/tmp/redb-crash-selection-strict-20261112-v1/wrong.rs": "c80aeb1dd0501f2c685ac23566f04a590c35839fb672386911c49f7e45b52a7f",
+        "/tmp/redb-crash-selection-strict-20261112-v1/ordinary_provider_cold.vir": "094549c49550b856995d2c8ae5aeae0460477c7f8271967c6dd5d7a4b626cf97",
+        "/tmp/redb-crash-selection-strict-20261112-v1/ordinary_provider_warm.vir": "3efe49d26751de5b4c6237b9172364e06fc33a2f3b618e3e4e1df31d55b794e7",
+        "/tmp/redb-crash-selection-strict-20261112-v1/lib_ordinary.rlib": "8327c71fa8722bcd141eed9c334fae64d501d8015773bce173845e170cd5300f"
+      }
+    },
+    {
+      "path": "/tmp/redb-crash-selection-strict-20261112-v2",
+      "receipt_success": true,
+      "failure": null,
+      "command_count": 16,
+      "compiler_seconds": 27.48751754697878,
+      "outcomes": [
+        {
+          "label": "ordinary_provider_cold",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v2/provider.rs:3:44: 3:53 (#20)",
+              "candidate_id": "9bd0ca8d31850881378ea72128f8512de96f5ce41c5b10e8ec72efa9c9dcf605",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 646,
+                "solver_micros": 1751,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 15,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "ordinary_provider_warm",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v2/provider.rs:3:44: 3:53 (#20)",
+              "candidate_id": "1b979cc1c62b7555f50f32a0c4bec4fbc0daade277e04316321524c34dc7bc44",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 419,
+                "solver_micros": 1520,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 15,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "ordinary_wrong",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v2/wrong.rs:3:44: 3:53 (#20)",
+              "candidate_id": "75d2509b446047138047222dd4c12c8232a5856b4fbc04e51cd1c7c97db553d7",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": false,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 522,
+                "solver_micros": 1476,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "ordinary_unsafe",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v2/unsafe.rs:3:44: 3:53 (#20)",
+              "candidate_id": "68ea867b4b8563536b0d7cd5c4f5b2339ee0001d5abcbe38a73a0e6e588c6e11",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": false,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 436,
+                "solver_micros": 1616,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "infer_provider_cold",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v2/provider.rs:3:44: 3:53 (#20)",
+              "candidate_id": "1be99f7cb924237d81308e85e18437d96e7f5c7c5a69d9927f53c04fa404ff3e",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 447,
+                "solver_micros": 1343,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 15,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "infer_provider_warm",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v2/provider.rs:3:44: 3:53 (#20)",
+              "candidate_id": "8b24ff90a68e31afe9ab5f5d31eabe894ff2499272445c8d739e92f96a8aec19",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 461,
+                "solver_micros": 1584,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 15,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "infer_wrong",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v2/wrong.rs:3:44: 3:53 (#20)",
+              "candidate_id": "9335b64a65adf5166e322c5f0c71c8d1b4c159e951aa0da1032def7e59bf8d7f",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": false,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 451,
+                "solver_micros": 1352,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "infer_unsafe",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [
+            {
+              "function": "selection_checked::TransactionId::eq",
+              "source": "/tmp/redb-crash-selection-strict-20261112-v2/unsafe.rs:3:44: 3:53 (#20)",
+              "candidate_id": "2133cf5c4bf40dd542a2e343ce177aff234a7c50e7b29dd322e8cafa661be244",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&selection_checked::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&selection_checked::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": false,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 424,
+                "solver_micros": 1934,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "ordinary_client_healthy",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [],
+          "checked_exec_bodies": 1,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "ordinary_client_wrong",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "ordinary_client_unsafe",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "ordinary_client_failed_import",
+          "verification": {},
+          "helpers": [],
+          "checked_exec_bodies": null,
+          "checked_proof_bodies": null
+        },
+        {
+          "label": "infer_client_healthy",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [],
+          "checked_exec_bodies": 1,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "infer_client_wrong",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "infer_client_unsafe",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "helpers": [],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "label": "infer_client_failed_import",
+          "verification": {},
+          "helpers": [],
+          "checked_exec_bodies": null,
+          "checked_proof_bodies": null
+        }
+      ],
+      "raw_files": {
+        "/tmp/redb-crash-selection-strict-20261112-v2/receipt.json": "1a2388c3f17469d5adf766ebc33dd4fa703d221c376077d667ffac811dc2804d",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_failed_import.stdout": "ca380241adce707083e40173a82ad4b3ddc3b3f5d9dd1be96bfdca447d8f738e",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_healthy.stdout": "340259c8bca3bcf8b0997533a0d688482ddae96c594ee721c06ea1ac1b0afb99",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_unsafe.stdout": "a112ee7d8ff605310dc3c53209d9efb0cd9b544fdd6833c0da7eb61ea57d69d3",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_wrong.stdout": "c87c8e15b56b6885017eb1771ae6a0fbd02f3ccd188b88c6b2ac83ca327802b9",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_provider_cold.stdout": "1daff932a9867f30774d3759c7dc2417bd9895c1cdd1348f568a2985133f0196",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_provider_warm.stdout": "c6d2b0717865d6ead495231a36482455511585e331dacea90364611daa9b090a",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_unsafe.stdout": "a1c95c4645c94f4e3cae6917f4eee7ca2599c23500341d5e05f4c4541789d4ff",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_wrong.stdout": "8da06d2f5cb1ceebca40a3622617a74bdde6ecf357abc18dd677a6d9eb240010",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_failed_import.stdout": "abcac55a5bd393b31a0571384c3c93fe2659acd12071d98b41bfbd8044a7588e",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_healthy.stdout": "3315f9e16c5cce7c50139146e1df363208a70ea8c564eaf5c0dcbeded0bc6b18",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_unsafe.stdout": "153c9ae76516b04ebbb9f0ad935d2a4d131853b5a35bd77eb922170c6438ed33",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_wrong.stdout": "02508dc3ebcbfb48f982fe7717c97b7c6591e3aa56c03b2d9f835aecc7957bf9",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_provider_cold.stdout": "867bee54df9d4e534e4247c8e01ec261e5b39ab6765dee99a503a4b859d1ede1",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_provider_warm.stdout": "836dbcf0da0d080808d34065b39ac1819336dc5be8e0dad98d7438f16ccb9ccf",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_unsafe.stdout": "92c351af85732221cc543bff07f1787e271aeae56cbdf531c5687b98974f9a50",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_wrong.stdout": "93d9dd8c53584a4651a228214f8a85f23d340a605440bf653f8be515fd2a73b3",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_failed_import.stderr": "19233ced687d2c9ea58522abe310d6512cd71b15a4330c50f78ebe691756d2ee",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_healthy.stderr": "f0570b81287302a0646ca53cd3712319f8da0d66b00b19537d4aeb153c2c1521",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_unsafe.stderr": "f2bb3e7574749fdbf1236ba53b653b34459c49ea7f42993b41c01e94e65aadb9",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_wrong.stderr": "b8a94b693b0e3195984568d34795b59fbf3f40bc8ee0c0566acd90038ca93a1a",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_provider_cold.stderr": "e275cc594e3e9899a704b1a9259300dd12892ead8ec20eec763cdef28479ac09",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_provider_warm.stderr": "e275cc594e3e9899a704b1a9259300dd12892ead8ec20eec763cdef28479ac09",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_unsafe.stderr": "56fa0fe8b05beaef5dcaf53abf8a75012ba521287cb5c4003d715630c289be33",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_wrong.stderr": "d014a89df92357f9c92bda7dcce4ba4e98b5c081971d2acd33d1076d9b0a6b2b",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_failed_import.stderr": "26e14c6cedf88e558eaff4023a06cafffcd210cc0a09addaa00c97bfd6dc2d67",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_healthy.stderr": "fbcef3eb7552ce7e6a727897c5b45ee8b233f5fc73d892417bdc52f8f22a82ea",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_unsafe.stderr": "42e9ef2b48ec3dedaae530e528d28fa7e89ce3b5c4c3feb3816c4e451f2bc93d",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_wrong.stderr": "7af5dcc470ff9bff6754608e1a60eabc7e6809323b35895b8fc5817aa89456f4",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_provider_cold.stderr": "e275cc594e3e9899a704b1a9259300dd12892ead8ec20eec763cdef28479ac09",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_provider_warm.stderr": "e275cc594e3e9899a704b1a9259300dd12892ead8ec20eec763cdef28479ac09",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_unsafe.stderr": "56fa0fe8b05beaef5dcaf53abf8a75012ba521287cb5c4003d715630c289be33",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_wrong.stderr": "d014a89df92357f9c92bda7dcce4ba4e98b5c081971d2acd33d1076d9b0a6b2b",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_failed_import.rs": "7562e6e4c4f64fbf29577a6c66ae264f1a50879d5f36d189c09726374dc6b29d",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_healthy.rs": "7562e6e4c4f64fbf29577a6c66ae264f1a50879d5f36d189c09726374dc6b29d",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_unsafe.rs": "d1b1e7dd461a62498f687d3c8d4b510f3676bae94458dd174637714a5c2d015f",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_wrong.rs": "113e7f32032355496d2776038c20d5dd0ada77bd5d98d1850535952a3181cad8",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_failed_import.rs": "7562e6e4c4f64fbf29577a6c66ae264f1a50879d5f36d189c09726374dc6b29d",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_healthy.rs": "7562e6e4c4f64fbf29577a6c66ae264f1a50879d5f36d189c09726374dc6b29d",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_unsafe.rs": "d1b1e7dd461a62498f687d3c8d4b510f3676bae94458dd174637714a5c2d015f",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_wrong.rs": "113e7f32032355496d2776038c20d5dd0ada77bd5d98d1850535952a3181cad8",
+        "/tmp/redb-crash-selection-strict-20261112-v2/provider.rs": "f022ea9009b16163dc3219580adc353c67e61502c9a2402a141ec141d6d7b1b2",
+        "/tmp/redb-crash-selection-strict-20261112-v2/unsafe.rs": "bce679c6cda034049954aec5cdfcca8d85a5b8999e1833f53eae785608b9ff09",
+        "/tmp/redb-crash-selection-strict-20261112-v2/wrong.rs": "c80aeb1dd0501f2c685ac23566f04a590c35839fb672386911c49f7e45b52a7f",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_client_healthy.vir": "557d046e4d091d1cb3ab09362cc4f3138c9226cce18dbd02607035553de09bc1",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_provider_cold.vir": "cbcd42cde3f191b68d3747f8f289bf1acd3f829ad204d262037cb17ebc30e316",
+        "/tmp/redb-crash-selection-strict-20261112-v2/infer_provider_warm.vir": "c38b3b8b3805592e5570e1698fa408c27128d9e6d3cf6354f26a83d4f5a04aa1",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_client_healthy.vir": "5f18ab893b0a5e47353d27a62135756e42323f6f7aae537d001e3cc8c2fff458",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_provider_cold.vir": "6d50334c0158ad5973d991395cea763a81b736f84f1d9d97f43a357631a02798",
+        "/tmp/redb-crash-selection-strict-20261112-v2/ordinary_provider_warm.vir": "2607053688bd0a1f351b67719c7cb374950a68a91050539f42db105c1f85e6a7",
+        "/tmp/redb-crash-selection-strict-20261112-v2/lib_infer.rlib": "3885159f11637fd9b019443161d465cf60376e785866f7d1a7c471acec881ffb",
+        "/tmp/redb-crash-selection-strict-20261112-v2/lib_ordinary.rlib": "6fc7802686905f0b54ae7cfe21dcafa63e47ceb021e5582a1cbedacd79c28d16"
+      }
+    }
+  ]
+}

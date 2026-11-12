@@ -1,0 +1,148 @@
+{
+  "model_proof_changed": false,
+  "historical_charter_authenticated": true,
+  "preflight_asserts_remaining": 0,
+  "runs": [
+    {
+      "path": "/tmp/redb-crash-model-fix-normal-20261112/receipt.json",
+      "sha256": "29247e0a044f4bab2a2c8a0951658b2e7174718d7a6c46440a1dda86f0defec4",
+      "success": true,
+      "runs": [
+        {
+          "label": "historical-fix-normal_ordinary",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 26,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "historical-fix-normal_infer",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 26,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        }
+      ],
+      "registered_charter": {
+        "GOAL.md": "3928f62cb0a02e454a9e6280143de3debbd40a639c585a9015352a2dc21fa1b3",
+        "CURRENT.md": "58bf5c28bee2eafd734c7a122718e8c00bda37e8e5c2f703c8c90fd455bfca02",
+        "WORKER_BRIEFS.md": "fbcc125e9f5fc1f7d17ad8fa0e896768d593f67deae5d768f60d3f167ae31291",
+        "PREPARATION_NOTE.md": "cca687a73774511df17ef504f9acf3826422f9b1afe9c955ecf9ee85e430e0b1"
+      }
+    },
+    {
+      "path": "/tmp/redb-crash-model-fix-optimized-20261112/receipt.json",
+      "sha256": "0f42e6ba9570b8c7e74232ee02df097501cb75cd0a7915dbbbc797760d9cc97f",
+      "success": true,
+      "runs": [
+        {
+          "label": "historical-fix-optimized_ordinary",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 26,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "historical-fix-optimized_infer",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 26,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        }
+      ],
+      "registered_charter": {
+        "GOAL.md": "3928f62cb0a02e454a9e6280143de3debbd40a639c585a9015352a2dc21fa1b3",
+        "CURRENT.md": "58bf5c28bee2eafd734c7a122718e8c00bda37e8e5c2f703c8c90fd455bfca02",
+        "WORKER_BRIEFS.md": "fbcc125e9f5fc1f7d17ad8fa0e896768d593f67deae5d768f60d3f167ae31291",
+        "PREPARATION_NOTE.md": "cca687a73774511df17ef504f9acf3826422f9b1afe9c955ecf9ee85e430e0b1"
+      }
+    },
+    {
+      "path": "/tmp/redb-crash-model-fix-negative-normal-20261112/receipt.json",
+      "sha256": "ec287a7cce5273dae8cdf2b969828b25f7a8ca9c20e8d5c791277e612799e236",
+      "success": true,
+      "runs": [
+        {
+          "label": "rollback-fix-normal_ordinary",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 26,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "rollback-fix-normal_infer",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 26,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        }
+      ],
+      "registered_charter": {
+        "GOAL.md": "3928f62cb0a02e454a9e6280143de3debbd40a639c585a9015352a2dc21fa1b3",
+        "CURRENT.md": "58bf5c28bee2eafd734c7a122718e8c00bda37e8e5c2f703c8c90fd455bfca02",
+        "WORKER_BRIEFS.md": "fbcc125e9f5fc1f7d17ad8fa0e896768d593f67deae5d768f60d3f167ae31291",
+        "PREPARATION_NOTE.md": "cca687a73774511df17ef504f9acf3826422f9b1afe9c955ecf9ee85e430e0b1"
+      }
+    },
+    {
+      "path": "/tmp/redb-crash-model-fix-negative-optimized-20261112/receipt.json",
+      "sha256": "08d99b713116f24064f95e1973eccbbc409421ca1171edc89a91641eefcc7345",
+      "success": true,
+      "runs": [
+        {
+          "label": "rollback-fix-optimized_ordinary",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 26,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "label": "rollback-fix-optimized_infer",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 26,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        }
+      ],
+      "registered_charter": {
+        "GOAL.md": "3928f62cb0a02e454a9e6280143de3debbd40a639c585a9015352a2dc21fa1b3",
+        "CURRENT.md": "58bf5c28bee2eafd734c7a122718e8c00bda37e8e5c2f703c8c90fd455bfca02",
+        "WORKER_BRIEFS.md": "fbcc125e9f5fc1f7d17ad8fa0e896768d593f67deae5d768f60d3f167ae31291",
+        "PREPARATION_NOTE.md": "cca687a73774511df17ef504f9acf3826422f9b1afe9c955ecf9ee85e430e0b1"
+      }
+    }
+  ],
+  "independent_recheck": "pending"
+}
