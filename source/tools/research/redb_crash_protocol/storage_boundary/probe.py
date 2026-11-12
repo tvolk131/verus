@@ -38,13 +38,14 @@ def fixture(directory):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--freeze', type=Path, default=HERE / 'FROZEN.json')
     args = parser.parse_args()
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
     result = dict(kind='ACTUAL_BACKEND_NOMINAL_ONLY_CONTINUATION', commands=[], outcomes=[],
                   source_coupling_proved=False)
     with replay_receipt(out, result):
-        freeze = json.loads((HERE / 'FROZEN.json').read_text())
+        freeze = json.loads(args.freeze.read_text())
         for path, value in freeze['inputs'].items():
             require(digest(Path(path)) == value, 'frozen input ' + path)
         source = out / 'backend_nominal.rs'
@@ -62,10 +63,10 @@ def main():
             require(digest(bundle / name) == value, 'private tool ' + name)
         shutil.copy2(original / 'verus-root', bundle / 'verus-root')
         tc = Path(freeze['toolchain'])
-        env = dict(os.environ, PATH=str(tc / 'bin') + ':/usr/bin:/bin',
+        env = dict(os.environ, PATH='/home/dev/.cargo/bin:' + str(tc / 'bin') + ':/usr/bin:/bin',
                    RUSTUP_HOME='/home/dev/.rustup', RUSTUP_TOOLCHAIN=str(tc),
                    LD_LIBRARY_PATH=str(tc / 'lib'), VERUS_Z3_PATH=str(bundle / 'z3'))
-        guard = ArtifactGuard([Path(p) for p in freeze['inputs']] + [HERE / 'FROZEN.json', source] +
+        guard = ArtifactGuard([Path(p) for p in freeze['inputs']] + [args.freeze, source] +
                               [bundle / name for name in rt['tool_hashes']])
         run = LoggedCommands(out, out, result['commands'], timeout=120, guard=guard)
         for infer in [False, True]:
