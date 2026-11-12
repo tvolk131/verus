@@ -1,0 +1,1207 @@
+{
+  "func-details": {
+    "vstd::std_specs::num::usize_specs_tmp::impl&%2::partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::StorageError::ValueTooLarge::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_char": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::spec_unwrap": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::DatabaseHeader::secondary_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::num::u128_specs_tmp::impl&%2::obeys_partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::num::u32_specs_tmp::impl&%2::partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::axiom_slice_has_resolved": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%32::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::StorageError::arrow_LockPoisoned_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::UnrepairedDatabaseHeader::select_primary_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::DatabaseHeader::primary_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%16::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::DisplaySpec::fmt_req": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_ext_equal_deep": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_update_different": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_update_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%18::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%48::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::option::impl&%6::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_str": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::TransactionId::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%2::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%64::gt": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%14::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_requires": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_ensures": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::spec_slice_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::strlit_view_id": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_u8": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%58::partial_cmp": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::DatabaseHeader::published_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::impl&%2::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%60::partial_cmp": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::cmp::PartialOrdSpec::partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::view_reverse_for_eq": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%46::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::is_none": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::impl&%2::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_spec_array_update": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::ptrs_mut_eq": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::lemma_slice_index_decreases": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%64::partial_cmp": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_u64": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::StorageError::arrow_ValueTooLarge_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%44::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::impl&%2::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::impl&%2::partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%6::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::spec_array_update": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_index_decreases": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_ref": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::axiom_slice_decreases_to_seq": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::num::usize_specs_tmp::impl&%2::obeys_partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%68::partial_cmp": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::view_reverse_for_eq_sized": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%4::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::array_len_matches_n": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%6::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::to_string_from_display_ensures": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::clone::tuple_clone_2": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::DatabaseHeader::write_secondary_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::is_some": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_new_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%28::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::Clone::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::PartialOrd::partial_cmp": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::TransactionHeader::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::StorageError::arrow_Corrupted_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::StorageError::LockPoisoned::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%22::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::impl&%5::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::pervasive::cloned": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%58::gt": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::axiom_slice_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::cmp::impl&%15::obeys_partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%50::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::TRANSACTION_SIZE": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_array_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::num::u64_specs_tmp::impl&%2::partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%10::gt": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_u128": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::num::u32_specs_tmp::impl&%2::obeys_partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::option::impl&%18::partial_cmp": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::lemma_array_index_decreases": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%20::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_u32": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%10::partial_cmp": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::axiom_str_literal_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%20::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::DatabaseHeader::transaction_slots::anon_const%0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%68::gt": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::cmp::impl&%6::partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::impl&%0::arrow_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::DatabaseHeader::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::UnrepairedDatabaseHeader::finalize_transaction_slots": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::axiom_new_strlit_view_id": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::impl&%2::obeys_partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::array::impl&%20::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::ArrayAdditionalSpecFns::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::cmp::impl&%12::obeys_partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::num::u8_specs_tmp::impl&%2::obeys_partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::axiom_str_literal_get_char": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_update_same": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::impl&%2::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::BtreeHeader::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::lemma_array_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::DatabaseHeader::swap_primary_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "verus_builtin::impl&%9::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%26::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::option::OptionAdditionalFns::arrow_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_array_decreases_to_seq": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::StorageError::Io::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%42::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::impl&%3::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::cmp::impl&%15::partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::num::u128_specs_tmp::impl&%2::partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "alloc::string::impl&%39::to_string": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%16::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_display": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::StorageError::Corrupted::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::SliceAdditionalSpecFns::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::axiom_spec_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%12::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::len%returns_clause_autospec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::cmp::PartialOrdSpec::obeys_partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_array_has_resolved": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_usize": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "alloc::boxed::impl&%15::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%66::partial_cmp": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::ptrs_mut_eq_sized": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_bool": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::new": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::num::u64_specs_tmp::impl&%2::obeys_partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_string": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::PartialOrd::gt": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::axiom_fmt_req_all_str_slice": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::update": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::StorageError::arrow_Io_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%30::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%60::gt": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_new_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "verus_builtin::impl&%7::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::View::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::fmt::fmt_req_all": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::to_string_from_display_ensures_for_str": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::TransactionHeader::corrupt_bytes::anon_const%0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::array_view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::TransactionId::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "with_nominal::PageNumber::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::cmp::impl&%12::partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::pervasive::strictly_cloned": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::cmp::impls::impl&%66::gt": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::clone::tuple_clone_1": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::cmp::impl&%6::obeys_partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::clone::impls::impl&%10::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "alloc::string::impl&%6::clone": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%18::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::num::u8_specs_tmp::impl&%2::partial_cmp_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    }
+  },
+  "verification-results": {
+    "encountered-error": true,
+    "encountered-vir-error": false,
+    "success": false,
+    "verified": 17,
+    "errors": 1,
+    "is-verifying-entire-crate": true
+  },
+  "verus-infer": {
+    "schema_version": 1,
+    "verification_scope": {
+      "coverage": "selected local Verus items; not all Rust code",
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": false,
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "native_functions": [
+        {
+          "function": "with_nominal::BtreeHeader::clone",
+          "rust_function": "<BtreeHeader as std::clone::Clone>::clone",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:22:16: 22:21",
+          "automatically_derived": true,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+          "rust_function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:22:23: 22:25",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+          "rust_function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:22:27: 22:36",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "with_nominal::DatabaseHeader::clone",
+          "rust_function": "<DatabaseHeader as std::clone::Clone>::clone",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:39:10: 39:15",
+          "automatically_derived": true,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "with_nominal::PageNumber::clone",
+          "rust_function": "<PageNumber as std::clone::Clone>::clone",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:14:16: 14:21",
+          "automatically_derived": true,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+          "rust_function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:14:23: 14:25",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "<PageNumber as std::cmp::PartialEq>::eq",
+          "rust_function": "<PageNumber as std::cmp::PartialEq>::eq",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:14:27: 14:36",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "with_nominal::TransactionHeader::clone",
+          "rust_function": "<TransactionHeader as std::clone::Clone>::clone",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:28:10: 28:15",
+          "automatically_derived": true,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "with_nominal::TransactionId::clone",
+          "rust_function": "<TransactionId as std::clone::Clone>::clone",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:20:16: 20:21",
+          "automatically_derived": true,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+          "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:20:40: 20:42",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "<TransactionId as std::cmp::Ord>::cmp",
+          "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:20:23: 20:26",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "<TransactionId as std::cmp::PartialEq>::eq",
+          "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:20:44: 20:53",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+          "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:20:28: 20:38",
+          "automatically_derived": true,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "with_nominal::DatabaseHeader::primary_slot",
+          "rust_function": "DatabaseHeader::primary_slot",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:53:5: 53:64",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "with_nominal::DatabaseHeader::published_slot",
+          "rust_function": "DatabaseHeader::published_slot",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:65:5: 65:66",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "with_nominal::DatabaseHeader::secondary_slot",
+          "rust_function": "DatabaseHeader::secondary_slot",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:59:5: 59:66",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "with_nominal::DatabaseHeader::swap_primary_slot",
+          "rust_function": "DatabaseHeader::swap_primary_slot",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:75:5: 75:47",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "with_nominal::DatabaseHeader::write_secondary_slot",
+          "rust_function": "DatabaseHeader::write_secondary_slot",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:90:5: 95:6",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "with_nominal::StorageError::arrow_Corrupted_0",
+          "rust_function": "StorageError::arrow_Corrupted_0",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:123:1: 125:21",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "with_nominal::StorageError::arrow_Io_0",
+          "rust_function": "StorageError::arrow_Io_0",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:123:1: 128:17",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "with_nominal::StorageError::arrow_LockPoisoned_0",
+          "rust_function": "StorageError::arrow_LockPoisoned_0",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:123:1: 133:51",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "with_nominal::StorageError::arrow_ValueTooLarge_0",
+          "rust_function": "StorageError::arrow_ValueTooLarge_0",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:123:1: 127:24",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "with_nominal::UnrepairedDatabaseHeader::finalize_transaction_slots",
+          "rust_function": "UnrepairedDatabaseHeader::finalize_transaction_slots",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:178:5: 178:77",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "with_nominal::UnrepairedDatabaseHeader::select_primary_slot",
+          "rust_function": "UnrepairedDatabaseHeader::select_primary_slot",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:142:5: 142:54",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+          "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+          "source": "/tmp/redb-eligibility-nominal01/with_nominal.rs:12:1: 12:30",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        }
+      ],
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ]
+    },
+    "status": "caller_proof_failed",
+    "crate_success": false,
+    "requested_functions": 0,
+    "generated_functions": 0,
+    "generation_failure": null,
+    "assistance_explanations": {
+      "enabled": false,
+      "profiles": [
+        "growth_loop",
+        "pointwise_transport",
+        "range_loop",
+        "mutable_buffer_u64_radix128"
+      ],
+      "preparation_started": false,
+      "preparation_completed": false,
+      "decisions": []
+    },
+    "word_sequence_assistance": [],
+    "buffer_observation_assistance": [],
+    "range_loop_assistance": [],
+    "set_pair_assistance": [],
+    "pointwise_assistance": [],
+    "sequence_pattern_assistance": [],
+    "mutable_selector_assistance": [],
+    "growth_loop_assistance": [],
+    "local_fold_assistance": [],
+    "factory_assistance": [],
+    "error_callback_assistance": [],
+    "array_callback_assistance": [],
+    "type_invariant_entry_assistance": [],
+    "goal_assistance": [],
+    "failed_functions": [
+      "with_nominal::UnrepairedDatabaseHeader::select_primary_slot"
+    ],
+    "functions": [],
+    "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+    "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+    "imported_inference_dependencies": [],
+    "trusted_models": [],
+    "interface_written": false,
+    "metrics": {
+      "generation_micros": 0,
+      "total_micros": 1170474
+    }
+  },
+  "times-ms": {
+    "verus-build": {
+      "profile": "release",
+      "version": "0.2026.11.11.5ecea5f"
+    },
+    "num-threads": 1,
+    "total": 1170,
+    "estimated-cpu-time": 1170,
+    "rust": {
+      "total": 71,
+      "init-and-types": 23,
+      "trait-conflicts": 47,
+      "compile": 0
+    },
+    "verification": {
+      "total": 899,
+      "vir": {
+        "total": 604,
+        "hir": 9,
+        "import": 481,
+        "rust-to-vir": 38
+      }
+    },
+    "total-verify": 263,
+    "total-verify-module-times": [
+      {
+        "module": "",
+        "time": 263
+      }
+    ],
+    "air": {
+      "total": 167,
+      "module-times": [
+        {
+          "module": "",
+          "time": 167
+        }
+      ]
+    },
+    "smt": {
+      "total": 38,
+      "smt-init": 4,
+      "rlimit-init": 1611,
+      "smt-init-module-times": [
+        {
+          "module": "",
+          "time": 4,
+          "time-micros": 4097,
+          "rlimit": 1611
+        }
+      ],
+      "smt-run": 34,
+      "rlimit-run": 65999,
+      "smt-run-module-times": [
+        {
+          "module": "",
+          "time": 34,
+          "time-micros": 34047,
+          "rlimit": 65999,
+          "function-breakdown": [
+            {
+              "function": "with_nominal::DatabaseHeader::swap_primary_slot",
+              "mode:": "exec",
+              "time": 2,
+              "time-micros": 2631,
+              "rlimit": 8658,
+              "success": true
+            },
+            {
+              "function": "with_nominal::TransactionId::clone",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 213,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::DatabaseHeader::published_slot",
+              "mode:": "exec",
+              "time": 2,
+              "time-micros": 2220,
+              "rlimit": 6367,
+              "success": true
+            },
+            {
+              "function": "with_nominal::StorageError::Corrupted::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 63,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::DatabaseHeader::clone",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 178,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::StorageError::ValueTooLarge::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 79,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::TransactionHeader::clone",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 64,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::StorageError::LockPoisoned::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 60,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::TransactionId::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 61,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::StorageError::Io::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 63,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::DatabaseHeader::secondary_slot",
+              "mode:": "exec",
+              "time": 2,
+              "time-micros": 2903,
+              "rlimit": 9550,
+              "success": true
+            },
+            {
+              "function": "with_nominal::BtreeHeader::clone",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 113,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::TRANSACTION_SIZE",
+              "mode:": "spec",
+              "time": 0,
+              "time-micros": 115,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::PageNumber::clone",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 181,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "with_nominal::UnrepairedDatabaseHeader::finalize_transaction_slots",
+              "mode:": "exec",
+              "time": 1,
+              "time-micros": 1003,
+              "rlimit": 2629,
+              "success": true
+            },
+            {
+              "function": "with_nominal::DatabaseHeader::primary_slot",
+              "mode:": "exec",
+              "time": 3,
+              "time-micros": 3329,
+              "rlimit": 8627,
+              "success": true
+            },
+            {
+              "function": "with_nominal::UnrepairedDatabaseHeader::select_primary_slot",
+              "mode:": "exec",
+              "time": 15,
+              "time-micros": 15093,
+              "rlimit": 9637,
+              "success": false
+            },
+            {
+              "function": "with_nominal::DatabaseHeader::write_secondary_slot",
+              "mode:": "exec",
+              "time": 5,
+              "time-micros": 5670,
+              "rlimit": 20509,
+              "success": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "verus": {
+    "profile": "release",
+    "version": "0.2026.11.11.5ecea5f",
+    "platform": {
+      "os": "linux",
+      "arch": "x86_64"
+    },
+    "toolchain": "1.99.1-x86_64-unknown-linux-gnu",
+    "commit": "5ecea5fe81c2bc2ef0c9050cdb29cea0c7ef21c4"
+  }
+}

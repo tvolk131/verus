@@ -1,0 +1,64 @@
+warning: use of deprecated method `vstd::prelude::ResultAdditionalSpecFns::is_Err`: is_Variant is deprecated - use `->` or `matches` instead: https://verus-lang.github.io/verus/guide/datatypes_enum.html
+   --> /tmp/redb-eligibility-contract02/selection.rs:145:7
+    |
+145 |     r.is_Err() == selection_errors(*old(self)),
+    |       ^^^^^^
+    |
+    = note: `#[warn(deprecated)]` on by default
+
+warning: use of deprecated method `vstd::prelude::ResultAdditionalSpecFns::is_Err`: is_Variant is deprecated - use `->` or `matches` instead: https://verus-lang.github.io/verus/guide/datatypes_enum.html
+   --> /tmp/redb-eligibility-contract02/selection.rs:203:11
+    |
+203 | ensures r.is_Err() == self.primary_corrupted,
+    |           ^^^^^^
+
+warning: Verus does not (yet) support autoderive Clone impl when the clone is not a copy; continuing, but without adding a specification for the derived Clone impl
+  --> /tmp/redb-eligibility-contract02/selection.rs:28:10
+   |
+28 | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: to suppress this warning, use `#[verifier::allow(autoderive_clone_without_spec)]` on the surrounding function, datatype, or module or `#![verifier::allow(autoderive_clone_without_spec)]` in the module or crate
+
+warning: Verus does not (yet) support autoderive Clone impl when the clone is not a copy; continuing, but without adding a specification for the derived Clone impl
+  --> /tmp/redb-eligibility-contract02/selection.rs:39:10
+   |
+39 | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: to suppress this warning, use `#[verifier::allow(autoderive_clone_without_spec)]` on the surrounding function, datatype, or module or `#![verifier::allow(autoderive_clone_without_spec)]` in the module or crate
+
+error: disallowed: field expression for a non-visible datatype
+   --> /tmp/redb-eligibility-contract02/selection.rs:221:5
+    |
+136 | / pub(crate) struct UnrepairedDatabaseHeader {
+137 | |     inner: DatabaseHeader,
+138 | |     primary_corrupted: bool,
+139 | |     secondary_corrupted: bool,
+140 | | }
+    | |_- this datatype is only visible to `selection`
+...
+221 |       h.primary_corrupted && (h.inner.two_phase_commit || h.secondary_corrupted)
+    |       ^^^^^^^^^^^^^^^^^^^ this field expression is disallowed because of non-visibility
+    |
+    = help: note that because this is a pub open spec function, this field expression must be well-formed everywhere, which is wider than `selection`
+
+error: disallowed: field expression for a non-visible datatype
+   --> /tmp/redb-eligibility-contract02/selection.rs:224:6
+    |
+ 40 | / pub(crate) struct DatabaseHeader {
+ 41 | |     primary_slot: usize,
+ 42 | |     pub(crate) recovery_required: bool,
+ 43 | |     pub(crate) two_phase_commit: bool,
+...   |
+ 50 | |     transaction_slots: [TransactionHeader; 2],
+ 51 | | }
+    | |_- this datatype is only visible to `selection`
+...
+224 |       !h.inner.two_phase_commit && !h.secondary_corrupted &&
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^ this field expression is disallowed because of non-visibility
+    |
+    = help: note that because this is a pub open spec function, this field expression must be well-formed everywhere, which is wider than `selection`
+
+error: aborting due to 2 previous errors; 4 warnings emitted
+

@@ -1,0 +1,30 @@
+error: `core::io::error::Error` is not supported (note: you may be able to add a Verus specification to this type with the `external_type_specification` attribute) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)
+   --> /tmp/redb-eligibility-nominal01/without_nominal.rs:114:1
+    |
+114 | / pub enum StorageError {
+115 | |     /// The Database is corrupted
+116 | |     Corrupted(String),
+117 | |     /// The value being inserted exceeds the maximum of 3GiB
+...   |
+124 | |     LockPoisoned(&'static panic::Location<'static>),
+125 | | }
+    | |_^
+    |
+    = help: The following declaration may resolve this error:
+            #[verifier::external_type_specification]
+            pub struct ExError(std::io::Error);
+
+error: `core::panic::location::Location` is not supported (note: you may be able to add a Verus specification to this type with the `external_type_specification` attribute) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)
+   --> /tmp/redb-eligibility-nominal01/without_nominal.rs:114:1
+    |
+114 | / pub enum StorageError {
+115 | |     /// The Database is corrupted
+116 | |     Corrupted(String),
+117 | |     /// The value being inserted exceeds the maximum of 3GiB
+...   |
+124 | |     LockPoisoned(&'static panic::Location<'static>),
+125 | | }
+    | |_^
+
+error: aborting due to 2 previous errors
+

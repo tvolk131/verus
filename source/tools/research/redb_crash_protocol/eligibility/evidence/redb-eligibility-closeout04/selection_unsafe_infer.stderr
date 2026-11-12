@@ -1,0 +1,62 @@
+warning: use of deprecated method `vstd::prelude::ResultAdditionalSpecFns::is_Err`: is_Variant is deprecated - use `->` or `matches` instead: https://verus-lang.github.io/verus/guide/datatypes_enum.html
+   --> /tmp/redb-eligibility-closeout04/selection_unsafe.rs:181:11
+    |
+181 | ensures r.is_Err() == self.primary_corrupted,
+    |           ^^^^^^
+    |
+    = note: `#[warn(deprecated)]` on by default
+
+warning: Verus does not (yet) support autoderive Clone impl when the clone is not a copy; continuing, but without adding a specification for the derived Clone impl
+  --> /tmp/redb-eligibility-closeout04/selection_unsafe.rs:28:10
+   |
+28 | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: to suppress this warning, use `#[verifier::allow(autoderive_clone_without_spec)]` on the surrounding function, datatype, or module or `#![verifier::allow(autoderive_clone_without_spec)]` in the module or crate
+
+warning: Verus does not (yet) support autoderive Clone impl when the clone is not a copy; continuing, but without adding a specification for the derived Clone impl
+  --> /tmp/redb-eligibility-closeout04/selection_unsafe.rs:39:10
+   |
+39 | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: to suppress this warning, use `#[verifier::allow(autoderive_clone_without_spec)]` on the surrounding function, datatype, or module or `#![verifier::allow(autoderive_clone_without_spec)]` in the module or crate
+
+error: precondition not satisfied
+   --> /tmp/redb-eligibility-closeout04/selection_unsafe.rs:167:13
+    |
+ 76 | requires old(self).primary_slot < 2, (old(self).primary_slot ^ 1) < 2, old(self).primary_slot != (old(self).primary_slot ^ 1),
+    |          -------------------------- failed precondition
+...
+167 |             self.inner.swap_primary_slot();
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: precondition not satisfied
+   --> /tmp/redb-eligibility-closeout04/selection_unsafe.rs:172:13
+    |
+ 60 | requires self.primary_slot < 2, (self.primary_slot ^ 1) < 2, self.primary_slot != (self.primary_slot ^ 1),
+    |          --------------------- failed precondition
+...
+172 |             self.inner.secondary_slot().transaction_id > self.inner.primary_slot().transaction_id;
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: precondition not satisfied
+   --> /tmp/redb-eligibility-closeout04/selection_unsafe.rs:172:58
+    |
+ 54 | requires self.primary_slot < 2, (self.primary_slot ^ 1) < 2, self.primary_slot != (self.primary_slot ^ 1),
+    |          --------------------- failed precondition
+...
+172 |             self.inner.secondary_slot().transaction_id > self.inner.primary_slot().transaction_id;
+    |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: precondition not satisfied
+   --> /tmp/redb-eligibility-closeout04/selection_unsafe.rs:174:13
+    |
+ 76 | requires old(self).primary_slot < 2, (old(self).primary_slot ^ 1) < 2, old(self).primary_slot != (old(self).primary_slot ^ 1),
+    |                                                                        ------------------------------------------------------ failed precondition
+...
+174 |             self.inner.swap_primary_slot();
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: aborting due to 4 previous errors; 3 warnings emitted
+

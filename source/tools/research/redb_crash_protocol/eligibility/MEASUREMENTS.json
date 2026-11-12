@@ -1,0 +1,170 @@
+{
+  "attempts": [
+    {
+      "output": "/tmp/redb-eligibility-nominal01",
+      "archived": "source/tools/research/redb_crash_protocol/eligibility/evidence/redb-eligibility-nominal01",
+      "success": true,
+      "invocations": 4,
+      "compiler_seconds": 5.580910524004139,
+      "receipt_sha256": "65228ebf141f9977e2b0d3c21e7a2c89b7e323a2434786c9f8e867a7f5495cc3",
+      "outcomes": [
+        {
+          "label": "without_nominal_ordinary",
+          "returncode": 1,
+          "export_exists": false
+        },
+        {
+          "label": "without_nominal_infer",
+          "returncode": 1,
+          "export_exists": false
+        },
+        {
+          "label": "with_nominal_ordinary",
+          "returncode": 1,
+          "export_exists": true
+        },
+        {
+          "label": "with_nominal_infer",
+          "returncode": 1,
+          "export_exists": false
+        }
+      ]
+    },
+    {
+      "output": "/tmp/redb-eligibility-contract02",
+      "archived": "source/tools/research/redb_crash_protocol/eligibility/evidence/redb-eligibility-contract02",
+      "success": true,
+      "invocations": 2,
+      "compiler_seconds": 1.7028360690455884,
+      "receipt_sha256": "f1e64621a146fc3b895f3f434362c1d7f9a57f2ae65c77040636d10a577baa4b",
+      "outcomes": [
+        {
+          "label": "selection_ordinary",
+          "returncode": 1,
+          "export_exists": false
+        },
+        {
+          "label": "selection_infer",
+          "returncode": 1,
+          "export_exists": false
+        }
+      ]
+    },
+    {
+      "output": "/tmp/redb-eligibility-contract03",
+      "archived": "source/tools/research/redb_crash_protocol/eligibility/evidence/redb-eligibility-contract03",
+      "success": true,
+      "invocations": 2,
+      "compiler_seconds": 3.9531644789967686,
+      "receipt_sha256": "7ef510993941a21d0955c85eeb03679c3785b77076d28cdaf7a2c813b87fd939",
+      "outcomes": [
+        {
+          "label": "selection_ordinary",
+          "returncode": 1,
+          "export_exists": true
+        },
+        {
+          "label": "selection_infer",
+          "returncode": 1,
+          "export_exists": false
+        }
+      ]
+    },
+    {
+      "output": "/tmp/redb-eligibility-closeout04",
+      "archived": "source/tools/research/redb_crash_protocol/eligibility/evidence/redb-eligibility-closeout04",
+      "success": true,
+      "invocations": 14,
+      "compiler_seconds": 49.08021349203773,
+      "receipt_sha256": "0415280fa3d5fe26379e38908e0019b650bba9ca77a66c4afdc4883397d8041b",
+      "outcomes": [
+        {
+          "label": "eligible_ordinary",
+          "returncode": 0,
+          "export_exists": true
+        },
+        {
+          "label": "eligible_infer",
+          "returncode": 0,
+          "export_exists": true
+        },
+        {
+          "label": "finalize_wrong_ordinary",
+          "returncode": 1,
+          "export_exists": true
+        },
+        {
+          "label": "finalize_wrong_infer",
+          "returncode": 1,
+          "export_exists": false
+        },
+        {
+          "label": "selection_unsafe_ordinary",
+          "returncode": 1,
+          "export_exists": true
+        },
+        {
+          "label": "selection_unsafe_infer",
+          "returncode": 1,
+          "export_exists": false
+        },
+        {
+          "label": "eligible_ordinary_client_healthy",
+          "returncode": 0,
+          "export_exists": true
+        },
+        {
+          "label": "eligible_ordinary_client_wrong",
+          "returncode": 1,
+          "export_exists": false
+        },
+        {
+          "label": "eligible_ordinary_client_unsafe",
+          "returncode": 1,
+          "export_exists": false
+        },
+        {
+          "label": "eligible_ordinary_client_failed_import",
+          "returncode": 1,
+          "export_exists": false
+        },
+        {
+          "label": "eligible_infer_client_healthy",
+          "returncode": 0,
+          "export_exists": true
+        },
+        {
+          "label": "eligible_infer_client_wrong",
+          "returncode": 1,
+          "export_exists": false
+        },
+        {
+          "label": "eligible_infer_client_unsafe",
+          "returncode": 1,
+          "export_exists": false
+        },
+        {
+          "label": "eligible_infer_client_failed_import",
+          "returncode": 1,
+          "export_exists": false
+        }
+      ]
+    }
+  ],
+  "total_invocations": 22,
+  "total_compiler_seconds": 60.317124564084224,
+  "native_tests": 0,
+  "engine_rebuilds": 0,
+  "inferred_helpers": [],
+  "manual_costs": [
+    "read four required records and committed source snapshots",
+    "one early committed source/body/domain/interface freeze",
+    "two opaque nominal type declarations; no method or behavioral assumptions",
+    "authored full numeric selection/error/frame candidate and independent finalize contract",
+    "preserved no-domain failure, public-open visibility setup failure, full numeric ordering failure",
+    "public visibility projection for checked import controls",
+    "strict full body/helper/error/field audit and 14-invocation closeout",
+    "fixed audit module-name collision; no extra compiler run"
+  ],
+  "active_time_note": "One bounded investigation session, below 45 active minutes; compiler timings logged separately. No stopwatch allocation between source reading, fixture authoring and evidence work. No build waits beyond the logged private verifier/compile invocations."
+}

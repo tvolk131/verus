@@ -1,0 +1,1951 @@
+{
+  "stage": "NOMINAL_ELIGIBLE_FULL_NUMERIC_SELECTION_CONTRACT_UNPROVED",
+  "source_coupling_proved": false,
+  "complete_selection_contract_proved": false,
+  "finalize_contract_proved": true,
+  "selection_domain_only": true,
+  "body_inventory": {
+    "primary_slot": {
+      "body_sha256": "ab3a269dcc0825255802e91e4f87498ffc95bb55ffe86621a67e2804eea6ea05",
+      "bytes": 58,
+      "complete_original_body": true
+    },
+    "secondary_slot": {
+      "body_sha256": "7fa74d5c73be0b645e2c69261ab7549f4b803a2faa13300c0e7e367c5d8292b4",
+      "bytes": 62,
+      "complete_original_body": true
+    },
+    "published_slot": {
+      "body_sha256": "4b68e2eec0568cb07c7ad6e05e8144cba268b4fa1cb4baa444df0f4d73227c5f",
+      "bytes": 136,
+      "complete_original_body": true
+    },
+    "swap_primary_slot": {
+      "body_sha256": "82f38f51d6e369a11d719ef5d06f4622b4e6314d7590e70e3d2d17a5d87750ac",
+      "bytes": 39,
+      "complete_original_body": true
+    },
+    "write_secondary_slot": {
+      "body_sha256": "5fbba7e27565940e3229b7aa06355daba743473e7af440c3fb46061d2c7195f7",
+      "bytes": 235,
+      "complete_original_body": true
+    },
+    "select_primary_slot": {
+      "body_sha256": "1972ed031e1b2b905ab9deeb8b62fe2f2725824c4c5509f299e4fdde10ec195b",
+      "bytes": 1502,
+      "complete_original_body": true
+    },
+    "finalize_transaction_slots": {
+      "body_sha256": "e51a46156dc1d2204e971cf24e6a2b90f05599888bc48ab717a2cd8efef71250",
+      "bytes": 204,
+      "complete_original_body": true
+    }
+  },
+  "field_inventory": {
+    "PageNumber": {
+      "visibility_erased_sha256": "4572c6e80197255a9320d9b7a3c30530336f64f780a56bd333f6568d66543539",
+      "fields_and_types_preserved": true
+    },
+    "TransactionId": {
+      "visibility_erased_sha256": "29e7d6309588c722c001864fa5ac019e0724737cb983c542783fb8f3cd569622",
+      "fields_and_types_preserved": true
+    },
+    "BtreeHeader": {
+      "visibility_erased_sha256": "ad91c6e3a12d611618da712ef761d108544fa8284a60c3f00cbc99c369fc4257",
+      "fields_and_types_preserved": true
+    },
+    "TransactionHeader": {
+      "visibility_erased_sha256": "1aee5c6ce979cf1b536a8ad67372349b7b35290750dec631fac3674e98e7c618",
+      "fields_and_types_preserved": true
+    },
+    "DatabaseHeader": {
+      "visibility_erased_sha256": "56b250193091618f640d8cfd1d97805c43b71a4984fdbc1f75bed0b60f998162",
+      "fields_and_types_preserved": true
+    },
+    "UnrepairedDatabaseHeader": {
+      "visibility_erased_sha256": "6df7e353c84ae73b25c56523edbb738b671590a97886c2f4f55a0e15232baf76",
+      "fields_and_types_preserved": true
+    }
+  },
+  "storage_error_sha256": "e4d33c3f11b2626e3273000a0c174b0f7d5678180ba946888adb605ab5d1a640",
+  "nominal_declarations_sha256": "ec96ce06d677a4d24f5131969f47d785c201c889ccf70f8e05de3c7134ee11a6",
+  "inventory": {
+    "eligible_ordinary": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 12,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "eligible::BtreeHeader::clone",
+            "rust_function": "<BtreeHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:22:16: 22:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:22:23: 22:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "rust_function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:22:27: 22:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::DatabaseHeader::clone",
+            "rust_function": "<DatabaseHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:39:10: 39:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::PageNumber::clone",
+            "rust_function": "<PageNumber as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:14:16: 14:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:14:23: 14:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "rust_function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:14:27: 14:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::TransactionHeader::clone",
+            "rust_function": "<TransactionHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:28:10: 28:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::TransactionId::clone",
+            "rust_function": "<TransactionId as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:20:16: 20:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:20:40: 20:42",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::Ord>::cmp",
+            "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:20:23: 20:26",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:20:44: 20:53",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:20:28: 20:38",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::DatabaseHeader::primary_slot",
+            "rust_function": "DatabaseHeader::primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:53:5: 53:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::DatabaseHeader::published_slot",
+            "rust_function": "DatabaseHeader::published_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:65:5: 65:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::DatabaseHeader::secondary_slot",
+            "rust_function": "DatabaseHeader::secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:59:5: 59:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::DatabaseHeader::swap_primary_slot",
+            "rust_function": "DatabaseHeader::swap_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:75:5: 75:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::DatabaseHeader::write_secondary_slot",
+            "rust_function": "DatabaseHeader::write_secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:90:5: 95:6",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::StorageError::arrow_Corrupted_0",
+            "rust_function": "StorageError::arrow_Corrupted_0",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:123:1: 125:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::StorageError::arrow_Io_0",
+            "rust_function": "StorageError::arrow_Io_0",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:123:1: 128:17",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::StorageError::arrow_LockPoisoned_0",
+            "rust_function": "StorageError::arrow_LockPoisoned_0",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:123:1: 133:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::StorageError::arrow_ValueTooLarge_0",
+            "rust_function": "StorageError::arrow_ValueTooLarge_0",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:123:1: 127:24",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "rust_function": "UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:180:5: 180:74",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::UnrepairedDatabaseHeader::select_primary_slot",
+            "rust_function": "UnrepairedDatabaseHeader::select_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:142:5: 142:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:12:1: 12:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "eligible_infer": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 12,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "eligible::BtreeHeader::clone",
+            "rust_function": "<BtreeHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:22:16: 22:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:22:23: 22:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "rust_function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:22:27: 22:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::DatabaseHeader::clone",
+            "rust_function": "<DatabaseHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:39:10: 39:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::PageNumber::clone",
+            "rust_function": "<PageNumber as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:14:16: 14:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:14:23: 14:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "rust_function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:14:27: 14:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::TransactionHeader::clone",
+            "rust_function": "<TransactionHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:28:10: 28:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::TransactionId::clone",
+            "rust_function": "<TransactionId as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:20:16: 20:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:20:40: 20:42",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::Ord>::cmp",
+            "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:20:23: 20:26",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:20:44: 20:53",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:20:28: 20:38",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::DatabaseHeader::primary_slot",
+            "rust_function": "DatabaseHeader::primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:53:5: 53:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::DatabaseHeader::published_slot",
+            "rust_function": "DatabaseHeader::published_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:65:5: 65:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::DatabaseHeader::secondary_slot",
+            "rust_function": "DatabaseHeader::secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:59:5: 59:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::DatabaseHeader::swap_primary_slot",
+            "rust_function": "DatabaseHeader::swap_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:75:5: 75:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::DatabaseHeader::write_secondary_slot",
+            "rust_function": "DatabaseHeader::write_secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:90:5: 95:6",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::StorageError::arrow_Corrupted_0",
+            "rust_function": "StorageError::arrow_Corrupted_0",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:123:1: 125:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::StorageError::arrow_Io_0",
+            "rust_function": "StorageError::arrow_Io_0",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:123:1: 128:17",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::StorageError::arrow_LockPoisoned_0",
+            "rust_function": "StorageError::arrow_LockPoisoned_0",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:123:1: 133:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::StorageError::arrow_ValueTooLarge_0",
+            "rust_function": "StorageError::arrow_ValueTooLarge_0",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:123:1: 127:24",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "rust_function": "UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:180:5: 180:74",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::UnrepairedDatabaseHeader::select_primary_slot",
+            "rust_function": "UnrepairedDatabaseHeader::select_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:142:5: 142:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "source": "/tmp/redb-eligibility-closeout04/eligible.rs:12:1: 12:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "finalize_wrong_ordinary": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "finalize_wrong::BtreeHeader::clone",
+            "rust_function": "<BtreeHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:22:16: 22:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:22:23: 22:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "rust_function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:22:27: 22:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::clone",
+            "rust_function": "<DatabaseHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:39:10: 39:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "finalize_wrong::PageNumber::clone",
+            "rust_function": "<PageNumber as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:14:16: 14:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:14:23: 14:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "rust_function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:14:27: 14:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "finalize_wrong::TransactionHeader::clone",
+            "rust_function": "<TransactionHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:28:10: 28:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "finalize_wrong::TransactionId::clone",
+            "rust_function": "<TransactionId as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:20:16: 20:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:20:40: 20:42",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::Ord>::cmp",
+            "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:20:23: 20:26",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:20:44: 20:53",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:20:28: 20:38",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::primary_slot",
+            "rust_function": "DatabaseHeader::primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:53:5: 53:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::published_slot",
+            "rust_function": "DatabaseHeader::published_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:65:5: 65:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::secondary_slot",
+            "rust_function": "DatabaseHeader::secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:59:5: 59:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::swap_primary_slot",
+            "rust_function": "DatabaseHeader::swap_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:75:5: 75:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::write_secondary_slot",
+            "rust_function": "DatabaseHeader::write_secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:90:5: 95:6",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::StorageError::arrow_Corrupted_0",
+            "rust_function": "StorageError::arrow_Corrupted_0",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:123:1: 125:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::StorageError::arrow_Io_0",
+            "rust_function": "StorageError::arrow_Io_0",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:123:1: 128:17",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::StorageError::arrow_LockPoisoned_0",
+            "rust_function": "StorageError::arrow_LockPoisoned_0",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:123:1: 133:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::StorageError::arrow_ValueTooLarge_0",
+            "rust_function": "StorageError::arrow_ValueTooLarge_0",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:123:1: 127:24",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "rust_function": "UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:180:5: 180:74",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::UnrepairedDatabaseHeader::select_primary_slot",
+            "rust_function": "UnrepairedDatabaseHeader::select_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:142:5: 142:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:12:1: 12:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "finalize_wrong_infer": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "finalize_wrong::BtreeHeader::clone",
+            "rust_function": "<BtreeHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:22:16: 22:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:22:23: 22:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "rust_function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:22:27: 22:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::clone",
+            "rust_function": "<DatabaseHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:39:10: 39:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "finalize_wrong::PageNumber::clone",
+            "rust_function": "<PageNumber as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:14:16: 14:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:14:23: 14:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "rust_function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:14:27: 14:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "finalize_wrong::TransactionHeader::clone",
+            "rust_function": "<TransactionHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:28:10: 28:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "finalize_wrong::TransactionId::clone",
+            "rust_function": "<TransactionId as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:20:16: 20:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:20:40: 20:42",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::Ord>::cmp",
+            "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:20:23: 20:26",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:20:44: 20:53",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:20:28: 20:38",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::primary_slot",
+            "rust_function": "DatabaseHeader::primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:53:5: 53:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::published_slot",
+            "rust_function": "DatabaseHeader::published_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:65:5: 65:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::secondary_slot",
+            "rust_function": "DatabaseHeader::secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:59:5: 59:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::swap_primary_slot",
+            "rust_function": "DatabaseHeader::swap_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:75:5: 75:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::DatabaseHeader::write_secondary_slot",
+            "rust_function": "DatabaseHeader::write_secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:90:5: 95:6",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::StorageError::arrow_Corrupted_0",
+            "rust_function": "StorageError::arrow_Corrupted_0",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:123:1: 125:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::StorageError::arrow_Io_0",
+            "rust_function": "StorageError::arrow_Io_0",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:123:1: 128:17",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::StorageError::arrow_LockPoisoned_0",
+            "rust_function": "StorageError::arrow_LockPoisoned_0",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:123:1: 133:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::StorageError::arrow_ValueTooLarge_0",
+            "rust_function": "StorageError::arrow_ValueTooLarge_0",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:123:1: 127:24",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "rust_function": "UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:180:5: 180:74",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finalize_wrong::UnrepairedDatabaseHeader::select_primary_slot",
+            "rust_function": "UnrepairedDatabaseHeader::select_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:142:5: 142:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "source": "/tmp/redb-eligibility-closeout04/finalize_wrong.rs:12:1: 12:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "selection_unsafe_ordinary": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "selection_unsafe::BtreeHeader::clone",
+            "rust_function": "<BtreeHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:22:16: 22:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:22:23: 22:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "rust_function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:22:27: 22:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::clone",
+            "rust_function": "<DatabaseHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:39:10: 39:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "selection_unsafe::PageNumber::clone",
+            "rust_function": "<PageNumber as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:14:16: 14:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:14:23: 14:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "rust_function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:14:27: 14:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "selection_unsafe::TransactionHeader::clone",
+            "rust_function": "<TransactionHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:28:10: 28:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "selection_unsafe::TransactionId::clone",
+            "rust_function": "<TransactionId as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:20:16: 20:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:20:40: 20:42",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::Ord>::cmp",
+            "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:20:23: 20:26",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:20:44: 20:53",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:20:28: 20:38",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::primary_slot",
+            "rust_function": "DatabaseHeader::primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:53:5: 53:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::published_slot",
+            "rust_function": "DatabaseHeader::published_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:65:5: 65:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::secondary_slot",
+            "rust_function": "DatabaseHeader::secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:59:5: 59:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::swap_primary_slot",
+            "rust_function": "DatabaseHeader::swap_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:75:5: 75:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::write_secondary_slot",
+            "rust_function": "DatabaseHeader::write_secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:90:5: 95:6",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::StorageError::arrow_Corrupted_0",
+            "rust_function": "StorageError::arrow_Corrupted_0",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:123:1: 125:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::StorageError::arrow_Io_0",
+            "rust_function": "StorageError::arrow_Io_0",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:123:1: 128:17",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::StorageError::arrow_LockPoisoned_0",
+            "rust_function": "StorageError::arrow_LockPoisoned_0",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:123:1: 133:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::StorageError::arrow_ValueTooLarge_0",
+            "rust_function": "StorageError::arrow_ValueTooLarge_0",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:123:1: 127:24",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "rust_function": "UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:180:5: 180:74",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::UnrepairedDatabaseHeader::select_primary_slot",
+            "rust_function": "UnrepairedDatabaseHeader::select_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:142:5: 142:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:12:1: 12:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "selection_unsafe_infer": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "selection_unsafe::BtreeHeader::clone",
+            "rust_function": "<BtreeHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:22:16: 22:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<BtreeHeader as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:22:23: 22:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "rust_function": "<BtreeHeader as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:22:27: 22:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::clone",
+            "rust_function": "<DatabaseHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:39:10: 39:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "selection_unsafe::PageNumber::clone",
+            "rust_function": "<PageNumber as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:14:16: 14:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<PageNumber as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:14:23: 14:25",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "rust_function": "<PageNumber as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:14:27: 14:36",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "selection_unsafe::TransactionHeader::clone",
+            "rust_function": "<TransactionHeader as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:28:10: 28:15",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "selection_unsafe::TransactionId::clone",
+            "rust_function": "<TransactionId as std::clone::Clone>::clone",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:20:16: 20:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:20:40: 20:42",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::Ord>::cmp",
+            "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:20:23: 20:26",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:20:44: 20:53",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:20:28: 20:38",
+            "automatically_derived": true,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::primary_slot",
+            "rust_function": "DatabaseHeader::primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:53:5: 53:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::published_slot",
+            "rust_function": "DatabaseHeader::published_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:65:5: 65:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::secondary_slot",
+            "rust_function": "DatabaseHeader::secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:59:5: 59:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::swap_primary_slot",
+            "rust_function": "DatabaseHeader::swap_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:75:5: 75:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::DatabaseHeader::write_secondary_slot",
+            "rust_function": "DatabaseHeader::write_secondary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:90:5: 95:6",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::StorageError::arrow_Corrupted_0",
+            "rust_function": "StorageError::arrow_Corrupted_0",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:123:1: 125:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::StorageError::arrow_Io_0",
+            "rust_function": "StorageError::arrow_Io_0",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:123:1: 128:17",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::StorageError::arrow_LockPoisoned_0",
+            "rust_function": "StorageError::arrow_LockPoisoned_0",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:123:1: 133:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::StorageError::arrow_ValueTooLarge_0",
+            "rust_function": "StorageError::arrow_ValueTooLarge_0",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:123:1: 127:24",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "rust_function": "UnrepairedDatabaseHeader::finalize_transaction_slots",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:180:5: 180:74",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "selection_unsafe::UnrepairedDatabaseHeader::select_primary_slot",
+            "rust_function": "UnrepairedDatabaseHeader::select_primary_slot",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:142:5: 142:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+            "source": "/tmp/redb-eligibility-closeout04/selection_unsafe.rs:12:1: 12:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "eligible_ordinary_client_healthy": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 2,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "client::imported_finalize",
+            "rust_function": "imported_finalize",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_healthy.rs:5:1: 5:84",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "client::imported_selection",
+            "rust_function": "imported_selection",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_healthy.rs:13:1: 13:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "eligible_ordinary_client_wrong": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "client::imported_finalize",
+            "rust_function": "imported_finalize",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_wrong.rs:5:1: 5:84",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "client::imported_selection",
+            "rust_function": "imported_selection",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_wrong.rs:13:1: 13:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "eligible_ordinary_client_unsafe": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "client::imported_finalize",
+            "rust_function": "imported_finalize",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_unsafe.rs:5:1: 5:84",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "client::imported_selection",
+            "rust_function": "imported_selection",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_unsafe.rs:13:1: 13:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "eligible_ordinary_client_failed_import": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": false,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "eligible_infer_client_healthy": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 2,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "client::imported_finalize",
+            "rust_function": "imported_finalize",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_infer_client_healthy.rs:5:1: 5:84",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "client::imported_selection",
+            "rust_function": "imported_selection",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_infer_client_healthy.rs:13:1: 13:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "eligible_infer_client_wrong": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "client::imported_finalize",
+            "rust_function": "imported_finalize",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_infer_client_wrong.rs:5:1: 5:84",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "client::imported_selection",
+            "rust_function": "imported_selection",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_infer_client_wrong.rs:13:1: 13:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "eligible_infer_client_unsafe": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "client::imported_finalize",
+            "rust_function": "imported_finalize",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_infer_client_unsafe.rs:5:1: 5:84",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "client::imported_selection",
+            "rust_function": "imported_selection",
+            "source": "/tmp/redb-eligibility-closeout04/eligible_infer_client_unsafe.rs:13:1: 13:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "eligible_infer_client_failed_import": {
+      "helpers": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": false,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    }
+  },
+  "strict_closeout_receipt_sha256": "0415280fa3d5fe26379e38908e0019b650bba9ca77a66c4afdc4883397d8041b",
+  "first_unproved_sequent": "For original TransactionId a,b: the boolean returned by <TransactionId as PartialOrd>::gt(&a,&b) iff a.0 > b.0. Necessary when !two_phase_commit && !primary_corrupted && !secondary_corrupted. Derived Ord/PartialOrd bodies are outside selected scope; no law added.",
+  "caller_establishment": "UNPROVED: primary_slot < 2 and redundant xor bounds/distinctness at actual selection callers",
+  "proof_bodies": [],
+  "inferred_helpers": [],
+  "infer_annotation_reduction": 0,
+  "HMAC_native": "DEFERRED AND UNACHIEVED; native0/44+3/101 unchanged"
+}

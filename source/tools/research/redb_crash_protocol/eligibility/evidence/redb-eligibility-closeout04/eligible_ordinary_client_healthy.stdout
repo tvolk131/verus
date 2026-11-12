@@ -1,0 +1,1861 @@
+{
+  "func-details": {
+    "vstd::view::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::impl&%5::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%22::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::result::impl&%0::is_Err": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_requires": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::new": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "eligible::impl&%24::finalize_transaction_slots": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%26::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::View::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::strlit_view_id": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%28::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_ensures": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_array_decreases_to_seq": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::axiom_str_literal_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%30::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%2::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::lemma_array_index_decreases": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_array_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%16::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_new_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%4::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::array_len_matches_n": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_index_decreases": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::array_view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%32::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::ArrayAdditionalSpecFns::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::axiom_str_literal_get_char": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::impl&%2::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_new_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::result::ResultAdditionalSpecFns::is_Err": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::impl&%2::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "client::imported_selection": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%18::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "client::imported_finalize": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::axiom_array_has_resolved": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_ext_equal_deep": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%20::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::array::lemma_array_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%14::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::axiom_new_strlit_view_id": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "eligible::impl&%24::select_primary_slot": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%46::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%6::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    }
+  },
+  "verification-results": {
+    "encountered-error": false,
+    "encountered-vir-error": false,
+    "success": true,
+    "verified": 2,
+    "errors": 0,
+    "is-verifying-entire-crate": true
+  },
+  "verus-infer": {
+    "schema_version": 1,
+    "verification_scope": {
+      "coverage": "selected local Verus items; not all Rust code",
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": true,
+      "checked_exec_bodies": 2,
+      "checked_proof_bodies": 0,
+      "native_functions": [
+        {
+          "function": "client::imported_finalize",
+          "rust_function": "imported_finalize",
+          "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_healthy.rs:5:1: 5:84",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "client::imported_selection",
+          "rust_function": "imported_selection",
+          "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_healthy.rs:13:1: 13:76",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        }
+      ],
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ]
+    },
+    "status": "no_inference",
+    "crate_success": true,
+    "requested_functions": 0,
+    "generated_functions": 0,
+    "generation_failure": null,
+    "assistance_explanations": {
+      "enabled": true,
+      "profiles": [
+        "growth_loop",
+        "pointwise_transport",
+        "range_loop",
+        "mutable_buffer_u64_radix128"
+      ],
+      "preparation_started": true,
+      "preparation_completed": true,
+      "decisions": [
+        {
+          "profile": "growth_loop",
+          "function": "client::imported_finalize",
+          "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_healthy.rs:5:1: 5:84 (#0)",
+          "status": "skipped",
+          "reason": "non_unit_return",
+          "message": "This loop profile requires a unit return; a larger result may use a separate selector or local-fold profile."
+        },
+        {
+          "profile": "growth_loop",
+          "function": "client::imported_selection",
+          "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_healthy.rs:13:1: 13:76 (#0)",
+          "status": "skipped",
+          "reason": "non_unit_return",
+          "message": "This loop profile requires a unit return; a larger result may use a separate selector or local-fold profile."
+        },
+        {
+          "profile": "pointwise_transport",
+          "function": "client::imported_finalize",
+          "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_healthy.rs:5:1: 5:84 (#0)",
+          "status": "skipped",
+          "reason": "unsupported_transport_signature",
+          "message": "Pointwise clone transport requires one shared input and a returned value of the same underlying type."
+        },
+        {
+          "profile": "pointwise_transport",
+          "function": "client::imported_selection",
+          "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_healthy.rs:13:1: 13:76 (#0)",
+          "status": "skipped",
+          "reason": "unsupported_transport_signature",
+          "message": "Pointwise clone transport requires one shared input and a returned value of the same underlying type."
+        },
+        {
+          "profile": "range_loop",
+          "function": "client::imported_finalize",
+          "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_healthy.rs:5:1: 5:84 (#0)",
+          "status": "skipped",
+          "reason": "non_unit_return",
+          "message": "This loop profile requires a unit return; a larger result may use a separate selector or local-fold profile."
+        },
+        {
+          "profile": "range_loop",
+          "function": "client::imported_selection",
+          "source": "/tmp/redb-eligibility-closeout04/eligible_ordinary_client_healthy.rs:13:1: 13:76 (#0)",
+          "status": "skipped",
+          "reason": "non_unit_return",
+          "message": "This loop profile requires a unit return; a larger result may use a separate selector or local-fold profile."
+        }
+      ]
+    },
+    "word_sequence_assistance": [],
+    "buffer_observation_assistance": [],
+    "range_loop_assistance": [],
+    "set_pair_assistance": [],
+    "pointwise_assistance": [],
+    "sequence_pattern_assistance": [],
+    "mutable_selector_assistance": [],
+    "growth_loop_assistance": [],
+    "local_fold_assistance": [],
+    "factory_assistance": [],
+    "error_callback_assistance": [],
+    "array_callback_assistance": [],
+    "type_invariant_entry_assistance": [],
+    "goal_assistance": [],
+    "failed_functions": [],
+    "functions": [],
+    "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+    "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+    "imported_inference_dependencies": [],
+    "trusted_models": [
+      {
+        "function": "core::cmp::PartialEq::eq",
+        "fingerprint": "82e13039cc45989e2c37ed69286fec7cfad43e7ea3bcada18f13e3b916598c19"
+      },
+      {
+        "function": "core::cmp::PartialEq::ne",
+        "fingerprint": "6348ed9b028b0ef439936ad4faaf17458fd9fed0828585f6703730ee0b9bd62e"
+      },
+      {
+        "function": "core::cmp::PartialOrd::ge",
+        "fingerprint": "83f39d750b9275f5b45787dd9a3b3540dad55a1304e777940ed85de5709ed2ed"
+      },
+      {
+        "function": "core::cmp::PartialOrd::gt",
+        "fingerprint": "bfa083a65a5c58ac24dbb69b784d819dee0c8fc7603aa143044cbc4b19c2413d"
+      },
+      {
+        "function": "core::cmp::PartialOrd::le",
+        "fingerprint": "27f211f3179af90822c14a9c4b27889689eb5522670e9b2556cbd2bc79663c05"
+      },
+      {
+        "function": "core::cmp::PartialOrd::lt",
+        "fingerprint": "1268e77a3b2034e5139fdc63d0ef0ab9224181ceb639c8d1e4e0ef0076e24a77"
+      },
+      {
+        "function": "core::convert::From::from",
+        "fingerprint": "e3f1d80b60e289cc490f393101ae4822d2f854fe6b5003d620c97efa75b90a6b"
+      },
+      {
+        "function": "core::convert::Into::into",
+        "fingerprint": "0b21c2949382656edb805a9bfdda6c931302cb560f8771de6a68f502112f9fc5"
+      },
+      {
+        "function": "core::convert::TryFrom::try_from",
+        "fingerprint": "3adbdfb1d39f2ee75073b35f827f598cb8ad7779d42cf1f39eb683c3bdf9a6d2"
+      },
+      {
+        "function": "core::convert::impl&%3::into",
+        "fingerprint": "36c70c2c4a28d8f8b0c4882867f3c15654e78c0db338bfedb19c71bc3c0beb0c"
+      },
+      {
+        "function": "core::convert::num::impl&%135::try_from",
+        "fingerprint": "ea4f65694211415799f7e50c80615c5c9263abd6faa3ed6fd42d90b106d8738c"
+      },
+      {
+        "function": "core::convert::num::impl&%136::try_from",
+        "fingerprint": "e28d60625b66322c10f1604a36d0184b661b305831386d05e2468d9d3002fa3a"
+      },
+      {
+        "function": "core::convert::num::impl&%137::try_from",
+        "fingerprint": "f94df85d1bdd1d947fdc35e41aa05d7fc36ad0abf4b74e73eb25dae9f70a6500"
+      },
+      {
+        "function": "core::convert::num::impl&%138::try_from",
+        "fingerprint": "a2d035ab9377430f269e39263ff1f9579ec903721019c3cba55f87fe26daaf98"
+      },
+      {
+        "function": "core::convert::num::impl&%139::try_from",
+        "fingerprint": "afe62f6320ca8d171bd00c97d4f6b4081f777ac6c92e81a51e2bdf1cde76b9e3"
+      },
+      {
+        "function": "core::convert::num::impl&%140::try_from",
+        "fingerprint": "7e5107adc360157101ad09d8dc5e131a92e4aa7a74bbeea1a7b6d81b76e3b09d"
+      },
+      {
+        "function": "core::convert::num::impl&%141::try_from",
+        "fingerprint": "9da9a5158b214580f07b7e2da633c74d167ed6100e45a2da442e9d7a99051688"
+      },
+      {
+        "function": "core::convert::num::impl&%142::try_from",
+        "fingerprint": "406034a9a5b4ce3ab57a41abd46d973d3bdf76c5b95453aa8ada206cf2b75fca"
+      },
+      {
+        "function": "core::convert::num::impl&%143::try_from",
+        "fingerprint": "e924d1ac858dfa06e45085b3d08b2af565137e523795419e602269b035b1b654"
+      },
+      {
+        "function": "core::convert::num::impl&%144::try_from",
+        "fingerprint": "08d1f39e754846c078b28d0737f2efb612a79d648bf035e9e7b9ba0d5974d98e"
+      },
+      {
+        "function": "core::convert::num::impl&%145::try_from",
+        "fingerprint": "14f58429b4c95fb2357d6a08186f3ce0dabdb32071552c506654c356d47cdde6"
+      },
+      {
+        "function": "core::convert::num::impl&%146::try_from",
+        "fingerprint": "3a7be1806f23d28c7d9bc5a0d79bfdb27655e33a451fc04a76468e24b8c53cba"
+      },
+      {
+        "function": "core::convert::num::impl&%147::try_from",
+        "fingerprint": "48b4047ab08026dd63ca2b2c30c32e0a2dd7fbba29e0a00dac0263d87767baee"
+      },
+      {
+        "function": "core::convert::num::impl&%148::try_from",
+        "fingerprint": "fc52e96517b4acf23707d9a21ffe43ece150f4a4ec9a9f06fcc3d27b30c89398"
+      },
+      {
+        "function": "core::convert::num::impl&%149::try_from",
+        "fingerprint": "68c5cc48857aadea64b2596b8eb4fc3a93f315de9ef2f9f6a3fc7c77bf2b3ebc"
+      },
+      {
+        "function": "core::convert::num::impl&%150::try_from",
+        "fingerprint": "4a41364fc168d54571e11df1be5fa87ab85c504c60031caf1c6f76ecf3adc63f"
+      },
+      {
+        "function": "core::convert::num::impl&%151::try_from",
+        "fingerprint": "28c470d3dc4dc72055337e50df0898ef969207056c12e02b148cdcc927bc6a02"
+      },
+      {
+        "function": "core::convert::num::impl&%152::try_from",
+        "fingerprint": "f291e0583e305fcfcc4269360bf5ec387b8e0065f11262646c52cc1513bbf4aa"
+      },
+      {
+        "function": "core::convert::num::impl&%153::try_from",
+        "fingerprint": "4a1421e61f0016c558a53f7aa14b04e83a26b29753b4080f5731b96a5226fbcb"
+      },
+      {
+        "function": "core::convert::num::impl&%154::try_from",
+        "fingerprint": "a4718336895bbfa74cfd6ccda612dabd66ea0201b31512b84a414cc39ccd9606"
+      },
+      {
+        "function": "core::convert::num::impl&%155::try_from",
+        "fingerprint": "b0b74f2ebd49933bfa25e49682caf3f062e298e96a605fbb56151e490d58871a"
+      },
+      {
+        "function": "core::convert::num::impl&%156::try_from",
+        "fingerprint": "cfc670d10ec3a6e977bf06903314950edea43edfe7aec7a75b34e3bb3cb8a2bb"
+      },
+      {
+        "function": "core::convert::num::impl&%157::try_from",
+        "fingerprint": "37e1c91599ded31cd2b80526bf8de55cab740080e775c09be8d77e0a99ffe734"
+      },
+      {
+        "function": "core::convert::num::impl&%158::try_from",
+        "fingerprint": "456ffb48632889886d9fd5b9baf7674d94b0fe0251206515aaf074007bb524fb"
+      },
+      {
+        "function": "core::convert::num::impl&%159::try_from",
+        "fingerprint": "45db95eaf5172e4afeac51e6468e973acf6bf1291b01f186aab93b2d6919c823"
+      },
+      {
+        "function": "core::convert::num::impl&%160::try_from",
+        "fingerprint": "c210672c4e2d6d7113175424c39244ade1080eead34b3e6308d9a9a3524f4f84"
+      },
+      {
+        "function": "core::convert::num::impl&%161::try_from",
+        "fingerprint": "5a8301fd9a55c25d73f227be9fb0d24086ce6fc5ae02aff1ce82b9cd45b2ccb5"
+      },
+      {
+        "function": "core::convert::num::impl&%162::try_from",
+        "fingerprint": "0248bb7ae6de619b86bd86c1719c7966a8e22e792fd8e5e54c14f45bdcc601cf"
+      },
+      {
+        "function": "core::convert::num::impl&%163::try_from",
+        "fingerprint": "90d7d664a32775226157ee0d857c72304721530146ce2747c40bbcd8cecb83fb"
+      },
+      {
+        "function": "core::convert::num::impl&%164::try_from",
+        "fingerprint": "f86e78cbdaf4e38d7a5642c4270015f9a85b0bd0f812f416b37c8db1d87ea72b"
+      },
+      {
+        "function": "core::convert::num::impl&%165::try_from",
+        "fingerprint": "da9ba0d8336b0b2e36d976cc37eb755111cd8a4bc84786c16e380f6bb0018f92"
+      },
+      {
+        "function": "core::convert::num::impl&%166::try_from",
+        "fingerprint": "f8d5bef33727a88cdbcf233b5f6e35349972935c5941e24db2f55613b68731b0"
+      },
+      {
+        "function": "core::convert::num::impl&%167::try_from",
+        "fingerprint": "732d75ef2e4dd825432445f68e017ae935ab5747e7868e5797ef7be043eb09b7"
+      },
+      {
+        "function": "core::convert::num::impl&%168::try_from",
+        "fingerprint": "a7f56e32fc06ade2adf9e32bd294751786ad09bf1dd2407c61aefc5d837b2b0c"
+      },
+      {
+        "function": "core::convert::num::impl&%169::try_from",
+        "fingerprint": "94bc08a74b97729b4a37ec00c624230ae82c8e676cb1db3f88fc4c1ead3b570a"
+      },
+      {
+        "function": "core::convert::num::impl&%170::try_from",
+        "fingerprint": "76419ddcde769ac51933814935101d76ec2e5d2a691b0a7aaccea80b1eb8d179"
+      },
+      {
+        "function": "core::convert::num::impl&%171::try_from",
+        "fingerprint": "941f8a19b01df4cf14221498c0666c6619311c92bb228a8c15cee1b3ae76f314"
+      },
+      {
+        "function": "core::convert::num::impl&%172::try_from",
+        "fingerprint": "e12e198f0e91c7448fa6916e1a388f6931cbe3cc663c7a7f643ba94167196258"
+      },
+      {
+        "function": "core::convert::num::impl&%173::try_from",
+        "fingerprint": "5cc05ddeb37f0a39513a74bc4c85e70f068b2c99ec74e3ce446c756f0797c225"
+      },
+      {
+        "function": "core::convert::num::impl&%174::try_from",
+        "fingerprint": "6c3c15c7dc4c0f31a96b339327bf46f4593f0e3bbcba153ae8b5074ba8bddb83"
+      },
+      {
+        "function": "core::convert::num::impl&%175::try_from",
+        "fingerprint": "c8f67516f513067f32d32ecb818bcd7f0c4b775b8b18e9a8705bc67aaa548ab1"
+      },
+      {
+        "function": "core::convert::num::impl&%176::try_from",
+        "fingerprint": "c19d4716edb83fdcd603c1e56c61099b7edf3b8907f3ea740204e0a638e4a806"
+      },
+      {
+        "function": "core::convert::num::impl&%177::try_from",
+        "fingerprint": "46386b7ee0c28ca61f67d4f4d763f6bcfb2b51b473e43dd516010a4fe1163633"
+      },
+      {
+        "function": "core::convert::num::impl&%178::try_from",
+        "fingerprint": "103156627fdef2e113a4a45ce59cc3b842c67be8380d24dcc2376abedaef7630"
+      },
+      {
+        "function": "core::convert::num::impl&%179::try_from",
+        "fingerprint": "cf1f334c9d502cfd87316e26f46f4e821ff6311e96165400d7a37ca58d2ad21f"
+      },
+      {
+        "function": "core::convert::num::impl&%180::try_from",
+        "fingerprint": "ba96b3bb57d58bf1de7517dd220941afe33612f2db3875fbbd2938122038fb42"
+      },
+      {
+        "function": "core::convert::num::impl&%181::try_from",
+        "fingerprint": "4ae9b86b73e5796760aa3b234f86b8b2404b4dbc10ad601e4d498f4f97e4111e"
+      },
+      {
+        "function": "core::convert::num::impl&%182::try_from",
+        "fingerprint": "d32ee5db0f43a96b4ef71f8b39512d148e265881e54df2a519a5ee51592f1274"
+      },
+      {
+        "function": "core::convert::num::impl&%183::try_from",
+        "fingerprint": "9e6caf4a13be31970b8d62bfca3786bf7f31c4211e21c7f59910b960373b4db8"
+      },
+      {
+        "function": "core::convert::num::impl&%184::try_from",
+        "fingerprint": "a7db41543e2c55cd012f55f365dcb7ef16f71048722b678140aa14fadcab399c"
+      },
+      {
+        "function": "core::convert::num::impl&%185::try_from",
+        "fingerprint": "7942b87f2e6d680be526ea8615cd695db49ea22416e2108f5b3ab2d16c8bebc4"
+      },
+      {
+        "function": "core::convert::num::impl&%186::try_from",
+        "fingerprint": "2d31c77118daa9d54592033fa97f1b478e16851b3163f02615cee636e180c68c"
+      },
+      {
+        "function": "core::convert::num::impl&%187::try_from",
+        "fingerprint": "f6c8de2ee11df5602341e2918fb5510f183c7d870cca79e8f2f880e3bb535dd6"
+      },
+      {
+        "function": "core::convert::num::impl&%188::try_from",
+        "fingerprint": "0ead102e26ab2898ea4dbc09b6f7587880eff7849f441bdd9af8548c1bc558f9"
+      },
+      {
+        "function": "core::convert::num::impl&%189::try_from",
+        "fingerprint": "43cad4fabe4c95059f4d7259e82da60b04255de2b70722d37ed21a818208c9af"
+      },
+      {
+        "function": "core::convert::num::impl&%190::try_from",
+        "fingerprint": "f4adeb486e9f651fca216e9c493a5637bb3b684ce90eca21111be2ec2dbb95f3"
+      },
+      {
+        "function": "core::convert::num::impl&%191::try_from",
+        "fingerprint": "af495a15d491bc97681648d54fdd682a77ae64fc95e1562680febbc0d15cd248"
+      },
+      {
+        "function": "core::convert::num::impl&%192::try_from",
+        "fingerprint": "ee5c91ec21c9104d72d10498fcdd02241116ed86ff439e4341c6c57eec2486cd"
+      },
+      {
+        "function": "core::convert::num::impl&%193::try_from",
+        "fingerprint": "77ac4fd84a2fa9ece26687823d4475375f277decf1c1ef857ceb5f851bfaf4fb"
+      },
+      {
+        "function": "core::convert::num::impl&%194::try_from",
+        "fingerprint": "484f65cf0515e1dc048f0d6c4925e1d6be84f8ed82a44b1e9fc3c10817d9ceaa"
+      },
+      {
+        "function": "core::convert::num::impl&%60::from",
+        "fingerprint": "4946cd2a660f4afe4dacb8b30898952bb685ed2dc9cc1d9b0cd0397f0f21184c"
+      },
+      {
+        "function": "core::convert::num::impl&%61::from",
+        "fingerprint": "5b314088dff2e592b35d0fbcf26ffe7ed88b8d083d9c9a6878d8967176cf98f9"
+      },
+      {
+        "function": "core::convert::num::impl&%62::from",
+        "fingerprint": "5966eaf1416a0ea19a1b195f676fcdfb02a21c83a50921eef9d86119870bd6f7"
+      },
+      {
+        "function": "core::convert::num::impl&%63::from",
+        "fingerprint": "3ffe96fbb171e5e2eae4451e139ee4106ea6503b83fbd54032ea16baa99f83db"
+      },
+      {
+        "function": "core::convert::num::impl&%64::from",
+        "fingerprint": "6162040189870a46a6908501ae67e6e929efb5ede6c4da03d063fb33e59daf5c"
+      },
+      {
+        "function": "core::convert::num::impl&%65::from",
+        "fingerprint": "c3ffd58679338e6ceaa8d27b296038934a8dc4ddc164cf49909f6ced3a479289"
+      },
+      {
+        "function": "core::convert::num::impl&%66::from",
+        "fingerprint": "31bca842bf066c295370b0b1fe80abed8fdd5438717e5090c72fe237b3875819"
+      },
+      {
+        "function": "core::convert::num::impl&%67::from",
+        "fingerprint": "49c6108efd6ec57b71375a66fa0f2fc2386e624acfaccba251864c344a846656"
+      },
+      {
+        "function": "core::convert::num::impl&%68::from",
+        "fingerprint": "7c0e115c1bbea529da155ff5a0d829b9a691eabdf2310f3f048ade15f40d3adc"
+      },
+      {
+        "function": "core::convert::num::impl&%69::from",
+        "fingerprint": "a76d7a5e20f0da8bf47c757760c8265440c5ad704804833c07758471dff8a10a"
+      },
+      {
+        "function": "core::convert::num::impl&%70::from",
+        "fingerprint": "bacf3bf69d0e71bd08a94ee98c415235dd5a125cd8a9ccbffeb081cc8a90ddc6"
+      },
+      {
+        "function": "core::convert::num::impl&%71::from",
+        "fingerprint": "b5157e97092eff5e637d242041c7c57663ea4aea972809ba8b412185e36d95d8"
+      },
+      {
+        "function": "core::convert::num::impl&%72::from",
+        "fingerprint": "50dd1530b69a7ef8e7675ddc0a8fa8b400c38a2b3c1e8c2a57a793a81a017583"
+      },
+      {
+        "function": "core::convert::num::impl&%73::from",
+        "fingerprint": "84b08e4442e7d9ebd5d1e4c48408ef3bbfc735c52011565dc6e82c4e2d733d84"
+      },
+      {
+        "function": "core::convert::num::impl&%74::from",
+        "fingerprint": "936710abb8659b80fac2a321c0272e388d64bec3d0190bdca0db3b70b2e01adc"
+      },
+      {
+        "function": "core::convert::num::impl&%75::from",
+        "fingerprint": "8b51e32551c6f4188cf67fd33996b3919257a23d29aa2174728566474fa51f33"
+      },
+      {
+        "function": "core::convert::num::impl&%76::from",
+        "fingerprint": "0f58c87684a449589008ad182a4d1ad06d5476b1a7cea3986af3cc19dd3a385a"
+      },
+      {
+        "function": "core::convert::num::impl&%77::from",
+        "fingerprint": "0d0ea3fcb08481ec0fca94f66c15078ac543144f626508bd18a578cc6b06b733"
+      },
+      {
+        "function": "core::convert::num::impl&%78::from",
+        "fingerprint": "8067d3bf6003a6c0613c71b39bb8f4c6132e7fe3d73d1832f4188006a5d934e1"
+      },
+      {
+        "function": "core::convert::num::impl&%79::from",
+        "fingerprint": "a24cedd034bc421e0898757787b91608aa4193a1f93ed43ada5d8857bdfca24c"
+      },
+      {
+        "function": "core::convert::num::impl&%80::from",
+        "fingerprint": "c43cb5015c956aeaf42bde5ee1e4939001769ec65ef5d934daf786688cfe521f"
+      },
+      {
+        "function": "core::convert::num::impl&%81::from",
+        "fingerprint": "984b5b016da82ace4637cc973c39a8d61a1d38fbb981317f053e04471ab8c053"
+      },
+      {
+        "function": "core::convert::num::impl&%82::from",
+        "fingerprint": "e1217821e97b2aa4a242e841f9bff8d87003049c2b730ac52a556868644180d4"
+      },
+      {
+        "function": "core::convert::num::impl&%83::from",
+        "fingerprint": "e92dd4c02e2e13f8bb0d0741db7a73d5db6901501bc1ce2b773043d3980c43e6"
+      },
+      {
+        "function": "core::convert::num::impl&%84::from",
+        "fingerprint": "3eeb81340ca567f88f26f3d88084e54404df90912f64a91f779533eda5aa7afd"
+      },
+      {
+        "function": "core::convert::num::impl&%85::from",
+        "fingerprint": "b0de31237cc125d8597dfb63f95d3f55838905ac75be88c7420cd0249b5307f1"
+      },
+      {
+        "function": "core::convert::num::impl&%86::from",
+        "fingerprint": "54bd6cbead1cf05d868fcb2fddd236a5adb6ac6080fd5d3b7eab2f3380f26e33"
+      },
+      {
+        "function": "core::convert::num::impl&%87::from",
+        "fingerprint": "dad076d312a5aa39cac01e547f009c5693d3014bf6e5d610cb34360a2d7453b5"
+      },
+      {
+        "function": "core::convert::num::impl&%88::from",
+        "fingerprint": "4607b4c12cf239c6b144d9b7fcdb29cf1d0a67d41aba86a7bc6c38bfc6c33382"
+      },
+      {
+        "function": "core::convert::num::impl&%89::from",
+        "fingerprint": "2c0922d837614acb4b0ed4483c6ece41c332426fbad8d691d1bdc2b875cbb9ae"
+      },
+      {
+        "function": "core::convert::num::impl&%90::from",
+        "fingerprint": "9372e50c80f84443fbc34642b88b901e0be5a616c3b25d374e15e7da6571cf9f"
+      },
+      {
+        "function": "core::convert::num::impl&%91::from",
+        "fingerprint": "0362c29ed661484c21dd1baab13feb75ae285caf65539f03fd738522e3594ba1"
+      },
+      {
+        "function": "core::convert::num::impl&%92::from",
+        "fingerprint": "32bc28e124c51e4de100303a03a1def0c13343268fc1f8fa0daab44bf82baae6"
+      },
+      {
+        "function": "core::convert::num::impl&%93::from",
+        "fingerprint": "5f3958b31e68acae4ad33a91fddfca09daa1c5173b9b25660a35f800c8852353"
+      },
+      {
+        "function": "core::convert::num::impl&%94::from",
+        "fingerprint": "2038f320d3a213bc36beb6531216749dcba1de3cde174c02c5695bb0b60b72b1"
+      },
+      {
+        "function": "core::fmt::impl&%6::from_str",
+        "fingerprint": "9a3c2109efc6f0466a4fe822316b960abe9bc6c6654467c9ccf61cf4f468b0f6"
+      },
+      {
+        "function": "core::iter::traits::iterator::Iterator::any",
+        "fingerprint": "b93379db05d89f63024cebbd6d2db37659be5ab279ea6efa851318ad3b16f2c5"
+      },
+      {
+        "function": "core::iter::traits::iterator::Iterator::count",
+        "fingerprint": "0a6004d427a2f5120451c406affc60ec17e912763d2367e2479267c215e6929e"
+      },
+      {
+        "function": "core::iter::traits::iterator::Iterator::filter",
+        "fingerprint": "7be169300daccd6fac8a2134ad64c379263db221525d90fcf3732a534c1f2404"
+      },
+      {
+        "function": "core::num::impl&%0::checked_add",
+        "fingerprint": "426a939caa063eabb9767ae938aa2f197a0eea0231e6dce341f0dfc7a23a3c8e"
+      },
+      {
+        "function": "core::num::impl&%0::checked_add_unsigned",
+        "fingerprint": "197b68a92e76e71cfd823845fb787dad47fb1f0941ef805b041fe17849bb927e"
+      },
+      {
+        "function": "core::num::impl&%0::checked_div",
+        "fingerprint": "c058cf4cecc40677cc5aac03f16303754f96c07e62b238f9db22abab368cd207"
+      },
+      {
+        "function": "core::num::impl&%0::checked_div_euclid",
+        "fingerprint": "327372400bac387ec9b02dae323d7376468356b57a88d6f5232c5084da868da7"
+      },
+      {
+        "function": "core::num::impl&%0::checked_mul",
+        "fingerprint": "3a9afef6143de653b905fb5e0b8a637247b9d07825c43b5086ca87c7f7851ef3"
+      },
+      {
+        "function": "core::num::impl&%0::checked_neg",
+        "fingerprint": "23634c40e66677bfc158235947a93320c4d7a9564a6dba64759c43c0ccd127e6"
+      },
+      {
+        "function": "core::num::impl&%0::checked_rem",
+        "fingerprint": "ba85a441b8089d29dddf6e934f0ff97c0dd582aa3bdb9bb5d785e039d8e897aa"
+      },
+      {
+        "function": "core::num::impl&%0::checked_rem_euclid",
+        "fingerprint": "f85ee4521a3c65599f032c906dc2451f97dd25005095bd87e154eff60f444399"
+      },
+      {
+        "function": "core::num::impl&%0::checked_sub",
+        "fingerprint": "53181c32651ac647aaa5b2c4cdbbb262eb94bb428d38507c7d2e6963d393f4fb"
+      },
+      {
+        "function": "core::num::impl&%0::checked_sub_unsigned",
+        "fingerprint": "a9488556c20f01022cc20638de61c5e0068e534c71d6798c91f7c05836b0d648"
+      },
+      {
+        "function": "core::num::impl&%0::saturating_add",
+        "fingerprint": "b475986353580efa0415f9369798417fc4abc050572d7eea77ced631200f126c"
+      },
+      {
+        "function": "core::num::impl&%0::saturating_mul",
+        "fingerprint": "2ddc7ccdd586b9604fbeb522bfe893ce07419c887ead03b57f1477f1152b4161"
+      },
+      {
+        "function": "core::num::impl&%0::saturating_sub",
+        "fingerprint": "b1a96dd2e4d23462453025abf766f34d3714c4f4e491c2d73e4f6f23f613977b"
+      },
+      {
+        "function": "core::num::impl&%0::wrapping_add",
+        "fingerprint": "758d1e29daff5dcf13e2d60c5425f27f90198fd9e677728f36e44124fecee002"
+      },
+      {
+        "function": "core::num::impl&%0::wrapping_mul",
+        "fingerprint": "4048c3b3d8ca0cc1504b6dd62f67b0b23d0e19ec38d58faa361a00696f26bc86"
+      },
+      {
+        "function": "core::num::impl&%0::wrapping_sub",
+        "fingerprint": "7f9776b73f46a6db7df00c261621fdc43a3e5a6c851cd38f00406eb55824d0b4"
+      },
+      {
+        "function": "core::num::impl&%1::checked_add",
+        "fingerprint": "75144c9c15fcbc23ec0708b69ea2bd026463eb59317487a4e8f0bfcdeb7fe097"
+      },
+      {
+        "function": "core::num::impl&%1::checked_add_unsigned",
+        "fingerprint": "8b2d26e11945201ed5122ef5215b1e39dcc89a97c622f0ef1197e9c505027989"
+      },
+      {
+        "function": "core::num::impl&%1::checked_div",
+        "fingerprint": "e76a99ee7afb3c7c1a2665e6a29056d8f9ee635fb1a197a13b5f297abc22aa37"
+      },
+      {
+        "function": "core::num::impl&%1::checked_div_euclid",
+        "fingerprint": "ffb85b9b88db9eff306002563f839598d4113b3b32882e67b5547b733c954a10"
+      },
+      {
+        "function": "core::num::impl&%1::checked_mul",
+        "fingerprint": "d851ccb515dcf62a324c7c52434c6fe26fd6ac969c4a9ee4a6e68a383d269d1b"
+      },
+      {
+        "function": "core::num::impl&%1::checked_neg",
+        "fingerprint": "adf61ba6a191f5582048b18700c6b0f327bd59b2530287d5814c7c7f2863216a"
+      },
+      {
+        "function": "core::num::impl&%1::checked_rem",
+        "fingerprint": "c7365a56988867adffe003500f918f759c356c1aaed38671156bb89d3a25f5f7"
+      },
+      {
+        "function": "core::num::impl&%1::checked_rem_euclid",
+        "fingerprint": "541c33905d912d589d36499d0f22c8cb207c405a68aa8016ff500e80eef7ae9a"
+      },
+      {
+        "function": "core::num::impl&%1::checked_sub",
+        "fingerprint": "242834546d733b3233de92933658bd00c40b082992f65a042f0f75ff032c0fa8"
+      },
+      {
+        "function": "core::num::impl&%1::checked_sub_unsigned",
+        "fingerprint": "3af88cf3afc6d9449215bb4d4d8b5a6ad341304e0ffb8f0f176e71b915a4441b"
+      },
+      {
+        "function": "core::num::impl&%1::saturating_add",
+        "fingerprint": "2deb0ccb3ab3c87c178d33a5b44a8b332fdff9c87bd800a5cad58e6e86091a28"
+      },
+      {
+        "function": "core::num::impl&%1::saturating_mul",
+        "fingerprint": "1b2f7e2ff7e5757e7fb04aa412ec0488036818a8178896c1c7e164a8904780ce"
+      },
+      {
+        "function": "core::num::impl&%1::saturating_sub",
+        "fingerprint": "81e7794bc6d1ba5be5a694b31c337b25ce0e684a825b892852c0033865191945"
+      },
+      {
+        "function": "core::num::impl&%1::wrapping_add",
+        "fingerprint": "0e69b3a841a671d66d12c2d769c0286cb2bdd9c120b5573a602a91d1d437f974"
+      },
+      {
+        "function": "core::num::impl&%1::wrapping_mul",
+        "fingerprint": "fb23aab5e4a3f34adf9be39dd7a84be95b38e0b588ec495bad31e5224ca3b520"
+      },
+      {
+        "function": "core::num::impl&%1::wrapping_sub",
+        "fingerprint": "e2724cd094ec9922e8e48bf84ded408c11c968633bba9fcac44a59a31e60fa07"
+      },
+      {
+        "function": "core::num::impl&%10::checked_add",
+        "fingerprint": "33c6f2d77230b0d966e11921e1e2f5f5c9f1dfb0a8a3591837405cbba27b4f5c"
+      },
+      {
+        "function": "core::num::impl&%10::checked_add_signed",
+        "fingerprint": "6d121e5241b77f8514d853b56600907925b8dd491fbf6a9fecfe6c6e977e0ecc"
+      },
+      {
+        "function": "core::num::impl&%10::checked_div",
+        "fingerprint": "49e8ae093c447ee1911a54f085f3bcb33d1aeaf25ce4ea74971461b4692ee137"
+      },
+      {
+        "function": "core::num::impl&%10::checked_div_euclid",
+        "fingerprint": "b15eed88c4ed86377e6426e92c5ee141f7c47a8f7f6edb745ba601c97eb64ca8"
+      },
+      {
+        "function": "core::num::impl&%10::checked_mul",
+        "fingerprint": "885f77e8b9452225fdc6f9e122e3e5834b62609f76b62ce6af0c99dab2e3ab01"
+      },
+      {
+        "function": "core::num::impl&%10::checked_neg",
+        "fingerprint": "7406e5a33f7516bf47cf28b3248e177573dd9df3692e34d4d252399ccfe71a56"
+      },
+      {
+        "function": "core::num::impl&%10::checked_rem",
+        "fingerprint": "1afe5925054d41e2da0e6754ea1a48bd033b04b6a13f2f92e81b5135ce73564e"
+      },
+      {
+        "function": "core::num::impl&%10::checked_rem_euclid",
+        "fingerprint": "6eb04a1d81766bbdc4e35d6ca1889f1cc5b43e7cb65b7bf49e742a379e613efd"
+      },
+      {
+        "function": "core::num::impl&%10::checked_sub",
+        "fingerprint": "ab096d64c6c8853d491fc858ceef3fa36da7c67d682a1d8b1cef6f1e45de3abc"
+      },
+      {
+        "function": "core::num::impl&%10::checked_sub_signed",
+        "fingerprint": "f2ec6894263572c1723039be16f5493bcd8203e2951b8f3d11c4dba8741c6c33"
+      },
+      {
+        "function": "core::num::impl&%10::saturating_add",
+        "fingerprint": "e2798e01b19a22762af967435addf9665e7c96ea921cefaf54ad5ed6ce7d81f1"
+      },
+      {
+        "function": "core::num::impl&%10::saturating_mul",
+        "fingerprint": "635e1d2e1c75f050afb6e47e1518e657cf204966c715aaf2f56645efb18c7451"
+      },
+      {
+        "function": "core::num::impl&%10::saturating_sub",
+        "fingerprint": "d9bc10f85142c0346291da91673d8697ca8f3690dd75d9b16757897d7b49e8f2"
+      },
+      {
+        "function": "core::num::impl&%10::wrapping_add",
+        "fingerprint": "88a4d9abaf44f35da8ef1bdaff2ea6b84d55a4383029f81b62bab5465c980218"
+      },
+      {
+        "function": "core::num::impl&%10::wrapping_mul",
+        "fingerprint": "d4f9f77b769939c4f931ce407b2d8d1eef87d5f12464f4d1261d88c7b4f49d98"
+      },
+      {
+        "function": "core::num::impl&%10::wrapping_sub",
+        "fingerprint": "27d449003cb423a24755eede5a0c898818e7a9dfc5384830a6fe249769db62d8"
+      },
+      {
+        "function": "core::num::impl&%11::checked_add",
+        "fingerprint": "a7d4dfae7e03b5e106033a1a7f73d567cb15f12ef19f477b0c995bbe846b5c18"
+      },
+      {
+        "function": "core::num::impl&%11::checked_add_signed",
+        "fingerprint": "2d44f5e77c57d00c6c3df21df21aa5ab506372fea631986fb2934b8124be6959"
+      },
+      {
+        "function": "core::num::impl&%11::checked_div",
+        "fingerprint": "e16c7afd42d028fb7ea212335d4c06dfb2d85a5f8f3ad89390d3e16d1324f146"
+      },
+      {
+        "function": "core::num::impl&%11::checked_div_euclid",
+        "fingerprint": "ccf7faeaaabbee9f26c0f8946d4c8eb5254a64934bcae6c4f801feb9231619c4"
+      },
+      {
+        "function": "core::num::impl&%11::checked_mul",
+        "fingerprint": "495941cd9d6ffef4316a2efb51a2d680f3368bcf9ed3f6ab17ef546d4aeb919b"
+      },
+      {
+        "function": "core::num::impl&%11::checked_neg",
+        "fingerprint": "f8ba0d789fedce04edc6204ccb91c6060d84a93754e8b4dae73c3a4a912b3ef2"
+      },
+      {
+        "function": "core::num::impl&%11::checked_rem",
+        "fingerprint": "a2294301bee8d1513e3ee9f2f001a40da991930b0382f901128ed6166d9f5e04"
+      },
+      {
+        "function": "core::num::impl&%11::checked_rem_euclid",
+        "fingerprint": "a3e0eca24a3b6323b9c3f5b7cf484bb5cc0c65bb6e7682c32784de453c51505d"
+      },
+      {
+        "function": "core::num::impl&%11::checked_sub",
+        "fingerprint": "9899d157580e79044d33cc255e31b8fb8aa229f4bfb8a2a9808994a9d7ce0e7e"
+      },
+      {
+        "function": "core::num::impl&%11::checked_sub_signed",
+        "fingerprint": "25523ea515cd461da9a5f05b106c0c2ae616095aae3e18b3fed0bff56c8e0036"
+      },
+      {
+        "function": "core::num::impl&%11::saturating_add",
+        "fingerprint": "549929eca0413a86639325ed28838bc240d13cd3d66e78bc9d2c84eca3cf81a5"
+      },
+      {
+        "function": "core::num::impl&%11::saturating_mul",
+        "fingerprint": "7014ce994ccc2b13612648f474aa0ea6a20e23ad517befe971937ac2f2d66383"
+      },
+      {
+        "function": "core::num::impl&%11::saturating_sub",
+        "fingerprint": "780ef791585715a9ec1c5cfbdd8a97c799772b454c9cbfd372e979a2740e7fb0"
+      },
+      {
+        "function": "core::num::impl&%11::wrapping_add",
+        "fingerprint": "1eeffb979160d7669497c9be3528eff7847da9b994b7ea94b0a2560f85a82253"
+      },
+      {
+        "function": "core::num::impl&%11::wrapping_mul",
+        "fingerprint": "729f3a79551d48675720fc94dbed22e09ce0a3bab8c5ffa438ca324977e2cfd3"
+      },
+      {
+        "function": "core::num::impl&%11::wrapping_sub",
+        "fingerprint": "dee11ef65926bfdbdf24a7d6a0343bea9a5dd24d1bac78679d3e84d46ad6ec52"
+      },
+      {
+        "function": "core::num::impl&%2::checked_add",
+        "fingerprint": "6153bab418737f4d5f0d9616bd8275e712520af8b587b8b979d252e4acf94555"
+      },
+      {
+        "function": "core::num::impl&%2::checked_add_unsigned",
+        "fingerprint": "220554b9d4c24419120f831ab0809cc61db74128573b571a97a7b00e8469f8b4"
+      },
+      {
+        "function": "core::num::impl&%2::checked_div",
+        "fingerprint": "4cdf937eaa001bfb497b6bdab04e347a8fb4845b679d4b4304166f20fb937029"
+      },
+      {
+        "function": "core::num::impl&%2::checked_div_euclid",
+        "fingerprint": "cb9f0ab23315ab0249ec60997271cc005bc2ad85f21f3966730cddf9361c02f3"
+      },
+      {
+        "function": "core::num::impl&%2::checked_mul",
+        "fingerprint": "9f48ef8288bf81f434030a377c3309846ff701e8dfd870bce182bd039cb653db"
+      },
+      {
+        "function": "core::num::impl&%2::checked_neg",
+        "fingerprint": "1264e3fb84aa1ebe37f0e145fcee8fa3092d71cd45f2f736cdf07118b08d5873"
+      },
+      {
+        "function": "core::num::impl&%2::checked_rem",
+        "fingerprint": "b74887f0cb08fd0961310d91ae9bc898fa608a6e83fc832344ad72b81ec92276"
+      },
+      {
+        "function": "core::num::impl&%2::checked_rem_euclid",
+        "fingerprint": "c63e4162787fe4faca61859875410e44bbb78a11ba777f4971ea8c21d44b818d"
+      },
+      {
+        "function": "core::num::impl&%2::checked_sub",
+        "fingerprint": "71e8fe93f36e36a9fd5ae297e3c15acaac2cf50dc4033ebb66e17bbf20dc4c7b"
+      },
+      {
+        "function": "core::num::impl&%2::checked_sub_unsigned",
+        "fingerprint": "9f23581549874711a769ce5008fdf8aa7f7332d24f7af0391e708f10ffa2adf6"
+      },
+      {
+        "function": "core::num::impl&%2::saturating_add",
+        "fingerprint": "a04a9a5317fb98e7fa771967e5e8f44b6a6221ae04169df0dde36ee016584712"
+      },
+      {
+        "function": "core::num::impl&%2::saturating_mul",
+        "fingerprint": "2ed7fd6f3572178498f42a7a5702c972f899c174fbcdfc9955d985f1236b8df8"
+      },
+      {
+        "function": "core::num::impl&%2::saturating_sub",
+        "fingerprint": "fca65fb5ab5196b40761bbbab71e5dbc70f46a214e4956069a08deddf08c5d54"
+      },
+      {
+        "function": "core::num::impl&%2::wrapping_add",
+        "fingerprint": "3ac1d846e029c36f94a929b63cafb5b532f5e1cfa72667a6126da4113d5da0f8"
+      },
+      {
+        "function": "core::num::impl&%2::wrapping_mul",
+        "fingerprint": "89578621fc509c22e9e0fe18729085c608b750419d3581fccdf5041bcb943833"
+      },
+      {
+        "function": "core::num::impl&%2::wrapping_sub",
+        "fingerprint": "b054a622cb55f983989730d333b328ec860a2461597441ba5ad70eac42781d45"
+      },
+      {
+        "function": "core::num::impl&%3::checked_add",
+        "fingerprint": "89bd40ddd4493109241e944f5fe46971b312ab3be1a7a172a7460fb36735f227"
+      },
+      {
+        "function": "core::num::impl&%3::checked_add_unsigned",
+        "fingerprint": "f217b8f229f88b874a929e8539282e5162c99fd829cbb45d559c6f3709413f87"
+      },
+      {
+        "function": "core::num::impl&%3::checked_div",
+        "fingerprint": "e7baf1bb0db8feb6ef8e487c123df01c4246bcabf9988adf681567bb17f7fc51"
+      },
+      {
+        "function": "core::num::impl&%3::checked_div_euclid",
+        "fingerprint": "f65c8517329c3ecfe62fb95db77837bf2ea28abba7d0433565c9ae86cf2a4193"
+      },
+      {
+        "function": "core::num::impl&%3::checked_mul",
+        "fingerprint": "2914f205c0573de47a4c58a184db05d22de2ae075cc8ee03221094ac4f1d5347"
+      },
+      {
+        "function": "core::num::impl&%3::checked_neg",
+        "fingerprint": "a3229cc79ecf18616ad2b667546c7ecbce3dc592335f969410a3aae2175e00e4"
+      },
+      {
+        "function": "core::num::impl&%3::checked_rem",
+        "fingerprint": "f95084f193322b1bdd25c5930a698170458ce99fde1f7ece62027b5eeb2a4798"
+      },
+      {
+        "function": "core::num::impl&%3::checked_rem_euclid",
+        "fingerprint": "ec2698077fef1ee162189ada91bd64eadffdc389d264f6f11f5e1879b6caffe2"
+      },
+      {
+        "function": "core::num::impl&%3::checked_sub",
+        "fingerprint": "c5f1ff2a8cde8a65239beceb6e532b720c4b1188cf6d2acfdb98f2c5bd99470a"
+      },
+      {
+        "function": "core::num::impl&%3::checked_sub_unsigned",
+        "fingerprint": "e0dc41482739024cab33e681d447b7bd7bc7909511d1b6e630341472c15021c0"
+      },
+      {
+        "function": "core::num::impl&%3::saturating_add",
+        "fingerprint": "0eab1082f3baa56974c42abfb1fbef901e02fccec063e688fd012782bb4bd556"
+      },
+      {
+        "function": "core::num::impl&%3::saturating_mul",
+        "fingerprint": "009b619031f2758675832ecdaed85bf987165d3c53a8ee8d1366098b3090f70b"
+      },
+      {
+        "function": "core::num::impl&%3::saturating_sub",
+        "fingerprint": "060b5c14217ef968012ee32944d60b263842d0d90e01af9461229e6da6a5ffd4"
+      },
+      {
+        "function": "core::num::impl&%3::wrapping_add",
+        "fingerprint": "1c9bdb71bbfd76967757b2f70656ece73229397025525e0c47ce13552ed76fa0"
+      },
+      {
+        "function": "core::num::impl&%3::wrapping_mul",
+        "fingerprint": "37eb860282f62031444144c5f9f7da89fcaa3d0d745719c5734d611069aeea2e"
+      },
+      {
+        "function": "core::num::impl&%3::wrapping_sub",
+        "fingerprint": "3819b990199dfcb4b61726a423a52912756417826d7346cc339635e9c2b21d59"
+      },
+      {
+        "function": "core::num::impl&%4::checked_add",
+        "fingerprint": "bb9d36fcf8fca3f297389dc2163dfd9103ea1aab162b47abeea1c8c7eaa8ee36"
+      },
+      {
+        "function": "core::num::impl&%4::checked_add_unsigned",
+        "fingerprint": "0bfc405602aab9dac2c40c0631c9d1da435df275cdc1642827178ee30129e81b"
+      },
+      {
+        "function": "core::num::impl&%4::checked_div",
+        "fingerprint": "c26386175f61f5ab325cdef0ea4cf13fda498787a4577f3161f6aa57dad72b99"
+      },
+      {
+        "function": "core::num::impl&%4::checked_div_euclid",
+        "fingerprint": "0563f0d37f159878a353c5bfa4cd60f33b79e7388f4984ec81abcdc4f3d309b1"
+      },
+      {
+        "function": "core::num::impl&%4::checked_mul",
+        "fingerprint": "d065da03a4b607a568f3d93c4a839024f8f2121f0196346fc8bf4b079ab31288"
+      },
+      {
+        "function": "core::num::impl&%4::checked_neg",
+        "fingerprint": "75beffa0de3b540a51fa12ca8717801f5e709e2c48f00ab21488e5a3e06fece5"
+      },
+      {
+        "function": "core::num::impl&%4::checked_rem",
+        "fingerprint": "a8c2322364dd6ac2dc0d69bc04dab61a6b6a64cee3c7211e7d4bef1fc7f8dfb3"
+      },
+      {
+        "function": "core::num::impl&%4::checked_rem_euclid",
+        "fingerprint": "3a2af65e38dae8fa4231ecf4ff820e72defcff8ae7cce6e5f7b05cb4d3db2b95"
+      },
+      {
+        "function": "core::num::impl&%4::checked_sub",
+        "fingerprint": "b1e04e8ce4bcd466d7cbfcb7b392fb1501e969f183b5ad88a4cde38242c263ae"
+      },
+      {
+        "function": "core::num::impl&%4::checked_sub_unsigned",
+        "fingerprint": "c2e1ec6550ae30860de8dbe266aa1566aebc56eeea7284ac3d1f36ad5c59a4d0"
+      },
+      {
+        "function": "core::num::impl&%4::saturating_add",
+        "fingerprint": "79e9ba98c9505c2b4bdb68b1a0349d8c12a2c2aefbac8d274df88843286e2426"
+      },
+      {
+        "function": "core::num::impl&%4::saturating_mul",
+        "fingerprint": "571cf17b263dcc6feabeee745524d5bcc9fb246af4514bca30687b3c8e895b38"
+      },
+      {
+        "function": "core::num::impl&%4::saturating_sub",
+        "fingerprint": "be199f9875d7ac3d7fbb70f2c042e0e0d062d78a03e38ca213349a3d14032633"
+      },
+      {
+        "function": "core::num::impl&%4::wrapping_add",
+        "fingerprint": "9c5d7da3b843bb6826b3e91421c1fcd8aeaa7d2ccaa4ef028b00366b37220aa6"
+      },
+      {
+        "function": "core::num::impl&%4::wrapping_mul",
+        "fingerprint": "f8fad80337856dbfc8e133deb2aa41eef700aa51fa7c0dc7641517981b7b15d6"
+      },
+      {
+        "function": "core::num::impl&%4::wrapping_sub",
+        "fingerprint": "054f22b6e101b526b4c811a73b4c3d80453a6c1e3ff06d5501b914e370806b19"
+      },
+      {
+        "function": "core::num::impl&%5::checked_add",
+        "fingerprint": "71b04acd95d6558d29eb0cce6c75a3656932dd6dfed38a7549f941eef3bae8a0"
+      },
+      {
+        "function": "core::num::impl&%5::checked_add_unsigned",
+        "fingerprint": "956bca993f1d2bb14f2e92a4b095a31745d8f4c7cdb6a8c4158391baef1ba782"
+      },
+      {
+        "function": "core::num::impl&%5::checked_div",
+        "fingerprint": "02e33aa32181cfed9f72776e1c6f4f8485814de8a2db3ec40223820c6db11592"
+      },
+      {
+        "function": "core::num::impl&%5::checked_div_euclid",
+        "fingerprint": "01e4049a1720294e85d85bfa731cce7201c8836cb87f690cf94ca1f0fd222e95"
+      },
+      {
+        "function": "core::num::impl&%5::checked_mul",
+        "fingerprint": "dd45fcf02c1093c2473ebd8addbb404e6ada29e69ca49728141a25ec32791ab1"
+      },
+      {
+        "function": "core::num::impl&%5::checked_neg",
+        "fingerprint": "99e95bb37383cc913626bb744f6eeba5d26ecbf810f0d48134fc62eb1f96dc74"
+      },
+      {
+        "function": "core::num::impl&%5::checked_rem",
+        "fingerprint": "df2f0b991934d739f9b783f09dac26e36b0d6a05ac6ba043de8a6913710403f7"
+      },
+      {
+        "function": "core::num::impl&%5::checked_rem_euclid",
+        "fingerprint": "4f8758466bb83361be6ffafc93893b3ce3f8fca31f7162dd9addd120d0230f05"
+      },
+      {
+        "function": "core::num::impl&%5::checked_sub",
+        "fingerprint": "dc971fabe2e107a7620f836902907e439e8e9bf60afe5fb452110f63405fae46"
+      },
+      {
+        "function": "core::num::impl&%5::checked_sub_unsigned",
+        "fingerprint": "e778208176d3a888d75a8dfd39906392e9679cdb04b45d2c8edf8f81a210c9c0"
+      },
+      {
+        "function": "core::num::impl&%5::saturating_add",
+        "fingerprint": "e899e1f1588748ec177b2166119125d682283d5730690ec29613bf477e2ff296"
+      },
+      {
+        "function": "core::num::impl&%5::saturating_mul",
+        "fingerprint": "69bca9a335c91253c7a5d0a404897166bb456c6d97d43bf147ef1e56a40d03ac"
+      },
+      {
+        "function": "core::num::impl&%5::saturating_sub",
+        "fingerprint": "0df29733c767ba28f4bc10506590aeb50bf849ea932bcd3950dcc777480f03c9"
+      },
+      {
+        "function": "core::num::impl&%5::wrapping_add",
+        "fingerprint": "43d9634c2e9783d4fbd3054aeb1b506e9766dd3346576a50cce4fb5125ba5b3f"
+      },
+      {
+        "function": "core::num::impl&%5::wrapping_mul",
+        "fingerprint": "b843b7085049e5488dfdbb5af1ad4f86b2c506913347775c8a4688a73d224c19"
+      },
+      {
+        "function": "core::num::impl&%5::wrapping_sub",
+        "fingerprint": "cf9f43dbc9e43f94992c7d67e3525c0277fac10c982f1c0340676d641c49d6fe"
+      },
+      {
+        "function": "core::num::impl&%6::checked_add",
+        "fingerprint": "eaa15b6cfabc9166e3be8f117cd04cc481a55751d012bf0e689fdbaf60ea3dbe"
+      },
+      {
+        "function": "core::num::impl&%6::checked_add_signed",
+        "fingerprint": "a837a41d4a32c5ed3023e3e2a1da3cf2779e483d0ed22f07a036d4ab288cf8de"
+      },
+      {
+        "function": "core::num::impl&%6::checked_div",
+        "fingerprint": "e77ebb419309d5a76af8b8a253024283a0296f7b31ce03d2e1ea38c8372b2296"
+      },
+      {
+        "function": "core::num::impl&%6::checked_div_euclid",
+        "fingerprint": "eb526e085567aaa7b2a3fed254865ac3fef3ca44d4ae29828a67782898114213"
+      },
+      {
+        "function": "core::num::impl&%6::checked_mul",
+        "fingerprint": "3cff084641c1ea37e3bed19bea7965b8f69fefd5efc418289d8de3c50cd9ce7f"
+      },
+      {
+        "function": "core::num::impl&%6::checked_neg",
+        "fingerprint": "5627d627ed7e233a519b8344b0a1cb7b01f7f09ae7d056b50f99f16e890af121"
+      },
+      {
+        "function": "core::num::impl&%6::checked_rem",
+        "fingerprint": "4d2306b943376aa844c5be78cca143b83474b84a3d0864243b7fe834b212b40b"
+      },
+      {
+        "function": "core::num::impl&%6::checked_rem_euclid",
+        "fingerprint": "b78ef47bacfacf12199a42b617dc7326352c63b6507e0eb70a580aeda10d0390"
+      },
+      {
+        "function": "core::num::impl&%6::checked_sub",
+        "fingerprint": "8ee79da1428166657685034abe9de9e7fbdc4df0ec2aeafbedc92bd46fc6ed2c"
+      },
+      {
+        "function": "core::num::impl&%6::checked_sub_signed",
+        "fingerprint": "2ecb78e727d13e332a46893fe6f56dff32ef55c523fd65571a36301e68eebb33"
+      },
+      {
+        "function": "core::num::impl&%6::saturating_add",
+        "fingerprint": "25fe6fc9101cc4fea0897849ff5d2a70041022d000dab303f9dda4ad8fc12795"
+      },
+      {
+        "function": "core::num::impl&%6::saturating_mul",
+        "fingerprint": "31530d0e4c0357c74c98c57858cfa9c42c7de887c8b7bde1339c9bff2b0bd62d"
+      },
+      {
+        "function": "core::num::impl&%6::saturating_sub",
+        "fingerprint": "daf71b24dc30ef5c4a59c8eda8a76b1a63de64108370b2894b07ac149b428456"
+      },
+      {
+        "function": "core::num::impl&%6::wrapping_add",
+        "fingerprint": "1925587c7e08e27cdca9975b2a613d3c7553711f5f67770ef913c7b387ae6045"
+      },
+      {
+        "function": "core::num::impl&%6::wrapping_mul",
+        "fingerprint": "13670cb8fddcd6892096a8e13b9c3b306a0a3579007cb3d92613b10344b87947"
+      },
+      {
+        "function": "core::num::impl&%6::wrapping_sub",
+        "fingerprint": "ec68da340960818cd05305bf71b983b5554a920ac314a7d922b6f66ebec4c09b"
+      },
+      {
+        "function": "core::num::impl&%7::checked_add",
+        "fingerprint": "bca951d0fda785205fe7b0d17f74dc8d92c88398a93525efd75cd06a6c4b05c3"
+      },
+      {
+        "function": "core::num::impl&%7::checked_add_signed",
+        "fingerprint": "7318fa81ac21cc0793456832ca8e088f266b2e01f4945d240c73d4eb262762ba"
+      },
+      {
+        "function": "core::num::impl&%7::checked_div",
+        "fingerprint": "d49ab3bc7ad4a2965486e3bb856ffaf34479e5698297bd783d72ffb154dce4f7"
+      },
+      {
+        "function": "core::num::impl&%7::checked_div_euclid",
+        "fingerprint": "50bd0305fcdd52b883d58858a6ac3d7412771ace880376b5c44a1863136cf31e"
+      },
+      {
+        "function": "core::num::impl&%7::checked_mul",
+        "fingerprint": "95e3cf6bdb43ae63bc200fa7d7c91b417967864e21aafeb846db66bf5c92c93d"
+      },
+      {
+        "function": "core::num::impl&%7::checked_neg",
+        "fingerprint": "5d138ac5ca0745684eeb5b52203b5f5a09f3a06d3b4af29ff830e9a43a13d795"
+      },
+      {
+        "function": "core::num::impl&%7::checked_rem",
+        "fingerprint": "dd9238236145db268dca64ff6e347628988bc4923daf7bc37f1c065d0f3d9bb6"
+      },
+      {
+        "function": "core::num::impl&%7::checked_rem_euclid",
+        "fingerprint": "6ce256c60ecc94a0759752b110b7d221bc5db984d372f3c6b64866d527e16091"
+      },
+      {
+        "function": "core::num::impl&%7::checked_sub",
+        "fingerprint": "4ed8396158509d99746710d83d7ae174911c086f5a38a1c1415ee8820815d47a"
+      },
+      {
+        "function": "core::num::impl&%7::checked_sub_signed",
+        "fingerprint": "f9c68ab225000fc42310d16af9468c72ea02315a13c60314ec075a1cc6335ed1"
+      },
+      {
+        "function": "core::num::impl&%7::saturating_add",
+        "fingerprint": "321d839e7b5344a77a4bfd2eecdd99e7b2286e676c4a6a837e976165e76be956"
+      },
+      {
+        "function": "core::num::impl&%7::saturating_mul",
+        "fingerprint": "2d7115e54040a7275589ba5bc98a8b9af9b09c5f993252d9351a4fe400311480"
+      },
+      {
+        "function": "core::num::impl&%7::saturating_sub",
+        "fingerprint": "f6d62ef53a666c617deb2a24bf816a85f07529a65d97db325c5458ff51fdc76c"
+      },
+      {
+        "function": "core::num::impl&%7::wrapping_add",
+        "fingerprint": "57f7e697cf2d248be72627646d14c5d37bb0d9dc56673a28f6e81d2d18c0016f"
+      },
+      {
+        "function": "core::num::impl&%7::wrapping_mul",
+        "fingerprint": "a452e6b73f5d12e9ff76fcd65601540e7119ec048d601b12627283b6dd41f9b3"
+      },
+      {
+        "function": "core::num::impl&%7::wrapping_sub",
+        "fingerprint": "47b4d41549f9da3ccd9695ecab8c4ba26755fbbeb64aa077af6af333e2f4175c"
+      },
+      {
+        "function": "core::num::impl&%8::checked_add",
+        "fingerprint": "2b67d580789368046e6df10d7d37126437b25626ad941b1be7f7e77917c8c9a5"
+      },
+      {
+        "function": "core::num::impl&%8::checked_add_signed",
+        "fingerprint": "f4eddd2913afbf1ba4f93de6aabf4d9f3d92f631c710b834d35c04090cb3abdc"
+      },
+      {
+        "function": "core::num::impl&%8::checked_div",
+        "fingerprint": "8738b6b2f30e668dea073e7bb9423da329e2688bf30fd5d7f2db286c3a98181e"
+      },
+      {
+        "function": "core::num::impl&%8::checked_div_euclid",
+        "fingerprint": "a5d306e932a037ba6b01a952e19aaefadaa97b894d36e76f2a81fb87824ddb24"
+      },
+      {
+        "function": "core::num::impl&%8::checked_mul",
+        "fingerprint": "42f9786516b5d1f29f22003db8b5617eee5ff7497f28f57184fc6f2506082435"
+      },
+      {
+        "function": "core::num::impl&%8::checked_neg",
+        "fingerprint": "e7cb878a9d36683e2acee933a9439b17ab9a38915e80abfe3533a1dd1225a9bc"
+      },
+      {
+        "function": "core::num::impl&%8::checked_rem",
+        "fingerprint": "a98e6e75fbf4487b8fceabda60aa23c1c53b42e0c2a43608825d736ef040ef5f"
+      },
+      {
+        "function": "core::num::impl&%8::checked_rem_euclid",
+        "fingerprint": "2ebb32d607447eb2617f50b3168d5c9f73ef351b8df1bcf9392e6e398e8129ad"
+      },
+      {
+        "function": "core::num::impl&%8::checked_sub",
+        "fingerprint": "e6f2fa639e1c8773352f6de1e9e06b8688f79d1d954b6517845606c4f2930a99"
+      },
+      {
+        "function": "core::num::impl&%8::checked_sub_signed",
+        "fingerprint": "a7e7f70b18dba7f1f99d309896ff7fd6721a1cbc5b122f149ee9f4d30d00b686"
+      },
+      {
+        "function": "core::num::impl&%8::saturating_add",
+        "fingerprint": "dd4d092d3fcf4dc8989405ad58e2757da9903ca7435ef0b66f0f7a53ccebc238"
+      },
+      {
+        "function": "core::num::impl&%8::saturating_mul",
+        "fingerprint": "80065f5e06c886169b2fda40424d6bab1556608482625c8331051f0d495f680d"
+      },
+      {
+        "function": "core::num::impl&%8::saturating_sub",
+        "fingerprint": "be2cc9cf291db62e5a463f9bf4fc06c3301662593e9317502f4cdf813851a223"
+      },
+      {
+        "function": "core::num::impl&%8::wrapping_add",
+        "fingerprint": "89cfa8d1268a429e2c332cbd53160cd95ca77f1a4aad29ec1af48bae112c8aa3"
+      },
+      {
+        "function": "core::num::impl&%8::wrapping_mul",
+        "fingerprint": "40a95556004b488f2e040d804e0eaef211f815fb8c937ef89c3221ddf2aea350"
+      },
+      {
+        "function": "core::num::impl&%8::wrapping_sub",
+        "fingerprint": "56520de0dd8230f584a416ba1a776d5ef83f6aa9d1fdde2ddafa23f145a4d7cc"
+      },
+      {
+        "function": "core::num::impl&%9::checked_add",
+        "fingerprint": "dee919bc0e7ef053438f036f765556868003b9ce010bc1db88d058bfd178e4d9"
+      },
+      {
+        "function": "core::num::impl&%9::checked_add_signed",
+        "fingerprint": "370598aae5569f81357e141e72022465d3383368a6772b34a4c36d07676965f8"
+      },
+      {
+        "function": "core::num::impl&%9::checked_div",
+        "fingerprint": "aa2a8d8c7af19a660b02b2d5446825356fed64dad6ad6a86e3b25476f59a3ebf"
+      },
+      {
+        "function": "core::num::impl&%9::checked_div_euclid",
+        "fingerprint": "c0f3098797fe3fa8e40ea8cc8c68fd44b2d6be14469722d4ddce47d542e3e5b3"
+      },
+      {
+        "function": "core::num::impl&%9::checked_mul",
+        "fingerprint": "b9492240887e29245395efbe8893a1cfc7025ab169908fef1adcbd9cdf0440b1"
+      },
+      {
+        "function": "core::num::impl&%9::checked_neg",
+        "fingerprint": "7b66de606df3d2ee45f5a8257884a6fad3dd78f026d0699f1c6071281ca50600"
+      },
+      {
+        "function": "core::num::impl&%9::checked_rem",
+        "fingerprint": "da9d272dec51fcd8073c18d3420d09661afef2f5f095be9939b293d83b093ec0"
+      },
+      {
+        "function": "core::num::impl&%9::checked_rem_euclid",
+        "fingerprint": "cbd48b573c274043a9dee534d2c86e2d84e38df2e351b1866b868424c9ea9b22"
+      },
+      {
+        "function": "core::num::impl&%9::checked_sub",
+        "fingerprint": "f95a388707554af3e40b8009fde2ae9066445ee166b86dd60873216066ca5072"
+      },
+      {
+        "function": "core::num::impl&%9::checked_sub_signed",
+        "fingerprint": "a1f413d0b2176975cd7470075688b1263e8b657fd3db73af68f47b3696d1b3d1"
+      },
+      {
+        "function": "core::num::impl&%9::from_le_bytes",
+        "fingerprint": "d7c848d7a60c72e154add5bb0b42b183082ef03264432ddb6e83a3be21f93e17"
+      },
+      {
+        "function": "core::num::impl&%9::saturating_add",
+        "fingerprint": "9a56a5d559018bd2a21487712476bf111eecf59bf891c3106c9a602ca1bc3b86"
+      },
+      {
+        "function": "core::num::impl&%9::saturating_mul",
+        "fingerprint": "166c95c5125fc19d64279132c4ac8cc38a63ac65b81b4ad4dad4901aa648c685"
+      },
+      {
+        "function": "core::num::impl&%9::saturating_sub",
+        "fingerprint": "5de996ce6caa81a0a69117c2053190fb8aab4f379979b30d6bb5fecfb6641efe"
+      },
+      {
+        "function": "core::num::impl&%9::to_le_bytes",
+        "fingerprint": "501bf7ae4d466044bd7c222fdb209805e5d2353823e61b313eb3ea635b67b5fd"
+      },
+      {
+        "function": "core::num::impl&%9::wrapping_add",
+        "fingerprint": "a361f2a346f4ff5adc61d983611c8c4b7e436e4d27d359c74d1090058d40bf7b"
+      },
+      {
+        "function": "core::num::impl&%9::wrapping_mul",
+        "fingerprint": "ff53ad2ae9f32e60aad2e5b08e20c91f89f1b64bc9e5c708857e53c6f5f0350f"
+      },
+      {
+        "function": "core::num::impl&%9::wrapping_sub",
+        "fingerprint": "cfc996193f5c831634f3c5428a39e892febdbb63894b093e3d3cb7de205c1baf"
+      },
+      {
+        "function": "core::ops::arith::Add::add",
+        "fingerprint": "294db88b69b7c64867677057f5579d889976b7693f873a4dfebecc967231b59c"
+      },
+      {
+        "function": "core::ops::arith::AddAssign::add_assign",
+        "fingerprint": "420bf70f211f804f79c1cb5aa842361e06ff0cc24dd65379aa02e20e20f9eb6d"
+      },
+      {
+        "function": "core::ops::arith::Div::div",
+        "fingerprint": "6c0c3faaae3d9d4812cb1152deb938349768f480a9e71eca5bbbec258967a6e6"
+      },
+      {
+        "function": "core::ops::arith::Mul::mul",
+        "fingerprint": "857b86bf57b5b289be8816d713bb57e5bb2bf3a22dac90b72f766f679c63d740"
+      },
+      {
+        "function": "core::ops::arith::Rem::rem",
+        "fingerprint": "3619f62de41b43812ed9dcda530c94c3fbe0f6670a96653b28bffebfc8769feb"
+      },
+      {
+        "function": "core::ops::arith::Sub::sub",
+        "fingerprint": "8e4452ab4d31dbfb3e312cab040c861794138a44de1b16f080ae4f5735a6f6a9"
+      },
+      {
+        "function": "core::option::impl&%0::as_ref",
+        "fingerprint": "e7c88a8ef9657bae76600679bf724b568c0bcc7f4a5d2b35cf2d506a17372d02"
+      },
+      {
+        "function": "core::option::impl&%0::is_some",
+        "fingerprint": "a9fd258e4281d09071b9b6725fe18d73811ffb57e06d093c0393e19879151a1c"
+      },
+      {
+        "function": "core::option::impl&%0::ok_or",
+        "fingerprint": "1f9f7606c7cecf7c3369b9c37644e592508dcb98faa4e5691b537b0693448e17"
+      },
+      {
+        "function": "core::option::impl&%47::branch",
+        "fingerprint": "b904878ca6d62596e00362510a9471bf14d26711d8f6841a8e6c5ae7f15d945c"
+      },
+      {
+        "function": "core::option::impl&%48::from_residual",
+        "fingerprint": "19f5b7cc37debca00bf14b5985e1ab2695cd04e98beb9c143458ae54a3d7513b"
+      },
+      {
+        "function": "core::panicking::panic",
+        "fingerprint": "ba54f6f3802e995d83791115c935726dfd7a297235c893f7c826b0cc4971e7d4"
+      },
+      {
+        "function": "core::panicking::panic_fmt",
+        "fingerprint": "569dcf9ee2dec7f990dc7f5c515b6febb39f9ab973143dab579f2c72c039d850"
+      },
+      {
+        "function": "core::result::impl&%0::map_err",
+        "fingerprint": "a359f573d00b9ec5c903145157722e3f72060cc29f8c59f8dcc28a1a8d937b46"
+      },
+      {
+        "function": "core::result::impl&%0::unwrap",
+        "fingerprint": "748b82daf5be2284a766fd7955d50f88f81544a4efbc2fe41d8c10ecc4f79c93"
+      },
+      {
+        "function": "core::result::impl&%27::branch",
+        "fingerprint": "6ccdf6348e69989894781b83fa88e3407441a409d7b08dc443b9da3e69532517"
+      },
+      {
+        "function": "core::result::impl&%28::from_residual",
+        "fingerprint": "9ebab7462326484791de9416b673f764aadbeac29bb390dea73a4e6087e8c988"
+      },
+      {
+        "function": "core::slice::impl&%0::len",
+        "fingerprint": "ebb48792041a5f6f9e08d4fdfc4260d51503ef4a9250750de464871bac65aab2"
+      },
+      {
+        "function": "core::slice::index::impl&%0::index",
+        "fingerprint": "8d84943208bf4ccc38d8bd611eebdc1c286fb8c22d85c9585e391f6b4d825b5d"
+      },
+      {
+        "function": "alloc::vec::from_elem",
+        "fingerprint": "860fe14f8dd2395a57c8c2cec3328d0328c4d4bb6ee7f5633348897db179eaa9"
+      },
+      {
+        "function": "alloc::vec::impl&%0::new",
+        "fingerprint": "1150d5027a7ce6542d6f4e6965494b2500f957ea8044651293958e43761a5edf"
+      },
+      {
+        "function": "alloc::vec::impl&%0::with_capacity",
+        "fingerprint": "2b69f18550b5f7cb759445656110556f3a8585b00efd6bb9f2afe8c500cf163c"
+      },
+      {
+        "function": "alloc::vec::impl&%1::len",
+        "fingerprint": "2434cd4e0934f0dbf7b663f11ce347d2c9ea9e937337b022e630174941d6468c"
+      },
+      {
+        "function": "alloc::vec::impl&%13::clone",
+        "fingerprint": "0c73312fa7a7608b980f0a3d65a62d7b0b07c221500df6555d929b169e7d92c7"
+      },
+      {
+        "function": "alloc::vec::impl&%44::push",
+        "fingerprint": "0886e81ac8f46d2db39b5f767578ab2d8ab4842de8c7429a118a5f86d3639db2"
+      },
+      {
+        "function": "vstd::arithmetic::div_mod::rust_div",
+        "fingerprint": "1dc47c84278257ec237f904c1071c0c7ed2ce8bc03abddc8cdea2c24f4bca37a"
+      },
+      {
+        "function": "vstd::arithmetic::div_mod::rust_rem",
+        "fingerprint": "0501dc25f8e1d33233a3f3dd95a04dc7711f109cf78997b40314ca746cb391a6"
+      },
+      {
+        "function": "vstd::array::array_as_slice",
+        "fingerprint": "f1e56cb1c4f9082c1b553977e070385e4c51445354e92a8bcc7ed970d998a50f"
+      },
+      {
+        "function": "vstd::array::array_fill_for_copy_types",
+        "fingerprint": "24d018af35e51d4d077d44dbfbb533e236c2a7a076798eb17b8b91038e7dcf10"
+      },
+      {
+        "function": "vstd::array::axiom_array_ext_equal",
+        "fingerprint": "5052b2a5d1e6b9acb90eef2a41a25f960c9081da5a73432a41b382c2a8e19da8"
+      },
+      {
+        "function": "vstd::native_option::map_or",
+        "fingerprint": "9b1b6e348f119399dc7a9e18093287d5d87f3c289c81171fcf745b4998dc6825"
+      },
+      {
+        "function": "vstd::native_option::then_some",
+        "fingerprint": "03a27ef959bc0f1d7157d87ada74280a64e40a8a7023090edf8d0c82858ac432"
+      },
+      {
+        "function": "vstd::pervasive::cloned",
+        "fingerprint": "b3300a1857778d1f6c7268981f7f90dc80abb17f61ba100323e974bb572803dd"
+      },
+      {
+        "function": "vstd::seq::Seq::empty",
+        "fingerprint": "5388271cb70ce155ee6e2654fcb1d8e503e2650011381b352803fd8fc45258d5"
+      },
+      {
+        "function": "vstd::seq::Seq::index",
+        "fingerprint": "69d02c934340a126067dcff208fa4ca075d96d2c1a2a83cfa06004ebc747ca1d"
+      },
+      {
+        "function": "vstd::seq::Seq::len",
+        "fingerprint": "7d7a831095fe9d9232ec041993dc905de43082d95be189ae467d13fb8249f06e"
+      },
+      {
+        "function": "vstd::seq::Seq::new",
+        "fingerprint": "1502fdbeae6b7b32e6491c47ebce3cc1bf290497213c17b75c7438b3ce531cc4"
+      },
+      {
+        "function": "vstd::seq::Seq::push",
+        "fingerprint": "5d72c434edb8a8964552eb73b1c68bf0ffc5caedc27a5acf7843b7050d3364e7"
+      },
+      {
+        "function": "vstd::seq::Seq::update",
+        "fingerprint": "8e9ddd142c5475787683ea308d5cb7299613da67e5ad3a3f95abe11b4e46621d"
+      },
+      {
+        "function": "vstd::seq::impl&%2::take",
+        "fingerprint": "92f2fb5d75a5ed2f6088e7bab1b7564f417c08a125fef5ece1c4b01cfb3fbc96"
+      },
+      {
+        "function": "vstd::seq_lib::impl&%0::filter",
+        "fingerprint": "9934b6f23e69462df82dca889fabfc3bba079125fbc4900fea9134ac802d28ae"
+      },
+      {
+        "function": "vstd::seq_lib::impl&%0::fold_left",
+        "fingerprint": "b971d3034388a82a910c47809b02da5a1a58067ab2a259dda6f9bccb65bffe7d"
+      },
+      {
+        "function": "vstd::seq_update::scatter",
+        "fingerprint": "7c01dc4706b8be18a31b25e75906020064a802fc21cba7b154796f85b91d07c8"
+      },
+      {
+        "function": "vstd::slice::spec_slice_index",
+        "fingerprint": "1a2c39c09a52cb3fe97f967599a0f1bdf3de5e78ad7c59fdfc8126df2b5e0634"
+      },
+      {
+        "function": "vstd::slice::spec_slice_len",
+        "fingerprint": "96451e693a09d388b47ee6e66db802912e310546c62e284cba22c87c239d3995"
+      },
+      {
+        "function": "vstd::std_specs::clone::tuple_clone_1",
+        "fingerprint": "1d201e63d7648a8e6e6036c0ef61fa1927cdafcef79a410821465242a1c0c497"
+      },
+      {
+        "function": "vstd::std_specs::clone::tuple_clone_2",
+        "fingerprint": "aeef4ee054dfe4c1869c01e8764419af8c404cb36d22150af039fe28de36d03f"
+      },
+      {
+        "function": "vstd::std_specs::clone::tuple_clone_3",
+        "fingerprint": "392d50b6a76be71b906c8fd8d6af4e535f3a3c6997851b9619e8bcc6d5abf8fa"
+      },
+      {
+        "function": "vstd::std_specs::clone::tuple_clone_4",
+        "fingerprint": "e93d539063b371b2b04844bcd73b5b7dc8306a73fab55b71333c44bf1fbdbbb5"
+      },
+      {
+        "function": "vstd::std_specs::iter::impl&%11::index",
+        "fingerprint": "992bca777c28d2d482f0773cc492ae44899dbd8dd0cfaf5a31aed9b8a2654161"
+      },
+      {
+        "function": "vstd::std_specs::iter::impl&%11::seq",
+        "fingerprint": "c1a59de7cf2cebb34dd2d2e22e52383681de5cdc99f749d09115176110034a6f"
+      },
+      {
+        "function": "vstd::std_specs::vec::axiom_spec_len",
+        "fingerprint": "21f1537d71a9ce3fe128f614d6c8989e1abaccd202adea25ee6379b15f86a44b"
+      },
+      {
+        "function": "vstd::std_specs::vec::spec_vec_len",
+        "fingerprint": "3b6b7c3bc89ca1b8c2707cdf5229cb8264c722ab27c70ec72c1a842b69d153eb"
+      },
+      {
+        "function": "vstd::std_specs::vec::vec_index",
+        "fingerprint": "5724ae3adcf000cb37e2db0800aea6c299972fdbdece76a2e8b59c9da77132bf"
+      },
+      {
+        "function": "vstd::std_specs::vec::vec_index_mut",
+        "fingerprint": "6c3b8dffe41ba618ed8b3052edf91c7f1a79c47addb02acbdb098adbcb46c115"
+      },
+      {
+        "function": "vstd::view::impl&%8::view",
+        "fingerprint": "4926607f7dc4e106038f32687e4e651670d8c2c3cec8d079b1fa74953d395662"
+      }
+    ],
+    "interface_written": true,
+    "metrics": {
+      "generation_micros": 0,
+      "total_micros": 2893847
+    }
+  },
+  "times-ms": {
+    "verus-build": {
+      "profile": "release",
+      "version": "0.2026.11.11.5ecea5f"
+    },
+    "num-threads": 1,
+    "total": 2893,
+    "estimated-cpu-time": 2893,
+    "rust": {
+      "total": 76,
+      "init-and-types": 13,
+      "trait-conflicts": 43,
+      "compile": 19
+    },
+    "verification": {
+      "total": 2532,
+      "vir": {
+        "total": 2423,
+        "hir": 20,
+        "import": 626,
+        "rust-to-vir": 1682
+      }
+    },
+    "total-verify": 90,
+    "total-verify-module-times": [
+      {
+        "module": "",
+        "time": 90
+      }
+    ],
+    "air": {
+      "total": 53,
+      "module-times": [
+        {
+          "module": "",
+          "time": 53
+        }
+      ]
+    },
+    "smt": {
+      "total": 2,
+      "smt-init": 0,
+      "rlimit-init": 187,
+      "smt-init-module-times": [
+        {
+          "module": "",
+          "time": 0,
+          "time-micros": 70,
+          "rlimit": 187
+        }
+      ],
+      "smt-run": 2,
+      "rlimit-run": 5096,
+      "smt-run-module-times": [
+        {
+          "module": "",
+          "time": 2,
+          "time-micros": 2357,
+          "rlimit": 5096,
+          "function-breakdown": [
+            {
+              "function": "client::imported_selection",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 791,
+              "rlimit": 1701,
+              "success": true
+            },
+            {
+              "function": "client::imported_finalize",
+              "mode:": "exec",
+              "time": 1,
+              "time-micros": 1566,
+              "rlimit": 3395,
+              "success": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "verus": {
+    "profile": "release",
+    "version": "0.2026.11.11.5ecea5f",
+    "platform": {
+      "os": "linux",
+      "arch": "x86_64"
+    },
+    "toolchain": "1.99.1-x86_64-unknown-linux-gnu",
+    "commit": "5ecea5fe81c2bc2ef0c9050cdb29cea0c7ef21c4"
+  }
+}
