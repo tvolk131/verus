@@ -1,0 +1,470 @@
+{
+  "kind": "D2_PRIVATE_NORMAL_NATIVE_METHOD_BODY_MILESTONE_USER_STAGE_INACTIVE_UNACCEPTED",
+  "source_base": "2e7b8b319",
+  "production_commit": "3eba70cc0d7ad56f132056e82e1b7709ad9438c4",
+  "runner_commit": "e50581bd3ede63dc9c51d84ece9ba44e0cec77c8",
+  "source_sha256": {
+    "source/rust_verify/src/checked_owned_cell_admission.rs": "4dda29f40a679ea6bba3934669b9df33b734d57235147e3f43b0f1b26c6224e7",
+    "source/rust_verify/src/checked_owned_cell_lowering.rs": "d9a6f4c4abe3e71ff11c1441e6f6999b97b8cb200225f135bc9375f4c04661ee",
+    "source/rust_verify/src/config.rs": "224fc7a59360601caf4134c1c64d607b321de86f2c2902023eac8716884b39a1",
+    "source/rust_verify_test/tests/local_checked_owned_cell_admission.rs": "97728af6d3b7451d82bb5d9efee6270d46fe129968e0aa71620e91989915ee9f",
+    "source/tools/research/redb_crash_protocol/native_state_link/implementation/D2_INTERFACE.md": "e1df714a2956a076acae33f1a96df92a9331b7f88652a018e3f450917971bb58",
+    "source/tools/research/redb_crash_protocol/native_state_link/implementation/d1.py": "73cf2fc7416193245f9b0d268a522b21d03a4ff8efaf26689b1697944eab9281",
+    "source/tools/research/redb_crash_protocol/native_state_link/owned_goals.rs": "428799275f71323f1683b21f40b0a48aa228b8ebb3b2918295df4d0a404558be",
+    "source/tools/research/redb_crash_protocol/native_state_link/owned_native.rs": "29c59c2507b2e50671622184e56ee4445ea3f237e9e9a5dcfea8394e49f5cf70",
+    "source/vir/src/ast_to_sst_crate.rs": "25fe67251d503259118270d36790402bf1a56624719c1d148fe1c42c41628d97",
+    "source/vir/src/ast_to_sst_func.rs": "6990e2e2265b8bdb5f6a63b3d964bcedfc1026ab63295271594d13f17e7eaed4",
+    "source/vir/src/context.rs": "09c25047bb984148622c59268e1a038f34d0f856cc3ae4bd0c551519cf27efad",
+    "source/vir/src/infer_checks/tests/internal_representation.rs": "9c954241ef8e2852560452c60582c02df5ba0c1af9a21426ebdc356b0e1b38ce",
+    "source/vir/src/internal_repr.rs": "881deadc7f2d05516724e27b510bd8047d2879e35ff00d057d8a8ab4f2333964",
+    "source/vir/src/well_formed.rs": "be7fb09e31222d4b055cbcec5ee3c6e0e6ef16914fc8a50edccbccc2db09412e"
+  },
+  "root_adoptions": [
+    {
+      "original": "9cc0f65c5e8ebb75f6858475277991e3bfd940d7",
+      "own": "41cd47e8f",
+      "separate_exact_code_test_only": true
+    },
+    {
+      "original": "70a9c39022df4953ea6c321a43373a4cf83745ac",
+      "own": "1d01d6a37",
+      "separate_exact_code_test_only": true
+    },
+    {
+      "original": "ef662ee3f7d6708be8d212aa9b7b5861869d1d5f",
+      "own": "469981eab",
+      "separate_exact_code_test_only": true
+    },
+    {
+      "original": "c4df45e843647d83702be311ed5f484ed4a690c3",
+      "own": "10cae0f24",
+      "separate_exact_code_test_only": true
+    }
+  ],
+  "stage_accepted": false,
+  "source_feature_active": false,
+  "field_authority_independently_accepted": false,
+  "native_bridge_proved": false,
+  "source_coupling_proved": false,
+  "CP1": false,
+  "CP2": false,
+  "hmac_native": "DEFERRED AND UNACHIEVED",
+  "experimental_runtime": {
+    "private_mutable_bundle": "/tmp/owned-cell-implementation-20261112/bundle",
+    "tools_sha256": {
+      "rust_verify": "d268f243c5b86b479d8727ef82d1992375d85b27f1319cab6d4823437afb5e3a",
+      "verus": "980e705f81ffd234726ee0f4a829c5a345df6d1cd4517f7d0b8a7406db1c5442",
+      "libverus_builtin.rlib": "60f5ff618d302075783eb2d48bc65f403433b8b0120ac41cc1dc27bd5b58c0db",
+      "libverus_builtin_macros.so": "265d3e82bf9ce06e8e8caaa43b0da575d8588e3e5ae3c58dbe9922e545279c39",
+      "libverus_state_machines_macros.so": "f8b500b05f72c03c6b4e851ead0e3671a7a63321731d30c87f6f852706329443",
+      "vstd.vir": "e0364f9982ac0c119b019f7ea13013d49ce893a5b4c764535c0ea8f3acf5104d",
+      "libvstd.rlib": "7906b4a490da4dc8fb8f113bce723ece4aba23d4a46f22a561af0f133cb2cf13",
+      "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+    },
+    "seven_noncompiler_tools_match_D1": true,
+    "vstd_inherited_verified": 2257,
+    "vstd_inherited_errors": 0,
+    "vstd_rebuilt": false,
+    "native_query_test_binary": "/tmp/owned-cell-implementation-20261112/build/debug/deps/rust_verify-6ad173006bd13150",
+    "native_query_test_binary_sha256": "53484dd9417fece30c1bbb5f6a99982698b88a23968e6b25f1932248877739cc",
+    "native_query_command_label": "D2-recovery-positive-negative-tenth",
+    "native_query_binary_distinct_from_production_compiler": true
+  },
+  "immutable_snapshots": [
+    {
+      "path": "/tmp/owned-cell-preflight-6e5fb54d-parent-snapshot",
+      "receipt_sha256": "25ccaf84cf2ae40c0e4c84c081ce9924b58ab1eb6257d43828158e1cde1d757b",
+      "all_eight_authenticated": true,
+      "unmodified": true
+    },
+    {
+      "path": "/tmp/owned-cell-F1-2cb432c6-parent-snapshot",
+      "receipt_sha256": "51ae6b41380ac4bdd8dd362889a4818df7b352d86aa032d306055377a6b98bf1",
+      "all_eight_authenticated": true,
+      "unmodified": true
+    },
+    {
+      "path": "/tmp/owned-cell-D1-2e7b8b319-parent-snapshot",
+      "receipt_sha256": "c15b5585f14cb9c5441b25b3667d3aa31ac34fed3ad37830a3edfdaacfcfe0ed",
+      "all_eight_authenticated": true,
+      "unmodified": true
+    }
+  ],
+  "body_inventory": {
+    "original_native_methods": [
+      "UnsafeCell::<u64>::new",
+      "UnsafeCell::<u64>::into_inner",
+      "UnsafeCell::<u64>::get_mut"
+    ],
+    "native_full_Functions": 3,
+    "positive_postconditions": 4,
+    "complete_ordinary_positive_body_queries": 3,
+    "positive_body_queries_valid": 3,
+    "fresh_false_contract_Functions": 3,
+    "complete_ordinary_false_contract_queries": 3,
+    "false_contract_queries_invalid": 3,
+    "total_final_native_body_queries": 6,
+    "initial_merged_final_WF": true,
+    "per_Function_WF_and_modes_positive_and_negative": true,
+    "normal_resolution_simplify_prune_AST_to_SST_poly_AIR": true,
+    "no_cheating": true,
+    "context_safety_checking": true,
+    "original_native_signature_regions_checked_before_erasure": true,
+    "unit_scope_only": true,
+    "original_user_clients": [
+      "owned_roundtrip",
+      "exclusive_update",
+      "exclusive_borrow"
+    ],
+    "enabled_user_helpers": 0,
+    "rewritten_user_native_calls": 0,
+    "source_client_body_proofs": 0,
+    "F2_state_queries": 0,
+    "F3_original_name_erasure_entries": 0
+  },
+  "validation": {
+    "native_MIR_controls": 54,
+    "native_signature_region_controls": 4,
+    "inherited_emitted_corruptions": 45,
+    "new_Full_Function_contract_corruptions": 26,
+    "new_exact_resolution_corruptions": 5,
+    "ordinary_unprivileged_private_field_refusals": 3,
+    "focused_Rev_metadata_tests": 9,
+    "metadata_placements": 9,
+    "metadata_good_bad_widths": [
+      64,
+      32
+    ],
+    "combined_focused_source_tests": 12,
+    "combined_source_compiler_invocations": 226,
+    "source_ordinary_and_Infer_refusal": true,
+    "all_user_requests_inactive": true,
+    "root_fixes_independently_accepted": false
+  },
+  "first_still_unproved": "Original source client-body lowering/native-call and full place/store/load correspondence, then DISTINCT same exclusive_borrow final-input-state F2 and original native erasure F3; all acceptance gates and independent review still required",
+  "failures": [
+    {
+      "label": "D2-native-authority-first",
+      "receipt": null,
+      "reason": "runner KeyError identity on new snapshot shape; no cargo command receipt"
+    },
+    {
+      "label": "D2-native-authority-second",
+      "reason": "ordinary mode rejects old contract field Expr; corrected to canonical spec ReadPlace"
+    },
+    {
+      "label": "D2-native-authority-third",
+      "reason": "Datatype argument missing borrow; compile error corrected"
+    },
+    {
+      "label": "D2-native-normal-resolution-fourth",
+      "reason": "ENOSPC compile failure; no tests"
+    },
+    {
+      "label": "D2-native-normal-resolution-fifth",
+      "receipt": null,
+      "reason": "cancelled during restart after private cache cleanup; no receipt, no passed build, no surviving process on recovery"
+    },
+    {
+      "label": "D2-recovery-native-sixth",
+      "reason": "duplicate generated Temporary IDs in get_mut; corrected using existing SpanContext fresh allocator"
+    },
+    {
+      "label": "D2-recovery-native-seventh",
+      "reason": "milestone passed but native get_mut normal-resolution correspondence refused; zero SMT queries then"
+    },
+    {
+      "label": "D2-recovery-positive-negative-ninth",
+      "reason": "negative diagnostic kind not propagated into one backend revalidation; expected false unit refused before queries; corrected"
+    }
+  ],
+  "disk_and_recovery": {
+    "recovery_utc": "2026-11-12T18:08:18+00:00",
+    "own_surviving_builds": 0,
+    "own_incremental_cache_removed_GiB_approx": 11,
+    "old_snapshots_logs_receipts_bundles_preserved": true,
+    "minimum_required_free_GiB": 25,
+    "recovery_free_GiB_approx": 125,
+    "current_free_GiB": 119.90970993041992,
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": 2,
+    "build_trees_copied": false
+  },
+  "cost": {
+    "start_utc": "2026-11-12T17:10:27+00:00",
+    "conservative_prior_interval_end_utc": "2026-11-12T17:45:00+00:00",
+    "recovery_utc": "2026-11-12T18:08:18+00:00",
+    "freeze_utc": "2026-11-12T18:33:33.263407+00:00",
+    "cancelled_downtime_excluded_seconds": 1398.0,
+    "reconstruction": "Conservatively charge all prior time through17:45 (last pre-cancellation source edit17:43:04) and all recovery time; subtract only documented cargo build seconds, flooring printed Finished durations and pure compile-failure command seconds. No missing receipt credited.",
+    "completed_command_count": 11,
+    "completed_command_wall_seconds": 1203.5181110849371,
+    "documented_build_exclusions_seconds": 1152,
+    "conservative_charged_active_seconds": 2436.263407,
+    "conservative_charged_active_minutes": 40.604390116666664,
+    "budget_active_minutes": 45,
+    "cpu_seconds": null,
+    "monetary_cost": null,
+    "unreceipted_attempts_not_credited": 2
+  },
+  "commands": [
+    {
+      "label": "D2-native-authority-second",
+      "exit": 101,
+      "seconds": 502.5232167929644,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-native-authority-second/receipt.json",
+      "receipt_sha256": "f723855a84cdb14aeb0e57633b3486ab994d77ca2dbe73551a9004730ce84967",
+      "stdout_sha256": "db8b9413aade5f2435560b35d02450e23217a42bff6185faa284b8f3413d4a13",
+      "stderr_sha256": "36e65d5eba6a56fb946076ac1761e807c5a98ffbd11cae51ce8b739196f77171",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 499
+    },
+    {
+      "label": "D2-native-authority-third",
+      "exit": 101,
+      "seconds": 171.50588460697327,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-native-authority-third/receipt.json",
+      "receipt_sha256": "df98695e80107573dba1453dc77356f7544d3247338a9e4bb0ae9a5f16364840",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "cd2d09530190ae761af9c8a5d263f879c27c0f43cc304b9b3f52f360f6eee89d",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 171
+    },
+    {
+      "label": "D2-native-normal-resolution-fourth",
+      "exit": 101,
+      "seconds": 112.4042968369904,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-native-normal-resolution-fourth/receipt.json",
+      "receipt_sha256": "5e1a5dfc8c2bf4c7fedfe82f9cbfc22235931d1263ddbe66261c89dc47dabde9",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "b3c4c2c3abeecd780e7e5067a5d9a1b23b05ec7c79e42181d236e34bef98ae22",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 112
+    },
+    {
+      "label": "D2-recovery-Rev-metadata-regressions",
+      "exit": 0,
+      "seconds": 39.444719329010695,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "vir",
+        "internal_representation",
+        "--",
+        "--test-threads=1"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-recovery-Rev-metadata-regressions/receipt.json",
+      "receipt_sha256": "ad4aabf7ddfced8bc61735548fa6a3e8cead3bd192b86bd2d356e918f60164c9",
+      "stdout_sha256": "4ab3cfbf4df3bae58fde1d734573314d0f44cd67d8f52ce264a64d2a6cf6228d",
+      "stderr_sha256": "cf4c56b0830c15ccac568491cb4c59f122c4bdbee7a620f1f49d7ef9723eac80",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 39
+    },
+    {
+      "label": "D2-recovery-body-eighth",
+      "exit": 0,
+      "seconds": 43.84434189100284,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-recovery-body-eighth/receipt.json",
+      "receipt_sha256": "ff18643aaf82083c377b1b4195a7c6c4cf54dab4ee7cc86ca01306a347551d23",
+      "stdout_sha256": "51ab6d9af674be88a27765ec9d8959752ac9ce0ec63827adf717ba6542b1acaf",
+      "stderr_sha256": "3ead59944671105780fdfca0f7c794863398fbee6e1232ae55c59a333f6b5942",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 43
+    },
+    {
+      "label": "D2-recovery-final-226-regressions",
+      "exit": 0,
+      "seconds": 74.66113139101071,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify_test",
+        "--test",
+        "local_checked_owned_cell",
+        "--test",
+        "local_checked_owned_cell_admission",
+        "--",
+        "--test-threads=1"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-recovery-final-226-regressions/receipt.json",
+      "receipt_sha256": "b8c04df6927b60afb7d6b010da353e26c69c18d21aa56b6b856feb97ffaf47bc",
+      "stdout_sha256": "063149753e4f12f34f700161080f72cc37558b3f576407bf1da38733fc1bfe51",
+      "stderr_sha256": "5bba7753a86f9857de6cce3734ad718afe3fd5e3d3806a60b955e65fc3350c74",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 39
+    },
+    {
+      "label": "D2-recovery-final-compiler-build",
+      "exit": 0,
+      "seconds": 14.969846123014577,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-recovery-final-compiler-build/receipt.json",
+      "receipt_sha256": "af743e93594041ff177fcfdce8381fad58c99fc18417bfd8cfaaf8f0a0443087",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "564108a93990ed4d67eeaf6146906921f07bf3e5ed6bd7c85213ae3a946ee6ab",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 14
+    },
+    {
+      "label": "D2-recovery-native-seventh",
+      "exit": 0,
+      "seconds": 42.55919194105081,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-recovery-native-seventh/receipt.json",
+      "receipt_sha256": "5a1663cbd784ab9da117b8662d7cb3c1c827a556095304bdd2ebd714ae910f5b",
+      "stdout_sha256": "46a33724e1413e76bf8261d74a0af994300c547199228991c2751e435780ed98",
+      "stderr_sha256": "04e47bfe5eabc022d3479cbae1dab88047b5bf9a35721e44180c825add025113",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 42
+    },
+    {
+      "label": "D2-recovery-native-sixth",
+      "exit": 101,
+      "seconds": 115.9200459139538,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-recovery-native-sixth/receipt.json",
+      "receipt_sha256": "adfeaf7271c61941e7d3fefa6ebd6c0d3a30536f06078f77e1f5dce256fc9b0d",
+      "stdout_sha256": "412e4419d98f77887ac393d91c0a9ef1325136710bada555f220d55edef0cd3b",
+      "stderr_sha256": "8d62aa9796af34ba9bd35550d61e67fb2c84ea639bad1e81afca01aebe823002",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 109
+    },
+    {
+      "label": "D2-recovery-positive-negative-ninth",
+      "exit": 101,
+      "seconds": 43.625542845984455,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-recovery-positive-negative-ninth/receipt.json",
+      "receipt_sha256": "938ad0109234f7f241933e89bd1cd36139b560fe1e2a6994bc89947b59a01036",
+      "stdout_sha256": "3fc6a055ed6fcaf4d90bbf528de36303754bb496a88628cd56a9bbd29d1387ce",
+      "stderr_sha256": "98c2bd9074a32d2e69499458de22e7a3206b429972decdb895229958ced1f736",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 43
+    },
+    {
+      "label": "D2-recovery-positive-negative-tenth",
+      "exit": 0,
+      "seconds": 42.05989341298118,
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "--lib",
+        "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "receipt": "/tmp/owned-cell-implementation-20261112/D2-recovery-positive-negative-tenth/receipt.json",
+      "receipt_sha256": "995eb1d21e82ea7cc74fa4715989b71e98f5d0da2c37128f3949c0e893c9928b",
+      "stdout_sha256": "6d42f396a5e6747012c0bf91387fff2eca2c002e12fcc41df79c62f2f8571ac2",
+      "stderr_sha256": "024839ccdd2506a5b351d47eb92bedebcbb1e9a1ab7ff650a4807ecf8a677db6",
+      "source_guard_passed": true,
+      "build_exclusion_seconds_floor": 41
+    }
+  ]
+}
