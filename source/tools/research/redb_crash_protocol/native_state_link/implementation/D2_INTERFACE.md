@@ -57,3 +57,18 @@ final.field=next/false-old/deleted-store obligations remain UNIMPLEMENTED.
 F3 original unresolved/resolved native-name mode/erasure also remains mandatory.
 No shared/raw get, Mutex/atomic Transmute/drop/unwind or foundation extension.
 REDB CP1/CP2/source coupling false; HMAC/native DEFERRED AND UNACHIEVED.
+
+Recovery refinement before negative-body trials: normal resolution's exact
+EvalAndResolve(BorrowMut(original input.field), HasResolved(original mutable
+input)) is retained and independently matched on both frontend and authority
+sides. Ordinary simplify may add only its canonical empty zero-tuple datatype.
+Three actual complete body queries have now passed in the isolated normal unit;
+this is not stage acceptance. The next required semantic control is a separate
+fresh native-method diagnostic unit with each first canonical equality negated.
+Its nonserializable authority records that precise diagnostic kind, revalidates
+all objects/body/type/place relationships and permits no other contract changes.
+The old positive authority cannot authorize that new unit. Run full WF/modes/
+resolution/simplify/full-body queries again; all three false contracts must fail
+as solver postconditions, not frontend refusals. No user installer/selector,
+assumed native summary or F2 client permission follows. Root fixes ef662ee3 and
+c4df45e8 were adopted separately, unaccepted pending root's checks/reviews.
