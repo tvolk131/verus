@@ -15,7 +15,7 @@
       ],
       "property": "exact allocation/free split-merge effect, represented-block consistency/non-overlap/conservation, logical no-change on rejected allocation",
       "domain_status": "must be established from real allocator invariants and callers before trial freeze",
-      "proof_status": "not_run",
+      "proof_status": "partial_operational_trace_proved; full_interval_invariant_conservation0of2",
       "previous_component_reused": "R2 bitmap-tree mutation and frame proof"
     },
     {
@@ -27,7 +27,7 @@
       ],
       "property": "concrete distinct signer membership/cardinality linked to quorum admission and insufficient-count rejection",
       "domain_status": "actual collection/dependency domain must be frozen after source eligibility inspection",
-      "proof_status": "not_run",
+      "proof_status": "unproved_full_consumers; standalone_setup_and_missing_checked_runtime_closure",
       "previous_component_reused": "F2 NumPeers/quorum policy proof",
       "warning": "crypto exclusion supplies no assumed callback or unproved runtime-summary bridge; partial guard proof is not full validation"
     }
@@ -39,7 +39,7 @@
   "preflight_backlog": [
     {
       "id": "F3-bookkeeping-alternative",
-      "status": "source_inspected_only_not_selected_not_trialed",
+      "status": "worker_independently_preregistered_F3B_dependency_aggregation_proved; actual_bootstrap_unproved",
       "actual_caller": "Keychain::bootstrap_multi",
       "actual_dependency_transition": "aleph_bft_crypto::SignatureSet::add_signature",
       "data_path": [
@@ -59,6 +59,24 @@
         "aleph-bft-crypto-0.9.1/src/signature.rs": "c1695f0620ba6adcce0456649150c7523d5a864e37acbcfb1227e6d95e47ac7d"
       },
       "stop": "no assumed clone, conversion, container, key ordering, opaque field or callback law; no foundation chain"
+    }
+  ],
+  "registered_replacements": [
+    {
+      "id": "F3-B",
+      "registration_commits": [
+        "5aaddf5c",
+        "ea447adf"
+      ],
+      "source": "fedimint/AGGREGATION_FREEZE.md",
+      "checked_scope": "NodeMap insert/get and concrete64-byte SignatureSet add_signature body with disclosed inherent-method/trait-context adaptation",
+      "result": "ordinary_and_Infer9/0; imported_client1/0",
+      "incremental_erased_assertions": 2,
+      "new_trusted_contracts": 0,
+      "inferred_helpers": 0,
+      "automation_removal": 0,
+      "full_validation_or_bootstrap": "unproved",
+      "independent_review": "pending"
     }
   ]
 }

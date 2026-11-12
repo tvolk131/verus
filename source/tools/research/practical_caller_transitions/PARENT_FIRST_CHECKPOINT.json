@@ -1,0 +1,139 @@
+{
+  "partial_results_reproduced": true,
+  "full_caller_goal_complete": false,
+  "new_common_engineering_justified": false,
+  "new_engine_or_trust": false,
+  "independent_review": "pending",
+  "records": {
+    "redb": {
+      "receipt": "/tmp/practical-r3-parent-37e4a4d5-manual/receipt.json",
+      "sha256": "529645037366b78ebb4f47e7d8f0420dee5def4788f0684b6eed1f3babef8d0f",
+      "outcomes": [
+        {
+          "label": "manual_ordinary",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 46,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "classification": "CHECKED"
+        },
+        {
+          "label": "manual_infer",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 46,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "classification": "CHECKED"
+        },
+        {
+          "label": "manual_infer_negative_rejection",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 46,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "classification": "VERIFICATION_FAILURE"
+        },
+        {
+          "label": "manual_infer_negative_merge",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 46,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "classification": "VERIFICATION_FAILURE"
+        },
+        {
+          "label": "manual_infer_negative_safety",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 46,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "classification": "VERIFICATION_FAILURE"
+        }
+      ],
+      "compiler_wall_seconds": 37.01847186399391
+    },
+    "fedimint_manual": {
+      "receipt": "/tmp/practical-f3-parent-47a9643d/manual/receipt.json",
+      "sha256": "5ba0585d00e7d97513827b75f15254f292fec876be534f7afd0b40367739c929",
+      "outcomes": [
+        {
+          "label": "manual-ordinary",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 9,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "classification": "checked"
+        },
+        {
+          "label": "manual-infer",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 9,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "classification": "checked"
+        }
+      ],
+      "compiler_wall_seconds": 4.28030128905084
+    },
+    "fedimint_client": {
+      "receipt": "/tmp/practical-f3-parent-47a9643d/client/receipt.json",
+      "sha256": "33d5a3bc910bb169b796d71318c5900619193224c74ce882a25bf09fb76a3e81",
+      "outcomes": [
+        {
+          "label": "client-ordinary",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "classification": "checked"
+        },
+        {
+          "label": "client-infer",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "classification": "checked"
+        }
+      ],
+      "compiler_wall_seconds": 4.294617885956541
+    }
+  },
+  "hmac_native": "deferred_and_unachieved"
+}
