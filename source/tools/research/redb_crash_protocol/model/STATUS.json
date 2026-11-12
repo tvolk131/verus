@@ -1,0 +1,9 @@
+{
+  "milestone": "M1_INTERFACE_FROZEN_BEFORE_TRIALS",
+  "parent": "c008326bfed88eab958335412cdc5ec0e9c8130e",
+  "model_theorem": false,
+  "source_coupling_proved": false,
+  "native_tests_owned_by_parent": true,
+  "infer_annotation_reduction": 0,
+  "HMAC_native": "DEFERRED AND UNACHIEVED; native0/44+3/101 untouched"
+}
