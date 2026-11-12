@@ -1,0 +1,749 @@
+/*
+Convert Rust HIR/THIR to VIR for verification.
+
+For soundness's sake, be as defensive as possible:
+- if we're not prepared to verify a feature of Rust, disallow the feature
+- explicitly match all fields of the Rust AST so we catch any features added in the future
+*/
+
+use crate::context::{Context, ContextX};
+use crate::external::{CrateItems, GeneralItemId, VerifOrExternal};
+use crate::query::PreCrate;
+use crate::reveal_hide::handle_reveal_hide;
+use crate::rust_to_vir_adts::{check_item_enum, check_item_struct, check_item_union};
+use crate::rust_to_vir_base::{def_id_to_vir_path_option, mk_visibility};
+use crate::rust_to_vir_func::{
+    CheckItemFnEither, FunctionOrConstInfo, check_foreign_item_fn, check_item_fn,
+};
+use crate::rust_to_vir_global::TypIgnoreImplPaths;
+use crate::rust_to_vir_impl::ExternalInfo;
+use crate::util::{err_span, err_span_vec};
+use crate::verus_items::{self, VerusItem};
+use crate::{unsupported_err, unsupported_err_vec, unsupported_err_vec_unless};
+use std::collections::HashSet;
+use std::rc::Rc;
+
+use rustc_ast::IsAuto;
+use rustc_hir::def::DefKind;
+use rustc_hir::{
+    ConstItemRhs, ForeignItem, ForeignItemId, ForeignItemKind, ImplItemKind, Item, ItemId,
+    ItemKind, Mutability,
+};
+
+use std::collections::HashMap;
+use std::sync::Arc;
+use vir::ast::{CrateId, Fun, FunX, FunctionKind, Krate, KrateX, Path, VirErr};
+use vir::context::{WarningConfig, WarningCtx};
+
+pub(crate) struct State {
+    pub(crate) external_info: ExternalInfo,
+    pub(crate) fun_warn_configs: HashMap<Fun, WarningConfig>,
+}
+
+impl State {
+    pub(crate) fn insert_fun_warn_config<'tcx>(
+        &mut self,
+        ctxt: &Context<'tcx>,
+        name: &Fun,
+        id: rustc_span::def_id::DefId,
+    ) {
+        self.fun_warn_configs
+            .insert(name.clone(), crate::attributes::warning_config_walk_parents(ctxt.tcx, id));
+    }
+}
+
+fn check_item<'tcx>(
+    ctxt: &Context<'tcx>,
+    state: &mut State,
+    vir: &mut KrateX,
+    infos: &mut Vec<FunctionOrConstInfo<'tcx>>,
+    module_path: &Path,
+    id: &ItemId,
+    item: &'tcx Item<'tcx>,
+    crate_items: &CrateItems,
+) -> Result<(), Vec<VirErr>> {
+    let attrs = ctxt.tcx.hir_attrs(item.hir_id());
+    let vattrs = ctxt.get_verifier_attrs(attrs).map_err(|e| vec![e])?;
+    if vattrs.internal_reveal_fn {
+        return Ok(());
+    }
+    if vattrs.internal_const_body {
+        return Ok(());
+    }
+    if vattrs.external_fn_specification && !matches!(&item.kind, ItemKind::Fn { .. }) {
+        return err_span_vec(item.span, "`external_fn_specification` attribute not supported here");
+    }
+    if vattrs.external_type_specification && !matches!(&item.kind, ItemKind::Struct(..)) {
+        if matches!(&item.kind, ItemKind::Enum(..)) {
+            return err_span_vec(
+                item.span,
+                "`external_type_specification` proxy type should use a struct with a single field to declare the external type (even if the external type is an enum)",
+            );
+        } else {
+            return err_span_vec(
+                item.span,
+                "`external_type_specification` attribute not supported here",
+            );
+        }
+    }
+
+    let visibility = || mk_visibility(ctxt, item.owner_id.to_def_id());
+
+    let mut handle_const_or_static = |body_id: &rustc_hir::BodyId| {
+        let def_id = body_id.hir_id.owner.to_def_id();
+        if vattrs.size_of_global {
+            return Ok(()); // handled earlier
+        }
+        if vattrs.item_broadcast_use {
+            let err = || crate::util::err_span_vec(item.span, "invalid module-level broadcast use");
+            let ItemKind::Const(_ident, generics, _ty, ConstItemRhs::Body(body_id)) = item.kind
+            else {
+                return err();
+            };
+            unsupported_err_vec_unless!(
+                generics.params.len() == 0 && generics.predicates.len() == 0,
+                item.span,
+                "const generics with broadcast"
+            );
+            let _def_id = body_id.hir_id.owner.to_def_id();
+
+            let body = crate::rust_to_vir_func::find_body(ctxt, &body_id);
+
+            let rustc_hir::ExprKind::Block(block, _) = body.value.kind else {
+                return err();
+            };
+
+            let funs = block
+                .stmts
+                .iter()
+                .map(|stmt| {
+                    let err = || {
+                        crate::util::err_span_vec(item.span, "invalid module-level broadcast use")
+                    };
+
+                    let rustc_hir::StmtKind::Semi(expr) = stmt.kind else {
+                        return err();
+                    };
+
+                    let rustc_hir::ExprKind::Call(fun_target, args) = expr.kind else {
+                        return err();
+                    };
+
+                    let rustc_hir::ExprKind::Path(rustc_hir::QPath::Resolved(None, fun_path)) =
+                        &fun_target.kind
+                    else {
+                        return err();
+                    };
+
+                    let Some(VerusItem::Directive(verus_items::DirectiveItem::RevealHide)) =
+                        ctxt.get_verus_item(fun_path.res.def_id())
+                    else {
+                        return err();
+                    };
+
+                    let args: Vec<_> = args.iter().collect();
+
+                    let crate::reveal_hide::RevealHideResult::RevealItem(fun) = handle_reveal_hide(
+                        ctxt,
+                        expr,
+                        args.len(),
+                        &args,
+                        ctxt.tcx,
+                        None::<fn(vir::ast::ExprX) -> Result<vir::ast::Expr, VirErr>>,
+                    )
+                    .map_err(|e| vec![e])?
+                    else {
+                        panic!("handle_reveal_hide must return a RevealItem");
+                    };
+
+                    Ok(fun)
+                })
+                .collect::<Result<Vec<_>, _>>()?;
+
+            let module = vir
+                .modules
+                .iter_mut()
+                .find(|m| &m.x.path == module_path)
+                .expect("cannot find current module");
+            let reveals = &mut Arc::make_mut(module).x.reveals;
+            if reveals.is_some() {
+                return err_span_vec(
+                    item.span,
+                    "only one module-level `broadcast use` allowed for each module",
+                );
+            }
+            *reveals = Some(ctxt.spanned_new(item.span, funs));
+
+            return Ok(());
+        }
+        if vattrs.structural_const_wrapper {
+            ctxt.erasure_info
+                .borrow_mut()
+                .ignored_functions
+                .push((item.owner_id.to_def_id(), item.span.data()));
+            return Ok(());
+        }
+
+        let mid_ty = ctxt.tcx.type_of(def_id).skip_binder();
+        let vir_ty = ctxt.mid_ty_to_vir(def_id, item.span, &mid_ty, None).map_err(|e| vec![e])?;
+
+        crate::rust_to_vir_func::check_item_const_or_static(
+            ctxt,
+            state,
+            &mut *infos,
+            item.span,
+            item.owner_id.to_def_id(),
+            visibility(),
+            module_path,
+            ctxt.tcx.hir_attrs(item.hir_id()),
+            &vir_ty,
+            body_id,
+            matches!(item.kind, ItemKind::Static(_, _, _, _)),
+            None,
+        )
+        .map_err(|e| vec![e])?;
+
+        Ok(())
+    };
+
+    match &item.kind {
+        ItemKind::Fn { sig, generics, body: body_id, .. } => {
+            check_item_fn(
+                ctxt,
+                state,
+                &mut *infos,
+                Some(&mut vir.reveal_groups),
+                item.owner_id.to_def_id(),
+                FunctionKind::Static,
+                visibility(),
+                module_path,
+                ctxt.tcx.hir_attrs(item.hir_id()),
+                crate::rust_to_vir_func::FnOrConstSig::sig(sig),
+                None,
+                generics,
+                CheckItemFnEither::BodyId(body_id),
+                None,
+                None,
+                None,
+                &mut vir.opaque_types,
+            )
+            .map_err(|e| vec![e])?;
+        }
+        ItemKind::Use { .. } => {}
+        ItemKind::ExternCrate { .. } => {}
+        ItemKind::Mod { .. } => {}
+        ItemKind::ForeignMod { .. } => {}
+        ItemKind::Struct(_ident, generics, variant_data) => {
+            // TODO use rustc_middle info here? if sufficient, it may allow for a single code path
+            // for definitions of the local crate and imported crates
+            // let adt_def = tcx.adt_def(item.def_id);
+            //
+            // UPDATE: We now use _some_ rustc_middle info with the adt_def, which we
+            // use to get rustc_middle types. However, we don't exclusively use
+            // rustc_middle; in fact, we still rely on attributes which we can only
+            // get from the HIR data.
+
+            let tyof = ctxt.tcx.type_of(item.owner_id.to_def_id()).skip_binder();
+            let adt_def = tyof.ty_adt_def().expect("adt_def");
+
+            check_item_struct(
+                ctxt,
+                vir,
+                module_path,
+                item.span,
+                id,
+                visibility(),
+                ctxt.tcx.hir_attrs(item.hir_id()),
+                variant_data,
+                generics,
+                adt_def,
+            )
+            .map_err(|e| vec![e])?;
+        }
+        ItemKind::Enum(_ident, generics, enum_def) => {
+            let tyof = ctxt.tcx.type_of(item.owner_id.to_def_id()).skip_binder();
+            let adt_def = tyof.ty_adt_def().expect("adt_def");
+
+            // TODO use rustc_middle? see `Struct` case
+            check_item_enum(
+                ctxt,
+                vir,
+                module_path,
+                item.span,
+                id,
+                visibility(),
+                ctxt.tcx.hir_attrs(item.hir_id()),
+                enum_def,
+                generics,
+                adt_def,
+            )
+            .map_err(|e| vec![e])?;
+        }
+        ItemKind::Union(_ident, generics, variant_data) => {
+            let tyof = ctxt.tcx.type_of(item.owner_id.to_def_id()).skip_binder();
+            let adt_def = tyof.ty_adt_def().expect("adt_def");
+
+            check_item_union(
+                ctxt,
+                vir,
+                module_path,
+                item.span,
+                id,
+                visibility(),
+                ctxt.tcx.hir_attrs(item.hir_id()),
+                variant_data,
+                generics,
+                adt_def,
+            )
+            .map_err(|e| vec![e])?;
+        }
+        ItemKind::Impl(impll) => {
+            crate::rust_to_vir_impl::translate_impl(
+                ctxt,
+                state,
+                vir,
+                infos,
+                item,
+                impll,
+                module_path.clone(),
+                crate_items,
+                attrs,
+            )?;
+        }
+        ItemKind::Const(_ident, generics, _ty, ConstItemRhs::Body(body_id)) => {
+            unsupported_err_vec_unless!(
+                generics.params.len() == 0 && generics.predicates.len() == 0,
+                item.span,
+                "const generics"
+            );
+            handle_const_or_static(body_id)?;
+        }
+        ItemKind::Static(Mutability::Not, _ident, _ty, body_id) => {
+            handle_const_or_static(body_id)?;
+        }
+        ItemKind::Static(Mutability::Mut, _ident, _ty, _body_id) => {
+            unsupported_err_vec!(item.span, "static mut");
+        }
+        ItemKind::Macro(_, _, _) => {}
+        ItemKind::Trait {
+            constness: _,
+            is_auto: IsAuto::No,
+            safety,
+            ident: _,
+            generics: trait_generics,
+            bounds: _,
+            items: trait_items,
+            impl_restriction: _,
+        } => {
+            let trait_def_id = item.owner_id.to_def_id();
+            crate::rust_to_vir_trait::translate_trait(
+                ctxt,
+                state,
+                vir,
+                &mut *infos,
+                item.span,
+                trait_def_id,
+                visibility(),
+                module_path,
+                trait_generics,
+                trait_items,
+                &vattrs,
+                crate_items,
+                *safety,
+            )
+            .map_err(|e| vec![e])?;
+        }
+        ItemKind::TyAlias(_ident, _ty, _generics) => {
+            // type alias (like lines of the form `type X = ...;`
+            // Nothing to do here - we can rely on Rust's type resolution to handle these
+        }
+        ItemKind::GlobalAsm { .. } =>
+        //TODO(utaal): add a crate-level attribute to enable global_asm
+        {
+            return Ok(());
+        }
+        _ => {
+            unsupported_err_vec!(item.span, "unsupported item", item);
+        }
+    }
+    Ok(())
+}
+
+fn check_foreign_item<'tcx>(
+    ctxt: &Context<'tcx>,
+    state: &mut State,
+    infos: &mut Vec<FunctionOrConstInfo<'tcx>>,
+    _id: &ForeignItemId,
+    item: &'tcx ForeignItem<'tcx>,
+) -> Result<(), VirErr> {
+    match &item.kind {
+        ForeignItemKind::Fn(rustc_hir::FnSig { decl, .. }, ident_opts, generics) => {
+            let idents = ident_opts.iter().flatten().collect::<Vec<_>>();
+            check_foreign_item_fn(
+                ctxt,
+                state,
+                infos,
+                item.owner_id.to_def_id(),
+                item.span,
+                mk_visibility(ctxt, item.owner_id.to_def_id()),
+                ctxt.tcx.hir_attrs(item.hir_id()),
+                decl,
+                idents.as_slice(),
+                generics,
+            )?;
+        }
+        _ => {
+            unsupported_err!(item.span, "unsupported foreign item", item);
+        }
+    }
+    Ok(())
+}
+
+/// Translate anonymous constants through executable VIR bodies for mode checking.
+fn check_anon_consts<'tcx>(
+    ctxt: &Context<'tcx>,
+    state: &mut State,
+    infos: &mut Vec<FunctionOrConstInfo<'tcx>>,
+    crate_items: &CrateItems,
+) -> Result<(), Vec<VirErr>> {
+    let tcx = ctxt.tcx;
+    for id in tcx.hir_body_owners() {
+        if !matches!(tcx.def_kind(id), DefKind::AnonConst) {
+            continue;
+        }
+        // Integer-literal discriminants cannot refer to ghost code,
+        // and may intentionally wrap (e.g., `A = 255` under `#[repr(i8)]`).
+        let body = tcx.hir_body_owned_by(id);
+        if tcx.opt_parent(id.to_def_id()).is_some_and(|p| tcx.def_kind(p) == DefKind::Variant) {
+            let mut value = body.value;
+            if let rustc_hir::ExprKind::Unary(rustc_hir::UnOp::Neg, e) = value.kind {
+                value = e;
+            }
+            if matches!(value.kind, rustc_hir::ExprKind::Lit(_)) {
+                continue;
+            }
+        }
+        // Only check anonymous constants owned by verified items.
+        // External code is trusted and is not mode-checked.
+        // The erased copy that verus! generates for each const and const fn is external,
+        // but its anonymous constants also appear in the unerased proxy, which is checked here.
+        let mut owner = tcx.opt_parent(id.to_def_id());
+        let module_path = loop {
+            let Some(owner_id) = owner else { break None };
+            if let Some(local) = owner_id.as_local() {
+                if let Some(verif) = crate_items.map.get(&rustc_hir::OwnerId { def_id: local }) {
+                    break match verif {
+                        VerifOrExternal::VerusAware { module_path, external_body, .. } => {
+                            // external_body trusts only the body of a function or const;
+                            // its signature is still checked.
+                            let in_body = || {
+                                tcx.hir_maybe_body_owned_by(local).is_none_or(|b| {
+                                    tcx.hir_parent_id_iter(tcx.local_def_id_to_hir_id(id))
+                                        .any(|p| p == b.value.hir_id)
+                                })
+                            };
+                            if *external_body && in_body() {
+                                None
+                            } else {
+                                Some(module_path.clone())
+                            }
+                        }
+                        _ => None,
+                    };
+                }
+            }
+            owner = tcx.opt_parent(owner_id);
+        };
+        let Some(module_path) = module_path else {
+            continue;
+        };
+        let span = body.value.span;
+        let mid_typ = tcx.type_of(id).skip_binder();
+        let typ = ctxt.mid_ty_to_vir(id.to_def_id(), span, &mid_typ, None).map_err(|e| vec![e])?;
+        crate::rust_to_vir_func::check_item_const_or_static(
+            ctxt,
+            state,
+            infos,
+            span,
+            id.to_def_id(),
+            vir::ast::Visibility { restricted_to: Some(module_path.clone()) },
+            &module_path,
+            &[],
+            &typ,
+            &body.id(),
+            false,
+            None,
+        )
+        .map_err(|e| vec![e])?;
+    }
+    Ok(())
+}
+
+pub(crate) fn get_root_module_path<'tcx>(ctxt: &ContextX<'tcx>) -> Path {
+    ctxt.def_id_to_vir_path(rustc_hir::CRATE_OWNER_ID.to_def_id())
+}
+
+/// The code emitted by the Verus macros refers to these crates by absolute paths
+/// (e.g., `::core::cfg!`, `::vstd::prelude`), so an `extern crate` item must not
+/// make these names refer to a different crate.
+const RESERVED_EXTERN_CRATE_NAMES: &[&str] =
+    &["core", "vstd", "verus_builtin", "verus_builtin_macros"];
+
+fn check_extern_crate_alias<'tcx>(item: &'tcx Item<'tcx>) -> Result<(), VirErr> {
+    if let ItemKind::ExternCrate(Some(orig_name), ident) = &item.kind {
+        let alias = ident.name.as_str();
+        if RESERVED_EXTERN_CRATE_NAMES.contains(&alias) && orig_name.as_str() != alias {
+            return err_span(
+                item.span,
+                format!("Verus does not support renaming a crate to `{alias}` with `extern crate`"),
+            );
+        }
+    }
+    Ok(())
+}
+
+pub(crate) fn crate_to_vir<'a, 'tcx>(
+    mut ctxtx: ContextX<'tcx>,
+    imported: &Vec<Krate>,
+    crate_items: &CrateItems,
+) -> Result<PreCrate<'tcx>, Vec<VirErr>> {
+    let mut vir: KrateX = KrateX {
+        functions: Vec::new(),
+        reveal_groups: Vec::new(),
+        datatypes: Vec::new(),
+        opaque_types: Vec::new(),
+        traits: Vec::new(),
+        trait_impls: Vec::new(),
+        assoc_type_impls: Vec::new(),
+        modules: Vec::new(),
+        external_fns: Vec::new(),
+        external_types: Vec::new(),
+        path_as_rust_names: Vec::new(),
+        arch: vir::ast::Arch { word_bits: vir::ast::ArchWordBits::Either32Or64 },
+    };
+    let mut infos: Vec<FunctionOrConstInfo> = Vec::new();
+
+    let tcx = ctxtx.tcx;
+
+    let mut external_info = ExternalInfo::new();
+    // Sized is fundamental enough that we always want it even with no-vstd
+    external_info.trait_id_set.insert(tcx.lang_items().sized_trait().expect("lang_item"));
+    // TODO: remove the following when we have full support for auto traits:
+    external_info.trait_id_set.insert(tcx.lang_items().unpin_trait().expect("lang_item"));
+    external_info.trait_id_set.insert(tcx.lang_items().sync_trait().expect("lang_item"));
+    external_info
+        .trait_id_set
+        .insert(tcx.get_diagnostic_item(rustc_span::sym::Send).expect("send"));
+
+    let fun_warn_configs = HashMap::new();
+    let mut state = State { external_info, fun_warn_configs };
+
+    let mut errors = vec![];
+
+    let mut typs_sizes_set: HashMap<TypIgnoreImplPaths, u128> = HashMap::new();
+    for item in crate::util::iter_crate_free_items(tcx) {
+        if let Err(err) = check_extern_crate_alias(item) {
+            errors.push(err);
+        }
+        if let Err(err) =
+            crate::rust_to_vir_global::process_const_early(&mut ctxtx, &mut typs_sizes_set, item)
+        {
+            errors.push(err);
+        }
+    }
+
+    if errors.len() > 0 {
+        return Err(errors);
+    }
+
+    let arch_word_bits = ctxtx.arch_word_bits.unwrap_or(vir::ast::ArchWordBits::Either32Or64);
+    ctxtx.arch_word_bits = Some(arch_word_bits);
+    vir.arch.word_bits = arch_word_bits;
+    let ctxt = Rc::new(ctxtx);
+
+    // Find all modules that contain at least 1 item of interest
+    let mut used_modules = HashSet::<Path>::new();
+    for crate_item in crate_items.items.iter() {
+        match &crate_item.verif {
+            VerifOrExternal::VerusAware {
+                module_path,
+                const_directive: _,
+                external_body: _,
+                external_fn_specification: _,
+            } => {
+                used_modules.insert(module_path.clone());
+            }
+            _ => {}
+        }
+    }
+    // Insert those modules into vir.modules
+    let root_module_path = get_root_module_path(&ctxt);
+    if used_modules.contains(&root_module_path) {
+        let owner = ctxt.tcx.hir_owner_node(rustc_hir::CRATE_OWNER_ID);
+        vir.modules.push(ctxt.spanned_new(
+            owner.span(),
+            vir::ast::ModuleX { path: root_module_path.clone(), reveals: None },
+        ));
+    }
+    for item in crate::util::iter_crate_free_items(tcx) {
+        if let Item { kind: ItemKind::Mod(_ident, _module), owner_id, .. } = item {
+            let path =
+                def_id_to_vir_path_option(ctxt.tcx, Some(&ctxt.verus_items), owner_id.to_def_id());
+            if let Some(path) = path {
+                if used_modules.contains(&path) {
+                    vir.modules.push(ctxt.spanned_new(
+                        item.span,
+                        vir::ast::ModuleX { path: path.clone(), reveals: None },
+                    ));
+                }
+            }
+        }
+    }
+
+    crate::rust_to_vir_trait::make_external_trait_extension_impl_map(
+        &ctxt,
+        &mut state.external_info,
+        imported,
+        &crate_items,
+    )
+    .map_err(|e| vec![e])?;
+
+    for crate_item in crate_items.items.iter() {
+        match &crate_item.verif {
+            VerifOrExternal::VerusAware {
+                module_path,
+                const_directive: _,
+                external_body: _,
+                external_fn_specification: _,
+            } => {
+                match crate_item.id {
+                    GeneralItemId::ItemId(item_id) => {
+                        let item = ctxt.tcx.hir_item(item_id);
+                        if let Err(errs) = check_item(
+                            &ctxt,
+                            &mut state,
+                            &mut vir,
+                            &mut infos,
+                            &module_path,
+                            &item_id,
+                            item,
+                            &crate_items,
+                        ) {
+                            errors.extend(errs);
+                        }
+                    }
+                    GeneralItemId::ForeignItemId(foreign_item_id) => {
+                        let foreign_item = ctxt.tcx.hir_foreign_item(foreign_item_id);
+                        if let Err(err) = check_foreign_item(
+                            &ctxt,
+                            &mut state,
+                            &mut infos,
+                            &foreign_item_id,
+                            foreign_item,
+                        ) {
+                            errors.push(err);
+                        }
+                    }
+                    GeneralItemId::ImplItemId(_impl_item_id) => {
+                        // Processed as part of the impl (which is an Item)
+                    }
+                    GeneralItemId::TraitItemId(_trait_item_id) => {
+                        // Processed as part of the impl (which is an Item)
+                    }
+                }
+            }
+            VerifOrExternal::External { path: Some(my_path), path_string: _, explicit: _ } => {
+                // If possible, track this item in the VIR Krate for diagnostic purposes
+                let (is_fn, is_datatype) = match crate_item.id {
+                    GeneralItemId::ItemId(item_id) => {
+                        let i = ctxt.tcx.hir_item(item_id);
+                        match i.kind {
+                            ItemKind::Fn { .. } | ItemKind::Const(..) => (true, false),
+                            ItemKind::Struct(..) | ItemKind::Enum(..) | ItemKind::Union(..) => {
+                                (false, true)
+                            }
+                            _ => (false, false),
+                        }
+                    }
+                    GeneralItemId::ForeignItemId(foreign_item_id) => {
+                        let i = ctxt.tcx.hir_foreign_item(foreign_item_id);
+                        match i.kind {
+                            ForeignItemKind::Fn(..) => (true, false),
+                            _ => (false, false),
+                        }
+                    }
+                    GeneralItemId::ImplItemId(impl_item_id) => {
+                        let i = ctxt.tcx.hir_impl_item(impl_item_id);
+                        match i.kind {
+                            ImplItemKind::Fn(..) => (true, false),
+                            _ => (false, false),
+                        }
+                    }
+                    GeneralItemId::TraitItemId(_trait_item_id) => (false, false),
+                };
+                if is_fn {
+                    vir.external_fns.push(Arc::new(FunX { path: my_path.clone() }));
+                }
+                if is_datatype {
+                    vir.external_types.push(my_path.clone());
+                }
+            }
+            VerifOrExternal::External { path: None, path_string: _, explicit: _ } => {}
+        }
+    }
+
+    if errors.len() > 0 {
+        return Err(errors);
+    }
+
+    vir.path_as_rust_names = vir::ast_util::get_path_as_rust_names_for_krate(&CrateId::Vstd);
+
+    check_anon_consts(&ctxt, &mut state, &mut infos, crate_items)?;
+
+    crate::checked_foreign::register(&ctxt, &mut state, &mut infos).map_err(|e| vec![e])?;
+    crate::checked_nonzero_ord::register(&ctxt, &mut state, &mut infos, imported)
+        .map_err(|e| vec![e])?;
+
+    let function_stubs: Vec<_> = infos.iter().flat_map(|info| info.iter_stubs()).cloned().collect();
+    crate::tuple_clone::register(&function_stubs, &mut vir);
+    crate::rust_to_vir_impl::collect_external_trait_impls(
+        &ctxt,
+        imported,
+        &mut vir,
+        &mut state.external_info,
+        &function_stubs,
+    )
+    .map_err(|e| vec![e])?;
+
+    crate::rust_to_vir_adts::setup_type_invariants(&mut vir, &function_stubs)
+        .map_err(|e| vec![e])?;
+
+    crate::rust_to_vir_ctor::register_function_items(&ctxt, &vir, &mut state, &mut infos)
+        .map_err(|e| vec![e])?;
+
+    let mut fun_warn_configs: HashMap<Fun, Option<WarningConfig>> = HashMap::new();
+    for krate in imported {
+        for function in &krate.functions {
+            fun_warn_configs.insert(function.x.name.clone(), None);
+        }
+    }
+    for (f, warn) in state.fun_warn_configs {
+        fun_warn_configs.insert(f, Some(warn));
+    }
+    let warning_ctx = WarningCtx { fun_warn_configs };
+
+    let infos = infos.into_iter().map(|info| Arc::new(info)).collect::<Vec<_>>();
+    let mut fun_name_to_info = HashMap::<Fun, Arc<FunctionOrConstInfo>>::new();
+    for info in infos.iter() {
+        for stub in info.iter_stubs() {
+            fun_name_to_info.insert(stub.x.name.clone(), info.clone());
+        }
+    }
+    Ok(PreCrate {
+        ctxt,
+        warning_ctx: Arc::new(warning_ctx),
+        krate_without_funs: Arc::new(vir),
+        infos: infos,
+        fun_name_to_info,
+    })
+}

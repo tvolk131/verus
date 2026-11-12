@@ -1,0 +1,603 @@
+use crate::config::Args;
+use crate::spans::FileStartEndPos;
+use crate::verifier::io_vir_err;
+use serde::{Deserialize, Serialize};
+use sha2::{Digest, Sha256};
+use std::collections::{BTreeMap, HashMap};
+use std::io::{Read, Write};
+use std::path::{Path, PathBuf};
+use std::sync::Arc;
+use vir::ast::{Fun, Krate, Mode, VirErr};
+use vir::infer::ProofStatus;
+
+// Ordinary .vir files retain their existing representation. Inference proof
+// metadata is an optional trailer, required whenever an inferred API is present.
+const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
+const INFER_SCHEMA: u32 = 39;
+const INFER_POLICY: &str = "candidate-bound-evidence-v78";
+const MAX_INFER_METADATA: u64 = 1024 * 1024;
+
+#[derive(Debug, Deserialize, Serialize)]
+pub(crate) struct CrateMetadata {
+    pub crate_id: u64,
+    pub original_files: HashMap<Vec<u8>, FileStartEndPos>,
+    /// Requires the proof trailer even if public-API pruning leaves no inferred
+    /// function (or this is an ordinary consumer of a certified dependency).
+    pub inference_aware: bool,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub(crate) struct CrateWithMetadata {
+    krate: Krate,
+    metadata: CrateMetadata,
+}
+
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub(crate) struct InferenceDependency {
+    pub crate_id: u64,
+    pub fingerprint: String,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+struct InferenceMetadata {
+    schema: u32,
+    policy: String,
+    producer: String,
+    soundness: bool,
+    maximality: bool,
+    exactness: bool,
+    proofs: Vec<(Fun, ProofStatus)>,
+    summaries: String,
+    dependencies: Vec<InferenceDependency>,
+    trusted_models: Vec<(Fun, String)>,
+    foreign_dependencies: Vec<crate::checked_foreign::ForeignCertificate>,
+}
+
+fn digest(bytes: impl AsRef<[u8]>) -> String {
+    hex::encode(Sha256::digest(bytes))
+}
+
+fn producer() -> String {
+    let info = crate::util::verus_build_info();
+    format!("{}:{}:{}", info.version, info.toolchain, info.sha)
+}
+
+fn certified_summaries(
+    krate: &Krate,
+    foreign: &[crate::checked_foreign::ForeignCertificate],
+) -> Result<String, VirErr> {
+    bincode_next::serde::encode_to_vec((krate, foreign), bincode_next::config::legacy())
+        .map(digest)
+        .map_err(|_| crate::util::error("failed to bind required foreign evidence"))
+}
+
+pub(crate) fn trusted_model_fingerprint(
+    function: &vir::ast::Function,
+    artifact: &str,
+) -> Result<String, VirErr> {
+    // Cover the model's spec functions and axioms too, not just the executable
+    // declaration. The ordinary library remains trusted, but cannot silently
+    // change underneath an inference certificate from a previous build.
+    bincode_next::serde::encode_to_vec((function, artifact), bincode_next::config::legacy())
+        .map(digest)
+        .map_err(|_| crate::util::error("failed to fingerprint trusted standard model"))
+}
+
+fn inference_error(path: &str, detail: &str) -> VirErr {
+    crate::util::error(format!(
+        "Verus Infer: {detail} in imported library `{path}`; rebuild the library and its dependents"
+    ))
+}
+
+pub(crate) struct ImportOutput {
+    pub(crate) vir_crates: Vec<Krate>,
+    pub(crate) metadatas: Vec<CrateMetadata>,
+    pub(crate) inference_dependencies: Vec<InferenceDependency>,
+    pub(crate) trusted_models: Vec<(Fun, String)>,
+    pub(crate) available_trusted_models: HashMap<Fun, String>,
+    pub(crate) foreign_dependencies: Vec<crate::checked_foreign::ForeignCertificate>,
+}
+
+pub(crate) fn import_crates(
+    args: &Args,
+    import_virs_via_cargo: Vec<(String, String)>,
+    tcx: rustc_middle::ty::TyCtxt<'_>,
+) -> Result<ImportOutput, VirErr> {
+    let mut metadatas = Vec::new();
+    let mut vir_crates = Vec::new();
+    let mut inference = Vec::new();
+    let mut fingerprints = BTreeMap::new();
+    let mut available_trusted_models = HashMap::new();
+    let mut foreign = BTreeMap::new();
+    let mut current_foreign = None;
+    for (_, file_path) in args.import.iter().chain(import_virs_via_cargo.iter()) {
+        let mut file = std::io::BufReader::new(std::fs::File::open(file_path).map_err(|err| {
+            io_vir_err(format!("could not open imported library file `{file_path}`"), err)
+        })?);
+        let CrateWithMetadata { krate, metadata } = bincode_next::serde::decode_from_std_read(
+            &mut file, bincode_next::config::legacy(),
+        ).map_err(|_| crate::util::error(format!(
+            "failed to deserialize imported library file `{file_path}` - it may need to be rebuilt by Verus"
+        )))?;
+        let models: Vec<_> =
+            krate.functions.iter().filter(|f| vir::infer::is_approved_model(f)).collect();
+        if !models.is_empty() {
+            let artifact = digest(
+                std::fs::read(file_path)
+                    .map_err(|e| io_vir_err("read trusted-model artifact".into(), e))?,
+            );
+            for function in models {
+                available_trusted_models.insert(
+                    function.x.name.clone(),
+                    trusted_model_fingerprint(function, &artifact)?,
+                );
+            }
+        }
+        let mut trailer = Vec::new();
+        file.by_ref()
+            .take(MAX_INFER_METADATA + 1)
+            .read_to_end(&mut trailer)
+            .map_err(|e| io_vir_err("read inference metadata".into(), e))?;
+        if metadata.inference_aware
+            || trailer.ends_with(INFER_MAGIC)
+            || krate
+                .functions
+                .iter()
+                .any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f))
+        {
+            if trailer.len() as u64 > MAX_INFER_METADATA || !trailer.ends_with(INFER_MAGIC) {
+                return Err(inference_error(
+                    file_path,
+                    "missing or invalid inference proof metadata",
+                ));
+            }
+            if !metadata.inference_aware {
+                return Err(inference_error(file_path, "invalid inference-aware artifact header"));
+            }
+            let certificate: InferenceMetadata =
+                serde_json::from_slice(&trailer[..trailer.len() - INFER_MAGIC.len()])
+                    .map_err(|_| inference_error(file_path, "invalid inference proof metadata"))?;
+            if certificate.schema != INFER_SCHEMA
+                || certificate.policy != INFER_POLICY
+                || certificate.producer != producer()
+            {
+                return Err(inference_error(
+                    file_path,
+                    "incompatible inference schema, safety policy, or producer",
+                ));
+            }
+            let proofs: HashMap<_, _> = certificate.proofs.iter().cloned().collect();
+            let inferred: Vec<_> = krate.functions.iter().filter(|f| f.x.attrs.infer).collect();
+            if proofs.len() != certificate.proofs.len()
+                || proofs.len() != inferred.len()
+                || !certificate.soundness
+                || certificate.maximality != certificate.proofs.iter().all(|(_, p)| p.maximality)
+                || certificate.exactness != certificate.proofs.iter().all(|(_, p)| p.exactness)
+                || inferred.iter().any(|f| {
+                    !proofs
+                        .get(&f.x.name)
+                        .is_some_and(|p| p.satisfies(f.x.attrs.infer_allow_approx))
+                })
+            {
+                return Err(inference_error(file_path, "incomplete inference proof guarantees"));
+            }
+            // Validate typed core identity BEFORE returning any imported facts.
+            // The current instance/MIR comes from this consumer's TyCtxt; neither
+            // the supplied certificate nor the candidate cache can supply it.
+            for required in &certificate.foreign_dependencies {
+                if current_foreign.is_none() {
+                    current_foreign = Some(crate::checked_foreign::current_identity(tcx, None)?);
+                }
+                if Some(&required.identity) != current_foreign.as_ref()
+                    || required.checked_function.len() != 64
+                    || !required.checked_function.bytes().all(|b| b.is_ascii_hexdigit())
+                {
+                    return Err(inference_error(file_path, "checked foreign identity mismatch"));
+                }
+                let key = (
+                    required.identity.semantic_instance.clone(),
+                    required.checked_function.clone(),
+                );
+                if let Some(previous) = foreign.insert(key, required.clone()) {
+                    if previous != *required {
+                        return Err(inference_error(
+                            file_path,
+                            "conflicting checked foreign dependencies",
+                        ));
+                    }
+                }
+            }
+            if krate.functions.iter().any(|f| f.x.attrs.infer && f.x.body.is_some())
+                || certificate.summaries
+                    != certified_summaries(&krate, &certificate.foreign_dependencies)?
+            {
+                return Err(inference_error(file_path, "inferred contract fingerprint mismatch"));
+            }
+            let fingerprint = digest(serde_json::to_vec(&certificate).unwrap());
+            if let Some(old) = fingerprints.insert(metadata.crate_id, fingerprint.clone()) {
+                if old != fingerprint {
+                    return Err(inference_error(
+                        file_path,
+                        "conflicting inference artifacts for one crate",
+                    ));
+                }
+            }
+            inference.push((file_path.clone(), metadata.crate_id, certificate));
+        }
+        vir_crates.push(krate);
+        metadatas.push(metadata);
+    }
+    let mut trusted_models = BTreeMap::new();
+    for (path, id, certificate) in &inference {
+        for (name, fingerprint) in &certificate.trusted_models {
+            if available_trusted_models.get(name) != Some(fingerprint) {
+                return Err(inference_error(path, "stale or missing trusted-model fingerprint"));
+            }
+            trusted_models.insert(name.clone(), fingerprint.clone());
+        }
+        for dependency in &certificate.dependencies {
+            if let Some((_, _, parent)) =
+                inference.iter().find(|(_, id, _)| *id == dependency.crate_id)
+            {
+                if parent
+                    .foreign_dependencies
+                    .iter()
+                    .any(|required| !certificate.foreign_dependencies.contains(required))
+                {
+                    return Err(inference_error(
+                        path,
+                        "missing transitive checked foreign dependency",
+                    ));
+                }
+            }
+            if dependency.crate_id == *id
+                || fingerprints.get(&dependency.crate_id) != Some(&dependency.fingerprint)
+            {
+                return Err(inference_error(
+                    path,
+                    "stale or missing inferred dependency fingerprint",
+                ));
+            }
+        }
+    }
+    let inference_dependencies = fingerprints
+        .into_iter()
+        .map(|(crate_id, fingerprint)| InferenceDependency { crate_id, fingerprint })
+        .collect();
+    let datatypes: Vec<_> = vir_crates.iter().flat_map(|k| k.datatypes.iter()).cloned().collect();
+    let functions: Vec<_> = vir_crates.iter().flat_map(|k| k.functions.iter()).cloned().collect();
+    vir::infer::validate_inferred_sequence_views(&functions, &datatypes)?;
+    for f in vir_crates.iter().flat_map(|k| k.functions.iter()).filter(|f| f.x.attrs.infer) {
+        vir::infer::validate_imported_summary_with_context(f, &datatypes, &functions).map_err(
+            |e| {
+                vir::messages::error_bare(format!(
+                    "inferred interface {}: {}",
+                    vir::ast_util::fun_as_friendly_rust_name(&f.x.name),
+                    e.note
+                ))
+            },
+        )?;
+    }
+    Ok(ImportOutput {
+        vir_crates,
+        metadatas,
+        inference_dependencies,
+        trusted_models: trusted_models.into_iter().collect(),
+        available_trusted_models,
+        foreign_dependencies: foreign.into_values().collect(),
+    })
+}
+
+fn export_path(args: &Args, via_cargo: &Option<PathBuf>) -> Option<PathBuf> {
+    args.export.as_ref().map(PathBuf::from).or_else(|| via_cargo.clone())
+}
+
+/// Cargo supplies --crate-name before parsing. Use rustc's output-path
+/// representation to invalidate its selected metadata sibling even if parsing
+/// fails before after_expansion can observe a required dependency. Goals-off
+/// consumers also invalidate before parsing; after_expansion checks the
+/// authoritative path again.
+pub(crate) fn invalidate_early_cargo_export(
+    args: &Args,
+    config: &rustc_interface::interface::Config,
+) -> Result<(), VirErr> {
+    let Some(name) = config.opts.crate_name.clone() else {
+        return Ok(());
+    };
+    use rustc_session::config::{OutFileName, OutputFilenames, OutputType};
+    if matches!(config.output_file, Some(OutFileName::Stdout)) {
+        return Ok(());
+    }
+    let dir = config
+        .output_file
+        .as_ref()
+        .and_then(|f| f.parent())
+        .map(|p| p.to_path_buf())
+        .or_else(|| config.output_dir.clone())
+        .unwrap_or_default();
+    let single = if config.opts.output_types.values().filter(|x| x.is_none()).count() <= 1 {
+        config.output_file.clone()
+    } else {
+        None
+    };
+    let outputs = OutputFilenames::new(
+        dir,
+        name.clone(),
+        name,
+        single,
+        None,
+        None,
+        None,
+        config.opts.cg.extra_filename.clone(),
+        config.opts.output_types.clone(),
+    );
+    let path = match outputs.path(OutputType::Metadata) {
+        OutFileName::Real(p) => Some(p.with_extension("vir")),
+        OutFileName::Stdout => None,
+    };
+    invalidate_inferred_export(args, &path)
+}
+
+/// An unsuccessful re-verification must not leave an older certified inference
+/// artifact at the requested output path. Goal-assisted ordinary exports use
+/// the same post-verification barrier. All selected outputs are invalidated:
+/// parse failures cannot yet reveal newly introduced foreign dependencies.
+pub(crate) fn invalidate_inferred_export(
+    args: &Args,
+    via_cargo: &Option<PathBuf>,
+) -> Result<(), VirErr> {
+    invalidate_export(args, via_cargo, false)
+}
+
+/// Once local inference is known, invalidate even an older ordinary export.
+/// Private inferred helpers can leave no inferred function in the public API.
+pub(crate) fn invalidate_local_inference_export(
+    args: &Args,
+    via_cargo: &Option<PathBuf>,
+) -> Result<(), VirErr> {
+    invalidate_export(args, via_cargo, true)
+}
+
+fn invalidate_export(
+    args: &Args,
+    via_cargo: &Option<PathBuf>,
+    _local_inference: bool,
+) -> Result<(), VirErr> {
+    // Selection for writing has precedence, but invalidation must clear every
+    // selected destination: Cargo's sibling can outlive an explicit --export.
+    let mut paths = Vec::new();
+    if let Some(path) = &args.export {
+        paths.push(PathBuf::from(path));
+    }
+    if let Some(path) = via_cargo {
+        if !paths.contains(path) {
+            paths.push(path.clone());
+        }
+    }
+    let mut first_error = None;
+    for path in paths {
+        match std::fs::remove_file(&path) {
+            Ok(()) => (),
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+            Err(e) => {
+                // A failure at one destination must not spare another stale
+                // interface. Report the first error after attempting all paths.
+                if first_error.is_none() {
+                    first_error = Some(io_vir_err(
+                        format!("invalidate requested export `{}`", path.display()),
+                        e,
+                    ));
+                }
+            }
+        }
+    }
+    match first_error {
+        Some(error) => Err(error),
+        None => Ok(()),
+    }
+}
+
+pub(crate) fn export_crate(
+    args: &Args,
+    export_vir_path_via_cargo: &Option<PathBuf>,
+    mut vir_metadata: CrateMetadata,
+    vir_crate: Krate,
+    // Some is supplied only by the post-verification publication barrier.
+    verified_inference: Option<(
+        &[InferenceDependency],
+        &vir::infer_proof::Proofs,
+        &[(Fun, String)],
+        &[crate::checked_foreign::ForeignCertificate],
+    )>,
+) -> Result<(), VirErr> {
+    let Some(file_path) = export_path(args, export_vir_path_via_cargo) else {
+        return Ok(());
+    };
+    if verified_inference.as_ref().is_some_and(|(_, _, _, f)| !f.is_empty())
+        && args.no_erasure_check
+    {
+        return Err(crate::util::error("checked foreign exports require normal erasure checking"));
+    }
+    if verified_inference.is_some() && !args.can_certify_inference() {
+        return Err(crate::util::error(
+            "Verus Infer: cannot export an inference-aware interface without full-crate verification and normal lifetime/trait checks",
+        ));
+    }
+    if vir_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f))
+        && verified_inference.is_none()
+    {
+        return Err(crate::util::error("Verus Infer: cannot export unverified inferred contracts"));
+    }
+    let mut kratex = (*vir_crate).clone();
+    kratex.functions.retain(|f| f.x.visibility.restricted_to.is_none());
+    for func in kratex.functions.iter_mut() {
+        let mut functionx = func.x.clone();
+        functionx.decrease_by = None;
+        functionx.return_opaque_type_eqs = Arc::new(vec![]);
+        if (functionx.mode != Mode::Spec || !functionx.body_visibility.is_public())
+            && !matches!(&functionx.kind, vir::ast::FunctionKind::TraitMethodDecl { .. })
+        {
+            functionx.body = None;
+        }
+        *func = func.new_x(functionx);
+    }
+    let krate = Arc::new(kratex);
+    // Keep the inference-aware marker even if private-helper pruning leaves
+    // no inferred public functions. Later early failures must remove this API.
+    let inference = if let Some((dependencies, verified, models, foreign)) = verified_inference {
+        let mut proofs = Vec::new();
+        for function in krate.functions.iter().filter(|f| f.x.attrs.infer) {
+            let proof = verified.status(function)?;
+            if !proof.satisfies(function.x.attrs.infer_allow_approx) {
+                return Err(crate::util::error(
+                    "Verus Infer: cannot export unproved inference guarantees",
+                ));
+            }
+            proofs.push((function.x.name.clone(), proof));
+        }
+        Some(InferenceMetadata {
+            schema: INFER_SCHEMA,
+            policy: INFER_POLICY.into(),
+            producer: producer(),
+            soundness: true,
+            maximality: proofs.iter().all(|(_, p)| p.maximality),
+            exactness: proofs.iter().all(|(_, p)| p.exactness),
+            proofs,
+            summaries: certified_summaries(&krate, foreign)?,
+            dependencies: dependencies.to_vec(),
+            trusted_models: models.to_vec(),
+            foreign_dependencies: foreign.to_vec(),
+        })
+    } else {
+        None
+    };
+    vir_metadata.inference_aware = inference.is_some();
+    atomic_export(
+        &file_path,
+        &CrateWithMetadata { krate, metadata: vir_metadata },
+        inference.as_ref(),
+    )
+}
+
+fn atomic_export(
+    path: &Path,
+    krate: &CrateWithMetadata,
+    inference: Option<&InferenceMetadata>,
+) -> Result<(), VirErr> {
+    let tmp = path.with_extension(format!("vir.{}.tmp", std::process::id()));
+    let result = (|| -> Result<(), VirErr> {
+        let mut file = std::io::BufWriter::new(
+            std::fs::File::create(&tmp)
+                .map_err(|e| io_vir_err(format!("create export `{}`", tmp.display()), e))?,
+        );
+        bincode_next::serde::encode_into_std_write(
+            krate,
+            &mut file,
+            bincode_next::config::legacy(),
+        )
+        .map_err(|_| crate::util::error("failed to serialize exported library"))?;
+        if let Some(inference) = inference {
+            serde_json::to_writer(&mut file, inference)
+                .map_err(|_| crate::util::error("failed to serialize inference metadata"))?;
+            file.write_all(INFER_MAGIC)
+                .map_err(|e| io_vir_err("write inference metadata".into(), e))?;
+        }
+        file.flush().map_err(|e| io_vir_err("flush exported library".into(), e))?;
+        drop(file);
+        std::fs::rename(&tmp, path)
+            .map_err(|e| io_vir_err(format!("publish exported library `{}`", path.display()), e))
+    })();
+    if result.is_err() {
+        let _ = std::fs::remove_file(tmp);
+    }
+    result
+}
+
+#[cfg(test)]
+mod infer_arch_tests {
+    use super::*;
+    use vir::ast::{Arch, ArchWordBits, KrateX};
+
+    fn empty_crate() -> Krate {
+        Arc::new(KrateX {
+            functions: vec![],
+            reveal_groups: vec![],
+            datatypes: vec![],
+            traits: vec![],
+            trait_impls: vec![],
+            assoc_type_impls: vec![],
+            modules: vec![],
+            external_fns: vec![],
+            external_types: vec![],
+            path_as_rust_names: vec![],
+            opaque_types: vec![],
+            arch: Arch { word_bits: ArchWordBits::Either32Or64 },
+        })
+    }
+
+    #[test]
+    fn invalidation_clears_both_selected_outputs_and_attempts_all_paths() {
+        let nonce =
+            std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos();
+        let dir = std::env::temp_dir()
+            .join(format!("infer-selected-exports-{}-{nonce}", std::process::id()));
+        std::fs::create_dir(&dir).unwrap();
+        let a = dir.join("explicit.vir");
+        let b = dir.join("cargo.vir");
+        for (explicit, cargo) in [(&a, &b), (&b, &a), (&a, &a)] {
+            std::fs::write(explicit, b"previous interface").unwrap();
+            std::fs::write(cargo, b"previous interface").unwrap();
+            let mut args = crate::config::ArgsX::new();
+            args.export = Some(explicit.display().to_string());
+            invalidate_local_inference_export(&Arc::new(args), &Some(cargo.clone())).unwrap();
+            assert!(!explicit.exists() && !cargo.exists());
+        }
+        // A non-file destination fails deletion, but the other selected file
+        // must still be removed and the failure must still be reported.
+        std::fs::create_dir(&a).unwrap();
+        std::fs::write(&b, b"previous interface").unwrap();
+        let mut args = crate::config::ArgsX::new();
+        args.export = Some(a.display().to_string());
+        assert!(invalidate_inferred_export(&Arc::new(args), &Some(b.clone())).is_err());
+        assert!(a.is_dir() && !b.exists());
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn inference_fingerprint_binds_architecture_without_function_changes() {
+        let mut krate = empty_crate();
+        let portable = certified_summaries(&krate, &[]).unwrap();
+        Arc::make_mut(&mut krate).arch.word_bits = ArchWordBits::Exactly(32);
+        let bits32 = certified_summaries(&krate, &[]).unwrap();
+        Arc::make_mut(&mut krate).arch.word_bits = ArchWordBits::Exactly(64);
+        let bits64 = certified_summaries(&krate, &[]).unwrap();
+        assert_ne!(portable, bits32);
+        assert_ne!(portable, bits64);
+        assert_ne!(bits32, bits64);
+    }
+
+    #[test]
+    fn inference_fingerprint_binds_required_foreign_evidence() {
+        use crate::checked_foreign::{ForeignCertificate, ForeignIdentity};
+        let krate = empty_crate();
+        let certificate = ForeignCertificate {
+            identity: ForeignIdentity {
+                semantic_instance: "semantic instance".into(),
+                typed_mir: "typed body".into(),
+                compiler: "compiler".into(),
+                core_artifact: "core".into(),
+                target: "target".into(),
+            },
+            checked_function: "checked function and contract".into(),
+        };
+        let fingerprint = certified_summaries(&krate, &[certificate.clone()]).unwrap();
+        assert_eq!(fingerprint, certified_summaries(&krate, &[certificate.clone()]).unwrap());
+        assert_ne!(fingerprint, certified_summaries(&krate, &[]).unwrap());
+        let mut other_body = certificate.clone();
+        other_body.identity.typed_mir = "other typed body".into();
+        assert_ne!(fingerprint, certified_summaries(&krate, &[other_body]).unwrap());
+        let mut other_contract = certificate;
+        other_contract.checked_function = "other checked function and contract".into();
+        assert_ne!(fingerprint, certified_summaries(&krate, &[other_contract]).unwrap());
+    }
+}

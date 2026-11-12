@@ -1,0 +1,23 @@
+{
+  "kind": "IMMUTABLE_INACTIVE_PREFLIGHT_SNAPSHOT_NOT_ACCEPTED_RUNTIME",
+  "source_commit": "6e5fb54d",
+  "identity": {
+    "identity": "PRIVATE EXPERIMENTAL INACTIVE PREFLIGHT; NOT accepted78",
+    "tools_sha256": {
+      "rust_verify": "33cbc5e138d3ce97494d55dbc9d8ee3d1a98afb8ce23f878f56132ad038f3afc",
+      "verus": "980e705f81ffd234726ee0f4a829c5a345df6d1cd4517f7d0b8a7406db1c5442",
+      "libverus_builtin.rlib": "60f5ff618d302075783eb2d48bc65f403433b8b0120ac41cc1dc27bd5b58c0db",
+      "libverus_builtin_macros.so": "265d3e82bf9ce06e8e8caaa43b0da575d8588e3e5ae3c58dbe9922e545279c39",
+      "libverus_state_machines_macros.so": "f8b500b05f72c03c6b4e851ead0e3671a7a63321731d30c87f6f852706329443",
+      "vstd.vir": "e0364f9982ac0c119b019f7ea13013d49ce893a5b4c764535c0ea8f3acf5104d",
+      "libvstd.rlib": "7906b4a490da4dc8fb8f113bce723ece4aba23d4a46f22a561af0f133cb2cf13",
+      "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+    },
+    "vstd_verified": 2257,
+    "vstd_errors": 0,
+    "baseline_vstd_source_unchanged": true,
+    "toolchain": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu"
+  },
+  "native_bridge_proved": false,
+  "source_coupling_proved": false
+}

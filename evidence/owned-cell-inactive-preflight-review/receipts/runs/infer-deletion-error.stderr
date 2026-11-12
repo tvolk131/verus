@@ -1,0 +1,2 @@
+warning: verus was compiled in debug mode, which will result in worse performance
+Error: invalidate requested export `/home/dev/.t3/worktrees/verus/t3-48e9f328/evidence/owned-cell-inactive-preflight-review/runs/infer-deletion-error/explicit.vir`: Is a directory (os error 21)

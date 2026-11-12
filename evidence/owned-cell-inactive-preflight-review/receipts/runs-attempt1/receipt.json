@@ -1,0 +1,36 @@
+{
+  "kind": "INDEPENDENT_INACTIVE_PREFLIGHT_REPLAY",
+  "commands": [
+    {
+      "label": "ordinary-default-good",
+      "argv": [
+        "/home/dev/.t3/worktrees/verus/t3-48e9f328/evidence/owned-cell-inactive-preflight-review/private-runtime/verus",
+        "/home/dev/.t3/worktrees/verus/t3-48e9f328/evidence/owned-cell-inactive-preflight-review/runs/ordinary-default-good/case.rs",
+        "--crate-name=case",
+        "--crate-type=lib",
+        "--edition=2024",
+        "-o",
+        "/home/dev/.t3/worktrees/verus/t3-48e9f328/evidence/owned-cell-inactive-preflight-review/runs/ordinary-default-good/libcase.rlib",
+        "--output-json",
+        "--no-cheating",
+        "--compile"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-48e9f328/evidence/owned-cell-inactive-preflight-review",
+      "exit_code": 128,
+      "seconds": 0.009373223001603037,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-48e9f328/evidence/owned-cell-inactive-preflight-review/private-runtime/z3",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-48e9f328/evidence/owned-cell-inactive-preflight-review/runs/ordinary-default-good/infer-cache"
+      }
+    }
+  ],
+  "cases": [],
+  "source_commit": "6e5fb54d5904328b34d089688ed17f99bf99fc72",
+  "native_corruptions_independently_run": false,
+  "success": false,
+  "failure": {
+    "type": "ValueError",
+    "message": "ordinary-default-good exit"
+  }
+}

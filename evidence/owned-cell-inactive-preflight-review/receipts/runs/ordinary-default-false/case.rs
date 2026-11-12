@@ -1,0 +1,1 @@
+use vstd::prelude::*; verus! {pub fn scalar(v:u64)->(r:u64) ensures r!=v, {v}}
