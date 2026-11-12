@@ -370,6 +370,107 @@ proof fn page_partition(a: BuddyAllocator)
     assert(free_pages(a).union(used_pages(a)) =~= Set::<int>::range(0,a.len as int));
     vstd::set_lib::lemma_set_disjoint_lens(free_pages(a),used_pages(a));
 }
+// Allocation completeness: canonical whole-block coverage has a free ancestor.
+spec fn encloses(q: int, k: int, p: int, o: int) -> bool {
+    q*width(k) <= p*width(o) && (p+1)*width(o) <= (q+1)*width(k)
+}
+spec fn free_cover(bs: Seq<Set<int>>, ns: Seq<int>, p: int, o: int, k: int, q: int) -> bool {
+    o <= k && clear_at(bs,ns,k,q) && encloses(q,k,p,o)
+}
+proof fn block_point(p: int, o: int)
+    requires 0 <= o,
+    ensures inside(p*width(o),p,o),
+{
+    width_positive(o);
+    assert((p+1)*width(o) == p*width(o)+width(o)) by(nonlinear_arith);
+}
+proof fn parent_geometry(p: int, o: int)
+    requires 0 <= p, 0 <= o,
+    ensures encloses(p/2,o+1,p,o),
+{
+    width_positive(o);
+    let w=width(o);
+    assert(width(o+1) == 2*w);
+    assert(p == 2*(p/2)+p%2 && 0 <= p%2 < 2);
+    assert(p*w == (p/2)*(2*w)+(p%2)*w) by(nonlinear_arith)
+        requires p == 2*(p/2)+p%2;
+    assert((p/2+1)*(2*w) == (p+1)*w+(1-p%2)*w) by(nonlinear_arith)
+        requires p == 2*(p/2)+p%2;
+    if p%2 == 0 { assert((p%2)*w == 0 && (1-p%2)*w == w); }
+    else { assert((p%2)*w == w && (1-p%2)*w == 0); }
+}
+proof fn dyadic_nested(p: int, o: int, q: int, k: int)
+    requires 0 <= p, 0 <= q, 0 <= o <= k,
+    ensures disjoint_blocks(p,o,q,k) || encloses(q,k,p,o),
+    decreases k-o,
+{
+    if o == k { if p != q { same_order_disjoint(p,q,o); } }
+    else {
+        parent_geometry(p,o);
+        dyadic_nested(p/2,o+1,q,k);
+    }
+}
+proof fn lift_point_cover(p: int, o: int, q: int, k: int, x: int)
+    requires 0 <= p, 0 <= q, 0 <= o <= k, inside(x,p,o), inside(x,q,k),
+    ensures encloses(q,k,p,o),
+{
+    dyadic_nested(p,o,q,k);
+}
+proof fn same_order_cover(p: int, q: int, o: int)
+    requires 0 <= o, encloses(q,o,p,o),
+    ensures p == q,
+{
+    block_point(p,o);
+    if p != q { same_order_disjoint(p,q,o); }
+}
+proof fn cover_ancestor(bs: Seq<Set<int>>, ns: Seq<int>, n: int, m: int, p: int, o: int)
+    requires canonical(bs,ns,n,m), model_legal(ns,m,p,o), interval(p,o).subset_of(pages(bs,ns,n)),
+    ensures exists|z: (int,int)| free_cover(bs,ns,p,o,z.0,z.1),
+    decreases o,
+{
+    broadcast use vstd::set_lib::range_set_properties;
+    if !bs[o].contains(p) { assert(free_cover(bs,ns,p,o,o,p)); }
+    else if o == 0 {
+        block_point(p,o);
+        let x=p*width(o);
+        assert(pages(bs,ns,n).contains(x));
+        page_witness(bs,ns,n,x);
+        let (k,q)=choose|z: (int,int)| clear_at(bs,ns,z.0,z.1) && inside(x,z.1,z.0);
+        lift_point_cover(p,o,q,k,x);
+        assert(free_cover(bs,ns,p,o,k,q));
+    } else {
+        model_half(ns,n,m,o-1);
+        assert(model_legal(ns,m,2*p,o-1) && model_legal(ns,m,2*p+1,o-1));
+        parent_partition(ns,n,m,2*p,o-1);
+        assert(interval(2*p,o-1).subset_of(pages(bs,ns,n)));
+        cover_ancestor(bs,ns,n,m,2*p,o-1);
+        let (k,q)=choose|z: (int,int)| free_cover(bs,ns,2*p,o-1,z.0,z.1);
+        if k >= o {
+            let x=2*p*width(o-1);
+            block_point(2*p,o-1);
+            assert(inside(x,p,o) && inside(x,q,k));
+            lift_point_cover(p,o,q,k,x);
+            assert(free_cover(bs,ns,p,o,k,q));
+        } else {
+            same_order_cover(2*p,q,o-1);
+            assert(clear_at(bs,ns,o-1,2*p));
+            assert(interval(2*p+1,o-1).subset_of(pages(bs,ns,n)));
+            cover_ancestor(bs,ns,n,m,2*p+1,o-1);
+            let (l,r)=choose|z: (int,int)| free_cover(bs,ns,2*p+1,o-1,z.0,z.1);
+            if l >= o {
+                let x=(2*p+1)*width(o-1);
+                block_point(2*p+1,o-1);
+                assert(inside(x,p,o) && inside(x,r,l));
+                lift_point_cover(p,o,r,l,x);
+                assert(free_cover(bs,ns,p,o,l,r));
+            } else {
+                same_order_cover(2*p+1,r,o-1);
+                assert(bs[o-1].contains(2*p) || bs[o-1].contains(2*p+1));
+                assert(false);
+            }
+        }
+    }
+}
 #[cfg(full_semantics)]
 proof fn alloc_interpret(bs: Seq<Set<int>>, ns: Seq<int>, n: int, m: int, p: int, o: int)
     requires canonical(bs,ns,n,m), 0 <= p, 0 <= o,
