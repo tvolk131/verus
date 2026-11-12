@@ -493,44 +493,14 @@ fn calls(
 }
 
 struct Fresh {
-    used: HashSet<u64>,
-    next: u64,
+    ids: assistance::FreshIds,
 }
 impl Fresh {
     fn new(fs: &[Function], imported: &[Function]) -> Self {
-        fn reserve(v: &serde_json::Value, used: &mut HashSet<u64>) {
-            match v {
-                serde_json::Value::Number(n) => {
-                    if let Some(n) = n.as_u64() {
-                        used.insert(n);
-                    }
-                }
-                serde_json::Value::Object(o) => {
-                    for v in o.values() {
-                        reserve(v, used)
-                    }
-                }
-                serde_json::Value::Array(a) => {
-                    for v in a {
-                        reserve(v, used)
-                    }
-                }
-                _ => (),
-            }
-        }
-        let mut used = HashSet::new();
-        for f in fs.iter().chain(imported) {
-            reserve(&serde_json::to_value(f).unwrap(), &mut used);
-        }
-        Self { used, next: u64::MAX - 1 }
+        Self { ids: assistance::FreshIds::new(fs, imported) }
     }
     fn id(&mut self) -> u64 {
-        while !self.used.insert(self.next) {
-            self.next = self.next.checked_sub(1).expect("ID exhaustion");
-        }
-        let n = self.next;
-        self.next -= 1;
-        n
+        self.ids.id()
     }
     fn expr(&mut self, e: &Expr) -> Result<Expr, VirErr> {
         map_expr_visitor_env(
@@ -638,7 +608,7 @@ pub fn prepare(
             out.push(f.clone());
             continue;
         };
-        let reserved = fresh.used.clone();
+        let reserved = fresh.ids.used.clone();
         let mut prefix = vec![];
         for e in calls {
             let e = fresh.expr(&e)?;
@@ -735,7 +705,7 @@ mod tests {
     }
     fn installed(f: &Function, l: &Function) -> (Function, HashMap<Fun, Function>, HashSet<u64>) {
         let all = pipeline::function_map(&[f.clone()], &[l.clone()]);
-        let used = Fresh::new(&[f.clone()], &[l.clone()]).used;
+        let used = Fresh::new(&[f.clone()], &[l.clone()]).ids.used;
         let out = prepare(&[f.clone()], &[l.clone()], &mut GenerationReport::default()).unwrap();
         (out[0].clone(), all, used)
     }
@@ -901,7 +871,7 @@ mod tests {
         // A second invocation sees every ID allocated by the first pass.
         let second =
             prepare(&[candidate.clone()], &[l.clone()], &mut GenerationReport::default()).unwrap();
-        let reserved2 = Fresh::new(&[candidate.clone()], &[l.clone()]).used;
+        let reserved2 = Fresh::new(&[candidate.clone()], &[l.clone()]).ids.used;
         assert!(validate(&candidate, &second[0], &all, &l, &reserved2).is_ok());
     }
     #[test]

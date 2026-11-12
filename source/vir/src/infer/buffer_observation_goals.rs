@@ -1,108 +1,32 @@
 //! Ordinary checked snapshots and observations, never update/frame summaries.
 use super::native_mutable_for::{self as native, NativeMutableFor};
 use super::*;
-use crate::ast_visitor::{
-    VisitorControlFlow, VisitorScopeMap, ast_visitor_dfs, map_expr_visitor, map_stmt_visitor_env,
-};
+use crate::ast_visitor::{VisitorControlFlow, VisitorScopeMap, ast_visitor_dfs, map_expr_visitor};
 use std::collections::HashSet;
 
-/// One allocator per preparation invocation, seeded with ALL preceding functions.
-/// Reserving every serialized integer is deliberately conservative: spans, reads,
-/// temporary/borrow identities and bindings all share a collision-free namespace.
 struct Fresh {
-    used: HashSet<u64>,
-    next: u64,
+    ids: assistance::FreshIds,
 }
 impl Fresh {
     fn new(fs: &[Function], imported: &[Function]) -> Self {
-        let mut used = HashSet::new();
-        fn visit(v: &serde_json::Value, out: &mut HashSet<u64>) {
-            match v {
-                serde_json::Value::Number(n) => {
-                    if let Some(n) = n.as_u64() {
-                        out.insert(n);
-                    }
-                }
-                serde_json::Value::Array(v) => {
-                    for v in v {
-                        visit(v, out);
-                    }
-                }
-                serde_json::Value::Object(v) => {
-                    for v in v.values() {
-                        visit(v, out);
-                    }
-                }
-                _ => (),
-            }
-        }
-        for f in fs.iter().chain(imported) {
-            visit(&serde_json::to_value(f).expect("VIR serialization"), &mut used);
-        }
-        Self { used, next: u64::MAX - 1 }
+        Self { ids: assistance::FreshIds::new(fs, imported) }
     }
     fn id(&mut self) -> u64 {
-        while !self.used.insert(self.next) {
-            self.next = self.next.checked_sub(1).expect("observation ID exhaustion");
-        }
-        let n = self.next;
-        self.next = self.next.checked_sub(1).expect("observation ID exhaustion");
-        n
+        self.ids.id()
     }
     fn binding(&mut self) -> VarIdent {
         VarIdent(Arc::new("__buffer_observation".into()), VarIdentDisambiguate::VirTemp(self.id()))
     }
-    fn span(&mut self, s: &Span) -> Span {
-        let mut s = s.clone();
-        s.id = self.id();
-        s
-    }
     fn stmt(&mut self, s: &Stmt) -> Result<Stmt, VirErr> {
-        Ok(map_stmt_visitor_env(
-            s,
-            &mut VisitorScopeMap::new(),
-            self,
-            &|a, _, e| {
-                let x = match &e.x {
-                    ExprX::ReadPlace(p, _) => ExprX::ReadPlace(
-                        p.clone(),
-                        UnfinalizedReadKind { preliminary_kind: ReadKind::Spec, id: a.id() },
-                    ),
-                    _ => e.x.clone(),
-                };
-                Ok(SpannedTyped::new(&a.span(&e.span), &e.typ, x))
-            },
-            &|a, _, s| {
-                Ok(vec![crate::def::Spanned::new(
-                    a.span(&s.span),
-                    match &s.x {
-                        StmtX::Expr(e) => StmtX::Expr(e.clone()),
-                        StmtX::Decl { pattern, mode, init, els, assert_irrefutable } => {
-                            StmtX::Decl {
-                                pattern: pattern.clone(),
-                                mode: *mode,
-                                init: init.clone(),
-                                els: els.clone(),
-                                assert_irrefutable: *assert_irrefutable,
-                            }
-                        }
-                    },
-                )])
-            },
-            &|_, t| Ok(t.clone()),
-            &|a, _, p| Ok(SpannedTyped::new(&a.span(&p.span), &p.typ, p.x.clone())),
-            &|a, _, p| Ok(SpannedTyped::new(&a.span(&p.span), &p.typ, p.x.clone())),
-        )?
-        .pop()
-        .unwrap())
+        self.ids.spec_stmt(s)
     }
     fn expr(&mut self, e: &Expr) -> Result<Expr, VirErr> {
-        let s = crate::def::Spanned::new(e.span.clone(), StmtX::Expr(e.clone()));
-        let s = self.stmt(&s)?;
+        let s = self.stmt(&crate::def::Spanned::new(e.span.clone(), StmtX::Expr(e.clone())))?;
         let StmtX::Expr(e) = &s.x else { unreachable!() };
         Ok(e.clone())
     }
 }
+
 fn expr(s: &Span, t: &Typ, x: ExprX) -> Expr {
     SpannedTyped::new(s, t, x)
 }

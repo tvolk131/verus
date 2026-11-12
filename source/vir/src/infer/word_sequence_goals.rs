@@ -1,128 +1,31 @@
 //! Bounded ordinary checked physical-bit frames for word-sequence updates.
 //! No contract is changed; every generated annotation is checked as user proof.
 use super::*;
+#[cfg(test)]
+use crate::ast_visitor::map_stmt_visitor_env;
 use crate::ast_visitor::{
     VisitorControlFlow, VisitorScopeMap, expr_visitor_walk, map_expr_visitor, map_expr_visitor_env,
-    map_stmt_visitor_env,
 };
 use std::collections::HashSet;
 struct Fresh {
-    used: HashSet<u64>,
-    next: u64,
-    names: HashSet<String>,
+    ids: assistance::FreshIds,
 }
 impl Fresh {
     fn new(fs: &[Function], imported: &[Function]) -> Self {
-        let mut used = HashSet::new();
-        fn visit(v: &serde_json::Value, out: &mut HashSet<u64>) {
-            match v {
-                serde_json::Value::Number(n) => {
-                    if let Some(n) = n.as_u64() {
-                        out.insert(n);
-                    }
-                }
-                serde_json::Value::Array(v) => {
-                    for v in v {
-                        visit(v, out);
-                    }
-                }
-                serde_json::Value::Object(v) => {
-                    for v in v.values() {
-                        visit(v, out);
-                    }
-                }
-                _ => (),
-            }
-        }
-        for f in fs.iter().chain(imported) {
-            visit(&serde_json::to_value(f).expect("VIR serialization"), &mut used);
-        }
-        fn strings(v: &serde_json::Value, out: &mut HashSet<String>) {
-            match v {
-                serde_json::Value::String(s) => {
-                    out.insert(s.clone());
-                }
-                serde_json::Value::Array(a) => {
-                    for v in a {
-                        strings(v, out)
-                    }
-                }
-                serde_json::Value::Object(m) => {
-                    for v in m.values() {
-                        strings(v, out)
-                    }
-                }
-                _ => (),
-            }
-        }
-        let mut names = HashSet::new();
-        for f in fs.iter().chain(imported) {
-            strings(&serde_json::to_value(f).unwrap(), &mut names)
-        }
-        Self { used, next: u64::MAX - 1, names }
+        Self { ids: assistance::FreshIds::new(fs, imported) }
     }
+    #[cfg(test)]
     fn id(&mut self) -> u64 {
-        while !self.used.insert(self.next) {
-            self.next = self.next.checked_sub(1).expect("observation ID exhaustion");
-        }
-        let n = self.next;
-        self.next = self.next.checked_sub(1).expect("observation ID exhaustion");
-        n
+        self.ids.id()
     }
     fn binding(&mut self) -> VarIdent {
-        loop {
-            let id = self.id();
-            let n = format!("__word_sequence_{id}");
-            if self.names.insert(n.clone()) {
-                return VarIdent(Arc::new(n), VarIdentDisambiguate::VirTemp(id));
-            }
-        }
-    }
-    fn span(&mut self, s: &Span) -> Span {
-        let mut s = s.clone();
-        s.id = self.id();
-        s
+        self.ids.named_binding("__word_sequence_")
     }
     fn stmt(&mut self, s: &Stmt) -> Result<Stmt, VirErr> {
-        Ok(map_stmt_visitor_env(
-            s,
-            &mut VisitorScopeMap::new(),
-            self,
-            &|a, _, e| {
-                let x = match &e.x {
-                    ExprX::ReadPlace(p, _) => ExprX::ReadPlace(
-                        p.clone(),
-                        UnfinalizedReadKind { preliminary_kind: ReadKind::Spec, id: a.id() },
-                    ),
-                    _ => e.x.clone(),
-                };
-                Ok(SpannedTyped::new(&a.span(&e.span), &e.typ, x))
-            },
-            &|a, _, s| {
-                Ok(vec![crate::def::Spanned::new(
-                    a.span(&s.span),
-                    match &s.x {
-                        StmtX::Expr(e) => StmtX::Expr(e.clone()),
-                        StmtX::Decl { pattern, mode, init, els, assert_irrefutable } => {
-                            StmtX::Decl {
-                                pattern: pattern.clone(),
-                                mode: *mode,
-                                init: init.clone(),
-                                els: els.clone(),
-                                assert_irrefutable: *assert_irrefutable,
-                            }
-                        }
-                    },
-                )])
-            },
-            &|_, t| Ok(t.clone()),
-            &|a, _, p| Ok(SpannedTyped::new(&a.span(&p.span), &p.typ, p.x.clone())),
-            &|a, _, p| Ok(SpannedTyped::new(&a.span(&p.span), &p.typ, p.x.clone())),
-        )?
-        .pop()
-        .unwrap())
+        self.ids.spec_stmt(s)
     }
 }
+
 fn expr(s: &Span, t: &Typ, x: ExprX) -> Expr {
     SpannedTyped::new(s, t, x)
 }

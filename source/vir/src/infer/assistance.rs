@@ -130,3 +130,106 @@ pub(super) fn fresh(e: &Expr, id: &mut u64) -> Result<Expr, VirErr> {
         &|_, _, p| Ok(p.clone()),
     )
 }
+
+/// Conservative identity reservation shared by annotation preparers.
+/// Every serialized integer is reserved, including IDs outside expression nodes.
+/// This allocator supplies fresh syntax only; it never authorizes an annotation.
+pub(super) struct FreshIds {
+    pub(super) used: std::collections::HashSet<u64>,
+    next: u64,
+    names: std::collections::HashSet<String>,
+}
+
+impl FreshIds {
+    pub(super) fn new(functions: &[Function], imported: &[Function]) -> Self {
+        fn reserve(value: &serde_json::Value, ids: &mut FreshIds) {
+            match value {
+                serde_json::Value::Number(n) => {
+                    if let Some(n) = n.as_u64() {
+                        ids.used.insert(n);
+                    }
+                }
+                serde_json::Value::String(name) => {
+                    ids.names.insert(name.clone());
+                }
+                serde_json::Value::Array(values) => {
+                    for value in values {
+                        reserve(value, ids);
+                    }
+                }
+                serde_json::Value::Object(values) => {
+                    for value in values.values() {
+                        reserve(value, ids);
+                    }
+                }
+                _ => (),
+            }
+        }
+        let mut ids =
+            Self { used: Default::default(), next: u64::MAX - 1, names: Default::default() };
+        for function in functions.iter().chain(imported) {
+            reserve(&serde_json::to_value(function).expect("VIR serialization"), &mut ids);
+        }
+        ids
+    }
+    pub(super) fn id(&mut self) -> u64 {
+        while !self.used.insert(self.next) {
+            self.next = self.next.checked_sub(1).expect("annotation ID exhaustion");
+        }
+        let id = self.next;
+        self.next = self.next.checked_sub(1).expect("annotation ID exhaustion");
+        id
+    }
+    pub(super) fn span(&mut self, span: &Span) -> Span {
+        let mut span = span.clone();
+        span.id = self.id();
+        span
+    }
+    pub(super) fn named_binding(&mut self, prefix: &str) -> VarIdent {
+        loop {
+            let id = self.id();
+            let name = format!("{prefix}{id}");
+            if self.names.insert(name.clone()) {
+                return VarIdent(Arc::new(name), VarIdentDisambiguate::VirTemp(id));
+            }
+        }
+    }
+    /// Existing buffer/word snapshots require specification reads. Set proposals
+    /// retain their separate read-policy visitor and independent validator.
+    pub(super) fn spec_stmt(&mut self, statement: &Stmt) -> Result<Stmt, VirErr> {
+        use crate::ast_visitor::{VisitorScopeMap, map_stmt_visitor_env};
+        Ok(map_stmt_visitor_env(
+            statement,
+            &mut VisitorScopeMap::new(),
+            self,
+            &|ids, _, e| {
+                let x = match &e.x {
+                    ExprX::ReadPlace(p, _) => ExprX::ReadPlace(
+                        p.clone(),
+                        UnfinalizedReadKind { preliminary_kind: ReadKind::Spec, id: ids.id() },
+                    ),
+                    _ => e.x.clone(),
+                };
+                Ok(SpannedTyped::new(&ids.span(&e.span), &e.typ, x))
+            },
+            &|ids, _, s| {
+                let x = match &s.x {
+                    StmtX::Expr(e) => StmtX::Expr(e.clone()),
+                    StmtX::Decl { pattern, mode, init, els, assert_irrefutable } => StmtX::Decl {
+                        pattern: pattern.clone(),
+                        mode: *mode,
+                        init: init.clone(),
+                        els: els.clone(),
+                        assert_irrefutable: *assert_irrefutable,
+                    },
+                };
+                Ok(vec![crate::def::Spanned::new(ids.span(&s.span), x)])
+            },
+            &|_, t| Ok(t.clone()),
+            &|ids, _, p| Ok(SpannedTyped::new(&ids.span(&p.span), &p.typ, p.x.clone())),
+            &|ids, _, p| Ok(SpannedTyped::new(&ids.span(&p.span), &p.typ, p.x.clone())),
+        )?
+        .pop()
+        .expect("one annotation statement"))
+    }
+}
