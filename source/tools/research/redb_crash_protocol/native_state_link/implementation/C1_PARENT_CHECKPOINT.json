@@ -1,5 +1,5 @@
 {
-  "kind": "ROOT_AUTHENTICATED_C1_PARTIAL_CHECKPOINT_INDEPENDENT_REVIEW_PENDING",
+  "kind": "ROOT_REVIEWED_C1_BOUNDED_EVIDENCE_CLIENT_APPLICATION_UNPROVED",
   "worker_commit": "701ca57c3",
   "integrated_commit": "6c007963cfb8a9e55a45cd2ac3a3af89900fce32",
   "production_diagnostic_role_commit": "907e4de5d",
@@ -76,7 +76,17 @@
   "CP1": false,
   "CP2": false,
   "native_bridge_proved": false,
-  "implementation_lane": "STOPPED at44.54 active minutes; no automatic next phase",
+  "implementation_lane": "STOPPED; no active/queued phase",
   "next_scope_decision": "after NEW independent review; assess missing native declaration/call binding versus actual application value",
-  "hmac_native": "DEFERRED AND UNACHIEVED"
+  "hmac_native": "DEFERRED AND UNACHIEVED",
+  "independent_review": {
+    "worker_commit": "6bf6d7429",
+    "root_integration": "7436a393a",
+    "scope": "private false-future and partial actual frontend evidence only",
+    "fresh_VIR": 172,
+    "intended_second_postcondition_oracle": "synthetic backend fixture; healthy current/body/other methods",
+    "findings_root_fix": "f1936e3c4036e870af0af62c0c551bb822609b66",
+    "user_stage_accepted": false
+  },
+  "root_oracle_fix_results": "C1_ROOT_ORACLE_FIX_RESULTS.json"
 }

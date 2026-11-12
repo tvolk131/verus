@@ -1,0 +1,44 @@
+{
+  "kind": "C1_TEST_ONLY_REVIEW_ORACLE_FIXES_APPLICATION_UNPROVED",
+  "fix_commit": "f1936e3c4036e870af0af62c0c551bb822609b66",
+  "review_commit": "6bf6d7429",
+  "source_sha256": {
+    "source/rust_verify/src/checked_owned_cell_clients.rs": "1f4b3d1431617e72b49bfc36c12ff3a2db7aa965147182a85aa7230808aa1006",
+    "source/rust_verify/src/checked_owned_cell_client_correspondence.rs": "9c52684cb0fd9c8236b3a0c86182ebf00507c758496666110195ff7c0ac126a8"
+  },
+  "unchanged_original_fixtures": {
+    "source/tools/research/redb_crash_protocol/native_state_link/owned_goals.rs": "428799275f71323f1683b21f40b0a48aa228b8ebb3b2918295df4d0a404558be",
+    "source/tools/research/redb_crash_protocol/native_state_link/owned_native.rs": "29c59c2507b2e50671622184e56ee4445ea3f237e9e9a5dcfea8394e49f5cf70"
+  },
+  "root_receipt": "/tmp/owned-cell-C1-oracle-fix-v1/receipt.json",
+  "root_receipt_sha256": "abb8186d8e60e6d359957fceb8cc91e7330e7232c64c0d92fb7ad8c1b62efb70",
+  "commands": [
+    {
+      "label": "C1-root-oracle-fixes",
+      "receipt": "/tmp/owned-cell-root-gate-fixes-v1/C1-root-oracle-fixes/receipt.json",
+      "receipt_sha256": "1ddc8941b7e2c9d158b3b5c71ab5654dcea77b987ec78685c6a1f59ef5137b66",
+      "exit_code": 0
+    }
+  ],
+  "native_client_test": "/tmp/owned-cell-C1-root-oracle-fix-snapshot/native-client-test",
+  "native_client_test_sha256": "3b1467569a70cfcbe512a769cc7f54f3dd380ae77f8ce058259fc795f1dd49f9",
+  "supporting_runtime": "/tmp/owned-cell-client-C1-20261112-freeze",
+  "standalone_CLI_compiler_rebuilt": false,
+  "original_sources_WF_checked": 0,
+  "scalar_WF_controls": 2,
+  "parameter_mutability_corruptions_rejected": 8,
+  "exact_boundary_negative_cases": 10,
+  "original_structural_controls_retained": 24,
+  "native_queries_in_original_sessions": 18,
+  "new_client_solver_proofs": 0,
+  "F2": 0,
+  "F3": 0,
+  "source_feature_active": false,
+  "stage_accepted": false,
+  "source_coupling_proved": false,
+  "CP1": false,
+  "CP2": false,
+  "hmac_native": "DEFERRED AND UNACHIEVED",
+  "snapshot_receipt_sha256": "0737973a2a0beffbdcf31666dbef23f11feca8d14a765ded6757342b816d24cd",
+  "snapshot": "/tmp/owned-cell-C1-root-oracle-fix-snapshot"
+}
