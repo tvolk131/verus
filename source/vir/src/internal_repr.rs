@@ -305,8 +305,15 @@ fn native_unit_datatypes(k: &Krate) -> bool {
 /// This is a compiler access check, never a postcondition or logical premise.
 /// The frontend factory must first freshly check actual native metadata,
 /// signatures/regions/MIR and independently emitted Function correspondence.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum NativeMethodQuery {
+    Positive,
+    FalseFirst,
+    FalseFuture,
+}
+
 pub struct OwnedNativeMethodAuthority<'a> {
-    negative_diagnostic: bool,
+    query: NativeMethodQuery,
     unit: &'a Krate,
     datatype: &'a Datatype,
     functions: [&'a Function; 3],
@@ -323,19 +330,26 @@ impl<'a> OwnedNativeMethodAuthority<'a> {
         unit: &'a Krate,
         native_methods: [u64; 3],
     ) -> Result<Self, &'static str> {
-        Self::checked_unit(unit, native_methods, false)
+        Self::checked_unit(unit, native_methods, NativeMethodQuery::Positive)
     }
     /// Separate full-body falsification unit, never a callable user summary.
     pub fn from_checked_native_negative_unit(
         unit: &'a Krate,
         native_methods: [u64; 3],
     ) -> Result<Self, &'static str> {
-        Self::checked_unit(unit, native_methods, true)
+        Self::checked_unit(unit, native_methods, NativeMethodQuery::FalseFirst)
+    }
+    /// Only the get_mut future postcondition is negated. No callable summary.
+    pub fn from_checked_native_false_future_unit(
+        unit: &'a Krate,
+        native_methods: [u64; 3],
+    ) -> Result<Self, &'static str> {
+        Self::checked_unit(unit, native_methods, NativeMethodQuery::FalseFuture)
     }
     fn checked_unit(
         unit: &'a Krate,
         native_methods: [u64; 3],
-        negative_diagnostic: bool,
+        query: NativeMethodQuery,
     ) -> Result<Self, &'static str> {
         if native_methods != OWNED_NATIVE_METHOD_IDENTITIES
             || !native_unit_datatypes(unit)
@@ -351,7 +365,7 @@ impl<'a> OwnedNativeMethodAuthority<'a> {
             return Err("owned native authority: exact native proof unit required");
         }
         let a = Self {
-            negative_diagnostic,
+            query,
             unit,
             datatype: &unit.datatypes[0],
             functions: [&unit.functions[0], &unit.functions[1], &unit.functions[2]],
@@ -376,7 +390,7 @@ impl<'a> OwnedNativeMethodAuthority<'a> {
         r.validate(&self.datatype.x)?;
         for (i, f) in unit.functions.iter().enumerate() {
             if !std::sync::Arc::ptr_eq(self.functions[i], f)
-                || !owned_native_function(f, self.datatype, i, self.negative_diagnostic)
+                || !owned_native_function(f, self.datatype, i, self.query)
             {
                 return Err("owned native authority: changed full Function/body/contract");
             }
@@ -392,15 +406,12 @@ impl<'a> OwnedNativeMethodAuthority<'a> {
 
 /// Owned by one backend context; never carried by Function/stub/cache records.
 pub(crate) struct OwnedNativeBackendBinding {
-    negative_diagnostic: bool,
+    query: NativeMethodQuery,
     unit: Krate,
 }
 impl OwnedNativeMethodAuthority<'_> {
     pub(crate) fn backend_binding(&self) -> OwnedNativeBackendBinding {
-        OwnedNativeBackendBinding {
-            unit: self.unit.clone(),
-            negative_diagnostic: self.negative_diagnostic,
-        }
+        OwnedNativeBackendBinding { unit: self.unit.clone(), query: self.query }
     }
 }
 impl OwnedNativeBackendBinding {
@@ -408,18 +419,14 @@ impl OwnedNativeBackendBinding {
         if !std::sync::Arc::ptr_eq(&self.unit, unit) {
             return Err("owned native backend: changed/reconstructed unit");
         }
-        OwnedNativeMethodAuthority::checked_unit(
-            unit,
-            OWNED_NATIVE_METHOD_IDENTITIES,
-            self.negative_diagnostic,
-        )
-        .map(|_| ())
+        OwnedNativeMethodAuthority::checked_unit(unit, OWNED_NATIVE_METHOD_IDENTITIES, self.query)
+            .map(|_| ())
     }
     pub(crate) fn validate_function(&self, function: &Function, datatype: &Datatype) -> bool {
         let Ok(a) = OwnedNativeMethodAuthority::checked_unit(
             &self.unit,
             OWNED_NATIVE_METHOD_IDENTITIES,
-            self.negative_diagnostic,
+            self.query,
         ) else {
             return false;
         };
@@ -427,7 +434,12 @@ impl OwnedNativeBackendBinding {
     }
 }
 
-fn owned_native_function(f: &Function, d: &Datatype, operation: usize, negative: bool) -> bool {
+fn owned_native_function(
+    f: &Function,
+    d: &Datatype,
+    operation: usize,
+    query: NativeMethodQuery,
+) -> bool {
     let f = &f.x;
     let Some(owner) = &f.owning_module else {
         return false;
@@ -707,15 +719,17 @@ fn owned_native_function(f: &Function, d: &Datatype, operation: usize, negative:
     };
     match operation {
         0 if f.ensure.0.len() == 1 => {
-            operands(&f.ensure.0[0], negative).is_some_and(|(a, b)| select(a, ret) && var(b, arg))
+            operands(&f.ensure.0[0], query == NativeMethodQuery::FalseFirst)
+                .is_some_and(|(a, b)| select(a, ret) && var(b, arg))
         }
         1 if f.ensure.0.len() == 1 => {
-            operands(&f.ensure.0[0], negative).is_some_and(|(a, b)| var(a, ret) && select(b, arg))
+            operands(&f.ensure.0[0], query == NativeMethodQuery::FalseFirst)
+                .is_some_and(|(a, b)| var(a, ret) && select(b, arg))
         }
         2 if f.ensure.0.len() == 2 => {
-            operands(&f.ensure.0[0], negative)
+            operands(&f.ensure.0[0], query == NativeMethodQuery::FalseFirst)
                 .is_some_and(|(a, b)| referent(a, ret, false, 0) && select_ref(b, arg, false))
-                && operands(&f.ensure.0[1], false)
+                && operands(&f.ensure.0[1], query == NativeMethodQuery::FalseFuture)
                     .is_some_and(|(a, b)| select_ref(a, arg, true) && referent(b, ret, true, 0))
         }
         _ => false,

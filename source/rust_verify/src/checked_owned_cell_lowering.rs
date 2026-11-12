@@ -486,10 +486,27 @@ fn method_authority<'a>(
 ) -> Result<vir::internal_repr::OwnedNativeMethodAuthority<'a>, Reject> {
     method_authority_kind(tcx, unit, false)
 }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum NativeQuery {
+    Positive,
+    FalseFirst,
+    FalseFuture,
+}
 fn method_authority_kind<'a>(
     tcx: TyCtxt<'_>,
     unit: &'a Krate,
     negative: bool,
+) -> Result<vir::internal_repr::OwnedNativeMethodAuthority<'a>, Reject> {
+    method_authority_query(
+        tcx,
+        unit,
+        if negative { NativeQuery::FalseFirst } else { NativeQuery::Positive },
+    )
+}
+fn method_authority_query<'a>(
+    tcx: TyCtxt<'_>,
+    unit: &'a Krate,
+    query: NativeQuery,
 ) -> Result<vir::internal_repr::OwnedNativeMethodAuthority<'a>, Reject> {
     let cell = native_cell(tcx)?;
     let Some(d) = unit.datatypes.first() else {
@@ -514,10 +531,20 @@ fn method_authority_kind<'a>(
         }
         ids[i] = tcx.def_path_hash(native).local_hash().as_u64();
     }
-    if negative {
-        vir::internal_repr::OwnedNativeMethodAuthority::from_checked_native_negative_unit(unit, ids)
-    } else {
-        vir::internal_repr::OwnedNativeMethodAuthority::from_checked_native_unit(unit, ids)
+    match query {
+        NativeQuery::Positive => {
+            vir::internal_repr::OwnedNativeMethodAuthority::from_checked_native_unit(unit, ids)
+        }
+        NativeQuery::FalseFirst => {
+            vir::internal_repr::OwnedNativeMethodAuthority::from_checked_native_negative_unit(
+                unit, ids,
+            )
+        }
+        NativeQuery::FalseFuture => {
+            vir::internal_repr::OwnedNativeMethodAuthority::from_checked_native_false_future_unit(
+                unit, ids,
+            )
+        }
     }
 }
 
@@ -940,10 +967,10 @@ pub(super) fn test_actual_proposals(tcx: TyCtxt<'_>) {
     eprintln!(
         "D2 authority: 26 full-Function/contract corruptions, 3 cloned lookup descriptors and exact backend boundaries rejected"
     );
-    let run_queries = |unit: &Krate, negative: bool| {
+    let run_queries = |unit: &Krate, query: NativeQuery| {
         let k = unit.clone();
         let authority =
-            method_authority_kind(tcx, &k, negative).expect("fresh scoped query authority");
+            method_authority_query(tcx, &k, query).expect("fresh scoped query authority");
         vir::well_formed::check_crate_merged(&k).unwrap();
         vir::well_formed::check_crate_final(&k, &warnings).0.unwrap();
         let mut modes = (*k).clone();
@@ -980,13 +1007,13 @@ pub(super) fn test_actual_proposals(tcx: TyCtxt<'_>) {
             );
         }
         let modes = Arc::new(modes);
-        method_authority_kind(tcx, &modes, negative).expect("fresh authority after ordinary modes");
+        method_authority_query(tcx, &modes, query).expect("fresh authority after ordinary modes");
         let resolved =
             vir::resolution_inference::krate_infer_resolution(&modes, &infos, &Default::default())
                 .expect("ordinary full native resolution");
-        method_authority_kind(tcx, &resolved, negative)
+        method_authority_query(tcx, &resolved, query)
             .expect("fresh independently checked resolution Function");
-        if !negative {
+        if query == NativeQuery::Positive {
             for change in 0..5 {
                 let f = &resolved.functions[2];
                 let mut x = f.x.clone();
@@ -1041,7 +1068,7 @@ pub(super) fn test_actual_proposals(tcx: TyCtxt<'_>) {
             true,
             true,
         );
-        let authority = method_authority_kind(tcx, &simple, negative)
+        let authority = method_authority_query(tcx, &simple, query)
             .expect("fresh native correspondence after normal simplify/prune");
         let module = simple.modules.iter().find(|m| m.x.path == root).unwrap().clone();
         let mut ctx = vir::context::Ctx::new_owned_native_methods(
@@ -1107,7 +1134,16 @@ pub(super) fn test_actual_proposals(tcx: TyCtxt<'_>) {
         }
         let mut queries = 0;
         assert_eq!(sst.functions.len(), 3, "complete helper query inventory");
-        for f in &sst.functions {
+        for (index, f) in sst.functions.iter().enumerate() {
+            let invalid_expected = match query {
+                NativeQuery::Positive => false,
+                NativeQuery::FalseFirst => true,
+                NativeQuery::FalseFuture => {
+                    f.x.name.path.segments.last().unwrap().as_str()
+                        == "owned_cell_native_body_13506035689665434230%"
+                }
+            };
+            let _ = index;
             ctx.fun = vir::ast_to_sst_func::mk_fun_ctx(f, false);
             let check = f.x.exec_proof_check.as_ref().expect("full native executable body query");
             let commands = vir::sst_to_air_func::func_sst_to_air(&ctx, f, check)
@@ -1118,11 +1154,13 @@ pub(super) fn test_actual_proposals(tcx: TyCtxt<'_>) {
                     let is_query = matches!(&**command, air::ast::CommandX::CheckValid(_));
                     assert!(
                         match result {
-                            air::context::ValidityResult::Valid(_) => !is_query || !negative,
-                            air::context::ValidityResult::Invalid(..) => is_query && negative,
+                            air::context::ValidityResult::Valid(_) =>
+                                !is_query || !invalid_expected,
+                            air::context::ValidityResult::Invalid(..) =>
+                                is_query && invalid_expected,
                             _ => false,
                         },
-                        "unexpected native body query result (negative={negative}): {result:?}"
+                        "unexpected native body query result (query={query:?}): {result:?}"
                     );
                     if matches!(&**command, air::ast::CommandX::CheckValid(_)) {
                         queries += 1;
@@ -1130,14 +1168,12 @@ pub(super) fn test_actual_proposals(tcx: TyCtxt<'_>) {
                     }
                 }
             }
-            eprintln!("D2 ordinary full native body result (negative={negative}): {:?}", f.x.name);
+            eprintln!("D2 ordinary full native body result (query={query:?}): {:?}", f.x.name);
         }
         assert_eq!(queries, 3, "ordinary native full body queries");
-        eprintln!(
-            "D2 complete native body query inventory: 3 bodies, 3 queries, negative={negative}"
-        );
+        eprintln!("D2 complete native body query inventory: 3 bodies, 3 queries, query={query:?}");
     };
-    run_queries(&k, false);
+    run_queries(&k, NativeQuery::Positive);
     let mut false_unit = (*k).clone();
     for f in &mut false_unit.functions {
         let mut x = f.x.clone();
@@ -1155,5 +1191,23 @@ pub(super) fn test_actual_proposals(tcx: TyCtxt<'_>) {
         method_authority(tcx, &false_unit).is_err(),
         "normal factory rejects diagnostic contracts"
     );
-    run_queries(&false_unit, true);
+    run_queries(&false_unit, NativeQuery::FalseFirst);
+    let mut future = (*k).clone();
+    let f = &future.functions[2];
+    let mut x = f.x.clone();
+    let current = x.ensure.0[0].clone();
+    let second = &x.ensure.0[1];
+    let negated = second.new_x(ExprX::Unary(UnaryOp::Not, second.clone()));
+    Arc::make_mut(&mut x.ensure.0)[1] = negated;
+    assert!(Arc::ptr_eq(&current, &x.ensure.0[0]), "healthy current equality retained");
+    assert!(
+        Arc::ptr_eq(f.x.body.as_ref().unwrap(), x.body.as_ref().unwrap()),
+        "unchanged healthy get_mut body"
+    );
+    future.functions[2] = f.new_x(x);
+    let future = Arc::new(future);
+    assert!(authority.validate(&future).is_err());
+    assert!(method_authority(tcx, &future).is_err());
+    assert!(method_authority_kind(tcx, &future, true).is_err());
+    run_queries(&future, NativeQuery::FalseFuture);
 }
