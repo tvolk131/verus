@@ -1,5 +1,22 @@
 # Initial bounded worker assignments
 
+D1 checkpoint2e7b8b319 is now locally integrated and unaccepted. Root authenticated
+all12 source hashes,10 receipt/log sets and all8 runtime tools, then froze
+/tmp/owned-cell-D1-2e7b8b319-parent-snapshot (receipt SHA256
+c15b5585f14cb9c5441b25b3667d3aa31ac34fed3ad37830a3edfdaacfcfe0ed).
+The next bounded same-worker phase must first incorporate the root9cc0f65c
+production/test skip-marker diff as a separate recorded change. It may develop
+exact original-native-method field authority and ordinary WF/mode/lifetime/body
+checks for the three proposals. No user installation, call rewrite, public
+selector, forged core owner, shared/raw state or positive feature activation.
+Complete independent contract/current/future validation is required before
+granting method authority; F2 client authority and F3 erasure remain distinct.
+A NEW independent D1 reviewer owns only compact evidence, uses the frozen D1
+source/runtime and combined root source, and never reads the live next phase.
+45 active minutes per blocker excluding builds; preserve all old labels/cache
+identities and stop with an exact value checkpoint. Full REDB coupling remains
+unproved; no unbounded foundation or HMAC/native resumption is authorized.
+
 F1 review61c39752 requested changes for actual internal const_body/reveal_fn
 skip markers omitted by ordinary translation. Root correction9cc0f65c excludes
 both flags on items and all ancestors; fresh parent checks pass166 invocations
