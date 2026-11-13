@@ -169,6 +169,13 @@ The views are generated for signatures a spec function can mirror: no
 `#[verus_infer]` method in a trait implementation is rejected by inference, and
 its views are not members of the trait.
 
+A crate-private function whose inferred precondition is over 2000 characters
+gets that precondition installed as a call to its view: a caller's obligation is
+literally `f_requires(args)`. A lemma about the view then matches it, including a
+broadcast lemma triggered on `f_requires(..)`. The view is a definition of the
+same formula, so the contract is unchanged. Public contracts stay inline, since
+other crates' inference reads them structurally.
+
 When a published contract has a clause over 2000 characters, the run notes
 its size and its views. The JSON report records `contract_size` and `views`
 for every inferred function. A large exact contract is often harder for a
