@@ -423,4 +423,12 @@ fn redb_layout_infers_without_executable_changes() {
     let run = verify_one_file("redb_layout", REDB_LAYOUT.to_string(), &["vstd", "--no-cheating"])
         .unwrap_or_else(|e| panic!("{:?}", e.errors));
     proved(&run, 19);
+    // The largest contracts are reported, with their named views.
+    let large = |name: &str| {
+        run.notes.iter().any(|d| {
+            d.message.contains(&format!("DatabaseLayout::{name}` is large"))
+                && d.message.contains(&format!("DatabaseLayout::{name}_requires`"))
+        })
+    };
+    assert!(large("calculate") && large("len"), "{:?}", run.notes);
 }

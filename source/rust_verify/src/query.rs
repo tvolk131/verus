@@ -570,8 +570,10 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         // proof can use them; do not add unchecked logical axioms after HIR.
         let warning_ctx = inference_warning_ctx(&Arc::new(cratex.clone()), &pre_crate.warning_ctx)
             .map_err(|e| self.emit_error(e))?;
-        let generated =
-            |f: &vir::ast::Function| vir::infer::borrowed_observation_source(f).is_some();
+        // Named contract views get the same checks once their bodies are filled.
+        let generated = |f: &vir::ast::Function| {
+            vir::infer::borrowed_observation_source(f).is_some() || vir::infer::views::is_view(f)
+        };
         if cratex.functions.iter().any(generated) {
             let mut stubs = (*self.get_all_function_stubs()?).clone();
             for f in cratex.functions.iter().filter(|f| generated(f)) {

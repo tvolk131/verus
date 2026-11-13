@@ -138,6 +138,8 @@ impl Verifier {
             .chain(generation.candidates.iter().map(|c| &c.function))
             .map(|f| (f.x.name.clone(), f.clone()))
             .collect();
+        let all_functions: Vec<Function> =
+            self.vir_crate.iter().flat_map(|k| k.functions.iter()).cloned().collect();
         let mut candidates: Vec<_> = generation.candidates.iter().collect();
         candidates.sort_by_key(|c| name(&c.function.x.name));
         let mut required_failure = false;
@@ -194,6 +196,14 @@ impl Verifier {
                 })).collect::<Vec<_>>(),
                 "result_type": typ_to_diagnostic_str(&f.x.inner_ret.x.typ),
                 "contract": {"requires": requires, "ensures": ensures},
+                "contract_size": {
+                    "requires_chars": requires.chars().count(),
+                    "ensures_chars": ensures.chars().count(),
+                    "nonlinear": f.x.attrs.nonlinear,
+                    "large": requires.chars().count() > vir::infer::views::LARGE_CLAUSE_CHARS
+                        || ensures.chars().count() > vir::infer::views::LARGE_CLAUSE_CHARS,
+                },
+                "views": vir::infer::views::view_names(f, &all_functions),
                 "loop_proofs": vir::infer::format_loop_proofs(f),
                 "proofs": {
                     "soundness": check(observed[0], true, unavailable),

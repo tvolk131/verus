@@ -433,7 +433,98 @@ pub fn verus_infer(
                 .into();
         }
     }
-    attr_rewrite::rewrite_verus_attribute(&cfg_erase(), attribute.into(), input)
+    let views = if cfg_erase().keep() {
+        syn::parse::<syn::ItemFn>(input.clone()).ok().and_then(|f| infer_contract_views(&f))
+    } else {
+        None
+    };
+    let rewritten = attr_rewrite::rewrite_verus_attribute(&cfg_erase(), attribute.into(), input);
+    match views {
+        Some(views) => {
+            let mut out: proc_macro2::TokenStream = rewritten.into();
+            out.extend(views);
+            out.into()
+        }
+        None => rewritten,
+    }
+}
+
+/// Named views of an inferred contract: `<f>_requires(params)` and
+/// `<f>_ensures(params, ret)`, open spec functions whose bodies Verus Infer
+/// replaces with the installed precondition and postcondition. Proofs can name
+/// them (for example to state a lemma that establishes a large precondition).
+/// Only generated for signatures a spec function can mirror exactly.
+fn infer_contract_views(f: &syn::ItemFn) -> Option<proc_macro2::TokenStream> {
+    use quote::{format_ident, quote_spanned};
+    let sig = &f.sig;
+    if sig.constness.is_some()
+        || sig.asyncness.is_some()
+        || sig.unsafety.is_some()
+        || sig.abi.is_some()
+        || sig.variadic.is_some()
+    {
+        return None;
+    }
+    let span = sig.ident.span();
+    let mut params = Vec::new();
+    let mut names = Vec::new();
+    for arg in sig.inputs.iter() {
+        match arg {
+            syn::FnArg::Receiver(r) => {
+                if r.colon_token.is_some() || (r.reference.is_some() && r.mutability.is_some()) {
+                    return None;
+                }
+                params.push(match &r.reference {
+                    Some((_, lifetime)) => quote_spanned!(span => & #lifetime self),
+                    None => quote_spanned!(span => self),
+                });
+                names.push("self".to_string());
+            }
+            syn::FnArg::Typed(typed) => {
+                let syn::Pat::Ident(pat) = &*typed.pat else { return None };
+                if pat.by_ref.is_some()
+                    || pat.subpat.is_some()
+                    || matches!(&*typed.ty, syn::Type::Reference(r) if r.mutability.is_some())
+                {
+                    return None;
+                }
+                let (ident, typ) = (&pat.ident, &typed.ty);
+                params.push(quote_spanned!(span => #ident: #typ));
+                names.push(ident.to_string());
+            }
+        }
+    }
+    let (vis, generics, where_clause) = (&f.vis, &sig.generics, &sig.generics.where_clause);
+    let name = &sig.ident;
+    // A non-`pub` spec function's body is visible wherever the function is.
+    let open = matches!(vis, syn::Visibility::Public(_))
+        .then(|| quote_spanned!(span => #[verus::internal(open)]));
+    let view = |kind: &str, extra: Option<proc_macro2::TokenStream>| {
+        let view_name = format_ident!("{}_{}", name, kind, span = span);
+        let kind_ident = syn::Ident::new(kind, span);
+        let doc = format!("The {kind} clause that Verus Infer proved for `{name}`.");
+        let params = params.iter().cloned().chain(extra);
+        quote_spanned! {span=>
+            #[doc = #doc]
+            #[verus::internal(verus_macro)]
+            #[verus::internal(spec)]
+            #open
+            #[verus::internal(infer_view(#kind_ident))]
+            #[verifier::verify]
+            #[allow(dead_code, unused_variables, non_snake_case, clippy::all)]
+            #vis fn #view_name #generics (#(#params),*) -> bool #where_clause { true }
+        }
+    };
+    let mut out = view("requires", None);
+    if let syn::ReturnType::Type(_, ret) = &sig.output {
+        let mut ret_name = "ret".to_string();
+        while names.contains(&ret_name) {
+            ret_name.push('_');
+        }
+        let ret_ident = syn::Ident::new(&ret_name, span);
+        out.extend(view("ensures", Some(quote_spanned!(span => #ret_ident: #ret))));
+    }
+    Some(out)
 }
 
 #[proc_macro_attribute]

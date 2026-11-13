@@ -2311,6 +2311,16 @@ impl Verifier {
                 ))
                 .to_any(),
             );
+            for name in inference_buckets.iter().filter_map(|id| id.function()) {
+                let Some(function) = krate.functions.iter().find(|f| &f.x.name == name) else {
+                    continue;
+                };
+                if let Some(message) =
+                    vir::infer::views::large_contract_note(function, &krate.functions)
+                {
+                    reporter.report(&note(&function.span, message).to_any());
+                }
+            }
         }
 
         let time_verify_sequential_end = Instant::now();

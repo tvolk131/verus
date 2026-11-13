@@ -146,6 +146,36 @@ re-check: the selected functions and the inferred functions they rely on
 (transitively, through inferred bodies) are checked. A partial run never
 certifies or exports inference metadata, so it is refused when exporting.
 
+## Naming inferred contracts in proofs
+
+`#[verus_infer]` on `f` also declares two spec functions next to it:
+`f_requires(params) -> bool` and `f_ensures(params, ret) -> bool`. After
+inference, their bodies are `f`'s installed precondition and postcondition.
+They are ordinary definitions with `f`'s visibility (`open` when `f` is `pub`):
+they add no assumption, and callers that never mention them see no change.
+
+Hand-written proofs can use them to work with a large inferred contract, for
+example a lemma that establishes the precondition from a compact domain:
+
+```rust
+proof fn lemma_calculate(desired: u64, capacity: u32, header: u32, page: u32)
+    requires /* the caller's compact domain */,
+    ensures DatabaseLayout::calculate_requires(desired, capacity, header, page),
+{ /* arithmetic proof */ }
+```
+
+The views are generated for signatures a spec function can mirror: no
+`&mut`, `const`, `async` or `unsafe` functions and no pattern parameters. A
+`#[verus_infer]` method in a trait implementation is rejected by inference, and
+its views are not members of the trait.
+
+When a published contract has a clause over 2000 characters, the run notes
+its size and its views. The JSON report records `contract_size` and `views`
+for every inferred function. A large exact contract is often harder for a
+hand-written caller to use than a short invariant. Infer small helper
+functions, and write a contract by hand for the function whose result
+callers reason about.
+
 ## Cross-crate inference and Cargo
 
 Public inferred interfaces use Verus's normal `.vir` mechanism. Direct invocations
