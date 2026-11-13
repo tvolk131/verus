@@ -66,6 +66,7 @@ mod sequence_triggers;
 mod sequence_views;
 mod set_goals;
 mod trait_getters;
+pub mod views;
 mod wrapper_binary;
 mod wrapper_compare;
 mod wrapper_traits;
@@ -1379,7 +1380,9 @@ pub fn infer_functions_with_datatypes(
     report.candidates = registry.generated;
     report.failure = result.as_ref().err().map(|e| e.note.clone());
     report.failures = std::mem::take(&mut registry.failures);
-    result
+    let mut result = result?;
+    views::fill(&mut result)?;
+    Ok(result)
 }
 
 pub fn validate_imported_summary_with_context(

@@ -32,6 +32,15 @@ Before engine work, measure an actual necessary obligation and its annotation
 removal target. Existing automatic arithmetic or redundant annotations do not
 count as a new assistance gain.
 
+## Choose the inference boundary
+
+Inference is cheapest on small helper functions whose exact contracts stay
+short. When a run notes that a contract is large, callers usually do better
+with a hand-written contract that states a compact invariant for that function,
+calling inferred helpers inside it. If you keep it inferred, refer to its
+precondition and postcondition through `f_requires`/`f_ensures` in lemmas rather
+than proving them inline in a large function body.
+
 ## Validate a reduction
 
 Keep the original body, property and domain. Compare manual and reduced cases
