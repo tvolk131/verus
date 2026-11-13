@@ -56,6 +56,7 @@ mod packing_goals;
 mod panics;
 mod pipeline;
 mod pointwise_goals;
+mod precondition_goals;
 mod propagation;
 mod range_goals;
 mod record_models;

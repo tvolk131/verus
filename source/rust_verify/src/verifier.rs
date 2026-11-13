@@ -2315,8 +2315,16 @@ impl Verifier {
                 let Some(function) = krate.functions.iter().find(|f| &f.x.name == name) else {
                     continue;
                 };
+                // Measure the generated contract, before any view-call install.
+                let generated = self
+                    .inference_generation
+                    .candidates
+                    .iter()
+                    .find(|c| &c.function.x.name == name)
+                    .map(|c| &c.function)
+                    .unwrap_or(function);
                 if let Some(message) =
-                    vir::infer::views::large_contract_note(function, &krate.functions)
+                    vir::infer::views::large_contract_note(generated, &krate.functions)
                 {
                     reporter.report(&note(&function.span, message).to_any());
                 }

@@ -110,14 +110,68 @@ pub fn fill(functions: &mut [Function]) -> Result<(), VirErr> {
     // Contracts share subterms; mode checking needs each temporary place to
     // have its own identity, so view bodies get fresh ids from a reserved range.
     let mut id = u64::MAX - (1 << 40);
+    let mut filled_requires: HashMap<Fun, Function> = HashMap::new();
     for view in functions.iter_mut().filter(|f| f.x.attrs.infer_view.is_some()) {
         let Some(f) = target(view).and_then(|t| targets.get(&t)) else { continue };
         let Some(body) = body(view, f) else { continue };
         let mut x = view.x.clone();
         x.body = Some(super::assistance::fresh(&body?, &mut id)?);
         *view = view.new_x(x);
+        if view.x.attrs.infer_view == Some(true) {
+            filled_requires.insert(f.x.name.clone(), view.clone());
+        }
+    }
+    // A large precondition of a crate-private function is installed as a call
+    // to its view, so a caller's obligation is literally `f_requires(args)`: a
+    // lemma (or broadcast lemma triggered on that term) about the view then
+    // matches it. The view is a definition of the same formula, so the contract
+    // is unchanged. Public contracts stay inline for cross-crate importers.
+    for f in functions.iter_mut().filter(|f| f.x.attrs.infer) {
+        let Some(view) = filled_requires.get(&f.x.name) else { continue };
+        if f.x.visibility.restricted_to.is_none()
+            || f.x.require.is_empty()
+            || format_contract_parts(f).0.chars().count() <= LARGE_CLAUSE_CHARS
+        {
+            continue;
+        }
+        let call = view_call(f, view);
+        let mut x = f.x.clone();
+        x.require = Arc::new(vec![call]);
+        *f = f.new_x(x);
     }
     Ok(())
+}
+
+/// `view(f's type parameters)(f's parameters)`, typed as a boolean.
+fn view_call(f: &Function, view: &Function) -> Expr {
+    let span = &f.span;
+    let typs: Vec<Typ> =
+        f.x.typ_params.iter().map(|t| Arc::new(TypX::TypParam(t.clone()))).collect();
+    let args: Vec<Expr> =
+        f.x.params
+            .iter()
+            .map(|p| SpannedTyped::new(span, &p.x.typ, ExprX::Var(p.x.name.clone())))
+            .collect();
+    SpannedTyped::new(
+        span,
+        &Arc::new(TypX::Bool),
+        ExprX::Call {
+            target: CallTarget::Fun(
+                CallTargetKind::Static,
+                view.x.name.clone(),
+                Arc::new(typs),
+                Arc::new(vec![]),
+                CallTargetAttrs {
+                    autospec: AutospecUsage::Final,
+                    const_var: false,
+                    assume_external_allowed: false,
+                },
+            ),
+            args: Arc::new(args),
+            post_args: None,
+            body: None,
+        },
+    )
 }
 
 pub fn is_view(f: &Function) -> bool {
@@ -149,6 +203,7 @@ pub fn view_names(f: &Function, functions: &[Function]) -> Vec<String> {
 
 /// A note for an inferred contract large enough to be hard for callers to
 /// use directly; it points to the named views and to a hand-written fallback.
+/// `f` is the generated candidate (its contract before any view-call install).
 pub fn large_contract_note(f: &Function, functions: &[Function]) -> Option<String> {
     let (pre, post, nonlinear) = contract_size(f);
     if pre <= LARGE_CLAUSE_CHARS && post <= LARGE_CLAUSE_CHARS {
