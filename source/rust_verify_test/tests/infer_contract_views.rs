@@ -117,3 +117,43 @@ test_verify_one_file! {
         }
     } => Ok(())
 }
+
+test_verify_one_file! {
+    #[test] verus_infer_inside_verus_macro_has_views_and_no_misuse_warning code! {
+        use vstd::prelude::*;
+        verus! {
+        pub struct S { x: u64 }
+        impl S {
+            #[verus_infer]
+            pub(crate) fn half(&self) -> u64 { self.x / 2 }
+            #[verus_verify]
+            pub(crate) fn third(&self) -> u64 { self.x / 3 }
+        }
+        #[verus_infer]
+        fn quarter(x: u64) -> u64 { x / 4 }
+        proof fn uses(s: S) {
+            assert(quarter_requires(1));
+            assert(s.half_requires());
+            assert(quarter_ensures(8, 2));
+        }
+        }
+    } => Ok(diags) => {
+        assert!(
+            diags.warnings.iter().all(|w| !w.message.contains("verus_spec")),
+            "{:?}",
+            diags.warnings
+        );
+    }
+}
+
+test_verify_one_file! {
+    #[test] verus_infer_wrapper_impl_inside_verus_macro_still_expands code! {
+        use vstd::prelude::*;
+        verus! {
+        #[verus_verify] #[derive(Copy,Clone)] pub struct Count(pub usize);
+        #[verus_infer] impl PartialEq for Count{fn eq(&self,rhs:&Self)->bool{self.0==rhs.0}}
+        #[verus_infer] pub fn different(a:Count,b:Count)->bool{a!=b}
+        pub fn goal(a:Count,b:Count){let r=different(a,b);assert(r==(a.0!=b.0));}
+        }
+    } => Ok(_diags) => {} // impl-level expansion still warns; only fn items skip
+}

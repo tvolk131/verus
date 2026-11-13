@@ -417,6 +417,12 @@ fn is_verus_macro_applied(attrs: &syn::Attribute) -> bool {
         && attrs.path().segments[1].ident == "internal"
 }
 
+/// `#[verus::internal(verus_macro)]`, which `verus!` puts on the items it rewrites.
+fn is_verus_macro_marker(attr: &syn::Attribute) -> bool {
+    is_verus_macro_applied(attr)
+        && attr.parse_args::<syn::Ident>().is_ok_and(|arg| arg == "verus_macro")
+}
+
 /// Adds a `#[verus_spec]` attribute to the given attributes if it's not already present.
 /// #[verus_spec] may be applied earlier or later than the current attribute.
 /// If it's applied earlier, we can infer it via verus::internal(xxx).
@@ -486,7 +492,13 @@ fn prepare_items_for_verus_spec(span: proc_macro2::Span, i: &mut syn::Item) {
         syn::Item::Const(syn::ItemConst { attrs, .. })
         | syn::Item::Static(syn::ItemStatic { attrs, .. })
         | syn::Item::Fn(syn::ItemFn { attrs, .. }) => {
-            add_verus_spec_if_needed(attrs, span);
+            // A function already rewritten by `verus!` (for example
+            // `#[verus_infer]`/`#[verus_verify]` on a function or method inside a
+            // `verus!` block) needs no `#[verus_spec]`; adding one only warns that
+            // it is used inside `verus!`. Impl items below still get it.
+            if !attrs.iter().any(is_verus_macro_marker) {
+                add_verus_spec_if_needed(attrs, span);
+            }
         }
         syn::Item::Impl(i) => {
             for item in &mut i.items {
