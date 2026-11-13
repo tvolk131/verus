@@ -5,7 +5,7 @@ use common::infer::assert_exact_report;
 use common::*;
 
 const NATIVE_BLOCK_COMPOSITION: &str =
-    include_str!("../../../evidence/redb-native-composition-cycle1/candidate.rs");
+    include_str!("../fixtures/infer/transfer_composition/redb_native.rs");
 
 #[test]
 fn full_frozen_native_block_composition_has_fresh_exact_helpers() {

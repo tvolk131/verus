@@ -7,8 +7,8 @@ import check_redb_native_composition as guard
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = (ROOT / 'evidence/redb-native-composition-cycle1/candidate.rs').read_text()
-SCOPE = json.loads((ROOT / 'evidence/redb-native-composition-cycle1/scope.json').read_text())
+SOURCE = (ROOT / 'source/rust_verify_test/fixtures/infer/transfer_composition/redb_native.rs').read_text()
+SCOPE = json.loads((ROOT / 'source/tools/fixtures/transfers/redb-native-composition-cycle1/scope.json').read_text())
 
 
 def positive_report():

@@ -58,7 +58,7 @@ class PageReceiptTests(unittest.TestCase):
                 polynomial_auxiliary_negative_cases=["false_polynomial_negative"],
                 metadata_negative_cases=["client_metadata_" + fault for fault in ("policy", "exactness", "summaries", "trusted_model")]))
         proof = dict(soundness=True, maximality=True, exactness=True)
-        certificate = dict(schema=INTERFACE_SCHEMA, policy=INTERFACE_POLICY, **proof,
+        certificate = dict(schema=INTERFACE_SCHEMA, foreign_dependencies=[], policy=INTERFACE_POLICY, **proof,
             proofs=[[dict(path=dict(krate=dict(Id=["provider", 17]), segments=["impl&%0", method])), proof]
                     for method in ("page_size_bytes", "address_range")],
             summaries="f" * 64, trusted_models=[[{}, "f" * 64]])

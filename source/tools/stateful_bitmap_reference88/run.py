@@ -52,7 +52,7 @@ def preservation():
                          branch=git_read(REPO, 'symbolic-ref', 'HEAD'),
                          index_sha256=digest(index), refs=refs,
                          refs_drift=refs != baseline['refs'])
-    result['scope_sha256'] = digest(REPO / 'evidence/native-reference88/SCOPE.md')
+    result['scope_sha256'] = digest(REPO / 'source/tools/fixtures/transfers/native-reference88/SCOPE.md')
     return result
 
 

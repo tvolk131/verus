@@ -158,7 +158,7 @@ pub(crate) fn typ_to_air(ctx: &Ctx, typ: &Typ) -> air::ast::Typ {
             panic!("internal error: AnonymousClosure should have been removed by ast_simplify")
         }
         TypX::Datatype(dt, _, _) => {
-            if ctx.datatype_is_transparent[dt] {
+            if ctx.datatype_is_encoded[dt] {
                 ident_typ(&path_to_air_ident(&ctx.name_ctxt, &encode_dt_as_path(dt)))
             } else {
                 match typ_as_mono(typ) {
@@ -551,7 +551,7 @@ pub(crate) fn typ_invariant(ctx: &Ctx, typ: &Typ, expr: &Expr) -> Option<Expr> {
             Some(expr_has_typ(ctx, &try_box(ctx, expr.clone(), typ).expect("try_box array"), typ))
         }
         TypX::Datatype(dt, _, _) => {
-            if ctx.datatype_is_transparent[dt] {
+            if ctx.datatype_is_encoded[dt] {
                 if ctx.datatypes_with_invariant.contains(dt) {
                     let box_expr = ident_apply(
                         &ctx.name_ctxt.prefix_box(&encode_dt_as_path(dt)),
@@ -603,7 +603,7 @@ pub(crate) fn typ_invariant(ctx: &Ctx, typ: &Typ, expr: &Expr) -> Option<Expr> {
 pub(crate) fn datatype_box_prefix(ctx: &Ctx, typ: &Typ) -> Option<Path> {
     match &**typ {
         TypX::Datatype(dt, _, _) => {
-            if ctx.datatype_is_transparent[dt] {
+            if ctx.datatype_is_encoded[dt] {
                 Some(encode_dt_as_path(dt))
             } else {
                 if let Some(monotyp) = typ_as_mono(typ) {
@@ -680,7 +680,7 @@ pub(crate) fn try_unbox(ctx: &Ctx, expr: Expr, typ: &Typ) -> Option<Expr> {
         TypX::Real => Some(str_ident(crate::def::UNBOX_REAL)),
         TypX::Float(_) => Some(str_ident(crate::def::UNBOX_INT)),
         TypX::Datatype(dt, _, _) => {
-            if ctx.datatype_is_transparent[dt] {
+            if ctx.datatype_is_encoded[dt] {
                 Some(ctx.name_ctxt.prefix_unbox(&encode_dt_as_path(dt)))
             } else {
                 prefix_typ_as_mono(ctx, |p| ctx.name_ctxt.prefix_unbox(p), typ, "abstract datatype")

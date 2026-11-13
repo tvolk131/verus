@@ -1,10 +1,10 @@
 //! Untrusted prefix induction for ordinary native integer-range mutation goals.
 //! Retains the complete source loop and frontend iterator proof scaffolding.
+use super::assistance::{clauses, current, fresh, future, pure, seq_len};
 use super::eligibility::loop_assistance;
 use super::report::AssistanceSkip;
 use super::*;
 use crate::ast_visitor::{VisitorControlFlow, expr_visitor_walk, map_expr_visitor};
-use growth_goals::{clauses, current, fresh, future, pure, seq_len};
 
 fn plain(e: &Expr) -> &Expr {
     match &e.x {

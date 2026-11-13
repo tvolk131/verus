@@ -278,12 +278,15 @@ impl Verifier {
             "generation_failure": generation.failure,
             "assistance_explanations": {
                 "enabled":self.args.infer_goals,
-                "profiles":["growth_loop","range_loop"],
+                "profiles":vir::infer::EXPLAINED_PROFILES,
                 "preparation_started":generation.assistance_preparation_started,
                 "preparation_completed":generation.assistance_preparation_completed,
                 "decisions":decisions,
             },
+            "word_sequence_assistance": generation.word_sequence_frames.iter().map(|(f,l)|json!({"function":name(f),"library":name(l),"snapshots":1,"quantified_blocks":1,"library_calls":1,"checked_by":"ordinary proof and full body recheck"})).collect::<Vec<_>>(),
+            "buffer_observation_assistance": generation.buffer_observations.iter().map(|(f,s)|json!({"function":name(f),"source":s.as_string,"snapshots":2,"invariants":4,"checked_by":"ordinary snapshots and invariants; no update or unused-tail frame summary"})).collect::<Vec<_>>(),
             "range_loop_assistance": generation.range_loops.iter().map(|(f,s)|json!({"function":name(f),"source":s.as_string,"checked_by":"ordinary invariant, safety and original iterator termination obligations"})).collect::<Vec<_>>(),
+            "set_pair_assistance": generation.set_pairs.iter().map(|(f,t,p)|json!({"function":name(f),"terms":t,"pairs":p,"lemma_calls":p,"checked_by":"ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"})).collect::<Vec<_>>(),
             "pointwise_assistance": generation.pointwise_facts.iter().map(|(f,n)|json!({"function":name(f),"facts":n,"checked_by":"ordinary checked assertions; no assumed invariant or clone law"})).collect::<Vec<_>>(),
             "sequence_pattern_assistance": generation.sequence_patterns.iter().map(|(f,n)|json!({"function":name(f),"quantifiers":n,"checked_by":"original unchanged quantified proposition; alternate sequence-index patterns only"})).collect::<Vec<_>>(),
             "mutable_selector_assistance": generation.mutable_selectors.iter().map(|(f,n)|json!({"function":name(f),"postconditions":n,"checked_by":"ordinary original-body verification; source contracts preserved"})).collect::<Vec<_>>(),
@@ -310,6 +313,9 @@ impl Verifier {
                 "lemmas": lemmas.iter().map(name).collect::<Vec<_>>(),
             }))).chain(generation.fold_lemmas.iter().map(|(function, lemmas)| json!({
                 "function": name(function), "strategy": "sequence_fold_observation",
+                "lemmas": lemmas.iter().map(name).collect::<Vec<_>>(),
+            }))).chain(generation.word_lemmas.iter().map(|(function, lemmas)| json!({
+                "function": name(function), "strategy": "word_view_broadcast",
                 "lemmas": lemmas.iter().map(name).collect::<Vec<_>>(),
             }))).collect::<Vec<_>>(),
             "failed_functions": failed_functions,

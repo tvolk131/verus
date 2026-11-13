@@ -13,7 +13,7 @@ from infer_transfer_identity import CACHE_VERSION, ENGINE_IDENTITY, INTERFACE_PO
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = ROOT / "evidence/transfer-fedimint-atomic-replay"
+EVIDENCE = ROOT / "source/tools/fixtures/transfers/transfer-fedimint-atomic-replay"
 CHECKPOINT = "3b05c1912b9d7314ad00c832c4065f4362562e02"
 PATCH_SHA256 = "545e330ee87d539aa727154a6121f251f557a18867be62517a9867592a372e12"
 PIN = "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236"

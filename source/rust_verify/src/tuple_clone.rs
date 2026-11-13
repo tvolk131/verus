@@ -210,10 +210,7 @@ mod tests {
 
     #[test]
     fn tuple_shim_mapping_rejects_stronger_contracts_and_signature_changes() {
-        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-            .parent()
-            .unwrap()
-            .join("target-verus/release/vstd.vir");
+        let path = crate::test_verus_root().join("vstd.vir");
         let mut file = std::io::BufReader::new(std::fs::File::open(path).unwrap());
         #[derive(serde::Deserialize)]
         struct Library {

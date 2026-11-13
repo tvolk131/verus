@@ -1,8 +1,0 @@
-error: expected curly braces
-   --> /Users/tommyvolk/.t3/worktrees/verus/t3-15575fc5/evidence/transfer-fedimint-atomic-replay/model.rs:110:13
-    |
-110 |     ensures invariant(initial(key, frame)),
-    |             ^^^^^^^^^
-
-error: aborting due to 1 previous error
-

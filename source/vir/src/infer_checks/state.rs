@@ -413,7 +413,7 @@ fn observations(
         // Observe its complete logical value rather than opening hidden fields
         // or weakening precision to a partial content view. Certified direct
         // sequence views above retain their existing independent observations.
-        if !ctx.datatype_is_transparent.get(dt).copied().unwrap_or(false)
+        if !crate::ast_util::is_transparent_to(&d.x.transparency, &ctx.module.x.path)
             && d.x.mode == Mode::Exec
             && d.x.proxy.is_none()
             && !d.x.destructor

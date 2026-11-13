@@ -128,7 +128,7 @@ fn pure_contract(e: &Expr, f: &Function, all: &HashMap<Fun, Function>) -> Result
         },
         &|_, _, p| Ok(p.clone()),
     )?;
-    growth_goals::pure(&checked, all)
+    assistance::pure(&checked, all)
 }
 fn header(f: &Function) -> bool {
     let x = &f.x;
@@ -486,7 +486,7 @@ fn proposal(
     if !index_inputs {
         return Ok(vec![]);
     }
-    growth_goals::pure(&index, all)?;
+    assistance::pure(&index, all)?;
     let final_sequence = view(field(state(f, Phase::Future), op, vector), all)?;
     let old_sequence = view(field(state(f, Phase::Entry), op, vector), all)?;
     let mut facts = vec![relation(
@@ -503,19 +503,19 @@ fn proposal(
     let mut posts = vec![];
     if let Some(inline) = inline_posts {
         for e in inline {
-            growth_goals::clauses(e, &mut posts);
+            assistance::clauses(e, &mut posts);
         }
     } else if let (Some(callee), Some((_, types, args))) = (callee, preparation_call) {
         for e in callee.x.ensure.0.iter() {
             if mentions(e, &callee.x.inner_ret.x.name) {
                 continue;
             }
-            growth_goals::clauses(&instantiate(e, callee, types, args)?, &mut posts);
+            assistance::clauses(&instantiate(e, callee, types, args)?, &mut posts);
         }
     }
     let mut original_posts = vec![];
     for e in f.x.ensure.0.iter() {
-        growth_goals::clauses(e, &mut original_posts);
+        assistance::clauses(e, &mut original_posts);
     }
     let mut supplied = vec![];
     for e in original_posts.iter().filter(|e| mentions(e, &f.x.inner_ret.x.name)) {
@@ -523,7 +523,7 @@ fn proposal(
     }
     let mut requirements = vec![];
     for e in f.x.require.iter() {
-        growth_goals::clauses(e, &mut requirements);
+        assistance::clauses(e, &mut requirements);
     }
     for post in posts {
         if stable(&post, f, op, all) {
@@ -803,7 +803,7 @@ fn inline_growth(
     }
     let mut requirements = vec![];
     for p in f.x.require.iter() {
-        growth_goals::clauses(p, &mut requirements);
+        assistance::clauses(p, &mut requirements);
     }
     for p in requirements {
         let Some((name, types, args)) = call(&p) else { continue };
@@ -895,7 +895,7 @@ pub fn prepare(
             let mut x = prepared.x.clone();
             for p in &facts {
                 pure_contract(p, f, &all)?;
-                Arc::make_mut(&mut x.ensure.0).push(growth_goals::fresh(p, &mut id)?);
+                Arc::make_mut(&mut x.ensure.0).push(assistance::fresh(p, &mut id)?);
             }
             Arc::make_mut(&mut x.attrs).infer_mutable_selector = true;
             let candidate = f.new_x(x);

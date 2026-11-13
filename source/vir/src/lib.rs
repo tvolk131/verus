@@ -49,6 +49,7 @@ mod heuristics;
 pub mod infer;
 pub mod infer_checks;
 pub mod infer_proof;
+pub mod internal_repr;
 pub mod interpreter;
 mod inv_masks;
 pub mod layout;

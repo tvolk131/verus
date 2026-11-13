@@ -8,7 +8,7 @@ from pathlib import Path
 from check_fedimint_fee_encoding import certificate_import, check_client_import, compiler_artifacts
 from check_redb_bitmap_range import METADATA_DIAGNOSTICS, failure_diagnostic, import_guard
 from check_redb_page_size import APPLICATION, item
-from infer_transfer_identity import CACHE_VERSION, ENGINE_IDENTITY, INTERFACE_POLICY, INTERFACE_SCHEMA
+from infer_transfer_identity import CACHE_VERSION, ENGINE_IDENTITY, INTERFACE_POLICY, INTERFACE_SCHEMA, require_no_foreign_dependencies
 from infer_eval_support import ArtifactGuard, digest
 from infer_experiment import (
     LoggedCommands, positive_timeout, replay_receipt, require, require_exact,
@@ -17,7 +17,7 @@ from infer_experiment import (
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = ROOT / "evidence/transfer-redb-bitmap-state77"
+EVIDENCE = ROOT / "source/tools/fixtures/transfers/transfer-redb-bitmap-state77"
 BITMAP = "src/tree_store/page_store/bitmap.rs"
 SOURCE_HASH = "d57724dcbc9701e8fb7a2e268febba1fbe2ff2a00e14e000c27a703afe3af9ff"
 ITEM_HASHES = {
@@ -230,7 +230,7 @@ def fresh_artifacts(artifact, library, seed=None):
 
 def provider_certificate(seed):
     footer, certificate = metadata(seed)
-    require(certificate["schema"] == INTERFACE_SCHEMA and certificate["policy"] == INTERFACE_POLICY,
+    require(type(certificate.get("schema")) is int and certificate["schema"] == INTERFACE_SCHEMA and certificate["policy"] == INTERFACE_POLICY,
             "unexpected certificate identity")
     require(all(certificate[key] is True for key in ("soundness", "maximality", "exactness")),
             "incomplete provider certificate")
@@ -239,6 +239,7 @@ def provider_certificate(seed):
     require(all(certificate["proofs"][0][1][key] is True
                 for key in ("soundness", "maximality", "exactness")), "incomplete exported proof")
     fingerprint = hashlib.sha256(seed[footer:-8]).hexdigest()
+    require_no_foreign_dependencies(certificate)
     return certificate, certificate_import(certificate, fingerprint)
 
 

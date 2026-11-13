@@ -375,7 +375,20 @@ fn fn_call_or_assoc_const_to_vir<'tcx>(
     let impl_paths = get_impl_paths(bctx, f, node_substs, None, const_var, expr.span)?;
     let call_target_attrs =
         vir::ast::CallTargetAttrs { autospec: autospec_usage, assume_external_allowed, const_var };
-    let target = CallTarget::Fun(target_kind, name, typ_args, impl_paths, call_target_attrs);
+    let target = if let Some(helper) = args.as_ref().and_then(|_| {
+        crate::checked_foreign::direct_helper(bctx, expr, f, node_substs)
+            .or_else(|| crate::checked_nonzero_ord::direct_helper(bctx, expr, f, node_substs))
+    }) {
+        CallTarget::Fun(
+            vir::ast::CallTargetKind::Static,
+            helper,
+            Arc::new(vec![]),
+            Arc::new(vec![]),
+            call_target_attrs,
+        )
+    } else {
+        CallTarget::Fun(target_kind, name, typ_args, impl_paths, call_target_attrs)
+    };
     if vir_args.is_empty()
         && call_body.is_none()
         && node_substs.len() == 1
@@ -2585,20 +2598,31 @@ fn get_impl_paths<'tcx>(
     )
 }
 
-fn check_is_builtin_constrain_typ<'tcx>(bctx: &BodyCtxt<'tcx>, e: &'tcx Expr<'tcx>) -> bool {
+/// Shared identity boundary for the existing header erasure machinery and
+/// pre-import owned-cell admission. This does not by itself admit a subtree;
+/// admission additionally validates its full canonical type-only shape.
+pub(crate) fn is_erased_constrain_type(
+    items: &crate::verus_items::VerusItems,
+    e: &Expr<'_>,
+) -> bool {
     if let ExprKind::Call(fun, ..) = e.kind {
         if let ExprKind::Path(QPath::Resolved(_, path)) = fun.kind {
             if let Some(def_id) = path.res.opt_def_id() {
-                if bctx.ctxt.get_verus_item(def_id)
-                    == Some(&VerusItem::BuiltinFunction(BuiltinFunctionItem::ConstrainType))
-                {
-                    record_call(bctx, e, ResolvedCall::MiscEraseAbsolutely);
-                    return false;
-                }
+                return items.id_to_name.get(&def_id)
+                    == Some(&VerusItem::BuiltinFunction(BuiltinFunctionItem::ConstrainType));
             }
         }
     }
-    true
+    false
+}
+
+fn check_is_builtin_constrain_typ<'tcx>(bctx: &BodyCtxt<'tcx>, e: &'tcx Expr<'tcx>) -> bool {
+    if is_erased_constrain_type(&bctx.ctxt.verus_items, e) {
+        record_call(bctx, e, ResolvedCall::MiscEraseAbsolutely);
+        false
+    } else {
+        true
+    }
 }
 
 fn extract_ensures<'tcx>(

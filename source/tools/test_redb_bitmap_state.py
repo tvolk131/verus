@@ -42,7 +42,7 @@ def positive_report():
 
 
 def certificate_blob(**changes):
-    certificate = dict(schema=INTERFACE_SCHEMA, policy=INTERFACE_POLICY, soundness=True,
+    certificate = dict(schema=INTERFACE_SCHEMA, foreign_dependencies=[], policy=INTERFACE_POLICY, soundness=True,
                        maximality=True, exactness=True, trusted_models=[],
                        proofs=[[dict(path=dict(krate=dict(Id=["provider", 23]))),
                                 dict(soundness=True, maximality=True, exactness=True)]])
@@ -307,11 +307,11 @@ class BitmapStateTests(unittest.TestCase):
     def test_provider_certificate_observes_identity_exactness_model_scope_and_fingerprint(self):
         blob = certificate_blob()
         certificate, binding = bitmap.provider_certificate(blob)
-        self.assertEqual(certificate["schema"], 38)
+        self.assertEqual(certificate["schema"], INTERFACE_SCHEMA)
         footer, decoded = bitmap.metadata(blob)
         self.assertEqual(decoded, certificate)
         self.assertEqual(binding, [dict(crate_id=23, fingerprint=hashlib.sha256(blob[footer:-8]).hexdigest())])
-        for change in (dict(schema=37), dict(policy="stale"), dict(exactness=False), dict(trusted_models=[["new", "model"]]), dict(proofs=[])):
+        for change in (dict(foreign_dependencies=None), dict(foreign_dependencies=[{}]), dict(schema=float(INTERFACE_SCHEMA)), dict(schema=37), dict(policy="stale"), dict(exactness=False), dict(trusted_models=[["new", "model"]]), dict(proofs=[])):
             with self.assertRaises(ValueError):
                 bitmap.provider_certificate(certificate_blob(**change))
 

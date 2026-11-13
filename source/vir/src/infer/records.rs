@@ -5,6 +5,7 @@ use super::*;
 use collections::Model;
 
 mod calls;
+mod foreign_opaque;
 pub(super) mod shape;
 #[cfg(test)]
 mod shape_tests;

@@ -39,7 +39,25 @@ pub(crate) fn expand(
         return Err(bad());
     }
     let syn::Type::Path(t) = &field.ty else { return Err(bad()) };
-    if t.qself.is_some()
+    let nonzero = t.qself.is_none()
+        && matches!(t.path.segments.last(), Some(s)
+        if s.ident == "NonZero" && matches!(&s.arguments, syn::PathArguments::AngleBracketed(a)
+            if a.args.len() == 1 && matches!(&a.args[0], syn::GenericArgument::Type(syn::Type::Path(p))
+                if p.qself.is_none() && p.path.is_ident("u64"))));
+    if nonzero && matches!(&member, syn::Member::Named(_)) {
+        return Err(bad());
+    }
+    if nonzero {
+        if operators
+            .iter()
+            .any(|op| !matches!(op.to_string().as_str(), "PartialEq" | "PartialOrd" | "Ord"))
+        {
+            return Err(syn::Error::new(
+                item.span(),
+                "NonZero<u64> checked derives support only PartialEq/PartialOrd/Ord",
+            ));
+        }
+    } else if t.qself.is_some()
         || t.path.segments.len() != 1
         || !matches!(
             t.path.segments[0].ident.to_string().as_str(),
@@ -72,6 +90,14 @@ pub(crate) fn expand(
     let name = &item.ident;
     let mut seen = vec![];
     let mut models = vec![];
+    if nonzero {
+        models.push(quote! {
+            impl #name {
+                #[doc(hidden)]
+                pub closed spec fn __verus_infer_nonzero_u64_view(&self) -> u64 { self.0@ }
+            }
+        });
+    }
     for op in operators {
         let method = match op.to_string().as_str() {
             "From" => "from",
@@ -127,7 +153,16 @@ pub(crate) fn expand(
             let obeys = format_ident!("obeys_{}_spec", method);
             let spec = format_ident!("{}_spec", method);
             let (result, body) = match method {
+                "eq" if nonzero => (quote!(bool), quote!(self.0@ == rhs.0@)),
                 "eq" => (quote!(bool), quote!(self.#member == rhs.#member)),
+                "cmp" if nonzero => (
+                    quote!(::core::cmp::Ordering),
+                    quote!(#vstd::std_specs::cmp::OrdSpec::cmp_spec(&self.0@,&rhs.0@)),
+                ),
+                "partial_cmp" if nonzero => (
+                    quote!(Option<::core::cmp::Ordering>),
+                    quote!(Some(#vstd::std_specs::cmp::OrdSpec::cmp_spec(&self.0@,&rhs.0@))),
+                ),
                 "cmp" => (
                     quote!(::core::cmp::Ordering),
                     quote!(#vstd::std_specs::cmp::#base::#spec(&self.#member,&rhs.#member)),
@@ -137,11 +172,12 @@ pub(crate) fn expand(
                     quote!(#vstd::std_specs::cmp::#base::#spec(&self.#member,&rhs.#member)),
                 ),
             };
+            let visibility = if nonzero { quote!(closed) } else { quote!(open) };
             models.push(quote! {
                 impl #name {#[doc(hidden)] pub open spec fn #marker(&self)->bool {true}}
                 impl #vstd::std_specs::cmp::#extension for #name {
                     open spec fn #obeys()->bool {true}
-                    open spec fn #spec(&self,rhs:&Self)->#result {#body}
+                    #visibility spec fn #spec(&self,rhs:&Self)->#result {#body}
                 }
             });
             continue;

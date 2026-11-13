@@ -700,6 +700,10 @@ pub(crate) fn crate_to_vir<'a, 'tcx>(
 
     check_anon_consts(&ctxt, &mut state, &mut infos, crate_items)?;
 
+    crate::checked_foreign::register(&ctxt, &mut state, &mut infos).map_err(|e| vec![e])?;
+    crate::checked_nonzero_ord::register(&ctxt, &mut state, &mut infos, imported)
+        .map_err(|e| vec![e])?;
+
     let function_stubs: Vec<_> = infos.iter().flat_map(|info| info.iter_stubs()).cloned().collect();
     crate::tuple_clone::register(&function_stubs, &mut vir);
     crate::rust_to_vir_impl::collect_external_trait_impls(
@@ -712,6 +716,9 @@ pub(crate) fn crate_to_vir<'a, 'tcx>(
     .map_err(|e| vec![e])?;
 
     crate::rust_to_vir_adts::setup_type_invariants(&mut vir, &function_stubs)
+        .map_err(|e| vec![e])?;
+
+    crate::rust_to_vir_ctor::register_function_items(&ctxt, &vir, &mut state, &mut infos)
         .map_err(|e| vec![e])?;
 
     let mut fun_warn_configs: HashMap<Fun, Option<WarningConfig>> = HashMap::new();

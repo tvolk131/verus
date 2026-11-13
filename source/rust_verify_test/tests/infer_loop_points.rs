@@ -183,21 +183,32 @@ pub fn use_checked(values: &mut Vec<u16>, chosen: u16)
     assert!(report["functions"].as_array().unwrap().is_empty());
     let metadata = ordinary_envelope(&crates.vir("loop_provider"));
     let certificate = &metadata["certificate"];
-    assert_eq!(certificate["schema"], 38);
-    assert_eq!(certificate["policy"], "candidate-bound-evidence-v76");
+    assert_eq!(certificate["schema"], 40);
+    assert_eq!(certificate["policy"], "candidate-bound-evidence-v79");
     assert!(!certificate["producer"].as_str().unwrap().is_empty());
     for guarantee in ["soundness", "maximality", "exactness"] {
         assert_eq!(certificate[guarantee], true);
     }
-    for empty in ["proofs", "dependencies", "trusted_models"] {
+    for empty in ["proofs", "dependencies", "foreign_dependencies"] {
         assert!(certificate[empty].as_array().unwrap().is_empty());
     }
+    assert!(!certificate["trusted_models"].as_array().unwrap().is_empty());
     assert_eq!(
         report["imported_inference_dependencies"],
         serde_json::json!([{
             "crate_id": metadata["crate_id"], "fingerprint": metadata["fingerprint"]
         }])
     );
+    crates.edit_metadata("loop_provider", |certificate| {
+        certificate["trusted_models"][0][1] = "0".repeat(64).into();
+    });
+    let poisoned =
+        crates.build_source("loop_consumer", consumer, &["loop_provider"], &options, true);
+    assert!(!poisoned.status.success());
+    assert!(!crates.vir("loop_consumer").exists());
+    assert!(String::from_utf8_lossy(&poisoned.stderr).contains("trusted-model fingerprint"));
+    let restored = crates.build_source("loop_provider", GENERIC, &[], &options, true);
+    assert!(restored.status.success(), "{}", String::from_utf8_lossy(&restored.stderr));
     crates.edit_metadata("loop_provider", |certificate| certificate["soundness"] = false.into());
     let rejected =
         crates.build_source("loop_consumer", consumer, &["loop_provider"], &options, true);
@@ -215,11 +226,18 @@ if not raw.endswith(b'VRINFER1'):
     raise ValueError('missing ordinary proof envelope')
 start = raw.rindex(b'{"schema":')
 certificate = json.loads(raw[start:-8])
+if certificate['foreign_dependencies'] != []:
+    raise ValueError('unexpected foreign evidence in ordinary-only provider')
+# Legacy bincode encodes the empty foreign-evidence sequence as a u64 length.
+# The certificate binds (Krate, foreign evidence), while CrateWithMetadata stores
+# its crate ID immediately after Krate.
 prefix_hash = hashlib.sha256()
 prefix_length = None
 for position in range(start):
     prefix_hash.update(raw[position:position + 1])
-    if prefix_hash.hexdigest() == certificate['summaries']:
+    bound_hash = prefix_hash.copy()
+    bound_hash.update(bytes(8))
+    if bound_hash.hexdigest() == certificate['summaries']:
         prefix_length = position + 1
         break
 if prefix_length is None or prefix_length + 8 > start:

@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v82:composed-native-mechanics:4096";
+const VERSION: &str = "verus-infer-v83:integrated-profiles-and-checked-foreign:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -39,6 +39,8 @@ enum Formula {
     IsVariant(String, Box<Formula>),
     Field(String, Box<Formula>),
     Array(enums::ValueType, usize, Vec<Formula>),
+    Pair(Vec<enums::ValueType>, Vec<Formula>),
+    PairField(usize, Box<Formula>),
 }
 #[derive(Clone, Serialize, Deserialize)]
 struct Candidate {
@@ -98,6 +100,21 @@ fn encode(e: &Expr, params: &Params) -> Formula {
         ExprX::Binary(op, a, b) => Formula::Binary(*op, enc(a), enc(b)),
         ExprX::Logical(op, a, b) => Formula::Logical(*op, enc(a), enc(b)),
         ExprX::If(c, a, Some(b)) => Formula::If(enc(c), enc(a), enc(b)),
+        ExprX::Ctor(dt, variant, fields, None)
+            if tuples::valid_ctor(&e.typ, dt, variant, fields) =>
+        {
+            Formula::Pair(
+                tuples::shape(&e.typ)
+                    .unwrap()
+                    .iter()
+                    .map(|t| enums::ValueType::from_typ(t).unwrap())
+                    .collect(),
+                fields.iter().map(|f| encode(&f.a, params)).collect(),
+            )
+        }
+        ExprX::UnaryOpr(UnaryOpr::Field(op), a) if tuples::index(op, &a.typ).is_some() => {
+            Formula::PairField(tuples::index(op, &a.typ).unwrap(), enc(a))
+        }
         ExprX::Ctor(_, variant, fields, None) => Formula::Ctor(
             enums::ValueType::from_typ(&e.typ).unwrap(),
             variant.to_string(),
@@ -156,6 +173,25 @@ fn decode(
                     .map(|e| decode(e, function, remaining, allow_result))
                     .collect::<Result<Vec<_>, _>>()?,
             )
+        }
+        Formula::Pair(types, fields) => {
+            if types.len() != 2 || fields.len() != 2 {
+                return Err(invalid());
+            }
+            let ts =
+                types.iter().map(|t| t.typ().ok_or_else(invalid)).collect::<Result<Vec<_>, _>>()?;
+            let typ = Arc::new(TypX::Datatype(Dt::Tuple(2), Arc::new(ts), Arc::new(vec![])));
+            tuples::ctor(
+                span,
+                &typ,
+                fields
+                    .iter()
+                    .map(|f| decode(f, function, remaining, allow_result))
+                    .collect::<Result<Vec<_>, _>>()?,
+            )
+        }
+        Formula::PairField(i, a) => {
+            tuples::field(span, decode(a, function, remaining, allow_result)?, *i)
         }
         Formula::Ctor(typ, variant, field) => enums::ctor(
             span,
@@ -366,7 +402,10 @@ impl Registry {
                     &dependencies,
                     &self.configuration,
                 );
-                let wrappers = newtypes::Newtypes::new(&self.datatypes);
+                let wrappers = newtypes::Newtypes::with_comparisons(
+                    &self.datatypes,
+                    &self.originals.values().cloned().collect::<Vec<_>>(),
+                );
                 let callees = candidates
                     .iter()
                     .map(|(n, c)| {
@@ -403,7 +442,10 @@ impl Registry {
                     &dependencies,
                     &self.configuration,
                 );
-                let wrappers = newtypes::Newtypes::new(&self.datatypes);
+                let wrappers = newtypes::Newtypes::with_comparisons(
+                    &self.datatypes,
+                    &self.originals.values().cloned().collect::<Vec<_>>(),
+                );
                 let projected_caller = self.projected.contains(&name);
                 let record_callees = candidates
                     .iter()
@@ -561,7 +603,10 @@ impl Registry {
         let prepared = owned::prepare(&prepared, imported, datatypes);
         let prepared = owned::borrowed::prepare(&prepared, imported, datatypes)?;
         let functions = prepared.as_slice();
-        let wrappers = newtypes::Newtypes::new(datatypes);
+        let wrappers = newtypes::Newtypes::with_comparisons(
+            datatypes,
+            &functions.iter().chain(imported).cloned().collect::<Vec<_>>(),
+        );
         for f in functions.iter().chain(imported).filter(|f| wrapper_traits::kind(f).is_some()) {
             if wrapper_traits::kind(f) == Some(wrapper_traits::Kind::Binary) {
                 let FunctionKind::TraitMethodImpl { method, .. } = &f.x.kind else {

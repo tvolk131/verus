@@ -144,6 +144,43 @@ fn import_args(path: &Path, via_cargo: bool, mode: &str) -> (Args, Vec<(String, 
     (Arc::new(args), cargo)
 }
 
+// Exercise the real importer, including its TyCtxt-bound foreign checks.
+// The transport fixtures contain no foreign certificate; no checker is mocked.
+fn import_crates(args: &Args, cargo: Vec<(String, String)>) -> Result<ImportOutput, VirErr> {
+    struct Import<'a> {
+        args: &'a Args,
+        cargo: Option<Vec<(String, String)>>,
+        output: Option<Result<ImportOutput, VirErr>>,
+    }
+    impl rustc_driver::Callbacks for Import<'_> {
+        fn after_analysis<'tcx>(
+            &mut self,
+            _: &rustc_interface::interface::Compiler,
+            tcx: rustc_middle::ty::TyCtxt<'tcx>,
+        ) -> rustc_driver::Compilation {
+            self.output = Some(super::import_crates(self.args, self.cargo.take().unwrap(), tcx));
+            rustc_driver::Compilation::Stop
+        }
+    }
+    let directory = tempfile::tempdir().unwrap();
+    let input = directory.path().join("import_context.rs");
+    std::fs::write(&input, "pub fn context() {}\n").unwrap();
+    let sysroot = Command::new("rustc").args(["--print", "sysroot"]).output().unwrap();
+    assert!(sysroot.status.success());
+    let argv = vec![
+        "rustc".into(),
+        input.display().to_string(),
+        "--crate-type=lib".into(),
+        "--sysroot".into(),
+        String::from_utf8(sysroot.stdout).unwrap().trim().into(),
+        "--out-dir".into(),
+        directory.path().display().to_string(),
+    ];
+    let mut callback = Import { args, cargo: Some(cargo), output: None };
+    rustc_driver::run_compiler(&argv, &mut callback);
+    callback.output.expect("import callback did not run")
+}
+
 fn assert_import_rejected(args: &Args, cargo: Vec<(String, String)>) {
     let error = match import_crates(args, cargo) {
         Ok(_) => panic!("marked resource artifact was imported"),
@@ -239,7 +276,7 @@ fn marked_exports_are_rejected_before_private_pruning_and_verified_metadata() {
                         &via_cargo.then(|| path.clone()),
                         metadata(),
                         fixture(true, private, bodyless),
-                        verified.then_some((&[], &proofs, &[])),
+                        verified.then_some((&[], &proofs, &[], &[])),
                     )
                     .unwrap_err();
                     assert!(

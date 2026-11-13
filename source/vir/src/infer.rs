@@ -14,8 +14,11 @@ use std::sync::Arc;
 mod abstract_infer;
 mod arithmetic;
 mod arrays;
+mod assistance;
 mod bitvector_hints;
 mod bitwise;
+mod buffer_goals;
+mod buffer_observation_goals;
 mod byte_models;
 mod collections;
 mod contract;
@@ -28,8 +31,11 @@ mod exact_hints;
 mod exits;
 mod fold_goals;
 mod goals;
+mod native_mutable_for;
 mod slice_array;
 mod type_invariant_goals;
+mod word_goals;
+mod word_sequence_goals;
 mod xor_goals;
 pub use exact_hints::opt_in as exact_size_hint_opt_in;
 pub use exact_hints::validate as validate_exact_size_hints;
@@ -57,6 +63,7 @@ mod registry;
 mod selector_goals;
 mod sequence_triggers;
 mod sequence_views;
+mod set_goals;
 mod trait_getters;
 mod wrapper_binary;
 mod wrapper_compare;
@@ -178,10 +185,14 @@ mod report;
 mod simplify;
 mod slices;
 mod summary;
+mod tuples;
 mod widening;
 
 pub use pipeline::GoalContext;
-pub use report::{AssistanceOutcome, GeneratedCandidate, GenerationReport, LoopPointPreparation};
+pub use report::{
+    AssistanceOutcome, EXPLAINED_PROFILES, GeneratedCandidate, GenerationReport,
+    LoopPointPreparation,
+};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
@@ -380,6 +391,12 @@ impl Engine<'_> {
             {
                 self.array_index(&place.span, base, index)
             }
+            PlaceX::Field(op, base) if tuples::index(op, &base.typ).is_some() => {
+                let i = tuples::index(op, &base.typ).unwrap();
+                let base = self.place(base)?;
+                let selected = tuples::field(&place.span, value(&base, &place.span)?, i)?;
+                Ok(Summary { safe: base.safe, value: Some(selected) })
+            }
             PlaceX::Field(op, base)
                 if op.check == VariantCheck::None
                     && op.field == crate::def::positional_field_ident(0)
@@ -455,6 +472,19 @@ impl Engine<'_> {
             ExprX::Const(c @ (Constant::Bool(_) | Constant::Int(_))) => {
                 let typ = if matches!(c, Constant::Int(_)) { int_typ() } else { bool_typ() };
                 pure(term(span, &typ, ExprX::Const(c.clone()), 1)?)
+            }
+            ExprX::Ctor(dt, variant, fields, None)
+                if tuples::valid_ctor(&expr.typ, dt, variant, fields) =>
+            {
+                let mut safe = boolean(span, true);
+                let mut values = Vec::new();
+                // Eagerly evaluate EVERY operand, including later-discarded fields.
+                for field in fields.iter() {
+                    let part = self.expr(&field.a)?;
+                    safe = logical(span, LogicalOp::And, safe, part.safe.clone())?;
+                    values.push(value(&part, span)?);
+                }
+                Ok(Summary { safe, value: Some(tuples::ctor(span, &expr.typ, values)?) })
             }
             ExprX::Ctor(dt, variant, fields, None)
                 if matches!(&*expr.typ, TypX::Datatype(actual, ..) if actual == dt)
@@ -1230,6 +1260,19 @@ pub fn infer_functions_with_report(
     infer_functions_with_datatypes(functions, imported, &[], configuration, report)
 }
 
+/// Local-only export refusal, independent of whether an Ord helper was needed.
+/// This recognizes a request, not eligibility or a proved ordering theorem.
+pub fn local_nonzero_ordering_request(f: &FunctionStub, datatypes: &[Datatype]) -> bool {
+    f.x.mode == Mode::Spec
+        && matches!(
+            f.x.name.path.last_segment().as_str(),
+            "__verus_infer_derived_cmp" | "__verus_infer_derived_partial_cmp"
+        )
+        && f.x.params.len() == 1
+        && trait_getters::shared(&f.x.params[0].x.typ)
+            .is_some_and(|owner| wrapper_compare::nonzero_owner(owner, datatypes))
+}
+
 pub fn infer_functions_with_datatypes(
     functions: &[Function],
     imported: &[Function],
@@ -1271,7 +1314,7 @@ pub fn validate_imported_summary_with_context(
     datatypes: &[Datatype],
     functions: &[Function],
 ) -> Result<(), VirErr> {
-    let projected = newtypes::Newtypes::new(datatypes).project(function)?;
+    let projected = newtypes::Newtypes::with_comparisons(datatypes, functions).project(function)?;
     if is_owned_summary(&projected) {
         return owned::validate_summary(
             &projected,

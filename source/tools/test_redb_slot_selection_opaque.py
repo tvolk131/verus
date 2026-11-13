@@ -139,7 +139,11 @@ class OpaqueGates(unittest.TestCase):
                 self.accept(positive(self.source), stderr=marker)
 
     def certificate(self):
-        return opaque.original.read_json(opaque.original.LIVE_EVIDENCE / "redb-provider-certificate.json")
+        # Only this synthetic unit input adopts current identity fields.
+        # The archived certificate file remains byte-identical and is not proof.
+        data = opaque.original.read_json(opaque.original.LIVE_EVIDENCE / "redb-provider-certificate.json")
+        data.update(schema=opaque.INTERFACE_SCHEMA, policy=opaque.INTERFACE_POLICY, foreign_dependencies=[])
+        return data
 
     def test_current_fixture_identity_rejects_archived_and_untyped_versions(self):
         baseline = opaque.fixtures()
@@ -152,6 +156,17 @@ class OpaqueGates(unittest.TestCase):
             with self.subTest(identity=identity), patch.object(opaque.original, "read_json", return_value=changed):
                 with self.assertRaisesRegex(ValueError, "engine identity changed"):
                     opaque.fixtures()
+
+    def test_unexpected_or_missing_foreign_dependencies_refuse(self):
+        for value in (None, False, [{"unchecked": True}]):
+            data = self.certificate()
+            data["foreign_dependencies"] = value
+            with self.assertRaisesRegex(ValueError, "foreign dependencies"):
+                opaque.validate_certificate(self.encoded(data))
+        data = self.certificate()
+        data.pop("foreign_dependencies")
+        with self.assertRaisesRegex(ValueError, "foreign dependencies"):
+            opaque.validate_certificate(self.encoded(data))
 
     def test_current_certificate_does_not_accept_archived_metadata(self):
         archived = opaque.original.read_json(opaque.original.EVIDENCE / "provider-certificate.json")

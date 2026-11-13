@@ -13,7 +13,7 @@ from infer_transfer_identity import CACHE_VERSION, ENGINE_IDENTITY, INTERFACE_PO
 import check_fedimint_fee_encoding as fee
 
 
-FIXTURE = Path(__file__).resolve().parents[2] / "evidence/transfer-fedimint-fee-encoding/helpers.source.rs"
+FIXTURE = Path(__file__).resolve().parents[2] / "source/tools/fixtures/transfers/transfer-fedimint-fee-encoding/helpers.source.rs"
 
 
 class FeeEncodingTests(unittest.TestCase):

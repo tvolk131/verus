@@ -103,5 +103,8 @@ test_verify_one_file_with_options! {
         }
 
         fn main() { }
-    } => Ok(())
+    }.replace(
+        "../../../../",
+        &format!("{}/../", env!("CARGO_MANIFEST_DIR").replace('\\', "/")),
+    ) => Ok(())
 }

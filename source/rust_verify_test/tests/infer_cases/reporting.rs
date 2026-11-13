@@ -175,8 +175,16 @@ fn assistance_explanations_distinguish_disabled_and_skipped_profiles() {
         assert_eq!(explanations["enabled"], true);
         assert_eq!(explanations["preparation_started"], true);
         assert_eq!(explanations["preparation_completed"], true);
-        assert_eq!(explanations["profiles"], serde_json::json!(["growth_loop", "range_loop"]));
-        for profile in ["growth_loop", "range_loop"] {
+        assert_eq!(
+            explanations["profiles"],
+            serde_json::json!([
+                "growth_loop",
+                "pointwise_transport",
+                "range_loop",
+                "mutable_buffer_u64_radix128"
+            ])
+        );
+        for profile in ["growth_loop", "pointwise_transport", "range_loop"] {
             for (function, reason) in [
                 ("::ordinary", "missing_mutable_receiver"),
                 ("::increment", "inference_candidate"),
@@ -184,11 +192,16 @@ fn assistance_explanations_distinguish_disabled_and_skipped_profiles() {
             ] {
                 let decision = common::infer::assistance_decision(&report, profile, function);
                 assert_eq!(decision["status"], "skipped");
+                let reason = if profile == "pointwise_transport" && function == "::ordinary" {
+                    "unsupported_transport_signature"
+                } else {
+                    reason
+                };
                 assert_eq!(decision["reason"], reason);
                 assert!(!decision["message"].as_str().unwrap().is_empty());
             }
         }
-        assert_eq!(explanations["decisions"].as_array().unwrap().len(), 6);
+        assert_eq!(explanations["decisions"].as_array().unwrap().len(), 9);
         if let Some(first) = &first {
             assert_eq!(explanations, first, "warm runs must retain deterministic explanations");
         }

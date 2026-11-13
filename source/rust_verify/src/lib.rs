@@ -5,6 +5,7 @@
 // available to cargo
 extern crate rustc_driver;
 
+extern crate rustc_abi;
 extern crate rustc_arena;
 extern crate rustc_ast;
 extern crate rustc_data_structures;
@@ -26,6 +27,18 @@ extern crate rustc_span;
 extern crate rustc_trait_selection;
 extern crate rustc_type_ir;
 
+#[cfg(test)]
+pub(crate) fn test_verus_root() -> std::path::PathBuf {
+    std::env::var_os("VERUS_TEST_ROOT")
+        .map(|p| std::path::absolute(p).expect("absolute VERUS_TEST_ROOT"))
+        .unwrap_or_else(|| {
+            std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+                .parent()
+                .unwrap()
+                .join("target-verus/release")
+        })
+}
+
 mod attributes;
 mod buckets;
 pub mod commands;
@@ -38,6 +51,9 @@ mod automatic_derive;
 mod boundary_suggestions;
 pub mod cargo_verus;
 pub mod cargo_verus_dep_tracker;
+mod checked_foreign;
+mod checked_foreign_packing;
+mod checked_nonzero_ord;
 pub mod context;
 pub mod def;
 pub mod driver;
@@ -49,6 +65,7 @@ pub mod file_loader;
 mod fn_call_to_vir;
 mod hir_hide_reveal_rewrite;
 mod import_export;
+pub mod internal_repr;
 mod native_const;
 mod native_exact_hints;
 mod pre_header;

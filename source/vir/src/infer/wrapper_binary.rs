@@ -57,8 +57,10 @@ pub(super) fn validate_derived_requests(
             return Err(bad());
         }
         let field = &data.x.variants[0].fields[0].a.0;
-        if !newtypes::Newtypes::new(datatypes).wrapper(owner)
-            || !matches!(&**field,TypX::Int(r) if arithmetic::exact_range(*r))
+        if !(newtypes::Newtypes::new(datatypes).wrapper(owner)
+            && matches!(&**field,TypX::Int(r) if arithmetic::exact_range(*r))
+            || matches!(suffix, "eq" | "cmp" | "partial_cmp")
+                && wrapper_compare::nonzero_owner(owner, datatypes))
         {
             return Err(bad());
         }

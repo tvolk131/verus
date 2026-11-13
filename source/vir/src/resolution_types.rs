@@ -27,7 +27,7 @@ impl ResolutionTypes {
                     // (although this is rare)
                     graph.add_root(path.clone());
                 }
-                DatatypeTransparency::WhenVisible(_) => {
+                DatatypeTransparency::WhenVisible(_) | DatatypeTransparency::Internal(_) => {
                     for variant in datatype.x.variants.iter() {
                         for field in variant.fields.iter() {
                             res_typ_visitor(

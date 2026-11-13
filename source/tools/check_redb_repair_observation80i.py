@@ -14,7 +14,7 @@ from infer_experiment import LoggedCommands, replay_receipt
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = ROOT / "evidence/transfer-redb-repair-observation80i"
+EVIDENCE = ROOT / "source/tools/fixtures/transfers/transfer-redb-repair-observation80i"
 PIN = "c82ab865bb362bc4af067d332adc44978ff64813"
 DB = "src/db.rs"
 HEADER_HASH = "35863472a48f9e0eb65a0f9ba0b2517a888a881478476aaafbcbfc77842850f9"
@@ -62,7 +62,7 @@ def extract(application):
 
 
 def scaffold(pieces):
-    declarations = json.loads((ROOT / "evidence/transfer-redb-slot-selection-opaque78/fixtures.json").read_text())["opaque_declarations"]
+    declarations = json.loads((ROOT / "source/tools/fixtures/transfers/transfer-redb-slot-selection-opaque78/fixtures.json").read_text())["opaque_declarations"]
     source = "use vstd::prelude::*;\nuse std::{io, panic};\n" + declarations
     source += "verus! {\n#[derive(Debug)]\n#[non_exhaustive]\n" + pieces["StorageError"]
     source += "\npub type Result<T = (), E = StorageError> = core::result::Result<T, E>;\n"

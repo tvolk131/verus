@@ -124,6 +124,22 @@ pub struct ArgsX {
 }
 
 impl ArgsX {
+    /// Complete body checking, rather than merely an unfiltered selection.
+    /// Shared by reporting and inference-aware publication checks.
+    pub fn checks_entire_crate(&self) -> bool {
+        !self.no_verify
+            && !self.verify_root
+            && self.verify_function.is_none()
+            && self.verify_module.is_empty()
+            && self.verify_only_module.is_empty()
+    }
+
+    /// Inference-aware certification also needs the ordinary Rust/Verus
+    /// lifetime and trait-consistency phases, not only every body query.
+    pub fn can_certify_inference(&self) -> bool {
+        self.checks_entire_crate() && !self.no_lifetime && !self.no_trait_conflicts
+    }
+
     pub fn new() -> Self {
         Self {
             export: Default::default(),

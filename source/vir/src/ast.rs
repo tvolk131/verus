@@ -1853,6 +1853,10 @@ pub struct Variant {
 pub enum DatatypeTransparency {
     Never,
     WhenVisible(Visibility),
+    /// Compiler-owned, module-uniform logical encoding with original source
+    /// field privacy. Experimental/local only: no wire or import authority.
+    #[serde(skip)]
+    Internal(crate::internal_repr::InternalRepresentation),
 }
 
 /// After ast_simplify, all the tuples are added to the Krate, so we can uniformly

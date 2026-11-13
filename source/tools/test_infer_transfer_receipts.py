@@ -101,7 +101,7 @@ class FullRequestTests(unittest.TestCase):
         patch.object(acceptance, "engine_ledger").start()
         self.snapshot_checks = patch.object(acceptance, "snapshot").start()
         patch.object(acceptance, "tool_artifacts", return_value=[]).start()
-        certificate = dict(schema=INTERFACE_SCHEMA, policy=INTERFACE_POLICY, soundness=True, maximality=True,
+        certificate = dict(schema=INTERFACE_SCHEMA, foreign_dependencies=[], policy=INTERFACE_POLICY, soundness=True, maximality=True,
             exactness=True, summaries="f" * 64, dependencies=[], trusted_models=[[{}, "f" * 64]],
             proofs=[[dict(path=dict(krate=dict(Id=["full_provider", 7]), segments=[name])),
                      dict(soundness=True, maximality=True, exactness=True)] for name in self.contracts])

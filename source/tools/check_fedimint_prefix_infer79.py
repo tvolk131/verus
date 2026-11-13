@@ -10,13 +10,13 @@ from types import SimpleNamespace
 
 import check_fedimint_prefix_boundary as boundary
 from infer_eval_support import ArtifactGuard, tool_artifacts
-from infer_transfer_identity import CACHE_VERSION, ENGINE_IDENTITY as IDENTITY, INTERFACE_POLICY as POLICY
+from infer_transfer_identity import CACHE_VERSION, ENGINE_IDENTITY as IDENTITY, INTERFACE_POLICY as POLICY, require_no_foreign_dependencies
 from workflow_runtime import (artifact, bind_execution, digest, environment as shared_environment,
     execute, identical, read_json, validate_command as shared_command, validate_outcome, validate_timed)
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = ROOT / "evidence/transfer-fedimint-prefix-infer79"
+EVIDENCE = ROOT / "source/tools/fixtures/transfers/transfer-fedimint-prefix-infer79"
 OBLIGATIONS = ("soundness", "maximality", "exactness")
 require = boundary.require
 write_json = boundary.write_json
@@ -156,6 +156,7 @@ def certificate(blob):
 
 def check_certificate(blob):
     value, fingerprint = certificate(blob)
+    require_no_foreign_dependencies(value)
     require(type(value.get("schema")) is int and value["schema"] == IDENTITY[2], "interface schema")
     require(value.get("policy") == POLICY and type(value.get("producer")) is str and value["producer"], "interface policy/producer")
     require(all(value.get(key) is True for key in OBLIGATIONS), "certificate proof guarantees")
@@ -318,7 +319,7 @@ def identity_sources():
     interfaces = (ROOT / "source/rust_verify/src/import_export.rs").read_text()
     require('const VERSION: &str = "' + CACHE_VERSION + '";' in registry, "current cache identity")
     require('const INFER_POLICY: &str = "' + POLICY + '";' in interfaces, "current interface policy")
-    require("const INFER_SCHEMA: u32 = 38;" in interfaces, "current interface schema")
+    require(f"const INFER_SCHEMA: u32 = {IDENTITY[2]};" in interfaces, "current interface schema")
 
 
 def completion(cases, baseline):

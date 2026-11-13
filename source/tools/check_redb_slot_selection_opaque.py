@@ -12,11 +12,11 @@ import subprocess
 import check_redb_slot_selection as original
 from infer_eval_support import ArtifactGuard, digest, tool_artifacts
 from infer_experiment import LoggedCommands, positive_timeout, replay_receipt, require
-from infer_transfer_identity import CACHE_VERSION, ENGINE_IDENTITY, INTERFACE_POLICY, INTERFACE_SCHEMA
+from infer_transfer_identity import CACHE_VERSION, ENGINE_IDENTITY, INTERFACE_POLICY, INTERFACE_SCHEMA, require_no_foreign_dependencies
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = ROOT / "evidence/transfer-redb-slot-selection-opaque78"
+EVIDENCE = ROOT / "source/tools/fixtures/transfers/transfer-redb-slot-selection-opaque78"
 FIXTURES = original.LIVE_EVIDENCE / "redb-opaque-fixtures.json"
 METHODS = ("primary_slot", "secondary_slot", "swap_primary_slot", "select_primary_slot")
 RECORDS = ("PageNumber", "BtreeHeader", "TransactionHeader", "DatabaseHeader", "UnrepairedDatabaseHeader")
@@ -166,6 +166,7 @@ def validate_certificate(raw, crate="provider", dependencies=None):
     expected = fixtures()["certificate"]
     require(type(certificate.get("schema")) is int and certificate["schema"] == INTERFACE_SCHEMA
             and certificate.get("policy") == INTERFACE_POLICY, "certificate identity changed")
+    require_no_foreign_dependencies(certificate)
     require(certificate.get("producer") == expected["producer"], "certificate producer changed")
     require(all(certificate.get(key) is True for key in PROOFS), "certificate guarantees incomplete")
     proofs = certificate["proofs"]

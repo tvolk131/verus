@@ -377,7 +377,7 @@ def replay(args, output, receipt):
         "--others", "--exclude-standard"]).splitlines()
     compiler_paths = compiler_artifacts(compiler)
     inputs = [*engine_sources, *(application / relative for relative in app_files),
-        *output.glob("*.rs"), *list((engine / "evidence/transfer-fedimint-fee-encoding").glob("*")),
+        *output.glob("*.rs"), *list((engine / "source/tools/fixtures/transfers/transfer-fedimint-fee-encoding").glob("*")),
         *compiler_paths]
     guard = ArtifactGuard(tool_artifacts(verifier, solver, extra=[path for path in inputs if path.is_file()]))
     receipt["artifacts_before"] = guard.initial

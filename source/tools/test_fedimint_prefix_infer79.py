@@ -37,7 +37,7 @@ def fixture():
 
 
 def certificate_fixture():
-    return dict(schema=38, policy=infer.POLICY, producer="unit-only", soundness=True, maximality=True, exactness=True,
+    return dict(schema=infer.IDENTITY[2], foreign_dependencies=[], policy=infer.POLICY, producer="unit-only", soundness=True, maximality=True, exactness=True,
                 proofs=[[dict(path=dict(krate=dict(Id=["prefix_provider", 1]), segments=["key_contents"])),
                          dict(soundness=True, maximality=True, exactness=True)]],
                 summaries="a" * 64, dependencies=[], trusted_models=[[dict(path=dict(krate="Vstd", segments=["seq", "Seq", "add"])), "b" * 64]])

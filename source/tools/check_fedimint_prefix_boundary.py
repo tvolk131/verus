@@ -14,7 +14,7 @@ from infer_transfer_identity import ENGINE_IDENTITY
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = ROOT / "evidence/transfer-fedimint-prefix-boundary78"
+EVIDENCE = ROOT / "source/tools/fixtures/transfers/transfer-fedimint-prefix-boundary78"
 PIN = "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236"
 DATABASE = "fedimint-core/src/db/mod.rs"
 NATIVE = {

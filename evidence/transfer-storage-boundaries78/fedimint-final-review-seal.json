@@ -1,8 +1,0 @@
-{
-  "file_inventory_sha256": "2cd181661b344c8f27243cc4b5e20304e83b30fcbdb74ff8594efdd6fdeac234",
-  "report": "/private/tmp/verus-prefix-independent-review.kOm1mu/REPORT.md",
-  "report_sha256": "ce2dcc2a46e31b759cac8afa8fcd0fd60258c44e479c0f2d2f3dc30ed00cba8a",
-  "reviewed_inputs_unchanged": true,
-  "sealed_file_count": 274,
-  "verdict": "BOUNDED NO FINDINGS; ZERO INFERENCE PROGRESS"
-}

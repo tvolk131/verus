@@ -8,7 +8,7 @@ import check_fedimint_full_request as full
 from infer_experiment import require_exact, validate_run
 
 
-FIXTURES = Path(__file__).resolve().parents[2] / "evidence/transfer-fedimint-full-request"
+FIXTURES = Path(__file__).resolve().parents[2] / "source/tools/fixtures/transfers/transfer-fedimint-full-request"
 
 
 def fixture():

@@ -384,8 +384,8 @@ fn check_datatype_access(
         assert!(emit.has_fatal_errors());
         return Ok(());
     };
-    match &dt.x.transparency {
-        DatatypeTransparency::Never => {
+    match crate::ast_util::source_datatype_visibility(&dt.x.transparency) {
+        None => {
             // This can only happen if the datatype is 'external_body'
             return Err(error_with_label(
                 span,
@@ -397,7 +397,7 @@ fn check_datatype_access(
                 "Verus treats this datatype as 'opaque' because it is marked 'external_body'",
             ));
         }
-        DatatypeTransparency::WhenVisible(vis) => {
+        Some(vis) => {
             let required_vis = if let Some((required_vis, _reason)) = disallow_private_access {
                 required_vis.clone()
             } else {
@@ -1793,6 +1793,7 @@ fn check_function_inner(
 }
 
 fn check_datatype(ctxt: &Ctxt, dt: &Datatype, emit: &mut EmitErrorState) -> Result<(), VirErr> {
+    crate::internal_repr::validate_datatype(dt)?;
     for variant in dt.x.variants.iter() {
         for field in variant.fields.iter() {
             let typ = &field.a.0;
@@ -1808,7 +1809,7 @@ fn check_datatype(ctxt: &Ctxt, dt: &Datatype, emit: &mut EmitErrorState) -> Resu
             ));
         }
         match &dt.x.transparency {
-            DatatypeTransparency::Never => {}
+            DatatypeTransparency::Never | DatatypeTransparency::Internal(_) => {}
             DatatypeTransparency::WhenVisible(vis) => {
                 if vis.is_public() {
                     return Err(error(
@@ -2365,4 +2366,41 @@ pub fn check_crate_final(
 /// Check the post-merge krate.
 pub fn check_crate_merged(merged_krate: &Krate) -> Result<(), VirErr> {
     crate::recursive_types::check_recursive_types(merged_krate)
+}
+
+/// Exercise the actual source-access gate without a source attribute that could
+/// manufacture an internal representation. Synthetic IR only, not Rust privacy.
+#[cfg(test)]
+pub(crate) fn internal_repr_test_source_access(
+    krate: &Krate,
+    path: &Path,
+    module: Option<Path>,
+    public_contract: bool,
+) -> bool {
+    let lookup = Arc::new(WfLookup {
+        reveal_groups: HashSet::new(),
+        dts: Arc::new(
+            krate.datatypes.iter().map(|d| (d.x.name.expect_path(), d.clone())).collect(),
+        ),
+        merged_traits: Arc::new(crate::traits::MergedTraitsX {
+            traits: vec![],
+            trait_impls: vec![],
+            trait_map: HashMap::new(),
+        }),
+    });
+    let ctxt = Ctxt { funs: Arc::new(HashMap::new()), lookup, krate, no_cheating: true };
+    run_function_check(|emit| {
+        let public = Visibility { restricted_to: None };
+        check_datatype_access(
+            &ctxt,
+            path,
+            public_contract.then_some((&public, "public spec")),
+            &module,
+            &krate.datatypes[0].span,
+            "field access",
+            emit,
+        )
+    })
+    .0
+    .is_ok()
 }

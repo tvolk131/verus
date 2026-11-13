@@ -11,12 +11,12 @@ import subprocess
 from check_redb_page_size import item
 from infer_eval_support import digest
 from infer_experiment import LoggedCommands, positive_timeout, replay_receipt, require, require_exact
-from infer_transfer_identity import CACHE_VERSION, ENGINE_IDENTITY, INTERFACE_POLICY, INTERFACE_SCHEMA
+from infer_transfer_identity import CACHE_VERSION, ENGINE_IDENTITY, INTERFACE_POLICY, INTERFACE_SCHEMA, require_no_foreign_dependencies
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = ROOT / "evidence/transfer-redb-slot-selection"
-LIVE_EVIDENCE = ROOT / "evidence/transfer-two-project-integration82-final2"
+EVIDENCE = ROOT / "source/tools/fixtures/transfers/transfer-redb-slot-selection"
+LIVE_EVIDENCE = ROOT / "source/tools/fixtures/transfers/transfer-two-project-integration82-final2"
 PIN = "c82ab865bb362bc4af067d332adc44978ff64813"
 CHECKPOINT = "3b05c1912b9d7314ad00c832c4065f4362562e02"
 BASELINE_PATCH = "545e330ee87d539aa727154a6121f251f557a18867be62517a9867592a372e12"
@@ -289,6 +289,7 @@ def validate_certificate(raw):
     expected = read_json(LIVE_EVIDENCE / "redb-certificate-expectations.json")
     require(type(certificate["schema"]) is int and certificate["schema"] == INTERFACE_SCHEMA
             and certificate["policy"] == INTERFACE_POLICY, "certificate identity changed")
+    require_no_foreign_dependencies(certificate)
     require(certificate["producer"] == expected["producer"], "certificate producer changed")
     require(all(certificate.get(key) is True for key in ("soundness", "maximality", "exactness")), "certificate proofs incomplete")
     require(certificate["proofs"] == expected["proofs"]

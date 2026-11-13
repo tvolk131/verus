@@ -505,7 +505,23 @@ pub fn is_transparent_to(transparency: &DatatypeTransparency, source_module: &Pa
     match transparency {
         DatatypeTransparency::Never => false,
         DatatypeTransparency::WhenVisible(m) => is_visible_to(m, source_module),
+        DatatypeTransparency::Internal(repr) => repr.source_visible_to(source_module),
     }
+}
+
+/// Source access is deliberately separate from backend datatype encoding.
+pub fn source_datatype_visibility(t: &DatatypeTransparency) -> Option<&Visibility> {
+    match t {
+        DatatypeTransparency::Never => None,
+        DatatypeTransparency::WhenVisible(vis) => Some(vis),
+        DatatypeTransparency::Internal(repr) => Some(repr.source_visibility()),
+    }
+}
+
+/// Internal fields use the ordinary nominal datatype in every module, even
+/// where source field access is forbidden. Old modes retain their exact rules.
+pub fn is_encoded_to(t: &DatatypeTransparency, module: &Path) -> bool {
+    matches!(t, DatatypeTransparency::Internal(_)) || is_transparent_to(t, module)
 }
 
 /// Is the target visible to the module?

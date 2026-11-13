@@ -73,6 +73,7 @@ pub struct OpGenerator<'a> {
 
     scc_idx: usize,
     infer_goals: bool,
+    local_checked_foreign: bool,
 }
 
 pub struct FunctionOpGenerator<'a: 'b, 'b> {
@@ -87,6 +88,7 @@ impl<'a> OpGenerator<'a> {
         krate: &vir::sst::KrateSst,
         bucket: Bucket,
         infer_goals: bool,
+        local_checked_foreign: bool,
     ) -> Self {
         let mut func_map: HashMap<Fun, FunctionSst> = HashMap::new();
         for function in &krate.functions {
@@ -100,7 +102,15 @@ impl<'a> OpGenerator<'a> {
             trait_impl_map.insert(imp.x.impl_path.clone(), imp.clone());
         }
 
-        OpGenerator { ctx, func_map, trait_impl_map, bucket, scc_idx: 0, infer_goals }
+        OpGenerator {
+            ctx,
+            func_map,
+            trait_impl_map,
+            bucket,
+            scc_idx: 0,
+            infer_goals,
+            local_checked_foreign,
+        }
     }
 
     pub fn next<'b>(&'b mut self) -> Result<Option<FunctionOpGenerator<'a, 'b>>, VirErr>
@@ -307,6 +317,23 @@ impl<'a> OpGenerator<'a> {
             loop_point_preparation = observations;
             goal_check = Arc::new(prepared);
             &goal_check
+        } else {
+            func_check_sst
+        };
+
+        let packing_check;
+        let func_check_sst = if self.local_checked_foreign
+            && self.infer_goals
+            && matches!(style, Style::Normal)
+            && !function.x.attrs.infer
+            && !function.x.attrs.bit_vector
+        {
+            packing_check = Arc::new(crate::checked_foreign_packing::prepare(
+                func_check_sst,
+                &self.ctx.func_map,
+                &function.x.name.path.krate,
+            ));
+            &packing_check
         } else {
             func_check_sst
         };

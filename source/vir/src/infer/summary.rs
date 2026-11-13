@@ -118,6 +118,21 @@ pub(super) fn instantiate(expr: &Expr, vars: &HashMap<VarIdent, Term>) -> Result
                 elements.iter().map(|e| go(e, vars, remaining)).collect::<Result<Vec<_>, _>>()?,
             )?,
             ExprX::Ctor(dt, variant, fields, None)
+                if tuples::valid_ctor(&expr.typ, dt, variant, fields) =>
+            {
+                tuples::ctor(
+                    span,
+                    &expr.typ,
+                    fields
+                        .iter()
+                        .map(|f| go(&f.a, vars, remaining))
+                        .collect::<Result<Vec<_>, _>>()?,
+                )?
+            }
+            ExprX::UnaryOpr(UnaryOpr::Field(op), a) if tuples::index(op, &a.typ).is_some() => {
+                tuples::field(span, go(a, vars, remaining)?, tuples::index(op, &a.typ).unwrap())?
+            }
+            ExprX::Ctor(dt, variant, fields, None)
                 if matches!(&*expr.typ, TypX::Datatype(actual, ..) if actual == dt)
                     && fields.len() <= 1
                     && fields

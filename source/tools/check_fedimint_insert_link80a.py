@@ -11,7 +11,7 @@ import subprocess
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = ROOT / "evidence/transfer-fedimint-insert-link80a"
+EVIDENCE = ROOT / "source/tools/fixtures/transfers/transfer-fedimint-insert-link80a"
 NATIVE = Path("/private/tmp/verus-fedimint-early-returns-jyfO2M/fedimint")
 RUNTIME = Path("/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/runtime78")
 SYSROOT = Path("/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin")

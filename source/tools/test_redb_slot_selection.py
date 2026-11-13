@@ -152,7 +152,9 @@ class PositiveAcceptance(unittest.TestCase):
 
 class CertificateAcceptance(unittest.TestCase):
     def setUp(self):
+        # Synthetic parser fixture, never a re-certified historical proof.
         self.certificate = slot.read_json(slot.LIVE_EVIDENCE / "redb-provider-certificate.json")
+        self.certificate.update(schema=slot.INTERFACE_SCHEMA, policy=slot.INTERFACE_POLICY, foreign_dependencies=[])
 
     def encoded(self):
         ordered = {"schema": self.certificate["schema"], **self.certificate}
@@ -204,9 +206,18 @@ class CertificateAcceptance(unittest.TestCase):
         self.certificate["summaries"] = "wrong"
         with self.assertRaises(ValueError):
             slot.validate_certificate(self.encoded())
-        self.certificate = slot.read_json(slot.EVIDENCE / "provider-certificate.json")
+        self.certificate = copy.deepcopy(original)
         self.certificate["dependencies"] = [["unproved", "summary"]]
         with self.assertRaises(ValueError):
+            slot.validate_certificate(self.encoded())
+
+    def test_unexpected_or_missing_foreign_dependencies_refuse(self):
+        for value in (None, False, [{"unchecked": True}]):
+            self.certificate["foreign_dependencies"] = value
+            with self.assertRaisesRegex(ValueError, "foreign dependencies"):
+                slot.validate_certificate(self.encoded())
+        self.certificate.pop("foreign_dependencies")
+        with self.assertRaisesRegex(ValueError, "foreign dependencies"):
             slot.validate_certificate(self.encoded())
 
     def test_duplicate_json_and_missing_trailer(self):

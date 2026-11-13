@@ -29,14 +29,15 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v6
-      - name: Python experiment harness tests
-        run: python3 -B -m unittest discover -s source/tools -p 'test_infer*.py'
-      - name: Optimized Python transfer evidence tests
-        run: python3 -B -O -m unittest discover -s source/tools -p 'test_infer_transfers.py'
-      - name: Python redb transfer evidence tests
-        run: python3 -B -m unittest discover -s source/tools -p 'test_redb*.py'
-      - name: Python Fedimint transfer evidence tests
-        run: python3 -B -m unittest discover -s source/tools -p 'test_fedimint*.py'
+      - name: Maintained Infer tooling (normal and optimized Python)
+        run: python3 -B source/tools/run_infer_tests.py --suite tooling --output "$RUNNER_TEMP/infer-tooling"
+      - name: Upload Infer tooling diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: infer-tooling
+          path: ${{ runner.temp }}/infer-tooling
+          if-no-files-found: ignore
       - name: setup rust for assurance policy mutations
         uses: dtolnay/rust-toolchain@master
         with:

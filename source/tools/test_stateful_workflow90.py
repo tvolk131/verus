@@ -12,6 +12,18 @@ from stateful_bitmap_workflow90 import run
 from check_redb_stateful import RUNTIME_FILES
 
 class Workflow90(unittest.TestCase):
+    def setUp(self):
+        # Loader binding tests use an explicit synthetic host-independent input.
+        # They do not load or certify a native executable.
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        sysroot = Path(temporary.name)
+        (sysroot / 'lib').mkdir()
+        (sysroot / 'lib/fixture.dylib').write_bytes(b'synthetic loader fixture')
+        loader_root = patch.object(run, 'SYSROOT', sysroot)
+        loader_root.start()
+        self.addCleanup(loader_root.stop)
+
     def test_reference_orchestration_uses_shared_logged_executor_and_budgets(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary).resolve()

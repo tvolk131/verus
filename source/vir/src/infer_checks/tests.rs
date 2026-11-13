@@ -1489,7 +1489,7 @@ fn opaque_return_precision_checks_complete_identity_without_candidate_fields() {
     datatype.transparency = DatatypeTransparency::Never;
     datatype.variants = Arc::new(vec![]);
     ctx.datatype_map.insert(dt.clone(), Spanned::new(span(), datatype));
-    ctx.datatype_is_transparent.insert(dt.clone(), false);
+    ctx.datatype_is_encoded.insert(dt.clone(), false);
     let typ = Arc::new(TypX::Datatype(dt, Arc::new(vec![]), Arc::new(vec![])));
     ctx.mono_types.push(crate::poly::typ_as_mono(&typ).unwrap());
     let vars =
@@ -1551,3 +1551,151 @@ fn opaque_return_precision_checks_complete_identity_without_candidate_fields() {
     assert!(!verifies(&ctx, &pars, &wrong));
     assert!(!verifies(&ctx, &pars, &exact(&wrong)));
 }
+
+#[test]
+fn scalar_pair_precision_uses_whole_output_not_candidate_components() {
+    let (template, _, _) = record_fixture();
+    let mut datatype = template.datatype_map.values().next().unwrap().x.clone();
+    let dt = Dt::Tuple(2);
+    let variant = crate::def::prefix_tuple_variant(2);
+    datatype.name = dt.clone();
+    datatype.typ_params = Arc::new(vec![
+        (Arc::new("T0".into()), AcceptRecursiveType::Accept),
+        (Arc::new("T1".into()), AcceptRecursiveType::Accept),
+    ]);
+    let byte = Arc::new(TypX::Int(IntRange::U(8)));
+    datatype.variants = Arc::new(vec![Variant {
+        name: variant.clone(),
+        ctor_style: CtorPrintStyle::Tuple,
+        fields: Arc::new(
+            (0..2)
+                .map(|i| {
+                    Arc::new(air::ast::BinderX {
+                        name: crate::def::positional_field_ident(i),
+                        a: (
+                            Arc::new(TypX::TypParam(Arc::new(format!("T{i}")))),
+                            Mode::Exec,
+                            Visibility { restricted_to: None },
+                        ),
+                    })
+                })
+                .collect(),
+        ),
+    }]);
+    let (ctx, _, mut check) = fixture_with_datatypes(vec![Spanned::new(span(), datatype)]);
+    let typ = Arc::new(TypX::Datatype(
+        dt.clone(),
+        Arc::new(vec![byte.clone(), byte.clone()]),
+        Arc::new(vec![]),
+    ));
+    let vars = [(var("x"), byte.clone()), (var("result"), typ.clone())];
+    let encode = |e: Exp| crate::poly::visit_exp_native_for_pure_exp_with_vars(&ctx, &e, &vars);
+    let x = SpannedTyped::new(&span(), &byte, ExpX::Var(var("x")));
+    let output = SpannedTyped::new(&span(), &typ, ExpX::Var(var("result")));
+    let field = |i| {
+        SpannedTyped::new(
+            &span(),
+            &byte,
+            ExpX::UnaryOpr(
+                UnaryOpr::Field(FieldOpr {
+                    datatype: dt.clone(),
+                    variant: variant.clone(),
+                    field: crate::def::positional_field_ident(i),
+                    get_variant: false,
+                    check: VariantCheck::None,
+                }),
+                output.clone(),
+            ),
+        )
+    };
+    let ctor = SpannedTyped::new(
+        &span(),
+        &typ,
+        ExpX::Ctor(
+            dt.clone(),
+            variant.clone(),
+            Arc::new(vec![
+                Arc::new(air::ast::BinderX {
+                    name: crate::def::positional_field_ident(0),
+                    a: x.clone(),
+                }),
+                Arc::new(air::ast::BinderX {
+                    name: crate::def::positional_field_ident(1),
+                    a: integer(7),
+                }),
+            ]),
+        ),
+    );
+    let eq = crate::sst::BinaryOp::Eq;
+    let clauses =
+        vec![encode(binary(eq, field(0), x.clone())), encode(binary(eq, field(1), integer(7)))];
+    check.reqs = Arc::new(vec![]);
+    check.local_decls = Arc::new(
+        vars.iter()
+            .map(|(ident, typ)| {
+                Arc::new(LocalDeclX {
+                    ident: ident.clone(),
+                    typ: typ.clone(),
+                    kind: if ident == &var("result") {
+                        LocalDeclKind::Return
+                    } else {
+                        LocalDeclKind::Param { mutable: false }
+                    },
+                })
+            })
+            .collect(),
+    );
+    check.body = Spanned::new(
+        span(),
+        StmX::Return {
+            assert_id: None,
+            base_error: error(&span(), "pair postcondition"),
+            ret_exp: Some(encode(ctor)),
+            inside_body: false,
+        },
+    );
+    check.post_condition = Arc::new(PostConditionSst {
+        dest: Some(var("result")),
+        ens_exps: Arc::new(clauses.clone()),
+        ens_spec_precondition_stms: Arc::new(vec![]),
+        kind: PostConditionKind::Ensures,
+    });
+    let pars = Arc::new(vec![Spanned::new(
+        span(),
+        ParX { name: var("x"), typ: byte.clone(), mode: Mode::Exec },
+    )]);
+    let exact = |c: &FuncCheckSst| {
+        precision_check_body(&span(), &typ, c, PrecisionCheck::Exactness).unwrap()
+    };
+    assert!(verifies(&ctx, &pars, &check));
+    assert!(verifies(&ctx, &pars, &exact(&check)));
+    let mut restrictive = check.clone();
+    restrictive.reqs =
+        Arc::new(vec![SpannedTyped::new(&span(), &bool_typ(), ExpX::Const(Constant::Bool(false)))]);
+    assert!(verifies(&ctx, &pars, &restrictive));
+    assert!(!verifies(
+        &ctx,
+        &pars,
+        &precision_check_body(&span(), &typ, &restrictive, PrecisionCheck::Maximality).unwrap()
+    ));
+    for missing in 0..2 {
+        let mut weak = check.clone();
+        Arc::make_mut(&mut weak.post_condition).ens_exps =
+            Arc::new(vec![clauses[1 - missing].clone()]);
+        assert!(verifies(&ctx, &pars, &weak));
+        assert!(!verifies(&ctx, &pars, &exact(&weak)), "missing component {missing}");
+    }
+    let mut loose = check.clone();
+    Arc::make_mut(&mut loose.post_condition).ens_exps = Arc::new(vec![
+        clauses[0].clone(),
+        encode(binary(crate::sst::BinaryOp::Inequality(InequalityOp::Le), field(1), integer(7))),
+    ]);
+    assert!(verifies(&ctx, &pars, &loose));
+    assert!(!verifies(&ctx, &pars, &exact(&loose)));
+    let mut swapped = check.clone();
+    Arc::make_mut(&mut swapped.post_condition).ens_exps =
+        Arc::new(vec![encode(binary(eq, field(0), integer(7))), encode(binary(eq, field(1), x))]);
+    assert!(!verifies(&ctx, &pars, &exact(&swapped)));
+}
+
+mod internal_representation;

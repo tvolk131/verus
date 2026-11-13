@@ -8,7 +8,7 @@ import re
 import subprocess
 import tempfile
 
-from infer_transfer_identity import INTERFACE_POLICY, INTERFACE_SCHEMA
+from infer_transfer_identity import INTERFACE_POLICY, INTERFACE_SCHEMA, require_no_foreign_dependencies
 import check_fedimint_full_request as full
 import check_redb_page_relations as pages
 from infer_eval_support import digest, tool_artifacts
@@ -413,6 +413,7 @@ def check_full_request(path, receipt, verifier, root, check_proof):
     seed = digest(file_in(directory, "provider_cold.vir"))
     proofs, rejected, baseline = [], [], []
     certificate, fingerprint = metadata(provider_vir.read_bytes())
+    require_no_foreign_dependencies(certificate)
     require(type(certificate.get("schema")) is int and certificate["schema"] == INTERFACE_SCHEMA
             and certificate.get("policy") == INTERFACE_POLICY
             and all(certificate.get(key) is True for key in ("soundness", "maximality", "exactness"))
@@ -638,6 +639,7 @@ def check_page_relations(path, receipt, verifier, root):
             "unexpected relational provider guard scope")
     original = provider.read_bytes()
     certificate, fingerprint = metadata(original)
+    require_no_foreign_dependencies(certificate)
     require(type(certificate.get("schema")) is int and certificate["schema"] == INTERFACE_SCHEMA
             and certificate.get("policy") == INTERFACE_POLICY
             and all(certificate.get(key) is True for key in ("soundness", "maximality", "exactness"))

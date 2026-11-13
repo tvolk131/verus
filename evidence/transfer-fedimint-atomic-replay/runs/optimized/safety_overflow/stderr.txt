@@ -1,8 +1,0 @@
-error: possible arithmetic underflow/overflow
-   --> /private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/safety_overflow/model.rs:268:52
-    |
-268 | pub fn unchecked_effect_count(count: u64) -> u64 { count + 1 }
-    |                                                    ^^^^^^^^^
-
-error: aborting due to 1 previous error
-

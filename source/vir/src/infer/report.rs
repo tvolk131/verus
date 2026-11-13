@@ -1,5 +1,10 @@
-//! Observations of candidate generation, never proof evidence or cache inputs.
+//! Generation observations and requests for additional ordinary checking.
+//! These records never supply proof facts or cached proof results.
 use super::*;
+
+/// Reporting coverage, never a registry of enabled or verified proof strategies.
+pub const EXPLAINED_PROFILES: &[&str] =
+    &["growth_loop", "pointwise_transport", "range_loop", "mutable_buffer_u64_radix128"];
 
 #[derive(Clone)]
 pub struct GeneratedCandidate {
@@ -23,10 +28,16 @@ pub struct GenerationReport {
     pub assistance_preparation_started: bool,
     pub assistance_preparation_completed: bool,
     pub assistance_decisions: Vec<AssistanceDecision>,
+    /// New body statements must pass full well-formedness and mode checking.
+    /// This set requests more checks; it never certifies an annotation.
+    pub body_rechecks: std::collections::HashSet<Fun>,
     /// Scoped lemma selections are observations, never proof receipts.
     pub goal_lemmas: Vec<(Fun, Vec<Fun>)>,
     pub view_bound_lemmas: Vec<(Fun, Vec<Fun>)>,
     pub fold_lemmas: Vec<(Fun, Vec<Fun>)>,
+    pub buffer_observations: Vec<(Fun, Span)>,
+    pub word_sequence_frames: Vec<(Fun, Fun)>,
+    pub word_lemmas: Vec<(Fun, Vec<Fun>)>,
     pub factory_callbacks: Vec<(Fun, usize)>,
     pub error_callbacks: Vec<(Fun, usize)>,
     pub array_callbacks: Vec<(Fun, usize)>,
@@ -34,6 +45,7 @@ pub struct GenerationReport {
     pub growth_loops: Vec<(Fun, Span)>,
     pub local_folds: Vec<(Fun, Span)>,
     pub range_loops: Vec<(Fun, Span)>,
+    pub set_pairs: Vec<(Fun, usize, usize)>,
     pub pointwise_facts: Vec<(Fun, usize)>,
     pub mutable_selectors: Vec<(Fun, usize)>,
     pub sequence_patterns: Vec<(Fun, usize)>,
@@ -124,12 +136,47 @@ pub enum AssistanceSkip {
     UnsupportedRange,
     UnsupportedIndex,
     MissingFinalStateGoal,
+    ProphecyDependent,
+    TransportSignature,
+    TransportBody,
+    TransportResult,
+    TransportConstructor,
+    TransportFields,
+    TransportGoal,
 }
 
 impl AssistanceSkip {
     /// Stable reason keys and profile requirements for presentation only.
     pub fn diagnostic(self) -> (&'static str, &'static str) {
         match self {
+            Self::ProphecyDependent => (
+                "prophecy_dependent_function",
+                "Pointwise clone transport requires a function without prophecy-dependent semantics.",
+            ),
+            Self::TransportSignature => (
+                "unsupported_transport_signature",
+                "Pointwise clone transport requires one shared input and a returned value of the same underlying type.",
+            ),
+            Self::TransportBody => (
+                "unsupported_transport_body",
+                "Pointwise clone transport requires a block with a returned local value.",
+            ),
+            Self::TransportResult => (
+                "missing_transport_result_local",
+                "Pointwise clone transport requires returning a local value without a field projection.",
+            ),
+            Self::TransportConstructor => (
+                "missing_transport_constructor",
+                "Pointwise clone transport requires that returned local to be initialized by a direct record constructor.",
+            ),
+            Self::TransportFields => (
+                "unsupported_transport_fields",
+                "Pointwise clone transport requires one to four recognized cloned fields from the shared input.",
+            ),
+            Self::TransportGoal => (
+                "missing_transport_goal",
+                "No supported quantified invariant-preservation postcondition requires transport through the cloned fields.",
+            ),
             Self::InferredFunction => (
                 "inference_candidate",
                 "This assistance profile targets ordinary executable functions; inferred functions use their own contract-generation path.",

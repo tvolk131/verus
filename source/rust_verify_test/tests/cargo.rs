@@ -10,8 +10,7 @@ use tempfile::tempdir;
 use toml::{Table, Value};
 
 fn compute_test_dir(dir: &str) -> std::path::PathBuf {
-    let current_exe = std::env::current_exe().unwrap();
-    current_exe.parent().unwrap().parent().unwrap().parent().unwrap().parent().unwrap().join(dir)
+    std::path::Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap().join(dir)
 }
 
 fn parse_toml_file(path: &std::path::Path) -> Table {
@@ -113,9 +112,7 @@ fn adjust_version(mut project_path: PathBuf) {
     let Some(version) = dependencies.get_mut("vstd") else {
         panic!("no vstd version");
     };
-    let mut cur_file = std::env::current_dir().expect("current dir");
-    cur_file.pop();
-    cur_file.push("vstd");
+    let cur_file = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap().join("vstd");
 
     let mut new_vstd_entry = Table::new();
     new_vstd_entry.insert(

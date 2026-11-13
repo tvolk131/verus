@@ -12,11 +12,29 @@ import unittest
 
 from infer_eval_support import digest, support_artifacts
 from infer_experiment import (
-    LoggedCommands, require_exact, require_publication, snapshot_inputs, validate_run,
+    LoggedCommands, require_exact, require_failure_kind, require_function_coverage,
+    require_publication, snapshot_inputs, validate_run,
 )
 
 
 class ExperimentTests(unittest.TestCase):
+    def test_function_coverage_requires_expected_unique_identities(self):
+        require_function_coverage([], set())
+        require_function_coverage([{'function': 'crate::first'}, {'function': 'crate::second'}],
+                                  {'first', 'second'})
+        for names in ([], ['first'], ['first', 'first'], ['first', 'wrong']):
+            with self.subTest(names=names), self.assertRaisesRegex(ValueError, 'coverage mismatch'):
+                require_function_coverage([{'function': name} for name in names], {'first', 'second'})
+
+    def test_semantic_failure_kind_excludes_unrelated_failures(self):
+        kinds = ('postcondition not satisfied', 'precondition not satisfied', 'assertion failed')
+        for expected in kinds:
+            require_failure_kind(expected, expected)
+            for extra in kinds:
+                if extra != expected:
+                    with self.subTest(expected=expected, extra=extra), self.assertRaisesRegex(ValueError, 'mixed failure kinds'):
+                        require_failure_kind(expected+'\n'+extra, expected)
+
     def run_result(self, **changes):
         result = dict(returncode=1, stdout=json.dumps({
             "verification-results": {"success": False},

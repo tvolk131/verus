@@ -301,7 +301,7 @@ smokes. Related Python tests pass 110 methods in each normal/optimized mode.
 No source/negative/trust oracle is weakened, and the seeded stale-rlib distinction
 remains checked. Exact differences, private replay paths, costs and the one
 scratch setup failure are in
-`evidence/reliable-operational91/RUNTIME-AND-COSTS.md`. The migrated Fedimint
+`git show archive/verus-infer-pre-integration-2026-11-13:evidence/reliable-operational91/RUNTIME-AND-COSTS.md`. The migrated Fedimint
 measurements remain honestly labelled as using the historical matched runtime.
 The operational allocator theorem and new independent workflow/native reviews
 remain pending; neither these local passes nor requalification closes the old

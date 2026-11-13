@@ -11,6 +11,21 @@ pub(crate) mod infer;
 #[allow(unused_imports)]
 pub use rust_verify_test_macros::{code, code_str, verus_code, verus_code_str};
 
+/// Optional explicit build bundle for portable integration-test invocations.
+pub(crate) fn configured_test_root() -> Option<std::path::PathBuf> {
+    std::env::var_os("VERUS_TEST_ROOT")
+        .map(|p| std::path::absolute(p).expect("absolute VERUS_TEST_ROOT"))
+}
+
+fn verus_test_root() -> std::path::PathBuf {
+    configured_test_root().unwrap_or_else(|| {
+        let executable = std::env::current_exe().unwrap();
+        let target = executable.parent().unwrap().parent().unwrap();
+        let profile = target.file_name().unwrap();
+        target.parent().unwrap().parent().unwrap().join("target-verus").join(profile)
+    })
+}
+
 #[derive(Clone, Debug, Deserialize)]
 pub struct DiagnosticText {
     pub text: String,
@@ -315,18 +330,7 @@ pub fn run_verus(
     #[cfg(target_os = "windows")]
     let (pre, dl, exe) = ("", "dll", ".exe");
 
-    let current_exe = std::env::current_exe().unwrap();
-    let deps_path = current_exe.parent().unwrap();
-    let target_path = deps_path.parent().unwrap();
-    let profile = target_path.file_name().unwrap().to_str().unwrap();
-    let verus_target_path = target_path
-        .parent()
-        .unwrap()
-        .parent()
-        .unwrap()
-        .to_path_buf()
-        .join("target-verus")
-        .join(profile);
+    let verus_target_path = verus_test_root();
 
     let verus_target_path_str = verus_target_path.to_str().unwrap();
 
@@ -413,6 +417,9 @@ pub fn run_verus(
         } else if *option == "no-bv-simplify" {
             verus_args.push("-V".to_string());
             verus_args.push("no-bv-simplify".to_string());
+        } else if let Some(cfg) = option.strip_prefix("--cfg ") {
+            assert!(!cfg.is_empty(), "empty test cfg");
+            verus_args.extend(["--cfg".to_owned(), cfg.to_owned()]);
         } else if *option == "--edition 2024" {
             verus_args.push("--edition".to_string());
             verus_args.push("2024".to_string());
@@ -547,16 +554,7 @@ pub fn run_verus_raw(args: &[&str], dir: &std::path::Path) -> std::process::Outp
     }
     let exe = if cfg!(target_os = "windows") { ".exe" } else { "" };
 
-    let current_exe = std::env::current_exe().unwrap();
-    let deps_path = current_exe.parent().unwrap();
-    let target_path = deps_path.parent().unwrap();
-    let profile = target_path.file_name().unwrap().to_str().unwrap();
-    let verus_target_path = target_path
-        .ancestors()
-        .nth(2)
-        .expect("expected path to have at least two parents")
-        .join("target-verus")
-        .join(profile);
+    let verus_target_path = verus_test_root();
     let bin = verus_target_path.join(format!("rust_verify{exe}"));
 
     let z3 = std::env::var("VERUS_Z3_PATH")
@@ -605,18 +603,7 @@ pub fn run_cargo_verus_with_target(
 
     // Compute the path to the cargo-verus executable,
     // following the pattern from run_verus
-    let current_exe = std::env::current_exe().unwrap();
-    let deps_path = current_exe.parent().unwrap();
-    let target_path = deps_path.parent().unwrap();
-    let profile = target_path.file_name().unwrap().to_str().unwrap();
-    let verus_target_path = target_path
-        .parent()
-        .unwrap()
-        .parent()
-        .unwrap()
-        .to_path_buf()
-        .join("target-verus")
-        .join(profile);
+    let verus_target_path = verus_test_root();
     let bin = verus_target_path.join(format!("cargo-verus{exe}"));
 
     let mut child = std::process::Command::new(bin);

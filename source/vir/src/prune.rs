@@ -12,7 +12,7 @@ use crate::ast_util::{
     array_kind_of_typ, is_body_visible_to, is_visible_to, is_visible_to_or_true,
 };
 use crate::ast_visitor::{VisitorControlFlow, VisitorScopeMap};
-use crate::datatype_to_air::is_datatype_transparent;
+use crate::datatype_to_air::is_datatype_encoded;
 use crate::def::*;
 use crate::poly::MonoTyp;
 use crate::resolve_axioms::{ResolvableType, ResolvedTypeCollection};
@@ -162,7 +162,7 @@ fn record_datatype(ctxt: &Ctxt, state: &mut State, typ: &Typ, dt: &Dt) {
     if let Some(mono_abstract_datatypes) = &mut state.mono_abstract_datatypes {
         if let Some(d) = ctxt.datatype_map.get(dt) {
             let is_vis = is_visible_to(&d.x.visibility, module);
-            let is_transparent = is_datatype_transparent(module, &d);
+            let is_transparent = is_datatype_encoded(module, &d);
             if is_vis && !is_transparent {
                 if let Some(monotyp) = crate::poly::typ_as_mono(typ) {
                     mono_abstract_datatypes.insert(monotyp);
@@ -1158,7 +1158,7 @@ pub fn prune_krate_for_module_or_krate(
         }
         let is_vis = is_visible_to_or_true(&d.x.visibility, &module);
         let is_transparent =
-            if let Some(module) = &module { is_datatype_transparent(module, &d) } else { true };
+            if let Some(module) = &module { is_datatype_encoded(module, &d) } else { true };
         if is_vis {
             if is_transparent {
                 datatypes.push(d.clone());
