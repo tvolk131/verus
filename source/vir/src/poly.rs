@@ -754,14 +754,17 @@ fn visit_exp(ctx: &Ctx, state: &mut State, exp: &Exp) -> Exp {
                 state.types.pop_scope();
                 mk_exp_typ(&e1.typ, ExpX::Bind(bnd.new_x(BndX::Let(Arc::new(new_bs))), e1.clone()))
             }
-            BndX::Quant(quant, bs, trigs, _) => {
+            BndX::Quant(quant, bs, trigs, provenance) => {
                 let natives = native_quant_vars(bs, trigs);
                 state.types.push_scope(true);
                 let bs = visit_and_insert_binders(ctx, &mut state.types, &natives, bs);
                 let trigs = visit_trigs(ctx, state, trigs);
                 let e1 = visit_exp_native(ctx, state, e1);
                 state.types.pop_scope();
-                mk_exp(ExpX::Bind(bnd.new_x(BndX::Quant(*quant, bs, trigs, None)), e1))
+                mk_exp(ExpX::Bind(
+                    bnd.new_x(BndX::Quant(*quant, bs, trigs, provenance.clone())),
+                    e1,
+                ))
             }
             BndX::Lambda(bs, trigs) => {
                 let natives = native_quant_vars(bs, trigs);

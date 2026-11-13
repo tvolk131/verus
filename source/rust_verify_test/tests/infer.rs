@@ -542,7 +542,8 @@ fn persistent_cache_candidates_are_reproved_before_dependent_publication() {
     )
     .unwrap();
     let executable = std::env::current_exe().unwrap();
-    let profile = executable.parent().unwrap().parent().unwrap();
+    let profile = configured_test_root()
+        .unwrap_or_else(|| executable.parent().unwrap().parent().unwrap().to_path_buf());
     let extension = std::env::consts::DLL_EXTENSION;
     let prefix = std::env::consts::DLL_PREFIX;
     let run = || {

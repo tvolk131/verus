@@ -1,0 +1,6 @@
+{
+  "primary_slot": "    pub fn primary_slot(&self) -> (result: &TransactionHeader)\n        requires self.representation_valid(),\n        ensures *result == self.transaction_slots@[self.primary_slot as int],\n    ",
+  "secondary_slot": "    pub fn secondary_slot(&self) -> (result: &TransactionHeader)\n        requires self.representation_valid(),\n        ensures *result == self.transaction_slots@[(self.primary_slot ^ 1) as int],\n    ",
+  "swap_primary_slot": "    pub fn swap_primary_slot(&mut self)\n        requires old(self).representation_valid(),\n        ensures final(self).representation_valid(),\n            final(self).primary_slot == old(self).primary_slot ^ 1,\n            DatabaseHeader::frame(*old(self), *final(self)),\n    ",
+  "select_primary_slot": "    pub fn select_primary_slot(&mut self) -> (result: Result<bool>)\n        requires old(self).representation_valid(),\n        ensures UnrepairedDatabaseHeader::selection_post(*old(self), *final(self), result),\n    "
+}

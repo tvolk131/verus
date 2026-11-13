@@ -49,6 +49,17 @@ pub struct GenerationReport {
     pub pointwise_facts: Vec<(Fun, usize)>,
     pub mutable_selectors: Vec<(Fun, usize)>,
     pub sequence_patterns: Vec<(Fun, usize)>,
+    pub loop_point_preparation: Vec<LoopPointPreparation>,
+}
+
+#[derive(Clone)]
+pub struct LoopPointPreparation {
+    pub function: Fun,
+    pub source: Span,
+    pub loop_id: Option<u64>,
+    pub prepared: usize,
+    pub captures: usize,
+    pub reason: Option<&'static str>,
 }
 
 impl GeneratedCandidate {

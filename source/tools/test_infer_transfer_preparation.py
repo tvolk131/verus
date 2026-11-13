@@ -301,7 +301,9 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("prepare_infer_transfers.py", workflow)
         self.assertIn("check_infer_transfers.py", workflow)
         self.assertNotIn("--scenario ", workflow)
-        self.assertIn("--scenario-timeout 480", workflow)
+        self.assertIn("--scenario-timeout 270", workflow)
+        self.assertIn("prepare_infer_dependencies.py", workflow)
+        self.assertIn('--dependency-home "$INFER_DEPENDENCIES/cargo-home"', workflow)
         self.assertIn("timeout-minutes: 90", workflow)
         self.assertIn("if: always()", workflow)
         self.assertIn("actions/upload-artifact@v4", workflow)
@@ -317,7 +319,7 @@ class WorkflowTests(unittest.TestCase):
                     break
                 lines.append(line[10:] if line else "")
             blocks.append("\n".join(lines))
-        self.assertEqual(len(blocks), 6)
+        self.assertEqual(len(blocks), 7)
         for block in blocks:
             result = subprocess.run(["bash", "-n"], input=block, text=True,
                                     capture_output=True, check=False)
@@ -333,10 +335,13 @@ class WorkflowTests(unittest.TestCase):
             timeout = re.search(r"^        timeout-minutes: (\d+)$", step, re.MULTILINE)
             self.assertIsNotNone(timeout, name)
             deadlines[name] = int(timeout[1])
-        self.assertEqual(len(deadlines), 9)
+        self.assertEqual(len(deadlines), 10)
         self.assertTrue(all(timeout > 0 for timeout in deadlines.values()))
         self.assertLessEqual(sum(deadlines.values()), budget - 5)
         self.assertEqual(deadlines["Retain proof receipts and failure evidence"], 5)
+        self.assertEqual(sum(deadlines.values()) - 5, 80)
+        proof_seconds = deadlines["Prove all pinned external transfers"] * 60
+        self.assertGreaterEqual(proof_seconds - len(transfers.SCENARIOS) * 270, 180)
         self.assertIn("timeout --kill-after=15s 3m ./tools/get-z3.sh", workflow)
         self.assertIn("timeout --kill-after=30s 13m cargo build", workflow)
         self.assertIn("timeout --kill-after=30s 6m cargo run", workflow)

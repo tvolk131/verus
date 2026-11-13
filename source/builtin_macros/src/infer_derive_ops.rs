@@ -12,7 +12,7 @@ pub(crate) fn expand(
     let bad = || {
         syn::Error::new(
             item.span(),
-            "infer_derive requires a nongeneric single primitive-integer tuple field and named derived From/Into/Add/AddAssign/Sub/Mul/Div/Rem/PartialEq/PartialOrd/Ord implementations",
+            "infer_derive requires a nongeneric single primitive-integer field, named fields support comparisons only, and all requested implementations must be derived",
         )
     };
     if operators.is_empty()
@@ -21,16 +21,32 @@ pub(crate) fn expand(
     {
         return Err(bad());
     }
-    let syn::Fields::Unnamed(fields) = &item.fields else { return Err(bad()) };
-    if fields.unnamed.len() != 1 {
+    let (field, member) = match &item.fields {
+        syn::Fields::Unnamed(fields) if fields.unnamed.len() == 1 => {
+            (&fields.unnamed[0], syn::Member::Unnamed(syn::Index::from(0)))
+        }
+        syn::Fields::Named(fields) if fields.named.len() == 1 => {
+            let field = &fields.named[0];
+            (field, syn::Member::Named(field.ident.clone().ok_or_else(bad)?))
+        }
+        _ => return Err(bad()),
+    };
+    if matches!(&member, syn::Member::Named(_))
+        && operators.iter().any(|operator| {
+            !matches!(operator.to_string().as_str(), "PartialEq" | "PartialOrd" | "Ord")
+        })
+    {
         return Err(bad());
     }
-    let syn::Type::Path(t) = &fields.unnamed[0].ty else { return Err(bad()) };
+    let syn::Type::Path(t) = &field.ty else { return Err(bad()) };
     let nonzero = t.qself.is_none()
         && matches!(t.path.segments.last(), Some(s)
         if s.ident == "NonZero" && matches!(&s.arguments, syn::PathArguments::AngleBracketed(a)
             if a.args.len() == 1 && matches!(&a.args[0], syn::GenericArgument::Type(syn::Type::Path(p))
                 if p.qself.is_none() && p.path.is_ident("u64"))));
+    if nonzero && matches!(&member, syn::Member::Named(_)) {
+        return Err(bad());
+    }
     if nonzero {
         if operators
             .iter()
@@ -120,7 +136,7 @@ pub(crate) fn expand(
             // derive_more::Into emits From<Wrapper> for the primitive field.
             // The marker requests checking of that actual reverse conversion;
             // it does not certify the proposed extension definition.
-            let field = &fields.unnamed[0].ty;
+            let field = &field.ty;
             models.push(quote! {
                 impl #name {#[doc(hidden)] pub open spec fn __verus_infer_derived_into(&self)->bool {true}}
                 impl #vstd::std_specs::convert::FromSpecImpl<#name> for #field {
@@ -138,7 +154,7 @@ pub(crate) fn expand(
             let spec = format_ident!("{}_spec", method);
             let (result, body) = match method {
                 "eq" if nonzero => (quote!(bool), quote!(self.0@ == rhs.0@)),
-                "eq" => (quote!(bool), quote!(self.0 == rhs.0)),
+                "eq" => (quote!(bool), quote!(self.#member == rhs.#member)),
                 "cmp" if nonzero => (
                     quote!(::core::cmp::Ordering),
                     quote!(#vstd::std_specs::cmp::OrdSpec::cmp_spec(&self.0@,&rhs.0@)),
@@ -149,11 +165,11 @@ pub(crate) fn expand(
                 ),
                 "cmp" => (
                     quote!(::core::cmp::Ordering),
-                    quote!(#vstd::std_specs::cmp::#base::#spec(&self.0,&rhs.0)),
+                    quote!(#vstd::std_specs::cmp::#base::#spec(&self.#member,&rhs.#member)),
                 ),
                 _ => (
                     quote!(Option<::core::cmp::Ordering>),
-                    quote!(#vstd::std_specs::cmp::#base::#spec(&self.0,&rhs.0)),
+                    quote!(#vstd::std_specs::cmp::#base::#spec(&self.#member,&rhs.#member)),
                 ),
             };
             let visibility = if nonzero { quote!(closed) } else { quote!(open) };
@@ -167,7 +183,7 @@ pub(crate) fn expand(
             continue;
         }
         if method == "from" {
-            let field = &fields.unnamed[0].ty;
+            let field = &field.ty;
             models.push(quote!{
                 impl #name {#[doc(hidden)] pub open spec fn __verus_infer_derived_from(&self)->bool {true}}
                 impl #vstd::std_specs::convert::FromSpecImpl<#field> for #name {

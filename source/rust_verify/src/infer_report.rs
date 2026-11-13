@@ -269,6 +269,12 @@ impl Verifier {
             "crate_success": run_succeeded,
             "requested_functions": generation.requested,
             "generated_functions": functions.len(),
+            "loop_point_preparation": generation.loop_point_preparation.iter().map(|decision| json!({
+                "function":name(&decision.function), "source":decision.source.as_string,
+                "loop_id":decision.loop_id, "prepared_instances":decision.prepared,
+                "captures":decision.captures, "decline_reason":decision.reason,
+                "status":if decision.prepared > 0 { "prepared_not_proved" } else { "declined" },
+            })).collect::<Vec<_>>(),
             "generation_failure": generation.failure,
             "assistance_explanations": {
                 "enabled":self.args.infer_goals,

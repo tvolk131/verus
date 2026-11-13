@@ -13,8 +13,8 @@ use vir::infer::ProofStatus;
 // Ordinary .vir files retain their existing representation. Inference proof
 // metadata is an optional trailer, required whenever an inferred API is present.
 const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
-const INFER_SCHEMA: u32 = 39;
-const INFER_POLICY: &str = "candidate-bound-evidence-v78";
+const INFER_SCHEMA: u32 = 40;
+const INFER_POLICY: &str = "candidate-bound-evidence-v79";
 const MAX_INFER_METADATA: u64 = 1024 * 1024;
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -119,6 +119,8 @@ pub(crate) fn import_crates(
         ).map_err(|_| crate::util::error(format!(
             "failed to deserialize imported library file `{file_path}` - it may need to be rebuilt by Verus"
         )))?;
+        vir::native_resource::reject_crate(&krate, "import")
+            .map_err(|error| crate::util::error(error.note.clone()))?;
         let models: Vec<_> =
             krate.functions.iter().filter(|f| vir::infer::is_approved_model(f)).collect();
         if !models.is_empty() {
@@ -346,7 +348,7 @@ pub(crate) fn invalidate_inferred_export(
     args: &Args,
     via_cargo: &Option<PathBuf>,
 ) -> Result<(), VirErr> {
-    invalidate_export(args, via_cargo, false)
+    invalidate_export(args, via_cargo)
 }
 
 /// Once local inference is known, invalidate even an older ordinary export.
@@ -355,14 +357,10 @@ pub(crate) fn invalidate_local_inference_export(
     args: &Args,
     via_cargo: &Option<PathBuf>,
 ) -> Result<(), VirErr> {
-    invalidate_export(args, via_cargo, true)
+    invalidate_export(args, via_cargo)
 }
 
-fn invalidate_export(
-    args: &Args,
-    via_cargo: &Option<PathBuf>,
-    _local_inference: bool,
-) -> Result<(), VirErr> {
+pub(crate) fn invalidate_export(args: &Args, via_cargo: &Option<PathBuf>) -> Result<(), VirErr> {
     // Selection for writing has precedence, but invalidation must clear every
     // selected destination: Cargo's sibling can outlive an explicit --export.
     let mut paths = Vec::new();
@@ -423,6 +421,7 @@ pub(crate) fn export_crate(
             "Verus Infer: cannot export an inference-aware interface without full-crate verification and normal lifetime/trait checks",
         ));
     }
+    vir::native_resource::reject_crate(&vir_crate, "export")?;
     if vir_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f))
         && verified_inference.is_none()
     {
@@ -512,6 +511,9 @@ fn atomic_export(
     }
     result
 }
+
+#[cfg(test)]
+mod native_resource_boundary_tests;
 
 #[cfg(test)]
 mod infer_arch_tests {

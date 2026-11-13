@@ -76,7 +76,8 @@ Complete research and review history is preserved at commit
 `7dcabedaa93299a3607746b6ec25f5e4778288a4`, tag
 `archive/infer-research-2026-11-12`. The branch
 `experiments/infer-native-cell` also preserves unfinished native-cell work.
-These are local refs until explicitly published. No history has been rewritten.
+The internal delivery publishes these preservation refs separately from the
+maintained tree. No history has been rewritten.
 Private runtime binaries remain separate artifacts; source history and JSON
 receipts alone are not a hermetic reproduction environment.
 
@@ -84,3 +85,17 @@ The live tree keeps implementation, maintained tests, examples and current
 limitations. Historical raw JSON/stdout/stderr, copied snapshots, failed-trial
 journals and intermediate models belong to the archive. See the
 [capability table](infer_capabilities.md) before attributing application guarantees.
+
+The integration also preserves the remote checkpoint at commit
+`37fe7b453e621fa9b0ff37e8d18c813a9e1888a8`, tag
+`archive/verus-infer-pre-integration-2026-11-13`. Transfer source/expectation data
+needed by maintained tests is promoted into `source/tools/fixtures/transfers/`.
+The combined compiler uses inference metadata schema 40, policy 79 and candidate
+cache epoch 83. Rebuild vstd, inferred providers and their dependents together;
+old certificates/templates do not certify the integrated compiler's behavior.
+
+The target branch's `experimental-native-resource` Cargo feature remains off by
+default. Its conditional internal IR and refusal tests do not prove native
+correspondence or enable native interface publication. This is distinct from the
+removed owned-cell source experiment; both original native objectives remain
+unachieved.

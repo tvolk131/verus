@@ -440,7 +440,7 @@ fn validate(original: &Function, decorated: &Function, d: &Decoration) -> Result
     }
     let original_json = serde_json::to_value(original).expect("VIR function");
     let mut names = HashSet::new();
-    for pair in d.prefix.chunks_exact(2) {
+    for pair in d.prefix.as_chunks::<2>().0 {
         let StmtX::Decl {
             pattern,
             mode: Some((Mode::Spec, DeclProph::DelayedInfer)),

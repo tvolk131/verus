@@ -1,0 +1,17 @@
+{
+  "files": {
+    "Cargo.lock": "2c3e0e34ab540ce550c4d4fd35cd7d12c30c624909edb9909ad96af402879b7b",
+    "fedimint-core/src/db/mod.rs": "a44f6b54cae3033e1a5896c09bdff9f737dd1af7419ac14d406bf0ed2043377b",
+    "fedimint-core/src/encoding/btc.rs": "c3b7032341cd0399008e6350404353360fc07e31ade6fb67321988c77d2a0ddf",
+    "fedimint-core/src/encoding/mod.rs": "eb9c00e5384ed3d917dd53ad21edd4ceca3bda8180c42f7a014e4e00cc1c6788",
+    "fedimint-rocksdb/src/lib.rs": "5c46f4346f5c869b22f4ae8894c93178323f9fc42e459ec8ce415f53b1e4cf25"
+  },
+  "items": {
+    "declaration": "2404025cef49b31cd0dc22d60ae22eb0f6f0aae86c7f0f1a8efa275cf0e4b41d",
+    "insert": "1b798359aafe2d8b80c94f55ac7157c014f907abca76f2fe07ed091386fa71e9",
+    "key": "acc42e62e0c552044aaac13f09fe4765b3e6a71921c0d196d2a53727f58bf830",
+    "record": "22c2f20e0fba19b73230af246a62241c14c7492ef4dad8eb7343d864aaa871ab",
+    "token": "f2dc9b11f20100f9334380f08c824346f67d02a569cbefdc6abebb8f5f11f5fb"
+  },
+  "pin": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236"
+}

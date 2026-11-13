@@ -33,7 +33,14 @@ pub struct BndInfo {
 
 // For AssertBy, this records the LocalDecl vars that correspond to the VarBinders
 // (used by sst_elaborate.rs and poly.rs)
-pub type AssertByLocals = Option<Arc<Vec<VarIdent>>>;
+pub type AssertByLocals = Option<Arc<AssertByProvenance>>;
+
+#[derive(Clone, Debug, ToDebugSNode)]
+pub struct AssertByProvenance {
+    pub locals: Arc<Vec<LocalDecl>>,
+    pub binders: VarBinders<Typ>,
+    pub assert_id: Option<air::ast::AssertId>,
+}
 
 pub type Bnd = Arc<Spanned<BndX>>;
 #[derive(Clone, Debug, ToDebugSNode)]

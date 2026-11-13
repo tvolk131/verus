@@ -112,3 +112,9 @@ sha256 = "f1aee72acdf7f6540ea29df961430610e60f86ac0c9fafa51195b64109f30e54"
 [[fixtures.components]]
 path = "source/tools/research/practical_caller_transitions/redb/cases_v2.rs"
 sha256 = "33f919240e1b916481e1f9355a117743f61c5998dddfb0e1aa96b379f464d3fd"
+
+[[fixtures]]
+path = "transfer_composition/redb_native.rs"
+origin = "evidence/redb-native-composition-cycle1/candidate.rs"
+archive_commit = "37fe7b453e621fa9b0ff37e8d18c813a9e1888a8"
+sha256 = "84fdd31a972aa67277109848d81fae85f29d2afae6a494af40753cb1a50988e5"

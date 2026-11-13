@@ -183,8 +183,7 @@ test_verify_one_file_with_options! {
 
 #[test]
 fn payload_get_roundtrip() {
-    let source = include_str!("../fixtures/infer/constructor_functions/bortag.rs")
-        .to_string()
+    let source = include_str!("../fixtures/infer/constructor_functions/bortag.rs").to_string()
         + r#"
 verus! {
 impl BorTag {

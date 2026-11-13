@@ -1,0 +1,8 @@
+{
+  "database_key": "    fn get_full_key(&self, key: &[u8]) -> Vec<u8> {\n        let mut full_key = self.prefix.clone();\n        full_key.extend_from_slice(key);\n        full_key\n    }",
+  "database_record": "struct PrefixDatabase<Inner>\nwhere\n    Inner: Debug,\n{\n    prefix: Vec<u8>,\n    global_dbtx_access_token: Option<GlobalDBTxAccessToken>,\n    inner: Inner,\n}",
+  "token": "pub struct GlobalDBTxAccessToken(u32);",
+  "transaction_key": "    fn get_full_key(&self, key: &[u8]) -> Vec<u8> {\n        let mut full_key = self.prefix.clone();\n        full_key.extend_from_slice(key);\n        full_key\n    }",
+  "transaction_range": "    fn get_full_range(&self, range: Range<&[u8]>) -> Range<Vec<u8>> {\n        Range {\n            start: self.get_full_key(range.start),\n            end: self.get_full_key(range.end),\n        }\n    }",
+  "transaction_record": "struct PrefixDatabaseTransaction<Inner> {\n    inner: Inner,\n    global_dbtx_access_token: Option<GlobalDBTxAccessToken>,\n    prefix: Vec<u8>,\n}"
+}

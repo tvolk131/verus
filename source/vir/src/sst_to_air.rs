@@ -1929,6 +1929,8 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                     let result_map = crate::infer::is_result_map_maximality_model(func, typs);
                     let integer_unwrap =
                         crate::infer::is_integer_unwrap_maximality_model(func, typs);
+                    let unsigned_saturating_div =
+                        crate::infer::is_unsigned_saturating_div_maximality_model(func, typs);
                     let option_map = crate::infer::is_option_map_or_maximality_model(func, typs);
                     let primitive_operator =
                         crate::infer::is_primitive_operator_maximality_model(func, typs);
@@ -1939,6 +1941,7 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                         && !native_iterator
                         && !result_map
                         && !integer_unwrap
+                        && !unsigned_saturating_div
                         && !option_map
                         && !primitive_operator
                     {

@@ -1,0 +1,217 @@
+{
+  "native_pin": "c82ab865bb362bc4af067d332adc44978ff64813",
+  "classification": "conditional native-block/caller correspondence; not whole decoders/finalize",
+  "fixture_sha256": "84fdd31a972aa67277109848d81fae85f29d2afae6a494af40753cb1a50988e5",
+  "native_files": {
+    "src/error.rs": "b7d0aaa4074d7746ce9af95188deb9472a08578ebf3214a9aa20f8f008e32266",
+    "src/lib.rs": "b04787960158d8b8cb80ef8e3f705737cf8627abd603c90609a4f3ded0cafe95",
+    "src/transaction_tracker.rs": "423252fc12806ff37aed5a61ab9f0217bf35a2c2724dc40f9930dc94dbf3519e",
+    "src/tree_store/btree_base.rs": "c3a1f5ca0cefdde0bc7d1b40536bc4f2d68a8bce852115433621a8b37fb9ec60",
+    "src/tree_store/page_store/base.rs": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+    "src/tree_store/page_store/header.rs": "35863472a48f9e0eb65a0f9ba0b2517a888a881478476aaafbcbfc77842850f9",
+    "src/tree_store/page_store/page_manager.rs": "b062608a527c3f53aa505af870f2b803da3fa7b095169194c681cc6441cb558a"
+  },
+  "bodies": [
+    {
+      "name": "header::get_u64",
+      "marker": "fn get_u64(",
+      "classification": "whole native executable method body",
+      "sha256": "47c27d93df756c6d4107597a32dbe7a36197fcaea9c87b3bb148663831f110d7",
+      "native_item_sha256": "c3c291cbc43818822fafaad0589935043433d7ed52f05f13a8ec5c76a545b516",
+      "native_source": "src/tree_store/page_store/header.rs",
+      "native_line": 96
+    },
+    {
+      "name": "TransactionId::new",
+      "marker": "fn new(",
+      "classification": "whole native executable method body",
+      "sha256": "2a6fad7d3026e2ed15c2b6973df6ba1d88319932e9a76ff44cc2cf17278ae655",
+      "native_item_sha256": "7291f8fd284d67792ebd29ac7a7b09e5c0f46d5e12b1dbfa4ba1906cb2a5e3fc",
+      "native_source": "src/transaction_tracker.rs",
+      "native_line": 19
+    },
+    {
+      "name": "DatabaseHeader::primary_slot",
+      "marker": "fn primary_slot(",
+      "classification": "whole native executable method body",
+      "sha256": "ab3a269dcc0825255802e91e4f87498ffc95bb55ffe86621a67e2804eea6ea05",
+      "native_item_sha256": "76846bac1f3da66dd247a0008c0878c4bbefb9f8d88b56e70a3188d31e4293ca",
+      "native_source": "src/tree_store/page_store/header.rs",
+      "native_line": 448
+    },
+    {
+      "name": "DatabaseHeader::secondary_slot",
+      "marker": "fn secondary_slot(",
+      "classification": "whole native executable method body",
+      "sha256": "7fa74d5c73be0b645e2c69261ab7549f4b803a2faa13300c0e7e367c5d8292b4",
+      "native_item_sha256": "43ebe6060dc714263d937d11e4e4964352ad93068ef3dbc44c49930761afe597",
+      "native_source": "src/tree_store/page_store/header.rs",
+      "native_line": 452
+    },
+    {
+      "name": "DatabaseHeader::swap_primary_slot",
+      "marker": "fn swap_primary_slot(",
+      "classification": "whole native executable method body",
+      "sha256": "82f38f51d6e369a11d719ef5d06f4622b4e6314d7590e70e3d2d17a5d87750ac",
+      "native_item_sha256": "4083beddb01a5cac24313493a816c5bde001b2d50a6ea0300451232919f4c4fe",
+      "native_source": "src/tree_store/page_store/header.rs",
+      "native_line": 480
+    },
+    {
+      "name": "UnrepairedDatabaseHeader::select_primary_slot",
+      "marker": "fn select_primary_slot(",
+      "classification": "whole native executable method body",
+      "sha256": "1972ed031e1b2b905ab9deeb8b62fe2f2725824c4c5509f299e4fdde10ec195b",
+      "native_item_sha256": "b2f5b9a5748a65c98ab36bd9ba6ff36b8fc61b48c8e47d66caa686eca40e32e7",
+      "native_source": "src/tree_store/page_store/header.rs",
+      "native_line": 324
+    },
+    {
+      "name": "PageNumber::serialized_size",
+      "marker": "fn serialized_size(",
+      "classification": "whole native executable method body",
+      "sha256": "ee319f14c7a63aae63374d0df31d7f5d40a2414fe677b81280010bfa552804d4",
+      "native_item_sha256": "50379a8552b6dc05b01fadcd490765a3ff64ffd10e01f08c9af1b62527d92bc7",
+      "native_source": "src/tree_store/page_store/base.rs",
+      "native_line": 75,
+      "owner": "impl PageNumber {"
+    },
+    {
+      "name": "BtreeHeader::serialized_size",
+      "marker": "fn serialized_size(",
+      "classification": "whole native executable method body",
+      "sha256": "4ab3efc4e2cdc662fb566a9e4032e8cebb7c24e4647a5e231ce25b637b45c4c2",
+      "native_item_sha256": "24e4126732a50899df2e019e2506553398c3a39bba6ebdf0cd2343cf5c5cf5b5",
+      "native_source": "src/tree_store/btree_base.rs",
+      "native_line": 153,
+      "owner": "impl BtreeHeader {"
+    },
+    {
+      "name": "From<StorageError> for DatabaseError",
+      "marker": "fn from(",
+      "classification": "whole native executable method body",
+      "sha256": "38e69a862db9c99064a0bde9c4b90282c727243fdf3f52510909a38530ece7db",
+      "native_item_sha256": "755a22cbb300788543e2a8b9c6baa5c6b87e4e6c6028b17ddeca95ccd1fc57b3",
+      "native_source": "src/error.rs",
+      "native_line": 342
+    },
+    {
+      "name": "transaction-id-and-record-tail",
+      "marker": "fn from_id_tail(",
+      "classification": "exact native contiguous block, not a whole native method",
+      "sha256": "9ee956881655a7106c22a1a7b9583ef443955a014e99f72d8e8f97566a94ece1",
+      "exact_native_fragment_sha256": "b02ab1898dbd990ab168dd223e1c1f19aaa30796c252538164ba9b6d482a1bf6",
+      "native_source": "src/tree_store/page_store/header.rs",
+      "native_line": 582
+    },
+    {
+      "name": "physical-corruption-orientation-and-record-tail",
+      "marker": "fn assemble_physical_slots(",
+      "classification": "exact native contiguous block, not a whole native method",
+      "sha256": "a95f04763ce95a737a0a62b3526eb11e77875e4ffae100bcc809589be83872f6",
+      "exact_native_fragment_sha256": "a04379789a463ed1f328c26045d7ffca6cd57949eb80dbee75db53845132d564",
+      "native_source": "src/tree_store/page_store/header.rs",
+      "native_line": 191
+    },
+    {
+      "name": "finalize-selection-tail",
+      "marker": "fn select_after_layout_context(",
+      "classification": "exact native contiguous block, not a whole native method",
+      "sha256": "914616bc9ab3b78a7ef959cf893af89ebd593433d2b4de840dd023e026c0b4e2",
+      "exact_native_fragment_sha256": "f99bb9a3427d6e74dc214b40c8459c1a016c66a0915f0aad138a9fbc9fee2e72",
+      "native_source": "src/tree_store/page_store/header.rs",
+      "native_line": 279
+    }
+  ],
+  "records": [
+    {
+      "name": "PageNumber",
+      "marker": "struct PageNumber {",
+      "sha256": "ec4f9b0dfeea335716d1940bb8351ae86503aba63e06d4c01a61396979e16573"
+    },
+    {
+      "name": "BtreeHeader",
+      "marker": "struct BtreeHeader {",
+      "sha256": "086f90059a0dbe1e4b31ad81019d57c01e964152981d2497983752bf43f074d0"
+    },
+    {
+      "name": "TransactionHeader",
+      "marker": "struct TransactionHeader {",
+      "sha256": "917822b69ac1505b09e7f6e26966d08907d8c3d13117b08a6f43bd63fcacb37a"
+    },
+    {
+      "name": "DatabaseHeader",
+      "marker": "struct DatabaseHeader {",
+      "sha256": "183e33d6913cc288dd435a12060557b81d552e23a0251f6ef0742fd0f4e59792"
+    },
+    {
+      "name": "UnrepairedDatabaseHeader",
+      "marker": "struct UnrepairedDatabaseHeader {",
+      "sha256": "15858fb693972cfc32446b9a35f0253838d74356c5c7f75510a1fc5e2d79842b"
+    },
+    {
+      "name": "StorageError",
+      "marker": "enum StorageError {",
+      "sha256": "0d98e3515f8360ecc5ff803c578d4bd937d8dd133ba824a4f80014bd5c1d440b"
+    },
+    {
+      "name": "DatabaseError",
+      "marker": "enum DatabaseError {",
+      "sha256": "f86797a64951735266865a17cac375f48370f0b63b62c1735a511d15c1014668"
+    }
+  ],
+  "constant_declarations": [
+    "const TRANSACTION_SIZE: usize = 128;",
+    "const USER_ROOT_NON_NULL_OFFSET: usize = size_of::<u8>();",
+    "const SYSTEM_ROOT_NON_NULL_OFFSET: usize = USER_ROOT_NON_NULL_OFFSET + size_of::<u8>();",
+    "const _UNUSED_OFFSET: usize = SYSTEM_ROOT_NON_NULL_OFFSET + size_of::<u8>();",
+    "const PADDING: usize = 4;",
+    "const USER_ROOT_OFFSET: usize = _UNUSED_OFFSET + size_of::<u8>() + PADDING;",
+    "const SYSTEM_ROOT_OFFSET: usize = USER_ROOT_OFFSET + BtreeHeader::serialized_size();",
+    "const _UNUSED2_OFFSET: usize = SYSTEM_ROOT_OFFSET + BtreeHeader::serialized_size();",
+    "const TRANSACTION_ID_OFFSET: usize = _UNUSED2_OFFSET + BtreeHeader::serialized_size();",
+    "const TRANSACTION_LAST_FIELD: usize = TRANSACTION_ID_OFFSET + size_of::<u64>();"
+  ],
+  "domain_anchors": [
+    {
+      "name": "selector exact branch-sensitive safety",
+      "text": "self.inner.two_phase_commit || self.primary_corrupted || self.inner.primary_slot < 2",
+      "count": 1
+    },
+    {
+      "name": "tail last-field length",
+      "text": "requires data.len() >= TRANSACTION_LAST_FIELD,\n            corrupted ==> data.len() >= TRANSACTION_SIZE,",
+      "count": 1
+    },
+    {
+      "name": "leaf full length is inferred, not authored",
+      "text": "#[verifier::infer]\nfn get_u64(data: &[u8]) -> u64 {",
+      "count": 1
+    },
+    {
+      "name": "total swap",
+      "text": "pub fn swap_primary_slot(&mut self)\n        ensures",
+      "count": 1
+    },
+    {
+      "name": "secondary accessor original safe domain",
+      "text": "requires (self.primary_slot ^ 1) < 2,",
+      "count": 1
+    },
+    {
+      "name": "composed exact lengths and conditional safety",
+      "text": "requires data0.len() >= TRANSACTION_LAST_FIELD, data1.len() >= TRANSACTION_LAST_FIELD,\n        bad0 ==> data0.len() >= TRANSACTION_SIZE,\n        bad1 ==> data1.len() >= TRANSACTION_SIZE,\n        frame.two_phase_commit || physical_bad(frame.primary_slot, bad0, bad1) || frame.primary_slot < 2,",
+      "count": 1
+    }
+  ],
+  "derive_declarations": [
+    "#[derive(Copy, Clone, Hash, Ord, PartialOrd, Eq, PartialEq, Debug)]\npub struct TransactionId(pub u64);",
+    "#[derive(Copy, Clone, Eq, PartialEq)]\npub struct PageNumber",
+    "#[derive(Debug, Copy, Clone, Eq, PartialEq)]\npub struct BtreeHeader",
+    "#[derive(Clone)]\npub struct TransactionHeader",
+    "#[derive(Clone)]\npub struct DatabaseHeader"
+  ],
+  "application_import_cardinality": 0,
+  "scope_document_sha256": "5eff1f7dfdd9e749d91907ea173e1a7982e7b2c4e9b868a5ba633e51982b821d",
+  "source_ledger_sha256": "d8bdea6b024b55b3aa17048b9bc60d7a4ee2b3b859befd2b9892f9c0422a3ffd"
+}

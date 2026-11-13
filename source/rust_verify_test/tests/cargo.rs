@@ -10,8 +10,7 @@ use tempfile::tempdir;
 use toml::{Table, Value};
 
 fn compute_test_dir(dir: &str) -> std::path::PathBuf {
-    let current_exe = std::env::current_exe().unwrap();
-    current_exe.parent().unwrap().parent().unwrap().parent().unwrap().parent().unwrap().join(dir)
+    std::path::Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap().join(dir)
 }
 
 fn parse_toml_file(path: &std::path::Path) -> Table {
@@ -113,9 +112,7 @@ fn adjust_version(mut project_path: PathBuf) {
     let Some(version) = dependencies.get_mut("vstd") else {
         panic!("no vstd version");
     };
-    let mut cur_file = std::env::current_dir().expect("current dir");
-    cur_file.pop();
-    cur_file.push("vstd");
+    let cur_file = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap().join("vstd");
 
     let mut new_vstd_entry = Table::new();
     new_vstd_entry.insert(
@@ -167,9 +164,45 @@ cargo_examples!(false);
 fn cargo_inferred_contracts_across_three_crates() {
     let workspace = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../examples/verus_infer_workspace");
-    let target = tempdir().unwrap();
+    let notification_directory = tempdir().unwrap();
+    let notification_args = notification_directory.path().join("notifications.rsp");
+    std::fs::write(&notification_args, "--json=artifacts\n").unwrap();
+    let notification_option = format!("@{}", notification_args.display());
     for command in ["build", "verify"] {
-        let run = run_cargo_verus_with_target(&[command], &workspace, target.path());
-        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let target = tempdir().unwrap();
+        for _ in 0..2 {
+            let run = run_cargo_verus_with_target(
+                &[command, "--config", "build.jobs=4", "--", &notification_option],
+                &workspace,
+                target.path(),
+            );
+            assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        }
+    }
+}
+
+#[test]
+fn cargo_inferred_contracts_reject_malformed_json_notifications() {
+    let workspace = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../examples/verus_infer_workspace");
+    for options in [
+        vec!["--json=artifacts,"],
+        vec!["--json=,artifacts"],
+        vec!["--json", "artifacts,"],
+        vec!["--json="],
+    ] {
+        let target = tempdir().unwrap();
+        let mut arguments = vec!["build", "--package", "infer-base", "--"];
+        arguments.extend(options);
+        let run = run_cargo_verus_with_target(&arguments, &workspace, target.path());
+        assert!(
+            !run.status.success(),
+            "arguments: {:?}\nstdout: {}\nstderr: {}",
+            arguments,
+            String::from_utf8_lossy(&run.stdout),
+            String::from_utf8_lossy(&run.stderr),
+        );
+        let stderr = String::from_utf8_lossy(&run.stderr);
+        assert!(stderr.contains("unknown `--json` option"), "{}", stderr);
     }
 }

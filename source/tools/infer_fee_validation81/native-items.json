@@ -1,0 +1,15 @@
+{
+  "Amount": "pub struct Amount {\n    // TODO: rename to `units`, with backward compat for the serialization?\n    pub msats: u64,\n}",
+  "Amount::checked_add": "pub fn checked_add(self, other: Self) -> Option<Self> {\n        Some(Self {\n            msats: self.msats.checked_add(other.msats)?,\n        })\n    }",
+  "Amount::from_msats": "pub const fn from_msats(msats: u64) -> Self {\n        Self { msats }\n    }",
+  "Amount::from_sats": "pub const fn from_sats(sats: u64) -> Self {\n        Self::from_msats(sats * 1000)\n    }",
+  "PaymentFee": "pub struct PaymentFee {\n    pub base: Amount,\n    pub parts_per_million: u64,\n}",
+  "PaymentFee::absolute_fee": "fn absolute_fee(&self, msats: u64) -> u64 {\n        // The base fee is bounded well below `u64::MAX` for any fee that passed\n        // the limit checks, but a fee decoded from an older database has not\n        // necessarily passed them, so saturate rather than panic.\n        msats\n            .saturating_mul(self.parts_per_million)\n            .saturating_div(1_000_000)\n            .saturating_add(self.base.msats)\n    }",
+  "PaymentFee::add_to": "pub fn add_to(&self, msats: u64) -> Amount {\n        Amount::from_msats(msats.saturating_add(self.absolute_fee(msats)))\n    }",
+  "PaymentFee::checked_add": "pub fn checked_add(self, rhs: Self) -> Option<PaymentFee> {\n        Some(PaymentFee {\n            base: self.base.checked_add(rhs.base)?,\n            parts_per_million: self.parts_per_million.checked_add(rhs.parts_per_million)?,\n        })\n    }",
+  "PaymentFee::fee": "pub fn fee(&self, msats: u64) -> Amount {\n        Amount::from_msats(self.absolute_fee(msats))\n    }",
+  "PaymentFee::is_within": "pub fn is_within(&self, limit: &PaymentFee) -> bool {\n        self.base <= limit.base && self.parts_per_million <= limit.parts_per_million\n    }",
+  "PaymentFee::subtract_from": "pub fn subtract_from(&self, msats: u64) -> Amount {\n        Amount::from_msats(msats.saturating_sub(self.absolute_fee(msats)))\n    }",
+  "RECEIVE_FEE_LIMIT": "pub const RECEIVE_FEE_LIMIT: PaymentFee = PaymentFee {\n        base: Amount::from_sats(50),\n        parts_per_million: 5_000,\n    };",
+  "SEND_FEE_LIMIT": "pub const SEND_FEE_LIMIT: PaymentFee = PaymentFee {\n        base: Amount::from_sats(100),\n        parts_per_million: 15_000,\n    };"
+}

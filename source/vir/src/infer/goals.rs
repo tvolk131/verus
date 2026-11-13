@@ -3,13 +3,17 @@
 //! Substitution is untrusted: we add only a universally CHECKED conditional
 //! theorem, never a rewritten caller assertion or an assumed callee result.
 //! The original assertion and every executable safety check remain in place.
-//! The existing BV backend checks the identical theorem used by the normal
-//! query. Failure of an auxiliary query fails verification, just like an
-//! explicit `assert(...) by(bit_vector)`.
+//! Existing BV/NIA backends check the identical theorems used by the normal
+//! query. Failure of any auxiliary query fails verification, just like an
+//! explicit checked assertion.
+use super::bitvector_hints::shift_amount;
 use super::*;
 use crate::sst::{self, Exp, ExpX, FuncCheckSst, Stm, StmX};
 use num_traits::ToPrimitive;
 use std::collections::HashSet;
+
+mod constants;
+mod polynomial;
 
 const EXPANSION: usize = 8192;
 const DEPTH: usize = 64;
@@ -30,7 +34,7 @@ fn binary(op: sst::BinaryOp, a: Exp, b: Exp) -> Exp {
 }
 
 fn unboxed(mut typ: &Typ) -> &Typ {
-    while let TypX::Boxed(inner) = &**typ {
+    while let TypX::Boxed(inner) | TypX::Decorate(TypDecoration::Ref, None, inner) = &**typ {
         typ = inner;
     }
     typ
@@ -57,7 +61,7 @@ fn array_projection(expression: &Exp) -> Option<(&Exp, &Exp)> {
     if !models::path_is(&method.path, CrateId::Vstd, &["view", "View", "view"])
         || implementation.path.krate != CrateId::Vstd
         || implementation.path.segments.len() != 3
-        || implementation.path.segments[0].as_str() != "array"
+        || !matches!(implementation.path.segments[0].as_str(), "array" | "slice")
         || !implementation.path.segments[1].starts_with("impl")
         || implementation.path.segments[2].as_str() != "view"
         || view_types.len() != 1
@@ -66,7 +70,11 @@ fn array_projection(expression: &Exp) -> Option<(&Exp, &Exp)> {
         return None;
     }
     let array = &view_arguments[0];
-    let (element, _) = arrays::shape(unboxed(&array.typ))?;
+    let element = match implementation.path.segments[0].as_str() {
+        "array" => arrays::shape(unboxed(&array.typ))?.0,
+        "slice" => slices::element(unboxed(&array.typ))?,
+        _ => return None,
+    };
     if !crate::ast_util::types_equal(&element, &types[0])
         || !crate::ast_util::types_equal(&element, unboxed(&expression.typ))
         || !crate::ast_util::types_equal(unboxed(&array.typ), &view_types[0])
@@ -78,6 +86,7 @@ fn array_projection(expression: &Exp) -> Option<(&Exp, &Exp)> {
 }
 
 struct Expression<'a> {
+    callees: &'a HashMap<Fun, Function>,
     definitions: &'a HashMap<VarIdent, Definition>,
     remaining: usize,
     inferred: bool,
@@ -152,12 +161,46 @@ impl Expression<'_> {
                 }
                 self.resolve(&fields.iter().find(|binding| binding.name == field.field)?.a, next)
             }
-            ExpX::Binary(sst::BinaryOp::Index(ArrayKind::Array), array, index) => {
+            ExpX::Binary(
+                sst::BinaryOp::Index(ArrayKind::Array | ArrayKind::Slice),
+                array,
+                index,
+            ) => {
                 let array = self.resolve(array, next)?;
                 let index = self.resolve(index, next)?;
                 let ExpX::ArrayLiteral(elements) = &array.x else { return None };
                 let ExpX::Const(Constant::Int(index)) = &index.x else { return None };
                 self.resolve(elements.get(index.to_usize()?)?, next)
+            }
+            ExpX::Call(sst::CallFun::Fun(name, resolved), types, arguments) => {
+                let (name, types) =
+                    resolved.as_ref().map_or((name, types), |(name, types)| (name, types));
+                let function = self.callees.get(name)?;
+                if function.x.mode != Mode::Spec
+                    || function.x.attrs.is_unsafe
+                    || function.x.proxy.is_some()
+                    || function.x.typ_params.len() != types.len()
+                    || function.x.params.len() != arguments.len()
+                    || function.x.params.iter().any(|parameter| parameter.x.user_mut)
+                {
+                    return None;
+                }
+                let variables = function
+                    .x
+                    .params
+                    .iter()
+                    .zip(arguments.iter())
+                    .map(|(parameter, argument)| (parameter.x.name.clone(), argument.clone()))
+                    .collect();
+                let body = super::bitvector_hints::summary_exp(
+                    function.x.body.as_ref()?,
+                    &variables,
+                    &mut self.remaining,
+                )?;
+                let types =
+                    function.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
+                let body = crate::sst_util::subst_exp(&types, &HashMap::new(), &body);
+                self.resolve(&body, next)
             }
             _ => Some(expression.clone()),
         }
@@ -244,6 +287,12 @@ impl Expression<'_> {
                 }
                 let (a, aw) = self.expand(a, next)?;
                 let (b, bw) = self.expand(b, next)?;
+                let (b, bw) =
+                    if matches!(op, sst::BinaryOp::Bitwise(BitwiseOp::Shl(..) | BitwiseOp::Shr)) {
+                        shift_amount(b, bw, &mut self.remaining)?
+                    } else {
+                        (b, bw)
+                    };
                 let width = match op {
                     sst::BinaryOp::Arith(sst::ArithOp::Mul) => aw + bw,
                     sst::BinaryOp::Arith(sst::ArithOp::Add | sst::ArithOp::Sub) => aw.max(bw) + 1,
@@ -408,12 +457,13 @@ impl Requests<'_> {
         true
     }
 
-    fn request(&mut self, goal: &Exp, inferred_requirement: bool) -> Option<Exp> {
+    fn request(&mut self, goal: &Exp, inferred_requirement: bool) -> Option<polynomial::Proposal> {
         if self.remaining == 0 || self.work == 0 {
             return None;
         }
         let budget = EXPANSION.min(self.work);
         let mut e = Expression {
+            callees: self.callees,
             definitions: &self.definitions,
             remaining: budget,
             inferred: inferred_requirement,
@@ -437,14 +487,29 @@ impl Requests<'_> {
             }
         }
         self.work -= before - e.remaining;
-        let mut fact = conclusion;
-        for premise in e.premises.into_iter().rev() {
-            fact = binary(sst::BinaryOp::Implies, premise, fact);
-        }
+        let before = e.remaining;
+        let strategy = polynomial::needed(&conclusion, &mut e.remaining);
+        let proposal = if strategy == Some(true) {
+            // Do not bit-blast general address polynomials. Unsupported shapes
+            // install no proposal and leave the original obligation intact.
+            polynomial::propose(&conclusion, &e.premises, &mut e.remaining)
+        } else if strategy == Some(false) {
+            let mut fact = conclusion;
+            for premise in e.premises.into_iter().rev() {
+                fact = binary(sst::BinaryOp::Implies, premise, fact);
+            }
+            Some(polynomial::Proposal::BitVector(SpannedTyped::new(
+                &goal.span,
+                &bool_typ(),
+                fact.x.clone(),
+            )))
+        } else {
+            None
+        };
+        self.work -= before - e.remaining;
+        let proposal = proposal?;
         self.remaining -= 1;
-        // A failed specialized proof should identify the requested assertion,
-        // not a parameter inside an expanded callee summary.
-        Some(SpannedTyped::new(&goal.span, &bool_typ(), fact.x.clone()))
+        Some(proposal)
     }
 
     fn stm(&mut self, stm: &Stm) -> Result<Stm, VirErr> {
@@ -459,7 +524,7 @@ impl Requests<'_> {
             StmX::Assert(_, _, goal) => {
                 if let Some(fact) = self.request(goal, false) {
                     return Ok(stm.new_x(StmX::Block(Arc::new(vec![
-                        super::bitvector_hints::checked(fact)?,
+                        polynomial::checked(fact)?,
                         stm.clone(),
                     ]))));
                 }
@@ -483,6 +548,37 @@ impl Requests<'_> {
                 if self.array_equality(stm) || self.array_projection_call(stm) {
                     return Ok(stm.clone());
                 }
+                if matches!(
+                    self.callees.get(name).and_then(models::array_model),
+                    Some(models::ArrayModel::AsSlice)
+                ) && args.len() == 1
+                    && dest.is_init
+                    && slices::substitutes(unboxed(&args[0].typ), unboxed(&dest.dest.typ))
+                    && let ExpX::Var(name) | ExpX::VarLoc(name) = &dest.dest.x
+                {
+                    self.definitions.insert(name.clone(), Definition::Value(args[0].clone()));
+                    return Ok(stm.clone());
+                }
+                if matches!(
+                    self.callees.get(name).and_then(models::array_model),
+                    Some(models::ArrayModel::Fill)
+                ) && args.len() == 1
+                    && dest.is_init
+                    && let Some((element, length)) = arrays::shape(unboxed(&dest.dest.typ))
+                    && crate::ast_util::types_equal(&element, unboxed(&args[0].typ))
+                    && let ExpX::Var(name) | ExpX::VarLoc(name) = &dest.dest.x
+                {
+                    self.definitions.insert(
+                        name.clone(),
+                        Definition::Value(SpannedTyped::new(
+                            &dest.dest.span,
+                            unboxed(&dest.dest.typ),
+                            ExpX::ArrayLiteral(Arc::new(vec![args[0].clone(); length])),
+                        )),
+                    );
+                    return Ok(stm.clone());
+                }
+                let mut constants = self.constant_requests(name, args)?;
                 let callee = self
                     .callees
                     .get(name)
@@ -496,6 +592,7 @@ impl Requests<'_> {
                         .map(|(parameter, argument)| (parameter.x.name.clone(), argument.clone()))
                         .collect();
                     let mut hints = Vec::new();
+                    hints.append(&mut constants);
                     for requirement in callee.x.require.iter().take(REQUESTS) {
                         if self.remaining == 0 || self.work == 0 {
                             break;
@@ -511,7 +608,7 @@ impl Requests<'_> {
                         if let Some(requirement) = requirement
                             && let Some(fact) = self.request(&requirement, true)
                         {
-                            hints.push(super::bitvector_hints::checked(fact)?);
+                            hints.push(polynomial::checked(fact)?);
                         }
                     }
                     self.definitions
@@ -523,6 +620,10 @@ impl Requests<'_> {
                 } else {
                     self.definitions.clear();
                 }
+                if !constants.is_empty() {
+                    constants.push(stm.clone());
+                    return Ok(stm.new_x(StmX::Block(Arc::new(constants))));
+                }
                 Ok(stm.clone())
             }
             StmX::Return { ret_exp, .. } => {
@@ -532,7 +633,7 @@ impl Requests<'_> {
                 let mut hints = Vec::new();
                 for goal in self.post_condition.ens_exps.iter() {
                     if let Some(fact) = self.request(goal, false) {
-                        hints.push(super::bitvector_hints::checked(fact)?);
+                        hints.push(polynomial::checked(fact)?);
                     }
                 }
                 hints.push(stm.clone());
@@ -567,7 +668,9 @@ impl Requests<'_> {
 pub fn prepare(
     check: &FuncCheckSst,
     callees: &HashMap<Fun, Function>,
-) -> Result<FuncCheckSst, VirErr> {
+    parameters: &sst::Pars,
+    ctx: &crate::context::Ctx,
+) -> Result<(FuncCheckSst, Vec<super::report::LoopPointPreparation>), VirErr> {
     if !matches!(check.post_condition.kind, sst::PostConditionKind::Ensures) {
         return Err(error(&check.body.span, "Verus Infer goals: expected an ordinary proof body"));
     }
@@ -582,7 +685,11 @@ pub fn prepare(
     };
     let mut result = check.clone();
     result.body = requests.stm(&check.body)?;
-    super::packing_goals::decorate(&result, callees)
+    let result = constants::decorate_local_shifts(&result, parameters)?;
+    let result =
+        super::xor_goals::decorate(&super::packing_goals::decorate(&result, callees)?, callees)?;
+    let result = super::entry_goals::decorate(&result, parameters, ctx);
+    Ok(super::entry_goals::decorate_loop_points(&result, parameters, ctx))
 }
 
 #[cfg(test)]
@@ -597,6 +704,7 @@ mod tests {
 
     fn expand(value: &Exp, definitions: &HashMap<VarIdent, Definition>, budget: usize) -> bool {
         Expression {
+            callees: &HashMap::new(),
             definitions,
             remaining: budget,
             inferred: false,
@@ -702,8 +810,69 @@ mod tests {
         assert!(array_projection(&actual).is_some());
         assert!(expand(&actual, &HashMap::new(), EXPANSION));
         assert!(array_projection(&projection("local", 0, value.typ.clone())).is_none());
+        assert!(array_projection(&projection("slice", 0, value.typ.clone())).is_none());
         assert!(array_projection(&projection("array", 0, bool_typ())).is_none());
         assert!(!expand(&projection("array", 1, value.typ.clone()), &HashMap::new(), EXPANSION));
+    }
+
+    #[test]
+    fn polymorphic_shared_views_do_not_erase_owned_box_decorations() {
+        let element = variable("element").typ.clone();
+        let array = arrays::typ(element, 9).unwrap();
+        let reference = models::reference(array.clone());
+        let boxed = Arc::new(TypX::Boxed(reference));
+        assert!(crate::ast_util::types_equal(unboxed(&boxed), &array));
+        let owned = Arc::new(TypX::Decorate(TypDecoration::Box, None, array));
+        assert!(Arc::ptr_eq(unboxed(&owned), &owned));
+    }
+
+    #[test]
+    fn spec_definition_cycles_and_non_spec_bodies_decline() {
+        let input = crate::infer::tests::input("unused");
+        let function = crate::infer::tests::function("recursive", input.clone());
+        let call = SpannedTyped::new(
+            &input.span,
+            &input.typ,
+            ExpX::Call(
+                sst::CallFun::Fun(function.x.name.clone(), None),
+                Arc::new(Vec::new()),
+                Arc::new(Vec::new()),
+            ),
+        );
+        let mut data = function.x.clone();
+        data.params = Arc::new(Vec::new());
+        data.body = Some(input.new_x(ExprX::Call {
+            target: CallTarget::Fun(
+                CallTargetKind::Static,
+                data.name.clone(),
+                Arc::new(Vec::new()),
+                Arc::new(Vec::new()),
+                CallTargetAttrs {
+                    autospec: AutospecUsage::Final,
+                    const_var: false,
+                    assume_external_allowed: false,
+                },
+            ),
+            args: Arc::new(Vec::new()),
+            post_args: None,
+            body: None,
+        }));
+        for mode in [Mode::Spec, Mode::Exec] {
+            data.mode = mode;
+            let function = function.new_x(data.clone());
+            let callees = HashMap::from([(function.x.name.clone(), function)]);
+            let mut expression = Expression {
+                callees: &callees,
+                definitions: &HashMap::new(),
+                remaining: EXPANSION,
+                inferred: false,
+                bitwise: false,
+                premises: Vec::new(),
+                resolved: HashMap::new(),
+                inputs: HashSet::new(),
+            };
+            assert!(expression.resolve(&call, DEPTH).is_none());
+        }
     }
 
     #[test]
@@ -728,5 +897,43 @@ mod tests {
         assert_eq!(requests.work, 0);
         assert_eq!(requests.remaining, REQUESTS);
         assert!(requests.request(&variable("value"), true).is_none());
+    }
+
+    #[test]
+    fn computed_shift_amounts_are_clipped_only_in_checked_proposals() {
+        let value = variable("value");
+        let amount = Expression::number(&value, 64.into()).new_x(ExpX::Binary(
+            sst::BinaryOp::Arith(sst::ArithOp::Sub),
+            Expression::number(&value, 64.into()),
+            value.clone(),
+        ));
+        let mut budget = 1;
+        let (normalized, width) = shift_amount(amount.clone(), 34, &mut budget).unwrap();
+        assert_eq!(budget, 0);
+        assert_eq!(width, 128);
+        assert!(matches!(
+            &normalized.x,
+            ExpX::Unary(UnaryOp::Clip { range: IntRange::U(128), truncate: true }, inner)
+                if Arc::ptr_eq(inner, &amount)
+        ));
+        assert!(shift_amount(amount.clone(), 34, &mut budget).is_none());
+        assert!(shift_amount(amount, 129, &mut 1).is_none());
+        let (unchanged, _) = shift_amount(value.clone(), 65, &mut 0).unwrap();
+        assert!(Arc::ptr_eq(&unchanged, &value));
+    }
+
+    #[test]
+    fn shift_proposals_do_not_admit_unbounded_or_architecture_inputs() {
+        let value = variable("value");
+        for range in [IntRange::Int, IntRange::Nat, IntRange::USize, IntRange::ISize] {
+            let input =
+                SpannedTyped::new(&value.span, &Arc::new(TypX::Int(range)), value.x.clone());
+            let shift = value.new_x(ExpX::Binary(
+                sst::BinaryOp::Bitwise(BitwiseOp::Shr),
+                value.clone(),
+                input,
+            ));
+            assert!(!expand(&shift, &HashMap::new(), EXPANSION));
+        }
     }
 }

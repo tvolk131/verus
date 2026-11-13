@@ -19,13 +19,20 @@ bodies, specifications or domains; review intentional changes to these inputs.
 - `varint` retains both manual and assisted canonical-u64 proofs, including their
   authored semantic invariants. `word_sequence` retains bitmap propagation.
 - `constructor_functions` exercises the original tuple-constructor function value.
+- `transfer_composition` retains REDB header selection/finalization methods and
+  their authored representation/frame contracts. Storage and recovery coupling
+  remain unproved.
+
 The native-cell inputs and inactive experimental switch are retained only on
 `experiments/infer-native-cell`; no owned-cell capability ships in this tree.
 
 The complete historical reports, upstream pins, adaptations and limitations are
-preserved at commit `7dcabedaa93299a3607746b6ec25f5e4778288a4`, local tag
+preserved at commit `7dcabedaa93299a3607746b6ec25f5e4778288a4`, tag
 `archive/infer-research-2026-11-12`. The unfinished native experiment is also
-preserved on `experiments/infer-native-cell`. To inspect a historical file:
+preserved on `experiments/infer-native-cell`. The `transfer_composition` input
+comes from `archive/verus-infer-pre-integration-2026-11-13`; its per-fixture
+`archive_commit` overrides the default archive in the manifest. To inspect a
+historical file:
 
 ```sh
 git show archive/infer-research-2026-11-12:path/from/provenance.toml

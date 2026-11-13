@@ -28,7 +28,7 @@ def integration_targets(suite):
         return ['infer_application_regressions']
     names = {p.stem for p in TESTS.glob('infer*.rs')}
     names.update(p.stem for p in TESTS.glob('local_checked*.rs'))
-    names.update(['constructor_function_values', 'fndef_types'])
+    names.update(['constructor_function_values', 'fndef_types', 'certified_foreign_bool'])
     names.discard('infer_application_regressions')
     return sorted(names)
 
@@ -103,14 +103,15 @@ def main():
         guard = ArtifactGuard([Path(__file__), TOOLS / 'infer_experiment.py', TOOLS / 'infer_eval_support.py'])
         run = LoggedCommands(output, ROOT / 'source', receipt['commands'], timeout=args.timeout, guard=guard)
         tool_guard = None
-        def invoke(label, command):
+        def invoke(label, command, cwd=None):
             if tool_guard is not None: tool_guard.check()
-            require(run(label, list(map(str, command)), env) == 0, label + ' failed; logs retained')
+            command_runner = run if cwd is None else LoggedCommands(output, cwd, receipt['commands'], timeout=args.timeout, guard=guard)
+            require(command_runner(label, list(map(str, command)), env) == 0, label + ' failed; logs retained')
             if tool_guard is not None: tool_guard.check()
             return (output / (label + '.stdout')).read_text()
         if 'tooling' in suites:
             for optimized in [False, True]:
-                for pattern in ['test_infer*.py', 'test_redb*.py', 'test_fedimint*.py']:
+                for pattern in ['test_*.py']:
                     label = ('optimized-' if optimized else 'normal-') + pattern.replace('*', 'all')
                     command = [sys.executable, '-B'] + (['-O'] if optimized else [])
                     invoke(label, command + ['-m', 'unittest', 'discover', '-s', TOOLS, '-p', pattern])
@@ -145,14 +146,15 @@ def main():
                 command = cargo + sum((['-p', p] for p in packages), []) + selection + ['--no-run', '--message-format=json']
                 binaries = artifacts(invoke(group + '-build', command), expected)
                 for name, binary in sorted(binaries.items()):
-                    names = test_names(invoke(name + '-list', [binary, '--list']))
+                    cwd = ROOT / 'source' / (name if group == 'units' else 'rust_verify_test')
+                    names = test_names(invoke(name + '-list', [binary, '--list'], cwd))
                     for offset in range(0, len(names), args.batch_size):
                         batch = names[offset:offset + args.batch_size]
                         label = name + '-' + str(offset // args.batch_size)
-                        selected = test_names(invoke(label + '-selection', [binary, '--list', '--exact', *batch]))
+                        selected = test_names(invoke(label + '-selection', [binary, '--list', '--exact', *batch], cwd))
                         require(set(selected) == set(batch), 'Rust exact batch selection changed')
                         threads = 1 if group == 'units' else args.test_threads
-                        text = invoke(label, [binary, '--exact', *batch, '--test-threads=' + str(threads)])
+                        text = invoke(label, [binary, '--exact', *batch, '--test-threads=' + str(threads)], cwd)
                         receipt['rust_tests'].append(dict(target=name, **check_rust_summary(text, len(batch))))
         if 'nightly' in suites:
             invoke('assurance-mutations', [sys.executable, '-B', TOOLS / 'test_infer_assurance_mutations.py'])

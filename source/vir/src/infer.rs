@@ -24,6 +24,7 @@ mod collections;
 mod contract;
 mod counting_goals;
 mod eligibility;
+mod entry_goals;
 mod enums;
 mod equality;
 mod exact_hints;
@@ -31,9 +32,11 @@ mod exits;
 mod fold_goals;
 mod goals;
 mod native_mutable_for;
+mod slice_array;
 mod type_invariant_goals;
 mod word_goals;
 mod word_sequence_goals;
+mod xor_goals;
 pub use exact_hints::opt_in as exact_size_hint_opt_in;
 pub use exact_hints::validate as validate_exact_size_hints;
 mod cloning;
@@ -45,6 +48,7 @@ mod local_fold_goals;
 mod loops;
 mod models;
 mod newtypes;
+mod numeric_into;
 mod observations;
 mod owned;
 mod packing_goals;
@@ -57,9 +61,9 @@ mod record_models;
 mod records;
 mod registry;
 mod selector_goals;
-mod set_goals;
 mod sequence_triggers;
 mod sequence_views;
+mod set_goals;
 mod trait_getters;
 mod wrapper_binary;
 mod wrapper_compare;
@@ -121,6 +125,15 @@ pub fn is_result_map_maximality_model(f: &Function, types: &Typs) -> bool {
 }
 pub fn is_integer_unwrap_maximality_model(function: &Function, types: &Typs) -> bool {
     integer_conversions::maximality_model(function, types)
+        || slice_array::maximality_model(function, types)
+}
+
+pub fn is_unsigned_saturating_div_maximality_model(function: &Function, types: &Typs) -> bool {
+    types.is_empty()
+        && integer_models::recognize(function).is_some_and(|model| {
+            model.policy == integer_models::Policy::Saturating
+                && model.operation == integer_models::Operation::Div
+        })
 }
 
 pub fn is_option_map_or_maximality_model(function: &Function, types: &Typs) -> bool {
@@ -176,7 +189,10 @@ mod tuples;
 mod widening;
 
 pub use pipeline::GoalContext;
-pub use report::{AssistanceOutcome, EXPLAINED_PROFILES, GeneratedCandidate, GenerationReport};
+pub use report::{
+    AssistanceOutcome, EXPLAINED_PROFILES, GeneratedCandidate, GenerationReport,
+    LoopPointPreparation,
+};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
@@ -418,6 +434,14 @@ impl Engine<'_> {
             let input = self.expr(arg)?;
             let (required, output) =
                 integer_conversions::value(span, value(&input, span)?, &expr.typ)?;
+            return Ok(Summary {
+                safe: logical(span, LogicalOp::And, input.safe, required)?,
+                value: Some(output),
+            });
+        }
+        if let Some(arg) = slice_array::call(expr, self.callees) {
+            let input = self.expr(arg)?;
+            let (required, output) = slice_array::value(span, value(&input, span)?, &expr.typ)?;
             return Ok(Summary {
                 safe: logical(span, LogicalOp::And, input.safe, required)?,
                 value: Some(output),
@@ -770,6 +794,14 @@ impl Engine<'_> {
                         safe = logical(span, LogicalOp::And, safe, arg.safe.clone())?;
                         values.push(value(&arg, span)?);
                     }
+                    if !byte_model {
+                        safe = logical(
+                            span,
+                            LogicalOp::And,
+                            safe,
+                            integer_models::safety(span, &callee, &values)?,
+                        )?;
+                    }
                     return Ok(Summary {
                         safe,
                         value: Some(if byte_model {
@@ -960,6 +992,8 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 }
                 if integer_conversions::call(e, all).is_some()
                     || integer_conversions::conversion(e, all).is_some()
+                    || slice_array::call(e, all).is_some()
+                    || slice_array::conversion(e, all).is_some()
                 {
                     return Ok(());
                 }
@@ -1071,7 +1105,9 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    integer_conversions::unwrap_model(function)
+    numeric_into::model(function)
+        || slice_array::model(function)
+        || integer_conversions::unwrap_model(function)
         || integer_conversions::conversion_model(function)
         || wrapper_compare::boundary(function)
         || wrapper_traits::binary_boundary(function)
@@ -1113,9 +1149,24 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
             }
         }
         if collections::kind(f).is_some() || records::candidate(f) || is_owned_summary(f) {
+            let mut byte_append = false;
+            if is_owned_summary(f)
+                && let Some(body) = &f.x.body
+            {
+                crate::ast_visitor::expr_visitor_walk(body, &mut |expression| {
+                    byte_append |= owned::model_call(expression, &available)
+                        == Some(owned::Model::ExtendBytes);
+                    crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+                });
+            }
             for model in available.values().filter(|model| {
                 collections::model(model).is_some()
                     || records::has_loops(f) && owned::model(model) == Some(owned::Model::SeqNew)
+                    || byte_append
+                        && matches!(
+                            owned::model(model),
+                            Some(owned::Model::Concat | owned::Model::SliceView)
+                        )
             }) {
                 used.insert(model.x.name.clone(), model.clone());
             }
@@ -1147,12 +1198,23 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
                 } = &e.x
                 {
                     if let Some(callee) = available.get(resolved).filter(|f| {
-                        widening::model(f)
+                        numeric_into::model(f)
+                            || widening::model(f)
                             || integer_conversions::conversion_model(f)
                             || wrapper_traits::into_model(f)
                             || owned::model(f).is_some()
                     }) {
                         used.insert(resolved.clone(), callee.clone());
+                    }
+                }
+                for name in numeric_into::dependencies(e, &available) {
+                    if let Some(model) = available.get(&name) {
+                        used.insert(name, model.clone());
+                    }
+                }
+                if let Some((_, name)) = slice_array::conversion(e, &available) {
+                    if let Some(model) = available.get(&name) {
+                        used.insert(name, model.clone());
                     }
                 }
                 if let Some(name) = arithmetic::division_dependency(

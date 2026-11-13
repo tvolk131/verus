@@ -1,0 +1,30 @@
+{
+  "consumer": {
+    "composed": {
+      "ensures": "((result)@ == vstd::seq::Seq::add(vstd::seq::Seq::add((prefix)@, (first)@), (second)@))",
+      "requires": "true"
+    }
+  },
+  "provider": {
+    "PrefixDatabase::get_full_key": {
+      "ensures": "((result)@ == vstd::seq::Seq::add(((self)->PrefixDatabase_prefix)@, (key)@))",
+      "requires": "true"
+    },
+    "PrefixDatabaseTransaction::get_full_key": {
+      "ensures": "((result)@ == vstd::seq::Seq::add(((self)->PrefixDatabaseTransaction_prefix)@, (key)@))",
+      "requires": "true"
+    },
+    "PrefixDatabaseTransaction::get_full_range": {
+      "ensures": "((((result)->Range_start)@ == vstd::seq::Seq::add(((self)->PrefixDatabaseTransaction_prefix)@, ((range)->Range_start)@)) && (((result)->Range_end)@ == vstd::seq::Seq::add(((self)->PrefixDatabaseTransaction_prefix)@, ((range)->Range_end)@)))",
+      "requires": "true"
+    },
+    "key_contents": {
+      "ensures": "((result)@ == vstd::seq::Seq::add((prefix)@, (key)@))",
+      "requires": "true"
+    },
+    "range_contents": {
+      "ensures": "((((result)->Range_start)@ == vstd::seq::Seq::add((prefix)@, ((bounds)->Range_start)@)) && (((result)->Range_end)@ == vstd::seq::Seq::add((prefix)@, ((bounds)->Range_end)@)))",
+      "requires": "true"
+    }
+  }
+}

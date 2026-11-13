@@ -501,6 +501,12 @@ impl Interpreter<'_> {
     }
     fn place(&mut self, s: &mut State, p: &Place) -> Result<Term, VirErr> {
         if let Some(i) = self.field(p) {
+            if shape::unused_external_value(&self.shape.fields[i].typ, self.datatypes) {
+                return Err(unsupported(
+                    &p.span,
+                    "opaque external record fields must remain unused",
+                ));
+            }
             if self.shape.fields[i].element.is_some() {
                 return Err(unsupported(&p.span, "vector aliases outside direct model calls"));
             }
@@ -531,6 +537,9 @@ impl Interpreter<'_> {
             .find(|(n, _)| n == &op.field)
             .map(|(_, t)| t)
             .ok_or_else(|| unsupported(span, "record tuple/Option field"))?;
+        if shape::unused_external_value(&typ, self.datatypes) {
+            return Err(unsupported(span, "opaque external record fields must remain unused"));
+        }
         term(span, &typ, ExprX::UnaryOpr(UnaryOpr::Field(op.clone()), value.expr), 1 + value.size)
     }
     fn pattern(&mut self, s: &mut State, p: &Pattern, value: Term) -> Result<Term, VirErr> {
@@ -588,6 +597,16 @@ impl Interpreter<'_> {
     fn expr(&mut self, s: &mut State, e: &Expr) -> Result<Term, VirErr> {
         self.spend(&e.span)?;
         let span = &e.span;
+        let mut observed = &e.typ;
+        while let TypX::Decorate(TypDecoration::Ref, None, inner) = &**observed {
+            observed = inner;
+        }
+        if shape::unused_external_value(observed, self.datatypes) {
+            return Err(unsupported(
+                span,
+                "opaque external record fields must remain unused; access needs a checked model",
+            ));
+        }
         if panics::literal(e, self.all).is_some() {
             self.require(s, span, boolean(span, false))?;
             s.active = boolean(span, false);
@@ -650,6 +669,7 @@ impl Interpreter<'_> {
             {
                 let values =
                     args.iter().map(|arg| self.readonly(s, arg)).collect::<Result<Vec<_>, _>>()?;
+                self.require(s, span, integer_models::safety(span, &callee, &values)?)?;
                 return integer_models::value(span, &callee, values);
             }
             if let Some(callee) =
@@ -1791,6 +1811,7 @@ pub(super) fn validate_summary(
                             ArithOp::Add(OverflowBehavior::Allow)
                                 | ArithOp::Sub(OverflowBehavior::Allow)
                                 | ArithOp::Mul(OverflowBehavior::Allow)
+                                | ArithOp::EuclideanDiv(Div0Behavior::Allow)
                         )
                 ),
                 ExprX::Logical(_, _, _) | ExprX::If(_, _, Some(_)) => true,

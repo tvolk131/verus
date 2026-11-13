@@ -66,6 +66,7 @@ mod fn_call_to_vir;
 mod hir_hide_reveal_rewrite;
 mod import_export;
 pub mod internal_repr;
+mod native_const;
 mod native_exact_hints;
 mod pre_header;
 pub mod profiler;

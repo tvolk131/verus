@@ -1,0 +1,237 @@
+{
+  "decoder_baseline": {
+    "category": "decoder",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "verification_failed"
+  },
+  "endian_boundary": {
+    "category": "endian",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "verification_failed"
+  },
+  "false_fallback": {
+    "category": "proof",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 1,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 15
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "caller_proof_failed"
+  },
+  "false_representation": {
+    "category": "proof",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 1,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 15
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "caller_proof_failed"
+  },
+  "gate_condition": {
+    "category": "proof",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 1,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 14
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "caller_proof_failed"
+  },
+  "gate_frame": {
+    "category": "proof",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 1,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 14
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "caller_proof_failed"
+  },
+  "gate_message": {
+    "category": "proof",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 1,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 14
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "caller_proof_failed"
+  },
+  "location_escape": {
+    "category": "lifetime",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 0,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 0
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "verification_failed"
+  },
+  "no_cheating": {
+    "category": "cheating",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "verification_failed"
+  },
+  "normalizer_corrupt": {
+    "category": "proof",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 1,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 14
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "caller_proof_failed"
+  },
+  "normalizer_swallow": {
+    "category": "proof",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 1,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 14
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "caller_proof_failed"
+  },
+  "normalizer_true": {
+    "category": "proof",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 1,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 14
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "caller_proof_failed"
+  },
+  "opaque_io_behavior": {
+    "category": "frontend",
+    "results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "returncode": 1,
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "native_collection_completed": true
+    },
+    "status": "verification_failed"
+  }
+}

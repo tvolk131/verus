@@ -27,6 +27,7 @@ jobs:
       CARGO_BUILD_JOBS: 2
       INFER_APPLICATIONS: ${{ runner.temp }}/infer-transfer-applications
       INFER_EVIDENCE: ${{ runner.temp }}/infer-transfer-evidence
+      INFER_DEPENDENCIES: ${{ runner.temp }}/infer-transfer-dependencies
     defaults:
       run:
         shell: bash
@@ -88,16 +89,27 @@ jobs:
             --output "$INFER_EVIDENCE/preparation" \
             --timeout 120
 
+      - name: Fetch exact full-request registry inputs
+        timeout-minutes: 5
+        run: |
+          set -euo pipefail
+          timeout --signal=INT --kill-after=15s 4m python3 -B source/tools/prepare_infer_dependencies.py \
+            --application "$INFER_APPLICATIONS/fedimint" \
+            --destination "$INFER_DEPENDENCIES" \
+            --output "$INFER_EVIDENCE/dependency-preparation" \
+            --timeout 180
+
       - name: Prove all pinned external transfers
-        timeout-minutes: 35
+        timeout-minutes: 30
         run: |
           python3 -B source/tools/check_infer_transfers.py \
             --fedimint "$INFER_APPLICATIONS/fedimint" \
             --redb "$INFER_APPLICATIONS/redb" \
             --verus source/target-verus/release/verus \
             --solver source/z3 \
+            --dependency-home "$INFER_DEPENDENCIES/cargo-home" \
             --output "$INFER_EVIDENCE/replays" \
-            --timeout 180 --scenario-timeout 480
+            --timeout 180 --scenario-timeout 270
 
       - name: Retain proof receipts and failure evidence
         timeout-minutes: 5

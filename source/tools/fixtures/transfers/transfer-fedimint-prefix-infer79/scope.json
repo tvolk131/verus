@@ -1,0 +1,234 @@
+{
+  "consumer": {
+    "checked_exec_bodies": 4,
+    "checked_proof_bodies": 0,
+    "complete_selected_scope_verified": true,
+    "coverage": "selected local Verus items; not all Rust code",
+    "limitations": [
+      "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+      "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+      "A checked body is not a claim that unverified callers satisfy its preconditions.",
+      "This report does not certify a requested application property or replace an authored scope/trust inventory."
+    ],
+    "native_collection_completed": true,
+    "native_functions": [
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_consumer::composed",
+        "inference_candidate": true,
+        "ordinary_contract": false,
+        "rust_function": "composed",
+        "selected": true,
+        "source": "{source}:6:1: 6:74"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_consumer::exact_composed",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "exact_composed",
+        "selected": true,
+        "source": "{source}:11:1: 11:89"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_consumer::imported_range",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "imported_range",
+        "selected": true,
+        "source": "{source}:17:1: 17:89"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_consumer::imported_separation",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "imported_separation",
+        "selected": true,
+        "source": "{source}:24:1: 25:35"
+      }
+    ],
+    "verified": 6
+  },
+  "provider": {
+    "checked_exec_bodies": 8,
+    "checked_proof_bodies": 5,
+    "complete_selected_scope_verified": true,
+    "coverage": "selected local Verus items; not all Rust code",
+    "limitations": [
+      "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+      "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+      "A checked body is not a claim that unverified callers satisfy its preconditions.",
+      "This report does not certify a requested application property or replace an authored scope/trust inventory."
+    ],
+    "native_collection_completed": true,
+    "native_functions": [
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_provider::PrefixDatabase::get_full_key",
+        "inference_candidate": true,
+        "ordinary_contract": false,
+        "rust_function": "PrefixDatabase::<Inner>::get_full_key",
+        "selected": true,
+        "source": "{source}:21:5: 21:50"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_provider::PrefixDatabaseTransaction::get_full_key",
+        "inference_candidate": true,
+        "ordinary_contract": false,
+        "rust_function": "PrefixDatabaseTransaction::<Inner>::get_full_key",
+        "selected": true,
+        "source": "{source}:29:5: 29:50"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_provider::PrefixDatabaseTransaction::get_full_range",
+        "inference_candidate": true,
+        "ordinary_contract": false,
+        "rust_function": "PrefixDatabaseTransaction::<Inner>::get_full_range",
+        "selected": true,
+        "source": "{source}:35:5: 35:68"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_proof_body",
+        "function": "prefix_provider::comparable_namespace_overlap",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "comparable_namespace_overlap",
+        "selected": true,
+        "source": "{source}:119:1: 119:44"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_proof_body",
+        "function": "prefix_provider::concatenation_has_prefix",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "concatenation_has_prefix",
+        "selected": true,
+        "source": "{source}:75:1: 75:72"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_proof_body",
+        "function": "prefix_provider::disjoint_namespaces",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "disjoint_namespaces",
+        "selected": true,
+        "source": "{source}:110:1: 110:97"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_provider::endpoint_transform",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "endpoint_transform",
+        "selected": true,
+        "source": "{source}:155:1: 156:31"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_proof_body",
+        "function": "prefix_provider::equal_keys_comparable",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "equal_keys_comparable",
+        "selected": true,
+        "source": "{source}:93:1: 93:99"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "function": "prefix_provider::is_prefix",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "rust_function": "is_prefix",
+        "selected": true,
+        "source": "{source}:66:1: 66:68"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_provider::key_contents",
+        "inference_candidate": true,
+        "ordinary_contract": false,
+        "rust_function": "key_contents",
+        "selected": true,
+        "source": "{source}:43:1: 43:61"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "function": "prefix_provider::prefix_incomparable",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "rust_function": "prefix_incomparable",
+        "selected": true,
+        "source": "{source}:71:1: 71:76"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "function": "prefix_provider::prefix_view",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "rust_function": "prefix_view",
+        "selected": true,
+        "source": "{source}:62:1: 62:74"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_provider::range_contents",
+        "inference_candidate": true,
+        "ordinary_contract": false,
+        "rust_function": "range_contents",
+        "selected": true,
+        "source": "{source}:53:1: 53:80"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_provider::same_prefix_keys",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "same_prefix_keys",
+        "selected": true,
+        "source": "{source}:126:1: 127:33"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "function": "prefix_provider::separate_namespace_keys",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "separate_namespace_keys",
+        "selected": true,
+        "source": "{source}:142:1: 144:33"
+      },
+      {
+        "automatically_derived": false,
+        "body_status": "checked_proof_body",
+        "function": "prefix_provider::suffix_cancellation",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "rust_function": "suffix_cancellation",
+        "selected": true,
+        "source": "{source}:79:1: 79:81"
+      }
+    ],
+    "verified": 23
+  }
+}

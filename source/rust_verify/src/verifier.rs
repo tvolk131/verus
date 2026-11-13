@@ -339,7 +339,7 @@ pub struct Verifier {
     imported_inference_dependencies: Vec<crate::import_export::InferenceDependency>,
     inference_trusted_models: Vec<(Fun, String)>,
     available_trusted_models: HashMap<Fun, String>,
-    pending_inference_export: Option<(crate::import_export::CrateMetadata, Krate)>,
+    pending_export: Option<(crate::import_export::CrateMetadata, Krate)>,
     inference_proofs: vir::infer_proof::Proofs,
     inference_generation: vir::infer::GenerationReport,
     inference_ready: bool,
@@ -546,7 +546,7 @@ impl Verifier {
             imported_inference_dependencies: Vec::new(),
             inference_trusted_models: Vec::new(),
             available_trusted_models: HashMap::new(),
-            pending_inference_export: None,
+            pending_export: None,
             inference_proofs: Default::default(),
             inference_generation: Default::default(),
             inference_ready: false,
@@ -607,7 +607,7 @@ impl Verifier {
             imported_inference_dependencies: self.imported_inference_dependencies.clone(),
             inference_trusted_models: self.inference_trusted_models.clone(),
             available_trusted_models: self.available_trusted_models.clone(),
-            pending_inference_export: None,
+            pending_export: None,
             inference_proofs: self.inference_proofs.fresh(),
             inference_generation: Default::default(),
             inference_ready: false,
@@ -633,6 +633,9 @@ impl Verifier {
     /// merges two verifiers by summing up times and verified stats from other into self.
     pub fn merge(&mut self, other: Self) {
         self.foreign_body_queries.extend(other.foreign_body_queries);
+        self.inference_generation
+            .loop_point_preparation
+            .extend(other.inference_generation.loop_point_preparation);
         self.count_verified += other.count_verified;
         self.count_errors += other.count_errors;
         self.func_fails.extend(other.func_fails);
@@ -1532,6 +1535,9 @@ impl Verifier {
                 let Some(op) = next_op else {
                     break;
                 };
+                self.inference_generation
+                    .loop_point_preparation
+                    .extend(op.loop_point_preparation.iter().cloned());
                 match &op.kind {
                     OpKind::Context(_context_op, commands) => {
                         let batch = CommandBatch::new(op.to_air_comment(), commands.clone());
@@ -3041,6 +3047,8 @@ impl Verifier {
                 "checked foreign dependencies require normal erasure checking",
             )));
         }
+        vir::native_resource::reject_crate(&local_crate, "native source admission")
+            .map_err(map_err_diagnostics)?;
         if self.args.no_lifetime
             && (local_crate.functions.iter().any(vir::infer::uses_byte_vec_resources)
                 || !self.imported_inference_dependencies.is_empty())
@@ -3116,26 +3124,7 @@ impl Verifier {
             original_files: spans.local_files.clone(),
             inference_aware: false, // Set only by the post-verification exporter.
         };
-        if self.args.infer_goals
-            || !self.imported_inference_dependencies.is_empty()
-            || local_crate
-                .functions
-                .iter()
-                .any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f))
-        {
-            // Inferred and goal-assisted APIs must wait for their complete
-            // proofs, including every generated auxiliary query.
-            self.pending_inference_export = Some((crate_metadata, local_crate.clone()));
-        } else {
-            crate::import_export::export_crate(
-                &self.args,
-                &self.export_vir_path_via_cargo,
-                crate_metadata,
-                local_crate.clone(),
-                None,
-            )
-            .map_err(map_err_diagnostics)?;
-        }
+        self.pending_export = Some((crate_metadata, local_crate.clone()));
 
         let merged_crate = query.get_merged_crate().map_err(map_query_err)?;
         let mut models: std::collections::BTreeMap<_, _> =
@@ -3232,6 +3221,47 @@ impl Verifier {
         self.time_vir_rust_to_vir = time2 - time1;
 
         Ok(true)
+    }
+
+    /// Publish ordinary and inferred interfaces only after proof, lifetime,
+    /// trait and final erased-Rust compilation have all succeeded.
+    pub(crate) fn finish_export(&mut self) -> Result<(), VirErr> {
+        let Some((metadata, krate)) = self.pending_export.take() else {
+            return Ok(());
+        };
+        if self.count_errors != 0 || self.encountered_error || self.encountered_vir_error {
+            return Ok(());
+        }
+        let inference_aware = self.args.infer_goals
+            || self.local_checked_foreign
+            || !self.foreign_dependencies.is_empty()
+            || !self.imported_inference_dependencies.is_empty()
+            || krate
+                .functions
+                .iter()
+                .any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f));
+        let result = crate::import_export::export_crate(
+            &self.args,
+            &self.export_vir_path_via_cargo,
+            metadata,
+            krate,
+            inference_aware.then_some((
+                self.imported_inference_dependencies.as_slice(),
+                &self.inference_proofs,
+                self.inference_trusted_models.as_slice(),
+                self.foreign_dependencies.as_slice(),
+            )),
+        );
+        // The rustc session has ended. Preserve its requested diagnostic format
+        // for publication failures instead of falling back to plain stderr.
+        if let Err(error) = &result {
+            let _ = rustc_session::EarlyDiagCtxt::new(self.error_format.unwrap_or_default())
+                .early_err(error.note.clone());
+        }
+        result?;
+        self.inference_exported = inference_aware
+            && (self.args.export.is_some() || self.export_vir_path_via_cargo.is_some());
+        Ok(())
     }
 
     pub fn get_function_mode(&self, f: &Fun) -> Option<&vir::ast::Mode> {
@@ -3399,6 +3429,7 @@ fn lower_to_hir<'tcx>(
 impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
     fn config(&mut self, config: &mut rustc_interface::interface::Config) {
         if self.verifier.via_cargo_args.is_some() {
+            config.opts.json_artifact_notifications = false;
             if let Err(err) =
                 crate::import_export::invalidate_early_cargo_export(&self.verifier.args, config)
             {
@@ -3408,9 +3439,7 @@ impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
         }
         // Direct --export paths are known before parsing/expansion. Invalidate
         // a prior certified artifact even if the new source fails that early.
-        if let Err(err) =
-            crate::import_export::invalidate_inferred_export(&self.verifier.args, &None)
-        {
+        if let Err(err) = crate::import_export::invalidate_export(&self.verifier.args, &None) {
             eprintln!("Error: {}", err.note);
             std::process::exit(1);
         }
@@ -3510,7 +3539,7 @@ impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
             }
         }
 
-        if let Err(err) = crate::import_export::invalidate_inferred_export(
+        if let Err(err) = crate::import_export::invalidate_export(
             &self.verifier.args,
             &self.verifier.export_vir_path_via_cargo,
         ) {
@@ -3557,16 +3586,6 @@ impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
         self.verifier.time_import = time_import1 - time_import0;
         self.verifier.foreign_dependencies = imported.foreign_dependencies;
         self.verifier.imported_inference_dependencies = imported.inference_dependencies;
-        if !self.verifier.imported_inference_dependencies.is_empty() {
-            if let Err(err) = crate::import_export::invalidate_local_inference_export(
-                &self.verifier.args,
-                &self.verifier.export_vir_path_via_cargo,
-            ) {
-                compiler.sess.dcx().err(err.note.clone());
-                self.verifier.encountered_vir_error = true;
-                return rustc_driver::Compilation::Stop;
-            }
-        }
         self.verifier.inference_trusted_models = imported.trusted_models;
         self.verifier.available_trusted_models = imported.available_trusted_models;
         let verus_items = Arc::new(crate::verus_items::from_diagnostic_items(tcx));
@@ -3744,8 +3763,11 @@ impl VerifierCallbacksEraseMacro {
             self.verifier.encountered_vir_error = true;
         }
         // Publication waits for the driver's final erased Rust compilation.
-        if compiler.sess.dcx().has_errors().is_some() && self.verifier.count_errors == 0 {
-            self.verifier.encountered_vir_error = true;
+        if compiler.sess.dcx().has_errors().is_some() {
+            self.verifier.pending_export = None;
+            if self.verifier.count_errors == 0 {
+                self.verifier.encountered_vir_error = true;
+            }
         }
         if !self.verifier.args.output_json
             && !self.verifier.args.no_verify
@@ -3763,32 +3785,5 @@ impl VerifierCallbacksEraseMacro {
                 }
             );
         }
-    }
-}
-
-impl Verifier {
-    /// Called only after both compiler invocations succeeded. All proof and
-    /// deferred errors have already been accounted for by finish_verus.
-    pub(crate) fn publish_verified_interface(&mut self) -> Result<(), VirErr> {
-        if self.count_errors != 0 || self.encountered_error || self.encountered_vir_error {
-            return Ok(());
-        }
-        if let Some((metadata, krate)) = self.pending_inference_export.take() {
-            crate::import_export::export_crate(
-                &self.args,
-                &self.export_vir_path_via_cargo,
-                metadata,
-                krate,
-                Some((
-                    &self.imported_inference_dependencies,
-                    &self.inference_proofs,
-                    &self.inference_trusted_models,
-                    &self.foreign_dependencies,
-                )),
-            )?;
-            self.inference_exported =
-                self.args.export.is_some() || self.export_vir_path_via_cargo.is_some();
-        }
-        Ok(())
     }
 }

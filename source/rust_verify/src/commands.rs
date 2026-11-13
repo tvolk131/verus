@@ -59,6 +59,7 @@ pub enum OpKind {
 #[derive(Clone)]
 pub struct Op {
     pub kind: OpKind,
+    pub loop_point_preparation: Vec<vir::infer::LoopPointPreparation>,
     /// FunctionSst the op is associated with (always Some for Query kind).
     pub function: Option<FunctionSst>,
 }
@@ -300,14 +301,21 @@ impl<'a> OpGenerator<'a> {
         };
 
         let goal_check;
+        let mut loop_point_preparation = Vec::new();
         let func_check_sst = if self.infer_goals
             && matches!(style, Style::Normal)
             && !function.x.attrs.infer
             && !function.x.attrs.bit_vector
             && matches!(func_check_sst.post_condition.kind, vir::sst::PostConditionKind::Ensures)
         {
-            goal_check =
-                Arc::new(vir::infer::prepare_proof_goals(func_check_sst, &self.ctx.func_map)?);
+            let (prepared, observations) = vir::infer::prepare_proof_goals(
+                func_check_sst,
+                &self.ctx.func_map,
+                &function.x.pars,
+                self.ctx,
+            )?;
+            loop_point_preparation = observations;
+            goal_check = Arc::new(prepared);
             &goal_check
         } else {
             func_check_sst
@@ -341,6 +349,7 @@ impl<'a> OpGenerator<'a> {
             &function,
             Some(func_check_sst.clone()),
         )];
+        ops[0].loop_point_preparation = loop_point_preparation;
         if function.x.attrs.infer && matches!(style, Style::Normal) {
             if vir::infer::is_state_summary(&self.ctx.func_map[&function.x.name])
                 && !vir::infer::is_record_summary(&self.ctx.func_map[&function.x.name])
@@ -428,6 +437,7 @@ impl<'a, 'b> FunctionOpGenerator<'a, 'b> {
         if let Op {
             function: Some(function),
             kind: OpKind::Query { func_check_sst: Some(fsst), .. },
+            ..
         } = &op
         {
             let mut driver = ExpandErrorsDriver::new(function, &assert_id, fsst.clone());
@@ -490,6 +500,7 @@ impl<'a, 'b> FunctionOpGenerator<'a, 'b> {
         func_check_sst: Option<Arc<FuncCheckSst>>,
     ) {
         let op = Op {
+            loop_point_preparation: Vec::new(),
             kind: OpKind::Query {
                 query_op,
                 commands_with_context_list,
@@ -654,7 +665,11 @@ impl Op {
         commands: Arc<Vec<Command>>,
         f: Option<FunctionSst>,
     ) -> Self {
-        Op { kind: OpKind::Context(context_op, commands), function: f }
+        Op {
+            kind: OpKind::Context(context_op, commands),
+            function: f,
+            loop_point_preparation: Vec::new(),
+        }
     }
 
     pub fn query(
@@ -664,6 +679,7 @@ impl Op {
         func_check_sst: Option<Arc<FuncCheckSst>>,
     ) -> Self {
         Op {
+            loop_point_preparation: Vec::new(),
             kind: OpKind::Query {
                 query_op,
                 commands_with_context_list: commands,

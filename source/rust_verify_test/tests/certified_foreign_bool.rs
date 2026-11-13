@@ -27,7 +27,7 @@ fn checked_full_domain_export_and_ordinary_transitive_import() {
     let c = InferCrates::new();
     ok(&c.build_source("provider", PROVIDER, &[], &["--infer-goals", "--no-cheating"], true));
     let (_, j) = metadata(&c.vir("provider"));
-    assert_eq!(j["schema"], 39);
+    assert_eq!(j["schema"], 40);
     assert_eq!(j["foreign_dependencies"].as_array().unwrap().len(), 1);
     assert!(j["proofs"].as_array().unwrap().is_empty());
     let client =

@@ -23,6 +23,7 @@ queries completed. The current [guide](infer.md) explains modes and reports.
 | Case | Established scope | Unproved boundary |
 | --- | --- | --- |
 | REDB bitmap/tree | Selected membership/count/frame and ancestor propagation contracts | Whole database, all native containers/callers |
+| REDB headers | Selected in-memory selection/finalization and frame contracts under stated slot preconditions | Durable acknowledgement, lock/cache write-trace coupling and served-snapshot recovery |
 | REDB allocator | Authored canonical validity, exact allocation/free intervals, logical rejection and conservation wrappers | Executable weighted counting, full API/native integration, durability/crash recovery |
 | Fedimint quorum | Numeric policy and authored set-based intersection/honesty corollaries | Membership/admission, cryptography and runtime protocol wiring |
 | Fedimint signer map | Selected insertion/replacement and initializer bookkeeping in recorded contexts | Native count consumers, recognized-peer and full signature-validation linkage |

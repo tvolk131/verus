@@ -744,6 +744,7 @@ pub fn func_def_to_sst(
     function: &Function,
     check_api_safety: bool,
 ) -> Result<FuncCheckSst, VirErr> {
+    crate::native_resource::check_lowering(function, check_api_safety)?;
     let body = if check_api_safety {
         &crate::safe_api::body_that_havocs_all_outputs(function)
     } else {

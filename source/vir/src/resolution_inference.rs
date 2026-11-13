@@ -9,9 +9,12 @@ mutated again*. In fact, it is crucial that this can happen before the end of a 
 Consider:
 
 ```
-fn example<'a>(pair: &'a mut (u64, u64) -> &'a mut u64 {
+fn example<'a>(pair: &'a mut (u64, u64)) -> &'a mut u64 {
     &mut (*pair).0
 }
+let mut pair = (3, 4);
+*example(&mut pair) = 5;
+assert_eq!(pair, (5, 4));
 ```
 
 Note that the lifetime clearly extends beyond the end of the function, but we will
@@ -23,11 +26,14 @@ is still resolved at the end of the function.
 We effectively elaborate this example to look like this:
 
 ```
-fn example<'a>(pair: &'a mut (u64, u64) -> &'a mut u64 {
+fn example<'a>(pair: &'a mut (u64, u64)) -> &'a mut u64 {
     let return_value = &mut (*pair).0;    // mutates `pair`
     // resolve `pair` here
     return return_value;                  // moves `return_value`
 }
+let mut pair = (3, 4);
+*example(&mut pair) = 5;
+assert_eq!(pair, (5, 4));
 ```
 
 We can resolve `pair` at line 2 because `pair` is never moved or mutated after that point.
@@ -87,7 +93,11 @@ This is because of the value `*x` lives on in whatever place it was originally b
 However, there are cases where we might want to resolve `*x`, namely, when assigning to it:
 
 ```
+let mut value = String::from("old");
+let x = &mut value;
+let t = String::from("new");
 *x = t;
+assert_eq!(value, "new");
 ```
 
 This causes the old value of `*x` to be dropped, so we need to resolve that value here.
@@ -99,9 +109,9 @@ fields of `x`.
 ### Working with enums
 
 In order to resolve the field of an enum (e.g., `opt->Some_0` for a varible `opt: Option<T>`),
-the resolution needs to be conditional on the variant:
+the resolution needs to be conditional on the variant (VIR pseudocode):
 
-```
+```text
 assume(opt is Some ==> has_resolved(opt->Some_0))
 ```
 
@@ -115,7 +125,11 @@ conditionally initialized if "parents being in the correct variant ==> place is 
 Example:
 
 ```
+type A = u64;
+type B = String;
+let foo = 7;
 let x: Result<A, B> = Ok(foo);
+assert_eq!(x, Ok(7));
 ```
 
 There are two fields of interest, `x->Ok_0` and `x->Err_0`. In the above statement, *both*
@@ -139,7 +153,9 @@ The only situation where Rust allows a "partial move" from an array
 is via an array pattern:
 
 ```rust
+let a = [String::from("moved"), String::from("retained")];
 let [x, _] = a; // moves from a[0] but not from a[1]
+assert_eq!(x, "moved");
 ```
 
 And again, this requires a known, non-generic array size. Therefore:
@@ -178,20 +194,34 @@ Sometimes we need to work with unnamed "temporary places", given by the PlaceX::
 place, e.g., we might take a mutable reference of a computed expression:
 
 ```rust
+fn foo() -> u64 { 3 }
 let x = &mut foo(); // equivalent to `let mut tmp = foo(); let x = &mut tmp;`
+*x += 1;
+assert_eq!(*x, 4);
 ```
 
-or we might update a mutable reference returned by some function without assigning it
+or we might update a mutable reference returned by some function without assigning
+the reference itself to a local variable:
 
 ```rust
-*func() = y; // equivalent to `let mut tmp = func(); *tmp = y;`
+fn func(value: &mut u64) -> &mut u64 { value }
+let mut value = 3;
+let y = 4;
+*func(&mut value) = y;
+assert_eq!(value, 4);
 ```
 
 Furthermore, these temporary places might need resolving (just like any other place).
 For example, suppose `pair()` returns `(&mut A, &mut A)`. If we write:
 
 ```rust
-let x = pair().0;
+fn pair<'a>(left: &'a mut u64, right: &'a mut u64) -> (&'a mut u64, &'a mut u64) {
+    (left, right)
+}
+let (mut left, mut right) = (3, 4);
+let x = pair(&mut left, &mut right).0;
+*x = 5;
+assert_eq!((left, right), (5, 4));
 ```
 
 Then `pair().1` goes unused and requires immediate resolution. (This last example
@@ -219,10 +249,12 @@ moves/references as rustc would for its MIR representation. For example,
 if we consider something like:
 
 ```rust
-let x = ...;
+let x = String::from("captured");
 let foo = move || {
     let y = &x;
-}
+    y.len()
+};
+assert_eq!(foo(), 8);
 ```
 
 Technically, this moves `x` into the closure (since the closure is marked `move`) but because
@@ -232,10 +264,12 @@ analysis on the containing function.
 In a similar vein, if we have a closure that only pulls in one field:
 
 ```rust
-let x = ...;
+let x = (String::from("moved"), String::from("retained"));
 let foo = move || {
     let y = x.0;
-}
+    y
+};
+assert_eq!(foo(), "moved");
 ```
 
 Rust might move the entirety of `x` instead of just `x.0` (this depends on the edition),
@@ -1682,8 +1716,11 @@ impl<'a> Builder<'a> {
     /// e.g.:
     ///
     /// ```
+    /// let y = (String::from("first"), (String::from("nested"), 7));
     /// let (x, _) = y;   // moves y.0
-    /// let (x, _) = y.1; // moves y.1.0
+    /// assert_eq!(x, "first");
+    /// let (nested, _) = y.1; // moves y.1.0
+    /// assert_eq!(nested, "nested");
     /// ```
     ///
     /// It may also induce mutations due to variables with MutRef binding mode.
@@ -1728,7 +1765,11 @@ impl<'a> Builder<'a> {
     /// Example:
     ///
     /// ```
+    /// let mut x = (0, (String::from("moved"), 0, String::from("updated")));
     /// let (a, _, ref mut b) = x.1;
+    /// b.push('!');
+    /// assert_eq!(a, "moved");
+    /// assert_eq!(x.1.2, "updated!");
     /// ```
     ///
     /// Returns `[(x.1.0, ByRef::No), (x.1.2, ByRef::MutRef)]` if `x.1.0` is a non-Copy type.
