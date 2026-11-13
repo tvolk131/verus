@@ -48,8 +48,6 @@ impl<'a> GoalContext<'a> {
         functions = word_sequence_goals::prepare(&functions, self.imported, report)?;
         let functions = sequence_triggers::prepare(&functions, report)?;
         let functions = set_goals::prepare(&functions, self.imported, report)?;
-        // Large inferred preconditions at call sites with parameter arguments.
-        let functions = precondition_goals::prepare(&functions, report)?;
         report.assistance_preparation_completed = true;
         Ok(functions)
     }

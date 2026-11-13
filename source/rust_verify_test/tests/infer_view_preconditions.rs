@@ -1,8 +1,7 @@
 #![feature(rustc_private)]
 //! Large inferred preconditions of crate-private functions are installed as a
 //! call to their named view (`f_requires`), so lemmas and broadcast lemmas about
-//! the view match a caller's obligation; `--infer-goals` proposes a
-//! nonlinear-arithmetic proof of the view at calls with parameter arguments.
+//! the view match a caller's obligation.
 
 #[macro_use]
 mod common;
@@ -77,11 +76,4 @@ test_verify_one_file_with_options! {
 test_verify_one_file_with_options! {
     #[test] plain_call_needs_a_proof ["vstd", "--no-cheating"]
         => source("pub(crate)", PLAIN_CLIENT) => Err(e) => precondition_failure(e)
-}
-
-// --infer-goals proposes, and ordinary verification proves, the view by
-// nonlinear arithmetic from the caller's requires.
-test_verify_one_file_with_options! {
-    #[test] infer_goals_discharges_view_from_caller_requires ["vstd", "--infer-goals", "--no-cheating"]
-        => source("pub(crate)", PLAIN_CLIENT) => Ok(())
 }

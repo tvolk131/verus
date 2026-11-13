@@ -176,13 +176,6 @@ broadcast lemma triggered on `f_requires(..)`. The view is a definition of the
 same formula, so the contract is unchanged. Public contracts stay inline, since
 other crates' inference reads them structurally.
 
-With `--infer-goals`, a call to such a function whose arguments are the caller's
-own (immutable) parameters gets a proposed
-`assert(f_requires(args)) by(nonlinear_arith) requires <caller's requires>;`
-just before it. Like all goal assistance it is checked, not assumed. A
-precondition that is high-degree polynomial arithmetic can make this query
-slow; prove such a precondition by hand instead.
-
 When a published contract has a clause over 2000 characters, the run notes
 its size and its views. The JSON report records `contract_size` and `views`
 for every inferred function. A large exact contract is often harder for a
