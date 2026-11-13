@@ -1005,10 +1005,7 @@ fn order_functions(
                             providers.sort_by(|a, b| a.x.name.cmp(&b.x.name));
                             for provider in providers {
                                 visit(provider, all, source, active, done, order, deferred)
-                                    .map_err(|e| {
-                                        nested = Some(e.clone());
-                                        e
-                                    })?;
+                                    .inspect_err(|e| nested = Some(e.clone()))?;
                             }
                             return Ok(());
                         }
@@ -1116,10 +1113,8 @@ fn order_functions(
                         return Err(unsupported(&e.span, "generic calls"));
                     }
                     if callee.x.attrs.infer {
-                        visit(callee, all, source, active, done, order, deferred).map_err(|e| {
-                            nested = Some(e.clone());
-                            e
-                        })?;
+                        visit(callee, all, source, active, done, order, deferred)
+                            .inspect_err(|e| nested = Some(e.clone()))?;
                     }
                 } else if matches!(e.x, ExprX::Call { .. }) {
                     if matches!(
