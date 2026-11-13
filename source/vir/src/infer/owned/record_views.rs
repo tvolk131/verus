@@ -246,6 +246,7 @@ impl Engine<'_> {
         let mut state = State {
             locals: HashMap::from([(view.function.x.params[0].x.name.clone(), value.clone())]),
             objects: HashMap::new(),
+            assigned: std::collections::HashSet::new(),
             active: boolean(&body.span, true),
         };
         if let Some(t) = &value.identity {

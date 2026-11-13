@@ -45,6 +45,7 @@ pub fn prepare(
             let mut state = State {
                 locals: HashMap::new(),
                 objects: HashMap::new(),
+                assigned: std::collections::HashSet::new(),
                 active: boolean(&f.span, true),
             };
             for p in f.x.params.iter() {

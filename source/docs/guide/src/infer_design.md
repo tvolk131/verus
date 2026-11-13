@@ -93,6 +93,8 @@ needed by maintained tests is promoted into `source/tools/fixtures/transfers/`.
 The combined compiler uses inference metadata schema 40, policy 79 and candidate
 cache epoch 83. Rebuild vstd, inferred providers and their dependents together;
 old certificates/templates do not certify the integrated compiler's behavior.
+The engine fixes from the redb layout pilot (functional callee specifications,
+relative maximality) move these to policy 80 and candidate cache epoch 84.
 
 The target branch's `experimental-native-resource` Cargo feature remains off by
 default. Its conditional internal IR and refusal tests do not prove native

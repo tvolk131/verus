@@ -312,7 +312,6 @@ impl Engine<'_> {
         let value = self.place(s, p)?;
         let mut seen = boolean(&e.span, false);
         let mut values = vec![];
-        let mut active = boolean(&e.span, false);
         for arm in arms.iter() {
             let mut branch = s.clone();
             let test = self.pattern(&mut branch, &arm.x.pattern, value.clone())?;
@@ -328,16 +327,10 @@ impl Engine<'_> {
             // guard is new; repeating the full test multiplies helper formulas.
             branch.active = logical(&e.span, LogicalOp::And, branch.active, guard)?;
             let out = self.expr(&mut branch, &arm.x.body)?;
-            active = logical(&e.span, LogicalOp::Or, active, branch.active)?;
             seen = logical(&e.span, LogicalOp::Or, seen, test.clone())?;
-            values.push((test, out));
+            values.push((test, branch, out));
         }
         self.require(s, seen)?;
-        s.active = active;
-        let mut out = values.last().unwrap().1.clone();
-        for (test, value) in values.into_iter().rev().skip(1) {
-            out = choose(&e.span, test, value, out)?;
-        }
-        Ok(out)
+        join(&e.span, s, values)
     }
 }

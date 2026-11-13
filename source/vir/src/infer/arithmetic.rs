@@ -187,6 +187,25 @@ pub(super) fn in_range(span: &Span, value: Term, range: IntRange) -> Result<Term
     logical(span, LogicalOp::And, lower, upper)
 }
 
+/// The executable safety condition of a checked division/remainder operator.
+/// Shared by every summarizer so division support never depends on the
+/// return shape of the enclosing function.
+pub(super) fn source_division_valid(
+    span: &Span,
+    op: BinaryOp,
+    a: Term,
+    b: Term,
+) -> Result<Term, VirErr> {
+    let signed = match op {
+        BinaryOp::Arith(
+            ArithOp::TruncatingDiv(_, SignedDivEdgeCaseBehavior::Error(width))
+            | ArithOp::TruncatingMod(_, SignedDivEdgeCaseBehavior::Error(width)),
+        ) => Some(signed_range(width)),
+        _ => None,
+    };
+    division_valid(span, a, b, signed)
+}
+
 pub(super) fn division_valid(
     span: &Span,
     a: Term,

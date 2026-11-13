@@ -23,7 +23,7 @@
     "source/tools/fixtures/transfers/transfer-redb-slot-selection/source-ledger.json": "5ce9fdda888001bc156df542e7c11e9abd80cdbda1b203cc68b2a1d6d94aacfd",
     "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
     "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
-    "source/tools/infer_transfer_identity.py": "7a6a34fc05cefe283fa94e4e20cc7102b1d19a9904fda6407354c697f9ad0fc6"
+    "source/tools/infer_transfer_identity.py": "8a1649f47ac45a4631b64956e303e6ccde3ade4261568d628e3eec0d6ea8a9b1"
   },
   "boundaries": {
     "error_operation": "pub fn error_operation(error: &std::io::Error) -> Option<i32> { error.raw_os_error() }\n",
@@ -614,8 +614,8 @@
     }
   },
   "identity": [
-    83,
-    79,
+    84,
+    80,
     40
   ],
   "opaque_declarations": "verus! {\n#[verifier::external_type_specification]\n#[verifier::external_body]\npub struct ExIoError(std::io::Error);\n#[verifier::external_type_specification]\n#[verifier::external_body]\npub struct ExLocation<'a>(std::panic::Location<'a>);\n}\n"

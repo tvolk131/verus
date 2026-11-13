@@ -1934,7 +1934,12 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                     let option_map = crate::infer::is_option_map_or_maximality_model(func, typs);
                     let primitive_operator =
                         crate::infer::is_primitive_operator_maximality_model(func, typs);
+                    // A callee with a functional specification (a vstd std spec or
+                    // a hand-written contract): its precondition is its safe domain,
+                    // so maximality is relative to the callee's own contract.
+                    let functional_spec = crate::infer::is_functional_spec(func);
                     if !inferred
+                        && !functional_spec
                         && !subslice
                         && !vector_index
                         && !panic

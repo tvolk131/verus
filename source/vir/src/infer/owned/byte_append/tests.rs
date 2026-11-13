@@ -292,6 +292,7 @@ fn borrowed_call_requires_matching_resolution_inert_byte_types_and_distinct_root
             Val { identity: None, typ: vector.clone(), node: Node::Seq(contents.clone()) },
         )]),
         objects: HashMap::new(),
+        assigned: std::collections::HashSet::new(),
         active: boolean(span, true),
     };
     let mut engine = Engine {
@@ -523,8 +524,12 @@ fn generated_append_state_matches_native_u8_execution_on_small_domains() {
     let tail_name = source.x.params[1].x.name.clone();
     let prefix = SpannedTyped::new(&span, &sequence_type(byte.clone()), ExprX::Var(prefix_name));
     let tail = SpannedTyped::new(&span, &slice, ExprX::Var(tail_name.clone()));
-    let mut state =
-        State { locals: HashMap::new(), objects: HashMap::new(), active: boolean(&span, true) };
+    let mut state = State {
+        locals: HashMap::new(),
+        objects: HashMap::new(),
+        assigned: std::collections::HashSet::new(),
+        active: boolean(&span, true),
+    };
     state.locals.insert(
         destination.clone(),
         Val { identity: None, typ: vector.clone(), node: Node::Seq(atom(prefix).unwrap()) },

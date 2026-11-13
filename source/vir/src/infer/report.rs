@@ -24,6 +24,8 @@ pub struct GenerationReport {
     pub candidates: Vec<GeneratedCandidate>,
     pub elapsed_micros: u128,
     pub failure: Option<String>,
+    /// Every inference rejection found in one run (the first is also `failure`).
+    pub failures: Vec<VirErr>,
     /// Preparation observations are never consumed by checking or publication.
     pub assistance_preparation_started: bool,
     pub assistance_preparation_completed: bool,

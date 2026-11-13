@@ -130,10 +130,17 @@ pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -
             });
         }
     }
+    // Callers of a functional-spec callee that returns a structured value
+    // (for example a hand-written contract returning a record) also need the
+    // owned profile, which can observe that complete value.
     let mut pending: Vec<_> = out
         .iter()
         .chain(imported)
-        .filter(|f| is_owned_summary(f))
+        .filter(|f| {
+            is_owned_summary(f)
+                || functional::is_functional(f)
+                    && matches!(&**base(&f.x.inner_ret.x.typ), TypX::Datatype(..))
+        })
         .map(|f| f.x.name.clone())
         .collect();
     while let Some(name) = pending.pop() {
@@ -258,6 +265,8 @@ struct State {
     // Original immutable objects are separate from their logical sequence views.
     // An opaque checked query may observe the object, not just its contents.
     objects: HashMap<VarIdent, Term>,
+    // Locals reassigned on this path. Branch joins merge exactly these names.
+    assigned: std::collections::HashSet<VarIdent>,
     active: Term,
 }
 struct Engine<'a> {
@@ -695,7 +704,7 @@ impl Engine<'_> {
         let (math, range, div) = eligibility::source_binary(op)
             .ok_or_else(|| unsupported(span, "owned scalar operator"))?;
         if div {
-            return Err(unsupported(span, "owned division/remainder"));
+            self.require(s, arithmetic::source_division_valid(span, op, a.clone(), b.clone())?)?;
         }
         let t = summary::binary(span, math, a, b)?;
         if let Some(r) = range {
@@ -1048,15 +1057,25 @@ impl Engine<'_> {
                             els: None,
                             assert_irrefutable: false,
                         } => {
-                            let v = self.place(s, init)?;
+                            let v = match self.place(s, init) {
+                                Ok(v) => v,
+                                // A constant value outside the summary language
+                                // (for example the `AssertKind` that `assert_eq!`
+                                // passes to its panic) cannot panic. Leave it
+                                // unbound: only a later read of it is rejected.
+                                Err(_)
+                                    if panic_free_constant(init)
+                                        && matches!(&pattern.x, PatternX::Var(_)) =>
+                                {
+                                    continue;
+                                }
+                                Err(err) => return Err(err),
+                            };
                             match &pattern.x {
                                 PatternX::Var(b) if matches!(b.by_ref, ByRef::No) => {
-                                    if b.user_mut == Some(true)
-                                        && !matches!(v.node, Node::Seq(_))
-                                        && !same(&b.typ, &Arc::new(TypX::Int(IntRange::USize)))
-                                    {
-                                        return Err(unsupported(span, "owned mutable local"));
-                                    }
+                                    // Mutable locals are tracked by value; each
+                                    // reassignment rebinds the local (see Assign),
+                                    // and branch joins merge reassigned names.
                                     if b.user_mut != Some(true) {
                                         if let Ok(origin) = self
                                             .object(s, &crate::ast_util::place_to_spec_expr(init))
@@ -1105,8 +1124,30 @@ impl Engine<'_> {
                 } else {
                     Val::atom(exits::unit_value(span)?)
                 };
-                s.active = logical(span, LogicalOp::Or, left.active, right.active)?;
-                choose(span, c, a, b)
+                let not_c = exits::not(span, c.clone())?;
+                join(span, s, vec![(c, left, a), (not_c, right, b)])
+            }
+            ExprX::Assign { place, rhs, op, resolve: false, .. } => {
+                let PlaceX::Local(name) = &place.x else {
+                    return Err(unsupported(span, "owned assignment target must be a local"));
+                };
+                let before = s
+                    .locals
+                    .get(name)
+                    .cloned()
+                    .ok_or_else(|| unsupported(span, "unbound owned assignment target"))?;
+                let value = self.expr(s, rhs)?;
+                let value = if let Some(op) = op {
+                    let before = before.scalar(span)?;
+                    let value = value.scalar(span)?;
+                    Val::atom(coerce(span, self.binary(s, span, *op, before, value)?, &place.typ)?)
+                } else {
+                    value
+                };
+                s.objects.remove(name);
+                s.assigned.insert(name.clone());
+                s.locals.insert(name.clone(), value);
+                Ok(Val::atom(exits::unit_value(span)?))
             }
             ExprX::Return(Some(v)) => {
                 let v = self.expr(s, v)?;
@@ -1280,6 +1321,23 @@ impl Engine<'_> {
                         )?));
                     }
                 }
+                if let Some(callee) =
+                    self.all.get(name).filter(|c| functional::is_functional(c)).cloned()
+                {
+                    if matches!(functional::shape(&callee), Some(functional::Shape::Diverges)) {
+                        // Like a literal panic: the path requires false and ends.
+                        self.require(s, boolean(span, false))?;
+                        s.active = boolean(span, false);
+                        return Ok(Val::atom(exits::unit_value(span)?));
+                    }
+                    let values = args
+                        .iter()
+                        .map(|a| self.expr(s, a)?.scalar(span))
+                        .collect::<Result<Vec<_>, VirErr>>()?;
+                    let call = functional::instantiate(span, &callee, types, values)?;
+                    self.require(s, call.requires)?;
+                    return Ok(Val::atom(call.output.unwrap()));
+                }
                 let callee = self
                     .all
                     .get(name)
@@ -1429,8 +1487,12 @@ impl Engine<'_> {
                 &|_, _, p| Ok(p.clone()),
             )
         };
-        let mut local =
-            State { locals: HashMap::new(), objects: HashMap::new(), active: s.active.clone() };
+        let mut local = State {
+            locals: HashMap::new(),
+            objects: HashMap::new(),
+            assigned: std::collections::HashSet::new(),
+            active: s.active.clone(),
+        };
         for (p, (value, origin)) in f.x.params.iter().zip(values) {
             if let Some(origin) = origin {
                 local.objects.insert(p.x.name.clone(), origin);
@@ -1471,7 +1533,90 @@ impl Engine<'_> {
         split(&post, &mut clauses);
         self.decode_parts(&mut local, &root, &layout, &clauses)
     }
+    /// Evaluate a pure callee formula under the current bindings. A pure
+    /// subexpression outside the owned summary language (for example a vstd
+    /// specification reached through a callee's contract) is kept as an
+    /// opaque term with the bound locals substituted; ordinary verification
+    /// checks the resulting candidate.
     fn formula(&self, s: &State, e: &Expr) -> Result<Term, VirErr> {
+        match self.formula_strict(s, e) {
+            Err(err) if err.note.contains("budget exceeded") => Err(err),
+            Err(err) => self.opaque_formula(s, e).map_err(|_| err),
+            ok => ok,
+        }
+    }
+    fn opaque_formula(&self, s: &State, e: &Expr) -> Result<Term, VirErr> {
+        let bound = |n: &VarIdent| -> Option<Result<Expr, VirErr>> {
+            if let Some(t) = s.objects.get(n) {
+                return Some(Ok(t.expr.clone()));
+            }
+            s.locals.get(n).map(|v| v.scalar(&e.span).map(|t| t.expr))
+        };
+        let mapped = crate::ast_visitor::map_expr_visitor(e, &|x: &Expr| match &x.x {
+            ExprX::Var(n) => bound(n).unwrap_or_else(|| Ok(x.clone())),
+            ExprX::ReadPlace(p, _) => match &p.x {
+                PlaceX::Local(n) => bound(n).unwrap_or_else(|| Ok(x.clone())),
+                _ => Ok(x.clone()),
+            },
+            ExprX::Call { target: CallTarget::Fun(..), .. } => {
+                // Only pure specification calls may be kept opaque.
+                Ok(x.clone())
+            }
+            _ => Ok(x.clone()),
+        })?;
+        // The contract must be well-formed wherever the function is visible:
+        // no field of a datatype that is private in that scope, no executable
+        // call, and no variable other than the function's own parameters or
+        // binders inside the formula (an unbound one comes from a callee's
+        // specification body, for example a closed view).
+        let scope = &self.f.x.visibility.restricted_to;
+        let private = |t: &Typ| records::shape::opaque_value(base(t), self.ds, scope);
+        fn place_fields(
+            p: &Place,
+            private: &dyn Fn(&Typ) -> bool,
+            local: &mut Vec<VarIdent>,
+        ) -> bool {
+            match &p.x {
+                PlaceX::Field(_, b) => private(&b.typ) || place_fields(b, private, local),
+                PlaceX::Local(n) => {
+                    local.push(n.clone());
+                    false
+                }
+                PlaceX::Temporary(_) => false,
+                _ => true,
+            }
+        }
+        let mut rejected = false;
+        let mut used: Vec<VarIdent> = Vec::new();
+        let mut binders: Vec<VarIdent> = Vec::new();
+        crate::ast_visitor::expr_visitor_walk(&mapped, &mut |x| {
+            match &x.x {
+                ExprX::Call { target: CallTarget::Fun(_, name, ..), .. } => {
+                    rejected |= self.all.get(name).is_some_and(|f| f.x.mode != Mode::Spec);
+                }
+                ExprX::UnaryOpr(UnaryOpr::Field(_), a) => rejected |= private(&a.typ),
+                ExprX::ReadPlace(p, _) => rejected |= place_fields(p, &private, &mut used),
+                ExprX::Var(n) => used.push(n.clone()),
+                ExprX::Quant(_, ps, _)
+                | ExprX::Closure(ps, _)
+                | ExprX::Choose { params: ps, .. } => {
+                    binders.extend(ps.iter().map(|b| b.name.clone()))
+                }
+                _ => {}
+            }
+            crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+        });
+        let known = |n: &VarIdent| {
+            binders.contains(n)
+                || self.f.x.params.iter().any(|p| &p.x.name == n)
+                || &self.f.x.inner_ret.x.name == n
+        };
+        if rejected || !used.iter().all(known) {
+            return Err(unsupported(&e.span, "opaque owned summary formula"));
+        }
+        atom(mapped)
+    }
+    fn formula_strict(&self, s: &State, e: &Expr) -> Result<Term, VirErr> {
         if let Some(value) = arithmetic::arch_constant(e) {
             return Ok(value);
         }
@@ -1981,6 +2126,55 @@ fn clone_identity(t: &Typ) -> bool {
         || option(t).is_some_and(clone_identity)
         || matches!(&**t,TypX::Datatype(Dt::Tuple(_),ts,_) if ts.iter().all(clone_identity))
 }
+/// Join the results of mutually exclusive branches, in first-match order, and
+/// merge the locals they reassigned. A branch whose path condition is literally
+/// false (it panicked or returned) contributes neither its value nor its
+/// locals: its unit placeholder must never be merged with a live value.
+fn join(span: &Span, s: &mut State, branches: Vec<(Term, State, Val)>) -> Result<Val, VirErr> {
+    let mut active = boolean(span, false);
+    for (_, b, _) in &branches {
+        active = logical(span, LogicalOp::Or, active, b.active.clone())?;
+    }
+    s.active = active;
+    let live: Vec<_> = branches.iter().filter(|(_, b, _)| !is_bool(&b.active, false)).collect();
+    let Some((_, last_state, last_value)) = live.last() else {
+        // Every branch diverges; the value is never observed.
+        return Ok(branches.into_iter().last().map(|(_, _, v)| v).unwrap());
+    };
+    let mut names: Vec<VarIdent> = live
+        .iter()
+        .flat_map(|(_, b, _)| b.assigned.iter().cloned())
+        .filter(|n| s.locals.contains_key(n))
+        .collect();
+    names.sort_by(|a, b| format!("{a:?}").cmp(&format!("{b:?}")));
+    names.dedup();
+    for name in names {
+        let local = |b: &State| b.locals.get(&name).or_else(|| s.locals.get(&name)).cloned();
+        let mut out = local(last_state).unwrap();
+        for (test, b, _) in live.iter().rev().skip(1) {
+            out = choose(span, test.clone(), local(b).unwrap(), out)?;
+        }
+        s.objects.remove(&name);
+        s.assigned.insert(name.clone());
+        s.locals.insert(name, out);
+    }
+    let mut out = last_value.clone();
+    for (test, _, v) in live.iter().rev().skip(1) {
+        out = choose(span, test.clone(), v.clone(), out)?;
+    }
+    Ok(out)
+}
+fn panic_free_constant(p: &Place) -> bool {
+    let PlaceX::Temporary(e) = &p.x else { return false };
+    match &e.x {
+        ExprX::Ctor(_, _, fields, None) => fields.iter().all(|f| matches!(&f.a.x, ExprX::Const(_))),
+        ExprX::Const(_) => true,
+        _ => false,
+    }
+}
+fn compatible(a: &Typ, b: &Typ) -> bool {
+    same(base(a), base(b)) || matches!((&**base(a), &**base(b)), (TypX::Int(_), TypX::Int(_)))
+}
 fn choose(s: &Span, c: Term, a: Val, b: Val) -> Result<Val, VirErr> {
     if is_bool(&c, true) {
         return Ok(a);
@@ -1988,6 +2182,11 @@ fn choose(s: &Span, c: Term, a: Val, b: Val) -> Result<Val, VirErr> {
     if is_bool(&c, false) {
         return Ok(b);
     }
+    if !compatible(&a.typ, &b.typ) {
+        // Never emit an ill-typed conditional; ordinary checking would crash in AIR.
+        return Err(unsupported(s, "owned branches with different value types"));
+    }
+    let (a_typ, b_typ) = (a.typ.clone(), b.typ.clone());
     let identity = match (a.identity, b.identity) {
         (Some(a), Some(b)) => Some(conditional(s, c.clone(), a, b)?),
         _ => None,
@@ -2061,9 +2260,16 @@ fn choose(s: &Span, c: Term, a: Val, b: Val) -> Result<Val, VirErr> {
                 (a, None) | (None, a) => a,
             },
         ),
+        // Different structural views of values of one type (for example, a
+        // field record and a complete Option payload) meet as complete values.
+        (x, y) if same(base(&a_typ), base(&b_typ)) => {
+            let x = Val { identity: None, typ: a_typ.clone(), node: x }.scalar(s)?;
+            let y = Val { identity: None, typ: b_typ.clone(), node: y }.scalar(s)?;
+            Node::Atom(conditional(s, c, x, y)?)
+        }
         _ => return Err(unsupported(s, "owned branch type")),
     };
-    Ok(Val { identity, typ: a.typ, node })
+    Ok(Val { identity, typ: a_typ, node })
 }
 fn split(e: &Expr, out: &mut Vec<Expr>) {
     if let ExprX::Logical(LogicalOp::And, a, b) = &e.x {
@@ -2171,8 +2377,12 @@ pub(super) fn infer(
         callbacks: vec![],
         remaining: FORMULA_BUDGET,
     };
-    let mut s =
-        State { locals: HashMap::new(), objects: HashMap::new(), active: boolean(&f.span, true) };
+    let mut s = State {
+        locals: HashMap::new(),
+        objects: HashMap::new(),
+        assigned: std::collections::HashSet::new(),
+        active: boolean(&f.span, true),
+    };
     for p in f.x.params.iter() {
         s.objects.insert(
             p.x.name.clone(),
@@ -2408,8 +2618,12 @@ pub(super) fn validate_summary(
         callbacks: vec![],
         remaining: FORMULA_BUDGET,
     };
-    let mut s =
-        State { locals: HashMap::new(), objects: HashMap::new(), active: boolean(&f.span, true) };
+    let mut s = State {
+        locals: HashMap::new(),
+        objects: HashMap::new(),
+        assigned: std::collections::HashSet::new(),
+        active: boolean(&f.span, true),
+    };
     for p in f.x.params.iter() {
         s.objects.insert(
             p.x.name.clone(),

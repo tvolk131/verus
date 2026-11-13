@@ -7,6 +7,8 @@ queries completed. The current [guide](infer.md) explains modes and reports.
 | Area | Mechanical support | Still authored or outside scope |
 | --- | --- | --- |
 | Scalar values | Supported integer arithmetic, branches, casts, checked/wrapping/saturating operations and composition | Intended meaning, required domain and caller property |
+| Structured returns | Division/remainder, reassigned loop-free `let mut` locals (merged across branches) and panicking arms in functions returning records/Option | Mutable `&mut self` state outside the record profiles (e.g. `ref mut` patterns) |
+| Callees | Inferred callees, approved models, and any callee with a functional contract (`returns E` / `ensures ret == E`), including `vstd` std specs and hand-written contracts; diverging `requires false` callees | Relational callee contracts (no automatic sound-only fallback) |
 | Tuples, arrays and slices | Selected complete outputs, indexing, lengths, subslices and frames | Representation meaning and high-level content properties |
 | Option/Result | Supported tagged returns, early exits, readonly callbacks and typed error paths | Application success/error policy and unmodeled callbacks |
 | Wrappers and records | Supplied sequence/tuple views, supported operators/derives and bounded state summaries | Abstraction, validity, dependency laws and private semantic interfaces |
@@ -17,6 +19,7 @@ queries completed. The current [guide](infer.md) explains modes and reports.
 | Mutable-loop observations | Selected snapshots and current/future referent bridges | General untouched-tail frame and native ownership refinement |
 | Foreign code | Closed recognized body-backed bool conversion and local NonZero ordering support | General foreign calls, unsupported derives/callbacks and native representation laws |
 | Cross-crate use | Certified supported interfaces with dependency/model/version checks | Library trust and local-only capabilities that refuse export |
+| Diagnostics and re-checks | Every rejection in one run; blocked callers; `--verify-function` partial re-checks (never certified or exported) | Readable contracts: callee preconditions are still inlined (e.g. ~13 kB for REDB's `DatabaseLayout::calculate`) |
 
 ## Application status
 
@@ -24,6 +27,7 @@ queries completed. The current [guide](infer.md) explains modes and reports.
 | --- | --- | --- |
 | REDB bitmap/tree | Selected membership/count/frame and ancestor propagation contracts | Whole database, all native containers/callers |
 | REDB headers | Selected in-memory selection/finalization and frame contracts under stated slot preconditions | Durable acknowledgement, lock/cache write-trace coupling and served-snapshot recovery |
+| REDB layout | All 19 functions reached by the 2026-11-13 round-trip pilot infer exact contracts with no executable-line change (maintained regression `redb_layout_infers_without_executable_changes`) | The round-trip property's nonlinear proof, `reduce_last_region` (`&mut` record state) and `usable_bytes` (relational `unwrap_or_default` spec) |
 | REDB allocator | Authored canonical validity, exact allocation/free intervals, logical rejection and conservation wrappers | Executable weighted counting, full API/native integration, durability/crash recovery |
 | Fedimint quorum | Numeric policy and authored set-based intersection/honesty corollaries | Membership/admission, cryptography and runtime protocol wiring |
 | Fedimint signer map | Selected insertion/replacement and initializer bookkeeping in recorded contexts | Native count consumers, recognized-peer and full signature-validation linkage |

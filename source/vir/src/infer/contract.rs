@@ -135,6 +135,9 @@ impl Contract {
         body: Option<Expr>,
     ) -> Result<Function, VirErr> {
         let Self { pre, post } = self;
+        // Every profile's precondition gets the same (untrusted) simplification;
+        // postconditions keep their profile-specific structure for callers.
+        let pre = simplify::precondition(&pre);
         let nonlinear = original.x.attrs.nonlinear
             || !original.x.attrs.infer_owned
                 && !records::candidate(original)

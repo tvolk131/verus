@@ -115,7 +115,15 @@ fn generic_trait_getters_and_nested_associated_types_preserve_accounting() {
 
 fn unsupported(name: &str, source: String) {
     let e = verify_one_file(name, source, &["vstd", "--infer-goals"]).unwrap_err();
-    assert_vir_error_msg(e, "trait inference requires a certified precondition-free getter");
+    // Inference reports every rejection in one run; the getter rejection is first.
+    assert!(!e.errors.is_empty() && e.errors.iter().all(|d| d.code.is_none()), "{:?}", e.errors);
+    assert!(
+        e.errors[0]
+            .message
+            .contains("trait inference requires a certified precondition-free getter"),
+        "{:?}",
+        e.errors
+    );
 }
 
 #[test]
