@@ -12,9 +12,23 @@ fn nodes(e: &Expr) -> usize {
     });
     n
 }
+/// A read of a local or parameter, in either of its VIR forms.
+fn local(e: &Expr) -> Option<&VarIdent> {
+    match &e.x {
+        ExprX::Var(n) => Some(n),
+        ExprX::ReadPlace(p, _) => match &p.x {
+            PlaceX::Local(n) => Some(n),
+            _ => None,
+        },
+        _ => None,
+    }
+}
 fn same(a: &Expr, b: &Expr) -> bool {
     if Arc::ptr_eq(a, b) {
         return true;
+    }
+    if let (Some(x), Some(y)) = (local(a), local(b)) {
+        return x == y && crate::ast_util::types_equal(&a.typ, &b.typ);
     }
     if !crate::ast_util::types_equal(&a.typ, &b.typ) {
         return false;
@@ -42,6 +56,24 @@ fn same(a: &Expr, b: &Expr) -> bool {
         }
         _ => false,
     }
+}
+/// Contains a product, quotient or remainder of two non-constant terms. A bound
+/// on such a term is kept even when interval reasoning shows it holds: the
+/// solver cannot re-derive nonlinear bounds, so the fact is a needed hint.
+fn nonlinear(e: &Expr) -> bool {
+    let mut found = false;
+    crate::ast_visitor::expr_visitor_walk(e, &mut |x| {
+        if let ExprX::Binary(
+            BinaryOp::Arith(ArithOp::Mul(_) | ArithOp::EuclideanDiv(_) | ArithOp::EuclideanMod(_)),
+            a,
+            b,
+        ) = &x.x
+        {
+            found |= integer(a).is_none() && integer(b).is_none();
+        }
+        crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+    });
+    found
 }
 fn integer(e: &Expr) -> Option<&BigInt> {
     if let ExprX::Const(Constant::Int(n)) = &e.x { Some(n) } else { None }
@@ -119,7 +151,7 @@ fn envelope(e: &Expr, facts: &[(Expr, bool)], budget: &mut usize) -> Option<(Big
             let b = arithmetic::arch_value(e, 64)?;
             Some((a.clone().min(b.clone()), a.max(b)))
         }
-        ExprX::Var(_) => bounds(&e.typ),
+        _ if local(e).is_some() => bounds(&e.typ),
         ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), _) => {
             Some((0.into(), arithmetic::bounds_at(IntRange::USize, 64)?.1))
         }
@@ -278,8 +310,34 @@ fn floor(n: &BigInt, d: &BigInt) -> BigInt {
 struct Simplifier {
     remaining: usize,
 }
+/// Record `e == truth` and, recursively, what it implies about its parts:
+/// each conjunct of a true conjunction, each disjunct of a false disjunction.
+fn push_fact(facts: &mut Vec<(Expr, bool)>, e: &Expr, truth: bool) {
+    if facts.len() > 256 {
+        return;
+    }
+    facts.push((e.clone(), truth));
+    match (&e.x, truth) {
+        (ExprX::Logical(LogicalOp::And, a, b), true)
+        | (ExprX::Logical(LogicalOp::Or, a, b), false) => {
+            push_fact(facts, a, truth);
+            push_fact(facts, b, truth);
+        }
+        (ExprX::Unary(UnaryOp::Not, a), _) => push_fact(facts, a, !truth),
+        _ => {}
+    }
+}
 impl Simplifier {
+    /// Simplify; a subterm the simplification language cannot rebuild (for
+    /// example a callee's vstd specification) is kept unchanged.
     fn go(&mut self, e: &Expr, facts: &[(Expr, bool)]) -> Result<Term, VirErr> {
+        match self.strict(e, facts) {
+            Err(err) if err.note.contains("budget exceeded") => Err(err),
+            Err(_) => records::atom(e.clone()),
+            ok => ok,
+        }
+    }
+    fn strict(&mut self, e: &Expr, facts: &[(Expr, bool)]) -> Result<Term, VirErr> {
         self.remaining = self.remaining.checked_sub(1).ok_or_else(|| {
             error(&e.span, "Verus Infer incomplete: simplification budget exceeded")
         })?;
@@ -292,6 +350,7 @@ impl Simplifier {
         let out = match &e.x {
             _ if arithmetic::arch_constant(e).is_some() => arithmetic::arch_constant(e).unwrap(),
             ExprX::Const(_) | ExprX::Var(_) => Term { view: None, expr: e.clone(), size: 1 },
+            _ if local(e).is_some() => Term { view: None, expr: e.clone(), size: 1 },
             ExprX::Unary(UnaryOp::Not, a) => {
                 let a = self.go(a, facts)?;
                 if let ExprX::Const(Constant::Bool(b)) = a.expr.x {
@@ -311,7 +370,7 @@ impl Simplifier {
             ExprX::Logical(op, a, b) => {
                 let a = self.go(a, facts)?;
                 let mut local = facts.to_vec();
-                local.push((a.expr.clone(), *op != LogicalOp::Or));
+                push_fact(&mut local, &a.expr, *op != LogicalOp::Or);
                 let b = self.go(b, &local)?;
                 match op {
                     LogicalOp::And if entails(&a.expr, &b.expr) => a,
@@ -332,9 +391,22 @@ impl Simplifier {
             ExprX::If(c, a, Some(b)) => {
                 let c = self.go(c, facts)?;
                 let mut yes = facts.to_vec();
-                yes.push((c.expr.clone(), true));
+                push_fact(&mut yes, &c.expr, true);
                 let mut no = facts.to_vec();
-                no.push((c.expr.clone(), false));
+                push_fact(&mut no, &c.expr, false);
+                // A known guarded fact `if c {A} else {B}` gives A under c and B
+                // under !c: repeated guarded requirements collapse.
+                for (fact, truth) in facts.iter() {
+                    if !truth {
+                        continue;
+                    }
+                    if let ExprX::If(c0, a0, Some(b0)) = &fact.x {
+                        if same(c0, &c.expr) {
+                            push_fact(&mut yes, a0, true);
+                            push_fact(&mut no, b0, true);
+                        }
+                    }
+                }
                 let a = self.go(a, &yes)?;
                 let b = self.go(b, &no)?;
                 if same(&a.expr, &b.expr) {
@@ -376,7 +448,10 @@ impl Simplifier {
             ExprX::UnaryOpr(UnaryOpr::Field(op), a) => {
                 enums::field(span, self.go(a, facts)?, &op.variant)?
             }
-            _ => return Err(unsupported(span, "expression outside pure simplification language")),
+            ExprX::Block(stmts, Some(tail)) if stmts.is_empty() => self.go(tail, facts)?,
+            // Pure expressions outside the simplification language (for example
+            // a callee's vstd specification) are kept unchanged.
+            _ => records::atom(e.clone())?,
         };
         Ok(out)
     }
@@ -415,8 +490,9 @@ impl Simplifier {
                     ),
                 ));
             }
-            if let (Some((lo, hi)), Some((min, max))) =
-                (envelope(&a.expr, facts, &mut 512), envelope(&b.expr, facts, &mut 512))
+            let decidable = !nonlinear(&a.expr) && !nonlinear(&b.expr);
+            if let (true, Some((lo, hi)), Some((min, max))) =
+                (decidable, envelope(&a.expr, facts, &mut 512), envelope(&b.expr, facts, &mut 512))
             {
                 let yes = match op {
                     BinaryOp::Eq(_) if hi < min || max < lo => Some(false),
@@ -512,6 +588,14 @@ impl Simplifier {
     }
 }
 
+/// Simplify a precondition; on any failure the original is kept unchanged.
+pub(super) fn precondition(pre: &Expr) -> Expr {
+    match (Simplifier { remaining: FORMULA_BUDGET }).go(pre, &[]) {
+        Ok(t) if matches!(&*t.expr.typ, TypX::Bool) => t.expr,
+        _ => pre.clone(),
+    }
+}
+
 pub(super) fn contract(f: &Function, pre: &Expr, post: &Expr) -> Result<(Expr, Expr), VirErr> {
     let vars =
         f.x.params
@@ -528,13 +612,13 @@ pub(super) fn contract(f: &Function, pre: &Expr, post: &Expr) -> Result<(Expr, E
                 )
             })
             .collect();
-    let pre = instantiate(pre, &vars)?;
+    let pre = summary::instantiate_opaque(pre, &vars)?;
     let pre = Simplifier { remaining: FORMULA_BUDGET }.go(&pre.expr, &[])?.expr;
     // Preserve the serialized canonical scalar range shape for sound summaries.
     let post = if f.x.attrs.infer_allow_approx {
         post.clone()
     } else {
-        let checked = instantiate(post, &vars)?;
+        let checked = summary::instantiate_opaque(post, &vars)?;
         if let ExprX::Binary(op @ BinaryOp::Eq(_), ret, output) = &checked.expr.x {
             let output = Simplifier { remaining: FORMULA_BUDGET }.go(output, &[])?;
             summary::binary(&f.span, *op, Term { view: None, expr: ret.clone(), size: 1 }, output)?

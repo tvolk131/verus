@@ -110,6 +110,9 @@ fn check(record: &Circuit) {
 
 #[test]
 fn lookalike_methods_do_not_receive_canonical_models() {
+    // A same-crate method named like a std method keeps its own (functional)
+    // contract: its caller infers through `ensures result == None`, never
+    // through the canonical std `then_some` model, which would give Some(7).
     let crates = InferCrates::new();
     let source = r#"
 use vstd::prelude::*;
@@ -122,13 +125,19 @@ impl Fake {
     #[verifier::infer]
     pub fn query(&self) -> Option<u8> { self.then_some(7) }
 }
+fn check(f: &Fake) {
+    let r = f.query();
+    assert(r is None);
+}
 }
 "#;
-    let failed =
+    let run =
         crates.build_source("lookalike", source, &[], &["--no-cheating", "--output-json"], true);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let wrong = source.replace("assert(r is None);", "assert(r == Some(7u8)); // FAILS");
+    let failed =
+        crates.build_source("lookalike", &wrong, &[], &["--no-cheating", "--output-json"], true);
     assert!(!failed.status.success());
-    assert!(!crates.vir("lookalike").exists());
-    assert!(String::from_utf8_lossy(&failed.stderr).contains("Verus Infer unsupported"));
 }
 
 #[test]

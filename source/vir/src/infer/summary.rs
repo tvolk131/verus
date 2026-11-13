@@ -89,11 +89,54 @@ pub(super) fn conditional(span: &Span, c: Term, a: Term, b: Term) -> Result<Term
 // Count input nodes before descending, in addition to the expanded sizes
 // maintained by Term. This also bounds inputs that simplify to tiny formulas.
 pub(super) fn instantiate(expr: &Expr, vars: &HashMap<VarIdent, Term>) -> Result<Term, VirErr> {
+    instantiate_with(expr, vars, false)
+}
+
+/// Like `instantiate`, but any pure expression outside the summary language
+/// (for example a vstd spec call from a callee's functional specification)
+/// is kept as an opaque leaf, with variables substituted. Only for candidate
+/// installation, where ordinary verification checks the result.
+pub(super) fn instantiate_opaque(
+    expr: &Expr,
+    vars: &HashMap<VarIdent, Term>,
+) -> Result<Term, VirErr> {
+    instantiate_with(expr, vars, true)
+}
+
+fn instantiate_with(
+    expr: &Expr,
+    vars: &HashMap<VarIdent, Term>,
+    opaque: bool,
+) -> Result<Term, VirErr> {
+    fn leaf(expr: &Expr, vars: &HashMap<VarIdent, Term>) -> Result<Term, VirErr> {
+        let mapped = crate::ast_visitor::map_expr_visitor(expr, &|e: &Expr| {
+            Ok(match &e.x {
+                ExprX::Var(v) => vars.get(v).map(|t| t.expr.clone()).unwrap_or_else(|| e.clone()),
+                _ => e.clone(),
+            })
+        })?;
+        records::atom(mapped)
+    }
     fn go(
         expr: &Expr,
         vars: &HashMap<VarIdent, Term>,
         remaining: &mut usize,
+        opaque: bool,
     ) -> Result<Term, VirErr> {
+        match strict(expr, vars, remaining, opaque) {
+            Err(_) if opaque => leaf(expr, vars),
+            result => result,
+        }
+    }
+    fn strict(
+        expr: &Expr,
+        vars: &HashMap<VarIdent, Term>,
+        remaining: &mut usize,
+        opaque: bool,
+    ) -> Result<Term, VirErr> {
+        let go = |e: &Expr, vars: &HashMap<VarIdent, Term>, remaining: &mut usize| {
+            go(e, vars, remaining, opaque)
+        };
         if *remaining == 0 {
             return Err(error(
                 &expr.span,
@@ -176,15 +219,22 @@ pub(super) fn instantiate(expr: &Expr, vars: &HashMap<VarIdent, Term>) -> Result
                 go(a, vars, remaining)?,
                 go(b, vars, remaining)?,
             )?,
+            ExprX::Block(stmts, Some(tail)) if opaque && stmts.is_empty() => {
+                go(tail, vars, remaining)?
+            }
+            _ if opaque => leaf(expr, vars)?,
             _ => return Err(invalid()),
         };
         if !enums::compatible(&result.expr.typ, &expr.typ)
             && !slices::substitutes(&result.expr.typ, &expr.typ)
         {
+            if opaque {
+                return leaf(expr, vars);
+            }
             return Err(invalid());
         }
         Ok(result)
     }
     let mut remaining = FORMULA_BUDGET;
-    go(expr, vars, &mut remaining)
+    go(expr, vars, &mut remaining, opaque)
 }

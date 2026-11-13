@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v83:integrated-profiles-and-checked-foreign:4096";
+const VERSION: &str = "verus-infer-v84:functional-callee-specs:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -51,9 +51,11 @@ struct Candidate {
     post: Formula,
 }
 
-fn encode(e: &Expr, params: &Params) -> Formula {
-    let enc = |e| Box::new(encode(e, params));
-    match &e.x {
+/// None when the formula is outside the cache format (for example an opaque
+/// specification term from a callee's contract); such candidates are not cached.
+fn encode(e: &Expr, params: &Params) -> Option<Formula> {
+    let enc = |e| encode(e, params).map(Box::new);
+    Some(match &e.x {
         ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::SignedMin), _)
             if arithmetic::arch_constant(e).is_some() =>
         {
@@ -64,7 +66,9 @@ fn encode(e: &Expr, params: &Params) -> Formula {
         {
             Formula::ISizeMax
         }
-        ExprX::Unary(UnaryOp::Clip { range: IntRange::ISize, .. }, a) => Formula::ISizeClip(enc(a)),
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::ISize, .. }, a) => {
+            Formula::ISizeClip(enc(a)?)
+        }
 
         ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::UnsignedMax), _)
             if arithmetic::arch_constant(e).is_some() =>
@@ -76,56 +80,60 @@ fn encode(e: &Expr, params: &Params) -> Formula {
         {
             Formula::ArchWordBits
         }
-        ExprX::Unary(UnaryOp::Clip { range: IntRange::USize, .. }, a) => Formula::USizeClip(enc(a)),
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::USize, .. }, a) => {
+            Formula::USizeClip(enc(a)?)
+        }
         ExprX::ArrayLiteral(elements) => {
-            let (element, length) = arrays::shape(&e.typ).expect("generated array type");
+            let (element, length) = arrays::shape(&e.typ)?;
             Formula::Array(
-                enums::ValueType::from_typ(&element).unwrap(),
+                enums::ValueType::from_typ(&element)?,
                 length,
-                elements.iter().map(|e| encode(e, params)).collect(),
+                elements.iter().map(|e| encode(e, params)).collect::<Option<Vec<_>>>()?,
             )
         }
         ExprX::Const(Constant::Bool(v)) => Formula::Bool(*v),
         ExprX::Const(Constant::Int(v)) => Formula::Int(v.clone()),
-        ExprX::Var(v) => Formula::Param(params.iter().position(|p| &p.x.name == v).unwrap()),
-        ExprX::Unary(UnaryOp::BitNot(w), a) => Formula::BitNot(*w, enc(a)),
-        ExprX::Unary(UnaryOp::Not, a) => Formula::Not(enc(a)),
-        ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), a) => Formula::SliceLen(enc(a)),
+        ExprX::Var(v) => Formula::Param(params.iter().position(|p| &p.x.name == v)?),
+        ExprX::Unary(UnaryOp::BitNot(w), a) => Formula::BitNot(*w, enc(a)?),
+        ExprX::Unary(UnaryOp::Not, a) => Formula::Not(enc(a)?),
+        ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), a) => Formula::SliceLen(enc(a)?),
         ExprX::Unary(UnaryOp::Clip { range: IntRange::U(bits), .. }, a) => {
-            Formula::Clip(*bits, enc(a))
+            Formula::Clip(*bits, enc(a)?)
         }
         ExprX::Unary(UnaryOp::Clip { range: IntRange::I(bits), .. }, a) => {
-            Formula::SignedClip(*bits, enc(a))
+            Formula::SignedClip(*bits, enc(a)?)
         }
-        ExprX::Binary(op, a, b) => Formula::Binary(*op, enc(a), enc(b)),
-        ExprX::Logical(op, a, b) => Formula::Logical(*op, enc(a), enc(b)),
-        ExprX::If(c, a, Some(b)) => Formula::If(enc(c), enc(a), enc(b)),
+        ExprX::Binary(op, a, b) => Formula::Binary(*op, enc(a)?, enc(b)?),
+        ExprX::Logical(op, a, b) => Formula::Logical(*op, enc(a)?, enc(b)?),
+        ExprX::If(c, a, Some(b)) => Formula::If(enc(c)?, enc(a)?, enc(b)?),
         ExprX::Ctor(dt, variant, fields, None)
             if tuples::valid_ctor(&e.typ, dt, variant, fields) =>
         {
             Formula::Pair(
-                tuples::shape(&e.typ)
-                    .unwrap()
+                tuples::shape(&e.typ)?
                     .iter()
-                    .map(|t| enums::ValueType::from_typ(t).unwrap())
-                    .collect(),
-                fields.iter().map(|f| encode(&f.a, params)).collect(),
+                    .map(|t| enums::ValueType::from_typ(t))
+                    .collect::<Option<Vec<_>>>()?,
+                fields.iter().map(|f| encode(&f.a, params)).collect::<Option<Vec<_>>>()?,
             )
         }
         ExprX::UnaryOpr(UnaryOpr::Field(op), a) if tuples::index(op, &a.typ).is_some() => {
-            Formula::PairField(tuples::index(op, &a.typ).unwrap(), enc(a))
+            Formula::PairField(tuples::index(op, &a.typ)?, enc(a)?)
         }
         ExprX::Ctor(_, variant, fields, None) => Formula::Ctor(
-            enums::ValueType::from_typ(&e.typ).unwrap(),
+            enums::ValueType::from_typ(&e.typ)?,
             variant.to_string(),
-            fields.first().map(|f| enc(&f.a)),
+            match fields.first() {
+                Some(f) => Some(enc(&f.a)?),
+                None => None,
+            },
         ),
         ExprX::UnaryOpr(UnaryOpr::IsVariant { variant, .. }, a) => {
-            Formula::IsVariant(variant.to_string(), enc(a))
+            Formula::IsVariant(variant.to_string(), enc(a)?)
         }
-        ExprX::UnaryOpr(UnaryOpr::Field(op), a) => Formula::Field(op.variant.to_string(), enc(a)),
-        _ => unreachable!("only generated formulas are cached"),
-    }
+        ExprX::UnaryOpr(UnaryOpr::Field(op), a) => Formula::Field(op.variant.to_string(), enc(a)?),
+        _ => return None,
+    })
 }
 fn boolean_type(t: &Term) -> bool {
     matches!(&*t.expr.typ, TypX::Bool)
@@ -274,7 +282,96 @@ pub struct Registry {
     pub hits: usize,
     pub misses: usize,
     pub generated: Vec<GeneratedCandidate>,
+    /// Every rejection found in the last run, in dependency order.
+    pub failures: Vec<VirErr>,
 }
+
+/// Bound on the rejections reported per function.
+const MAX_DIAGNOSTICS_PER_FUNCTION: usize = 16;
+
+/// (file, start, end) of a span, parsed from its `file:l1:c1: l2:c2` text.
+fn span_range(s: &Span) -> Option<(String, (u64, u64), (u64, u64))> {
+    let text = s.as_string.split(" (").next()?;
+    let (first, last) = text.rsplit_once(": ")?;
+    let mut a = first.rsplitn(3, ':');
+    let (c1, l1, file) = (a.next()?.parse().ok()?, a.next()?.parse().ok()?, a.next()?);
+    let (l2, c2) = last.split_once(':')?;
+    Some((file.to_string(), (l1, c1), (l2.parse().ok()?, c2.parse().ok()?)))
+}
+
+/// Whether `outer` contains `inner` (same file).
+fn encloses(outer: &Span, inner: &Span) -> bool {
+    match (span_range(outer), span_range(inner)) {
+        (Some((f, a, b)), Some((g, c, d))) => f == g && a <= c && d <= b,
+        _ => false,
+    }
+}
+
+fn same_span(a: &Span, b: &Span) -> bool {
+    a.data == b.data && a.as_string == b.as_string
+}
+
+/// The calls in a body to functions whose own inference already failed.
+fn failed_call_at(
+    f: &Function,
+    span: &Span,
+    failed: &std::collections::HashSet<Fun>,
+) -> Option<Fun> {
+    let mut found = None;
+    if let Some(body) = &f.x.body {
+        crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
+            if let ExprX::Call { target: CallTarget::Fun(_, name, ..), .. } = &e.x {
+                if failed.contains(name) && same_span(&e.span, span) {
+                    found = Some(name.clone());
+                }
+            }
+            crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+        });
+    }
+    found
+}
+
+/// Replace the outermost subexpression at the rejection's span with an opaque
+/// value, so the next attempt can surface a later rejection in the same body.
+/// The masked copy is only used for diagnosis and is never installed.
+fn mask(f: &Function, err: &VirErr, round: usize) -> Option<Function> {
+    let span = err.spans.first()?;
+    let body = f.x.body.as_ref()?;
+    if same_span(span, &f.span) || same_span(span, &body.span) {
+        return None;
+    }
+    let name =
+        VarIdent(Arc::new(format!("__verus_infer_masked_{round}")), VarIdentDisambiguate::AirLocal);
+    let replaced: std::cell::RefCell<Option<Typ>> = std::cell::RefCell::new(None);
+    let masked = crate::ast_visitor::map_expr_visitor(body, &|e: &Expr| {
+        if !same_span(&e.span, span) {
+            return Ok(e.clone());
+        }
+        // Post-order: the last match is the outermost expression at this span.
+        if crate::ast_util::types_equal(&e.typ, &crate::ast_util::unit_typ()) {
+            *replaced.borrow_mut() = None;
+            return Ok(e.new_x(ExprX::Block(Arc::new(vec![]), None)));
+        }
+        *replaced.borrow_mut() = Some(e.typ.clone());
+        Ok(e.new_x(ExprX::Var(name.clone())))
+    })
+    .ok()?;
+    if Arc::ptr_eq(&masked, body) {
+        return None;
+    }
+    let mut x = f.x.clone();
+    if let Some(typ) = replaced.into_inner() {
+        let mut params = (*x.params).clone();
+        params.push(Arc::new(crate::def::Spanned {
+            span: f.span.clone(),
+            x: ParamX { name, typ, mode: Mode::Exec, user_mut: false, unwrapped_info: None },
+        }));
+        x.params = Arc::new(params);
+    }
+    x.body = Some(masked);
+    Some(f.new_x(x))
+}
+
 impl Registry {
     pub fn from_environment(configuration: &str) -> Self {
         let mut registry = Self::new(std::env::var_os("VERUS_INFER_CACHE").map(PathBuf::from));
@@ -292,6 +389,7 @@ impl Registry {
             hits: 0,
             misses: 0,
             generated: Vec::new(),
+            failures: Vec::new(),
         }
     }
     fn read(&self, key: &str) -> Option<Candidate> {
@@ -334,6 +432,7 @@ impl Registry {
                     f.x.attrs.infer
                         || is_inference_contract(f)
                         || is_approved_model(f)
+                        || functional::is_functional(f)
                         || f.x.name.path.krate != CrateId::Vstd && is_pure_observation(f)
                 })
                 .cloned(),
@@ -370,6 +469,19 @@ impl Registry {
             keys.insert(f.x.name.clone(), key);
             candidates.insert(f.x.name.clone(), f.clone());
         }
+        // Callees with a functional specification (vstd std specs, hand-written
+        // contracts). Their own specification is what callers are checked against.
+        for f in combined.iter().filter(|f| functional::is_functional(f)) {
+            if candidates.contains_key(&f.x.name) {
+                continue;
+            }
+            let key: String = Sha256::digest(format!("{VERSION}:functional-spec:{f:?}"))
+                .iter()
+                .map(|b| format!("{b:02x}"))
+                .collect();
+            keys.insert(f.x.name.clone(), key);
+            candidates.insert(f.x.name.clone(), f.clone());
+        }
         for f in imported.iter().filter(|f| f.x.attrs.infer) {
             if is_owned_summary(f) {
                 owned::validate_summary(f, &all, &self.datatypes)?;
@@ -387,207 +499,334 @@ impl Registry {
             keys.insert(f.x.name.clone(), key);
             candidates.insert(f.x.name.clone(), f.clone());
         }
-        for name in dependency_order(&combined)? {
+        let (order, deferred) = dependency_order(&combined)?;
+        let mut failures: Vec<VirErr> = Vec::new();
+        let mut failed: std::collections::HashSet<Fun> = std::collections::HashSet::new();
+        for name in order {
             if candidates.contains_key(&name) {
                 continue;
             }
-            let f = &all[&name];
-            let start = std::time::Instant::now();
-            if is_owned_summary(f) {
-                let mut dependencies: Vec<_> = keys.values().cloned().collect();
-                dependencies.sort();
-                dependencies.push(format!("{:?}", self.datatypes));
-                let key = candidate_key(
-                    self.originals.get(&name).unwrap_or(f),
-                    &dependencies,
-                    &self.configuration,
-                );
-                let wrappers = newtypes::Newtypes::with_comparisons(
-                    &self.datatypes,
-                    &self.originals.values().cloned().collect::<Vec<_>>(),
-                );
-                let callees = candidates
-                    .iter()
-                    .map(|(n, c)| {
-                        Ok((
-                            n.clone(),
-                            if self.projected.contains(n) {
-                                wrappers
-                                    .lift(&self.originals[n], c)?
-                                    .install_lifted(&self.originals[n], &keys[n])?
-                            } else {
-                                c.clone()
-                            },
-                        ))
-                    })
-                    .collect::<Result<HashMap<_, _>, VirErr>>()?;
-                let (contract, body) = owned::infer(f, &callees, &self.datatypes)?;
-                let contract = observations::lift_contract(f, contract, &callees, &self.datatypes)?;
-                let inferred = contract.install_owned(f, &key, body)?;
-                self.misses += 1;
-                let mut row =
-                    GeneratedCandidate::new(&inferred, false, start.elapsed().as_micros());
-                row.record_template = true;
-                self.generated.push(row);
-                keys.insert(name.clone(), key);
-                candidates.insert(name, inferred);
-                continue;
+            let f = all[&name].clone();
+            let attempt = match deferred.get(&name) {
+                Some(err) => Err(err.clone()),
+                None => self.infer_one(&name, &f, &all, &mut candidates, &mut keys),
+            };
+            if let Err(err) = attempt {
+                // Keep going: report every rejection in one run instead of only the first.
+                failures.extend(self.diagnose(&f, err, &all, &candidates, &keys, &failed));
+                failed.insert(name);
             }
-            if records::candidate(f) || record_models::uses_native_option(f, &all) {
-                let mut dependencies: Vec<_> = keys.values().cloned().collect();
-                dependencies.sort();
-                dependencies.push(format!("{:?}", self.datatypes));
-                let key = candidate_key(
-                    self.originals.get(&name).unwrap_or(f),
-                    &dependencies,
-                    &self.configuration,
-                );
-                let wrappers = newtypes::Newtypes::with_comparisons(
-                    &self.datatypes,
-                    &self.originals.values().cloned().collect::<Vec<_>>(),
-                );
-                let projected_caller = self.projected.contains(&name);
-                let record_callees = candidates
-                    .iter()
-                    .map(|(n, c)| {
-                        let c = if !projected_caller && self.projected.contains(n) {
-                            wrappers
-                                .lift(&self.originals[n], c)?
-                                .install_lifted(&self.originals[n], &keys[n])?
-                        } else {
-                            c.clone()
-                        };
-                        Ok((n.clone(), c))
-                    })
-                    .collect::<Result<HashMap<_, _>, VirErr>>()?;
-                let (contract, body) = records::infer(f, &record_callees, &self.datatypes)?;
-                let contract =
-                    observations::lift_contract(f, contract, &record_callees, &self.datatypes)?;
-                let inferred = if let Some(body) = body {
-                    contract.install_owned(f, &key, body)?
-                } else {
-                    contract.install_lifted(f, &key)?
-                };
-                self.misses += 1;
-                let mut row =
-                    GeneratedCandidate::new(&inferred, false, start.elapsed().as_micros());
-                row.record_template = true;
-                self.generated.push(row);
-                keys.insert(name.clone(), key);
-                candidates.insert(name, inferred);
-                continue;
+        }
+        if let Some(first) = failures.first().cloned() {
+            self.failures = failures;
+            return Err(first);
+        }
+        Ok(functions.iter().map(|f| candidates.get(&f.x.name).unwrap_or(f).clone()).collect())
+    }
+
+    /// Collect the rejections of one function: the first one, then any later
+    /// ones found by masking each rejected subexpression and retrying.
+    fn diagnose(
+        &mut self,
+        f: &Function,
+        first: VirErr,
+        all: &HashMap<Fun, Function>,
+        candidates: &HashMap<Fun, Function>,
+        keys: &HashMap<Fun, String>,
+        failed: &std::collections::HashSet<Fun>,
+    ) -> Vec<VirErr> {
+        // Diagnosis attempts must not touch the cache or the generation report.
+        let directory = self.directory.take();
+        let (generated, hits, misses) = (self.generated.len(), self.hits, self.misses);
+        let mut errors: Vec<VirErr> = Vec::new();
+        let mut masked_spans: Vec<Span> = Vec::new();
+        let mut current = f.clone();
+        let mut err = first;
+        for round in 0..MAX_DIAGNOSTICS_PER_FUNCTION {
+            let masked = mask(&current, &err, round);
+            let span = err.spans.first().cloned();
+            if masked.is_some() {
+                masked_spans.extend(span.clone());
             }
-            if collections::kind(f).is_some() {
-                let mut dependencies: Vec<_> = all
-                    .values()
-                    .filter(|f| collections::model(f).is_some())
-                    .map(|f| keys[&f.x.name].clone())
-                    .collect();
-                dependencies.sort();
-                let key = candidate_key(
-                    self.originals.get(&name).unwrap_or(f),
-                    &dependencies,
-                    &self.configuration,
-                );
-                let inferred = collections::infer(f, &all)?.install_lifted(f, &key)?;
-                // Regenerate these bounded templates; never decode arbitrary
-                // state expressions through the scalar candidate-cache format.
-                self.misses += 1;
-                self.generated.push(GeneratedCandidate::new(
-                    &inferred,
-                    false,
-                    start.elapsed().as_micros(),
-                ));
-                keys.insert(name.clone(), key);
-                candidates.insert(name, inferred);
-                continue;
-            }
-            validate_signature(f)?;
-            validate_body(f, &all)?;
-            if !f.x.attrs.infer_allow_approx && uses_approximate_callee(f, &candidates) {
-                return Err(unsupported(
-                    &f.span,
-                    "exact inference requires exact-mode callees; use precision = \"sound\" or an ordinary verified caller for sound approximations",
-                ));
-            }
-            let mut dependencies = Vec::new();
-            propagation::visit_calls(
-                f.x.body.as_ref().unwrap(),
-                &f.x.inner_ret.x.typ,
-                &all,
-                &mut |e, _| {
-                    if let ExprX::Call { target: CallTarget::Fun(_, name, ..), .. } = &e.x {
-                        dependencies.push(keys[name].clone());
+            let reported = match span.as_ref().and_then(|sp| failed_call_at(&current, sp, failed)) {
+                Some(callee) => crate::messages::error(
+                    span.as_ref().unwrap(),
+                    format!(
+                        "Verus Infer: blocked: this calls `{}`, which could not be inferred (see its error)",
+                        crate::ast_util::path_as_friendly_rust_name(&callee.path)
+                    ),
+                ),
+                None => err.clone(),
+            };
+            errors.push(reported);
+            let Some(next) = masked else { break };
+            current = next;
+            let mut all = all.clone();
+            all.insert(current.x.name.clone(), current.clone());
+            let combined: Vec<_> = all.values().cloned().collect();
+            let attempt = match dependency_order(&combined) {
+                Err(e) => Err(e),
+                Ok((_, deferred)) => match deferred.get(&current.x.name) {
+                    Some(e) => Err(e.clone()),
+                    None => {
+                        let mut candidates = candidates.clone();
+                        let mut keys = keys.clone();
+                        self.infer_one(
+                            &current.x.name.clone(),
+                            &current.clone(),
+                            &all,
+                            &mut candidates,
+                            &mut keys,
+                        )
                     }
-                    Ok::<_, VirErr>(())
                 },
-            )?;
-            // Signed operators lower to existing vstd spec functions even
-            // though no explicit call appears in their source AST. Record
-            // those definitions and fail cleanly if vstd was not imported.
-            crate::ast_visitor::expr_visitor_check(f.x.body.as_ref().unwrap(), &mut |_, e| {
-                if let Some(name) = arithmetic::division_dependency(e) {
-                    dependencies.push(keys.get(&name).ok_or_else(|| unsupported(&e.span,
-                        "signed division/remainder requires vstd arithmetic models; import vstd::prelude::*"))?.clone());
+            };
+            match attempt {
+                Ok(()) => break,
+                Err(e) => {
+                    let repeated = e.spans.first().is_some_and(|sp| {
+                        errors.iter().any(|x| x.spans.first().is_some_and(|y| same_span(sp, y)))
+                    });
+                    // A rejection at the function's own span after masking is
+                    // an artifact of the added opaque parameter, not a finding.
+                    // So is one whose span encloses a masked subexpression.
+                    let artifact = e.spans.first().is_some_and(|sp| {
+                        same_span(sp, &f.span) || masked_spans.iter().any(|m| encloses(sp, m))
+                    });
+                    if repeated || artifact || e.spans.is_empty() {
+                        break;
+                    }
+                    err = e;
                 }
-                for name in slices::dependencies(e, &all) {
-                    dependencies.push(keys.get(&name).ok_or_else(|| unsupported(&e.span,
-                        "slice indexing/length requires vstd slice models; import vstd::prelude::*"))?.clone());
-                }
-                Ok::<_, VirErr>(())
-            })?;
-            // Includes the entire typed function (body, signature, attributes,
-            // safety policy), plus callee/model keys in deterministic traversal order.
+            }
+        }
+        self.directory = directory;
+        self.generated.truncate(generated);
+        self.hits = hits;
+        self.misses = misses;
+        errors
+    }
+
+    fn infer_one(
+        &mut self,
+        name: &Fun,
+        f: &Function,
+        all: &HashMap<Fun, Function>,
+        candidates: &mut HashMap<Fun, Function>,
+        keys: &mut HashMap<Fun, String>,
+    ) -> Result<(), VirErr> {
+        let name = name.clone();
+        if is_owned_summary(f) {
+            owned::validate_source(f)?;
+        }
+        if records::candidate(f) && !is_owned_summary(f) {
+            records::validate_source(f)?;
+        }
+        let start = std::time::Instant::now();
+        if is_owned_summary(f) {
+            let mut dependencies: Vec<_> = keys.values().cloned().collect();
+            dependencies.sort();
+            dependencies.push(format!("{:?}", self.datatypes));
             let key = candidate_key(
                 self.originals.get(&name).unwrap_or(f),
                 &dependencies,
                 &self.configuration,
             );
-            let hit = self
-                .read(&key)
-                .filter(|c| c.version == VERSION && c.key == key && c.dependencies == dependencies)
-                .and_then(|c| {
-                    let mut pre_budget = FORMULA_BUDGET;
-                    let mut output_budget = FORMULA_BUDGET;
-                    let pre = decode(&c.pre, f, &mut pre_budget, false).ok()?;
-                    let output = decode(&c.post, f, &mut output_budget, true).ok()?;
-                    if !boolean_type(&pre) || !boolean_type(&output) {
-                        return None;
-                    }
-                    let candidate =
-                        Contract::new(pre.expr, output.expr).ok()?.install(f, &key).ok()?;
-                    let mut exported = candidate.x.clone();
-                    exported.body = None;
-                    validate_imported_summary(&candidate.new_x(exported)).ok()?;
-                    Some(candidate)
-                });
-            let cache_hit = hit.is_some();
-            let inferred = if let Some(hit) = hit {
-                self.hits += 1;
-                hit
+            let wrappers = newtypes::Newtypes::with_comparisons(
+                &self.datatypes,
+                &self.originals.values().cloned().collect::<Vec<_>>(),
+            );
+            let callees = candidates
+                .iter()
+                .map(|(n, c)| {
+                    Ok((
+                        n.clone(),
+                        if self.projected.contains(n) {
+                            wrappers
+                                .lift(&self.originals[n], c)?
+                                .install_lifted(&self.originals[n], &keys[n])?
+                        } else {
+                            c.clone()
+                        },
+                    ))
+                })
+                .collect::<Result<HashMap<_, _>, VirErr>>()?;
+            let (contract, body) = owned::infer(f, &callees, &self.datatypes)?;
+            let contract = observations::lift_contract(f, contract, &callees, &self.datatypes)?;
+            let inferred = contract.install_owned(f, &key, body)?;
+            self.misses += 1;
+            let mut row = GeneratedCandidate::new(&inferred, false, start.elapsed().as_micros());
+            row.record_template = true;
+            self.generated.push(row);
+            keys.insert(name.clone(), key);
+            candidates.insert(name, inferred);
+            return Ok(());
+        }
+        if records::candidate(f) || record_models::uses_native_option(f, &all) {
+            let mut dependencies: Vec<_> = keys.values().cloned().collect();
+            dependencies.sort();
+            dependencies.push(format!("{:?}", self.datatypes));
+            let key = candidate_key(
+                self.originals.get(&name).unwrap_or(f),
+                &dependencies,
+                &self.configuration,
+            );
+            let wrappers = newtypes::Newtypes::with_comparisons(
+                &self.datatypes,
+                &self.originals.values().cloned().collect::<Vec<_>>(),
+            );
+            let projected_caller = self.projected.contains(&name);
+            let record_callees = candidates
+                .iter()
+                .map(|(n, c)| {
+                    let c = if !projected_caller && self.projected.contains(n) {
+                        wrappers
+                            .lift(&self.originals[n], c)?
+                            .install_lifted(&self.originals[n], &keys[n])?
+                    } else {
+                        c.clone()
+                    };
+                    Ok((n.clone(), c))
+                })
+                .collect::<Result<HashMap<_, _>, VirErr>>()?;
+            let (contract, body) = records::infer(f, &record_callees, &self.datatypes)?;
+            let contract =
+                observations::lift_contract(f, contract, &record_callees, &self.datatypes)?;
+            let inferred = if let Some(body) = body {
+                contract.install_owned(f, &key, body)?
             } else {
-                self.misses += 1;
-                let inferred = infer_with_callees(f, &candidates)?.install(f, &key)?;
-                let mut post_params = (*f.x.params).clone();
-                post_params.push(f.x.inner_ret.clone());
-                self.write(Candidate {
-                    version: VERSION.into(),
-                    key: key.clone(),
-                    dependencies,
-                    pre: encode(&inferred.x.require[0], &f.x.params),
-                    post: encode(&inferred.x.ensure.0[0], &Arc::new(post_params)),
-                });
-                inferred
+                contract.install_lifted(f, &key)?
             };
+            self.misses += 1;
+            let mut row = GeneratedCandidate::new(&inferred, false, start.elapsed().as_micros());
+            row.record_template = true;
+            self.generated.push(row);
+            keys.insert(name.clone(), key);
+            candidates.insert(name, inferred);
+            return Ok(());
+        }
+        if collections::kind(f).is_some() {
+            let mut dependencies: Vec<_> = all
+                .values()
+                .filter(|f| collections::model(f).is_some())
+                .map(|f| keys[&f.x.name].clone())
+                .collect();
+            dependencies.sort();
+            let key = candidate_key(
+                self.originals.get(&name).unwrap_or(f),
+                &dependencies,
+                &self.configuration,
+            );
+            let inferred = collections::infer(f, &all)?.install_lifted(f, &key)?;
+            // Regenerate these bounded templates; never decode arbitrary
+            // state expressions through the scalar candidate-cache format.
+            self.misses += 1;
             self.generated.push(GeneratedCandidate::new(
                 &inferred,
-                cache_hit,
+                false,
                 start.elapsed().as_micros(),
             ));
             keys.insert(name.clone(), key);
             candidates.insert(name, inferred);
+            return Ok(());
         }
-        Ok(functions.iter().map(|f| candidates.get(&f.x.name).unwrap_or(f).clone()).collect())
+        validate_signature(f)?;
+        validate_body(f, &all)?;
+        if !f.x.attrs.infer_allow_approx && uses_approximate_callee(f, &candidates) {
+            return Err(unsupported(
+                &f.span,
+                "exact inference requires exact-mode callees; use precision = \"sound\" or an ordinary verified caller for sound approximations",
+            ));
+        }
+        let mut dependencies = Vec::new();
+        propagation::visit_calls(
+            f.x.body.as_ref().unwrap(),
+            &f.x.inner_ret.x.typ,
+            &all,
+            &mut |e, _| {
+                if let ExprX::Call { target: CallTarget::Fun(_, name, ..), .. } = &e.x {
+                    // A callee without a key failed its own inference (or is
+                    // unsupported); report the call instead of panicking.
+                    let key = keys.get(name).ok_or_else(|| {
+                        unsupported(
+                            &e.span,
+                            "calls require an acyclic same-crate inferred callee or certified imported summary",
+                        )
+                    })?;
+                    dependencies.push(key.clone());
+                }
+                Ok::<_, VirErr>(())
+            },
+        )?;
+        // Signed operators lower to existing vstd spec functions even
+        // though no explicit call appears in their source AST. Record
+        // those definitions and fail cleanly if vstd was not imported.
+        crate::ast_visitor::expr_visitor_check(f.x.body.as_ref().unwrap(), &mut |_, e| {
+            if let Some(name) = arithmetic::division_dependency(e) {
+                dependencies.push(keys.get(&name).ok_or_else(|| unsupported(&e.span,
+                    "signed division/remainder requires vstd arithmetic models; import vstd::prelude::*"))?.clone());
+            }
+            for name in slices::dependencies(e, &all) {
+                dependencies.push(keys.get(&name).ok_or_else(|| unsupported(&e.span,
+                    "slice indexing/length requires vstd slice models; import vstd::prelude::*"))?.clone());
+            }
+            Ok::<_, VirErr>(())
+        })?;
+        // Includes the entire typed function (body, signature, attributes,
+        // safety policy), plus callee/model keys in deterministic traversal order.
+        let key = candidate_key(
+            self.originals.get(&name).unwrap_or(f),
+            &dependencies,
+            &self.configuration,
+        );
+        let hit = self
+            .read(&key)
+            .filter(|c| c.version == VERSION && c.key == key && c.dependencies == dependencies)
+            .and_then(|c| {
+                let mut pre_budget = FORMULA_BUDGET;
+                let mut output_budget = FORMULA_BUDGET;
+                let pre = decode(&c.pre, f, &mut pre_budget, false).ok()?;
+                let output = decode(&c.post, f, &mut output_budget, true).ok()?;
+                if !boolean_type(&pre) || !boolean_type(&output) {
+                    return None;
+                }
+                let candidate = Contract::new(pre.expr, output.expr).ok()?.install(f, &key).ok()?;
+                let mut exported = candidate.x.clone();
+                exported.body = None;
+                validate_imported_summary(&candidate.new_x(exported)).ok()?;
+                Some(candidate)
+            });
+        let cache_hit = hit.is_some();
+        let inferred = if let Some(hit) = hit {
+            self.hits += 1;
+            hit
+        } else {
+            self.misses += 1;
+            let inferred = infer_with_callees(f, &candidates)?.install(f, &key)?;
+            let mut post_params = (*f.x.params).clone();
+            post_params.push(f.x.inner_ret.clone());
+            if let (Some(pre), Some(post)) = (
+                encode(&inferred.x.require[0], &f.x.params),
+                encode(&inferred.x.ensure.0[0], &Arc::new(post_params)),
+            ) {
+                self.write(Candidate {
+                    version: VERSION.into(),
+                    key: key.clone(),
+                    dependencies,
+                    pre,
+                    post,
+                });
+            }
+            inferred
+        };
+        self.generated.push(GeneratedCandidate::new(
+            &inferred,
+            cache_hit,
+            start.elapsed().as_micros(),
+        ));
+        keys.insert(name.clone(), key);
+        candidates.insert(name, inferred);
+        Ok(())
     }
 
     pub fn infer_with_datatypes(

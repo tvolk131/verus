@@ -1479,7 +1479,8 @@ impl Interpreter<'_> {
         let (pure, range, div) = eligibility::source_binary(op)
             .ok_or_else(|| unsupported(span, "record binary operation"))?;
         if div {
-            return Err(unsupported(span, "record division/remainder"));
+            let valid = arithmetic::source_division_valid(span, op, a.clone(), b.clone())?;
+            self.require(s, span, valid)?;
         }
         let value = summary::binary(span, pure, a, b)?;
         if let Some(range) = range {

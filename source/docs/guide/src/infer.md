@@ -122,6 +122,30 @@ Full reports belong in temporary output or CI artifacts:
 source/target-verus/release/verus input.rs --output-json --time > /tmp/infer-report.json
 ```
 
+## Rejections, callees and partial re-checks
+
+One run reports every rejection in the crate, each with its location and reason.
+A function that calls a rejected function is reported as blocked at that call;
+further rejections inside the same body are found by retrying with the rejected
+subexpression replaced by an opaque value (up to 16 per function). Reported
+follow-ups that only arise from that replacement are suppressed.
+
+An inferred function may call a function whose specification is *functional*:
+its preconditions plus either `returns E` or exactly one `ensures ret == E`.
+This covers `vstd` `assume_specification`s for std functions (for example
+`u64::is_multiple_of` and `Option::unwrap`) and hand-written contracts of that
+shape. A callee that requires `false` and returns `!` (such as the panic behind
+`assert_eq!`) is a diverging call. Existing approved models keep precedence.
+Callers of a functional callee that returns a structured value use the owned
+profile. Relational (non-functional) callee contracts, such as
+`Option::unwrap_or_default`'s, are still rejected; there is no automatic
+sound-only fallback yet.
+
+`--verify-root`/`--verify-only-module` with `--verify-function` performs a partial
+re-check: the selected functions and the inferred functions they rely on
+(transitively, through inferred bodies) are checked. A partial run never
+certifies or exports inference metadata, so it is refused when exporting.
+
 ## Cross-crate inference and Cargo
 
 Public inferred interfaces use Verus's normal `.vir` mechanism. Direct invocations
@@ -151,7 +175,10 @@ and supported architecture bounds are part of the checked contract. Narrowing an
 input domain changes the task and must be disclosed.
 
 The inherited Verus compiler, Rust frontend, SMT solver and declared `vstd`
-models remain trust inputs. Checked foreign-body support is limited to explicitly
+models remain trust inputs. For a callee with a functional specification, its
+preconditions are taken as its safe domain: safe-domain maximality is relative to
+the callee's own contract (the modular reading), which for `vstd` std specs relies
+on those specs stating the exact panic condition. Checked foreign-body support is limited to explicitly
 recognized bodies and their complete obligations; it is not a generic permission
 to trust foreign code. An external type declaration exposes no representation or
 cryptographic law by itself.

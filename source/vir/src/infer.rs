@@ -40,6 +40,7 @@ mod xor_goals;
 pub use exact_hints::opt_in as exact_size_hint_opt_in;
 pub use exact_hints::validate as validate_exact_size_hints;
 mod cloning;
+pub(crate) mod functional;
 mod growth_goals;
 mod integer_conversions;
 mod integer_models;
@@ -68,6 +69,11 @@ mod trait_getters;
 mod wrapper_binary;
 mod wrapper_compare;
 mod wrapper_traits;
+
+/// A callee whose specification is functional (`returns E` or `ensures ret == E`).
+pub fn is_functional_spec(f: &Function) -> bool {
+    functional::is_functional(f)
+}
 
 pub fn is_owned_summary(f: &Function) -> bool {
     f.x.attrs.infer && f.x.attrs.infer_owned
@@ -649,14 +655,7 @@ impl Engine<'_> {
                     safe = logical(span, LogicalOp::And, safe, self.require_active(span, bounds)?)?;
                 }
                 if div_check {
-                    let signed = match op {
-                        BinaryOp::Arith(
-                            ArithOp::TruncatingDiv(_, SignedDivEdgeCaseBehavior::Error(width))
-                            | ArithOp::TruncatingMod(_, SignedDivEdgeCaseBehavior::Error(width)),
-                        ) => Some(arithmetic::signed_range(*width)),
-                        _ => None,
-                    };
-                    let valid = arithmetic::division_valid(span, a, b, signed)?;
+                    let valid = arithmetic::source_division_valid(span, *op, a, b)?;
                     safe = logical(span, LogicalOp::And, safe, self.require_active(span, valid)?)?;
                 }
                 Ok(Summary { safe, value: Some(out) })
@@ -759,6 +758,26 @@ impl Engine<'_> {
                         "propagation helpers require a complete Option/Result ? expression",
                     ));
                 }
+                if let Some(callee) =
+                    self.callees.get(name).filter(|c| functional::is_functional(c)).cloned()
+                {
+                    let mut safe = boolean(span, true);
+                    let mut values = Vec::new();
+                    for arg in args.iter() {
+                        let arg = self.expr(arg)?;
+                        safe = logical(span, LogicalOp::And, safe, arg.safe.clone())?;
+                        values.push(value(&arg, span)?);
+                    }
+                    let call = functional::instantiate(span, &callee, typs, values)?;
+                    if let Some(output) = call.output {
+                        let pre = self.require_active(span, call.requires)?;
+                        return Ok(Summary {
+                            safe: logical(span, LogicalOp::And, safe, pre)?,
+                            value: Some(output),
+                        });
+                    }
+                    return Err(unsupported(span, "diverging calls outside owned summaries"));
+                }
                 if !typs.is_empty() || !impls.is_empty() {
                     return Err(unsupported(
                         span,
@@ -849,7 +868,13 @@ impl Engine<'_> {
 
 /// Dependencies are collected from executable bodies, never from candidate contracts.
 /// A DFS provides deterministic callee-first ordering and rejects every cycle.
-pub fn dependency_order(functions: &[Function]) -> Result<Vec<Fun>, VirErr> {
+///
+/// A function's own source rejection does not stop ordering: it is returned
+/// in the second component so that every function can be reported. Cycles and
+/// the depth budget remain fatal.
+pub fn dependency_order(
+    functions: &[Function],
+) -> Result<(Vec<Fun>, HashMap<Fun, VirErr>), VirErr> {
     order_functions(functions, true)
 }
 
@@ -857,11 +882,45 @@ pub fn dependency_order(functions: &[Function]) -> Result<Vec<Fun>, VirErr> {
 /// and helper recognition have already run before candidate installation.
 /// Inspect every call here so compiler-generated scaffolding cannot hide an
 /// inferred dependency from the publication barrier.
-pub fn verification_order(functions: &[Function]) -> Result<Vec<Fun>, VirErr> {
-    order_functions(functions, false)
+/// The inferred functions whose candidate contracts the given functions rely
+/// on: inferred callees, followed transitively through inferred bodies only
+/// (a hand-written callee's own contract is what its callers rely on).
+pub fn inferred_callee_closure(
+    functions: &[Function],
+    roots: &std::collections::HashSet<Fun>,
+) -> std::collections::HashSet<Fun> {
+    let all: HashMap<&Fun, &Function> = functions.iter().map(|f| (&f.x.name, f)).collect();
+    let mut found = std::collections::HashSet::new();
+    let mut pending: Vec<Fun> = roots.iter().cloned().collect();
+    while let Some(name) = pending.pop() {
+        let Some(body) = all.get(&name).and_then(|f| f.x.body.as_ref()) else { continue };
+        crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
+            if let ExprX::Call { target: CallTarget::Fun(kind, callee, ..), .. } = &e.x {
+                let callee = match kind {
+                    CallTargetKind::DynamicResolved { resolved, .. } => resolved,
+                    _ => callee,
+                };
+                if all.get(callee).is_some_and(|c| c.x.attrs.infer)
+                    && !roots.contains(callee)
+                    && found.insert(callee.clone())
+                {
+                    pending.push(callee.clone());
+                }
+            }
+            crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+        });
+    }
+    found
 }
 
-fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, VirErr> {
+pub fn verification_order(functions: &[Function]) -> Result<Vec<Fun>, VirErr> {
+    order_functions(functions, false).map(|(order, _)| order)
+}
+
+fn order_functions(
+    functions: &[Function],
+    source: bool,
+) -> Result<(Vec<Fun>, HashMap<Fun, VirErr>), VirErr> {
     fn visit(
         f: &Function,
         all: &HashMap<Fun, Function>,
@@ -869,6 +928,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
         active: &mut std::collections::HashSet<Fun>,
         done: &mut std::collections::HashSet<Fun>,
         order: &mut Vec<Fun>,
+        deferred: &mut HashMap<Fun, VirErr>,
     ) -> Result<(), VirErr> {
         if done.contains(&f.x.name) {
             return Ok(());
@@ -879,13 +939,12 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
         if !active.insert(f.x.name.clone()) {
             return Err(unsupported(&f.span, "recursive inferred call graph"));
         }
-        if source && is_owned_summary(f) {
-            owned::validate_source(f)?;
-        }
-        if source && records::candidate(f) && !is_owned_summary(f) {
-            records::validate_source(f)?;
-        }
+        // Per-function source validation happens when that function is
+        // inferred (registry::infer_one), so one rejection never hides others.
         if let Some(body) = &f.x.body {
+            // An error from a nested visit is fatal (cycle or depth budget);
+            // any other error rejects only this function's own source.
+            let mut nested: Option<VirErr> = None;
             let mut call = |e: &Expr, helper: bool| {
                 // Resolution inserts borrow-expiration scaffolding. Traverse it
                 // normally, but ignore it when resolving this dependency edge.
@@ -945,7 +1004,8 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                                 .collect::<Vec<_>>();
                             providers.sort_by(|a, b| a.x.name.cmp(&b.x.name));
                             for provider in providers {
-                                visit(provider, all, source, active, done, order)?;
+                                visit(provider, all, source, active, done, order, deferred)
+                                    .inspect_err(|e| nested = Some(e.clone()))?;
                             }
                             return Ok(());
                         }
@@ -1012,7 +1072,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                             "source calls cannot contain embedded verification code",
                         ));
                     }
-                    let callee = all.get(name).filter(|f| f.x.attrs.infer || is_approved_model(f)).ok_or_else(|| {
+                    let callee = all.get(name).filter(|f| f.x.attrs.infer || is_approved_model(f) || functional::is_functional(f)).ok_or_else(|| {
                         unsupported(&e.span, &format!("calls require an acyclic same-crate inferred callee or certified imported summary: {name:?}"))
                     })?;
                     if source && panics::model(callee).is_some() && !helper {
@@ -1038,6 +1098,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                     }
                     if source
                         && !helper
+                        && !functional::is_functional(callee)
                         && models::array_call(e, all)?.is_none()
                         && !collections::source_call(e, all)
                         && !record_models::as_ref(callee)
@@ -1052,7 +1113,8 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                         return Err(unsupported(&e.span, "generic calls"));
                     }
                     if callee.x.attrs.infer {
-                        visit(callee, all, source, active, done, order)?;
+                        visit(callee, all, source, active, done, order, deferred)
+                            .inspect_err(|e| nested = Some(e.clone()))?;
                     }
                 } else if matches!(e.x, ExprX::Call { .. }) {
                     if matches!(
@@ -1071,10 +1133,19 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 }
                 Ok(())
             };
-            if source {
-                propagation::visit_calls(body, &f.x.inner_ret.x.typ, all, &mut call)?;
+            let scanned = if source {
+                propagation::visit_calls(body, &f.x.inner_ret.x.typ, all, &mut call)
             } else {
-                crate::ast_visitor::expr_visitor_check(body, &mut |_, e| call(e, false))?;
+                crate::ast_visitor::expr_visitor_check(body, &mut |_, e| call(e, false))
+            };
+            if let Err(err) = scanned {
+                match nested {
+                    Some(fatal) => return Err(fatal),
+                    None if source => {
+                        deferred.insert(f.x.name.clone(), err);
+                    }
+                    None => return Err(err),
+                }
             }
         }
         active.remove(&f.x.name);
@@ -1086,10 +1157,11 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
     let mut order = Vec::new();
     let mut active = std::collections::HashSet::new();
     let mut done = std::collections::HashSet::new();
+    let mut deferred = HashMap::new();
     for f in functions.iter().filter(|f| f.x.attrs.infer) {
-        visit(f, &all, source, &mut active, &mut done, &mut order)?;
+        visit(f, &all, source, &mut active, &mut done, &mut order, &mut deferred)?;
     }
-    Ok(order)
+    Ok((order, deferred))
 }
 
 pub(crate) fn is_subslice_maximality_model(
@@ -1306,6 +1378,7 @@ pub fn infer_functions_with_datatypes(
     report.elapsed_micros = start.elapsed().as_micros();
     report.candidates = registry.generated;
     report.failure = result.as_ref().err().map(|e| e.note.clone());
+    report.failures = std::mem::take(&mut registry.failures);
     result
 }
 
@@ -1728,7 +1801,7 @@ fn format_expr(e: &Expr) -> String {
                 BinaryOp::BoolAndNoSC => "&",
                 BinaryOp::BoolOrNoSC => "|",
                 BinaryOp::BoolXor => "^",
-                _ => unreachable!("only synthesized operators are printed"),
+                _ => return format!("<{:?}>({}, {})", op, format_expr(a), format_expr(b)),
             };
             format!("({} {op} {})", format_expr(a), format_expr(b))
         }
@@ -1736,7 +1809,15 @@ fn format_expr(e: &Expr) -> String {
             format!("if {} {{ {} }} else {{ {} }}", format_expr(c), format_expr(a), format_expr(b))
         }
         ExprX::WithTriggers { body, .. } => format_expr(body),
-        _ => unreachable!("only synthesized expressions are printed"),
+        ExprX::Block(stmts, Some(tail)) if stmts.is_empty() => format_expr(tail),
+        ExprX::NeverToAny(e) => format_expr(e),
+        // Specification subterms from callee contracts (for example vstd specs)
+        // can take any pure form; printing must never fail.
+        other => {
+            let text = format!("{other:?}");
+            let cut = text.char_indices().nth(60).map(|(i, _)| i).unwrap_or(text.len());
+            format!("<{}…>", &text[..cut])
+        }
     }
 }
 

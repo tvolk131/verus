@@ -533,6 +533,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
                 f.x.attrs.infer
                     || vir::infer::is_inference_contract(f)
                     || vir::infer::is_approved_model(f)
+                    || vir::infer::is_functional_spec(f)
                     || vir::infer::is_wrapper_operator_boundary(f)
                     || f.x.name.path.krate != vir::ast::CrateId::Vstd
                         && vir::infer::is_pure_observation(f)
@@ -555,7 +556,14 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             &format!("{:?}:{:?}:{inference_arch:?}", self.args, self.inference_model_fingerprints),
             &mut self.inference_generation,
         )
-        .map_err(|e| self.emit_error(e))?;
+        .map_err(|e| {
+            // Report every rejection found in this run, not only the first.
+            let mut errors = std::mem::take(&mut self.inference_generation.failures);
+            if errors.is_empty() {
+                errors.push(e);
+            }
+            self.emit_errors(errors)
+        })?;
 
         // Synthesized projection definitions are ordinary spec functions. Run
         // their normal per-function well-formedness and mode checks before any

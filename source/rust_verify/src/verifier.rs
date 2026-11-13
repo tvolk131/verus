@@ -2220,13 +2220,41 @@ impl Verifier {
         // If the user wants to reduce the context used for d, then they can use
         // the spinoff_prover attribute.
 
+        if let Some(UserFilter::Function(module, pattern, matches)) = &self.user_filter {
+            let extra = vir::infer::inferred_callee_closure(&krate.functions, matches);
+            if !extra.is_empty() {
+                let mut matches = matches.clone();
+                matches.extend(extra);
+                self.user_filter =
+                    Some(UserFilter::Function(module.clone(), pattern.clone(), matches));
+            }
+        }
         let user_filter = self.user_filter.as_ref().unwrap();
         let modules_to_verify: Vec<vir::ast::Module> = {
             let current_crate_module_ids = self
                 .current_crate_modules
                 .as_ref()
                 .expect("current_crate_module_ids should be initialized");
-            user_filter.filter_modules(current_crate_module_ids)?
+            let mut modules = user_filter.filter_modules(current_crate_module_ids)?;
+            if let UserFilter::Function(_, _, matches) = user_filter {
+                // Inferred dependencies may live in other modules.
+                for f in krate
+                    .functions
+                    .iter()
+                    .filter(|f| f.x.attrs.infer && matches.contains(&f.x.name))
+                {
+                    if let Some(owner) = &f.x.owning_module {
+                        if !modules.iter().any(|m| &m.x.path == owner) {
+                            if let Some(m) =
+                                current_crate_module_ids.iter().find(|m| &m.x.path == owner)
+                            {
+                                modules.push(m.clone());
+                            }
+                        }
+                    }
+                }
+            }
+            modules
         };
         let buckets = crate::buckets::get_buckets(&krate, &modules_to_verify);
         let buckets = user_filter.filter_buckets(buckets);
@@ -3096,11 +3124,30 @@ impl Verifier {
                     .chain(self.inference_generation.local_folds.iter())
                     .any(|(name, _)| name == &f.x.name)
         }) {
-            if incomplete_inference_scope {
+            // A --verify-function run is a partial re-check: it verifies the
+            // selected functions plus the inferred functions they rely on, and
+            // never certifies or exports inference metadata (see import_export).
+            let partial_recheck = self.args.verify_function.is_some()
+                && !self.args.no_verify
+                && !self.args.no_lifetime
+                && !self.args.no_trait_conflicts
+                && self.imported_inference_dependencies.is_empty()
+                // A partial run can never publish an interface.
+                && self.args.export.is_none()
+                && self.export_vir_path_via_cargo.is_none();
+            if incomplete_inference_scope && !partial_recheck {
                 return Err(map_err_diagnostics(vir::messages::error(
                     &inferred.span,
-                    "Verus Infer requires full-crate verification; --no-verify and function/module filters are unsupported",
+                    "Verus Infer requires full-crate verification; --no-verify, module filters and exporting partial runs are unsupported (use --verify-function without --export for a partial re-check)",
                 )));
+            }
+            if partial_recheck {
+                diagnostics.report(
+                    &note_bare(
+                        "Verus Infer: partial re-check (--verify-function): the selected functions and the inferred functions they call are checked; nothing is certified or exported",
+                    )
+                    .to_any(),
+                );
             }
             for f in local_crate.functions.iter().filter(|f| f.x.attrs.infer) {
                 diagnostics.report(

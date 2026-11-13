@@ -184,7 +184,7 @@ pub fn use_checked(values: &mut Vec<u16>, chosen: u16)
     let metadata = ordinary_envelope(&crates.vir("loop_provider"));
     let certificate = &metadata["certificate"];
     assert_eq!(certificate["schema"], 40);
-    assert_eq!(certificate["policy"], "candidate-bound-evidence-v79");
+    assert_eq!(certificate["policy"], "candidate-bound-evidence-v80");
     assert!(!certificate["producer"].as_str().unwrap().is_empty());
     for guarantee in ["soundness", "maximality", "exactness"] {
         assert_eq!(certificate[guarantee], true);
