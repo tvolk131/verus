@@ -3168,13 +3168,29 @@ impl Verifier {
                 );
             }
             for f in local_crate.functions.iter().filter(|f| f.x.attrs.infer) {
+                // Show the generated formula. A clause installed as a call to
+                // its named view is shown as well, since that is what callers see.
+                let installed = vir::infer::format_contract(f);
+                let generated = self
+                    .inference_generation
+                    .candidates
+                    .iter()
+                    .find(|c| c.function.x.name == f.x.name)
+                    .map(|c| vir::infer::format_contract(&c.function))
+                    .unwrap_or_else(|| installed.clone());
+                let through_views = if generated == installed {
+                    String::new()
+                } else {
+                    format!(" [installed through its named views as: {installed}]")
+                };
                 diagnostics.report(
                     &note(
                         &f.span,
                         format!(
-                            "Verus Infer {} candidate (mathematical integer arithmetic): {}",
+                            "Verus Infer {} candidate (mathematical integer arithmetic): {}{}",
                             fun_as_friendly_rust_name(&f.x.name),
-                            vir::infer::format_contract(f)
+                            generated,
+                            through_views
                         ),
                     )
                     .to_any(),

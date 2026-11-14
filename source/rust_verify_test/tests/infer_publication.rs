@@ -303,3 +303,45 @@ fn ordinary_success_keeps_legacy_format_and_imports_normally() {
         !std::fs::read(crates.vir("ordinary_explicit_no_verify")).unwrap().ends_with(b"VRINFER1")
     );
 }
+
+// A `pub` getter over private fields has its contract installed through a
+// module-private view. Importing its crate still works; the contract is an
+// ordinary (abstract) contract there, not a summary for the importer's inference.
+#[test]
+fn hidden_field_contracts_import_as_ordinary_contracts() {
+    let crates = InferCrates::new();
+    let build = |name: &str, body: &str, dependencies: &[&str]| {
+        let source = format!("use vstd::prelude::*;\n{body}");
+        crates.build_source(name, &source, dependencies, &["--no-cheating"], true)
+    };
+    let provider = r#"
+pub mod m {
+    use vstd::prelude::*;
+    #[verus_verify]
+    pub struct S { x: u64, y: u64 }
+    impl S {
+        #[verus_infer]
+        pub fn new(x: u64) -> S { S { x, y: 0 } }
+        #[verus_infer]
+        pub fn read(&self) -> u64 { self.x }
+    }
+}
+"#;
+    for (name, body, dependencies) in [
+        ("hidden_provider", provider, &[][..]),
+        ("hidden_empty_consumer", "pub fn unrelated() {}", &["hidden_provider"][..]),
+        (
+            "hidden_consumer",
+            "#[verus_verify] pub fn call(s: &hidden_provider::m::S) -> u64 { s.read() }",
+            &["hidden_provider"][..],
+        ),
+    ] {
+        let run = build(name, body, dependencies);
+        assert!(run.status.success(), "{name}: {}", String::from_utf8_lossy(&run.stderr));
+    }
+    let inferred = "#[verus_infer] pub fn call(s: &hidden_provider::m::S) -> u64 { s.read() }";
+    let run = build("hidden_inferred_consumer", inferred, &["hidden_provider"]);
+    assert!(!run.status.success());
+    let stderr = String::from_utf8_lossy(&run.stderr);
+    assert!(stderr.contains("Verus Infer unsupported") && stderr.contains("read`"), "{}", stderr);
+}

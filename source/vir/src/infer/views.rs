@@ -100,8 +100,52 @@ fn body(view: &Function, f: &Function) -> Option<Result<Expr, VirErr>> {
     ))
 }
 
+/// Whether a contract mentions something that is not usable everywhere in
+/// `within`: a field or variant of a datatype that is opaque there, or a
+/// function that is not visible there.
+fn mentions_hidden(
+    clauses: &[Expr],
+    within: &Visibility,
+    datatypes: &HashMap<Path, Datatype>,
+    functions: &HashMap<Fun, Visibility>,
+) -> bool {
+    let hidden = |dt: &Dt| match dt {
+        Dt::Tuple(_) => false,
+        Dt::Path(p) => datatypes.get(p).is_some_and(|d| {
+            !within.at_least_as_restrictive_as(&d.x.visibility)
+                || crate::ast_util::source_datatype_visibility(&d.x.transparency)
+                    .is_none_or(|v| !within.at_least_as_restrictive_as(v))
+        }),
+    };
+    let mut found = false;
+    for clause in clauses {
+        crate::ast_visitor::expr_visitor_walk(clause, &mut |e| {
+            found |= match &e.x {
+                ExprX::UnaryOpr(UnaryOpr::Field(FieldOpr { datatype, .. }), _)
+                | ExprX::UnaryOpr(UnaryOpr::IsVariant { datatype, .. }, _)
+                | ExprX::Ctor(datatype, ..) => hidden(datatype),
+                ExprX::Call { target: CallTarget::Fun(_, name, ..), .. } => {
+                    functions.get(name).is_some_and(|v| !within.at_least_as_restrictive_as(v))
+                }
+                _ => false,
+            };
+            crate::ast_visitor::VisitorControlFlow::Recurse
+        });
+    }
+    found
+}
+
 /// Replace every view's placeholder body with its function's installed contract.
-pub fn fill(functions: &mut [Function]) -> Result<(), VirErr> {
+pub fn fill(functions: &mut [Function], datatypes: &[Datatype]) -> Result<(), VirErr> {
+    let datatypes: HashMap<Path, Datatype> = datatypes
+        .iter()
+        .filter_map(|d| match &d.x.name {
+            Dt::Path(p) => Some((p.clone(), d.clone())),
+            Dt::Tuple(_) => None,
+        })
+        .collect();
+    let visibilities: HashMap<Fun, Visibility> =
+        functions.iter().map(|f| (f.x.name.clone(), f.x.visibility.clone())).collect();
     let targets: HashMap<Fun, Function> = functions
         .iter()
         .filter(|f| f.x.attrs.infer)
@@ -110,40 +154,69 @@ pub fn fill(functions: &mut [Function]) -> Result<(), VirErr> {
     // Contracts share subterms; mode checking needs each temporary place to
     // have its own identity, so view bodies get fresh ids from a reserved range.
     let mut id = u64::MAX - (1 << 40);
-    let mut filled_requires: HashMap<Fun, Function> = HashMap::new();
+    // Filled views by (function, is the requires view), and those narrowed to
+    // their module.
+    let mut filled: HashMap<(Fun, bool), Function> = HashMap::new();
+    let mut narrowed = std::collections::HashSet::new();
     for view in functions.iter_mut().filter(|f| f.x.attrs.infer_view.is_some()) {
         let Some(f) = target(view).and_then(|t| targets.get(&t)) else { continue };
         let Some(body) = body(view, f) else { continue };
+        let requires = view.x.attrs.infer_view == Some(true);
         let mut x = view.x.clone();
         x.body = Some(super::assistance::fresh(&body?, &mut id)?);
-        *view = view.new_x(x);
-        if view.x.attrs.infer_view == Some(true) {
-            filled_requires.insert(f.x.name.clone(), view.clone());
-        }
-    }
-    // A large precondition of a crate-private function is installed as a call
-    // to its view, so a caller's obligation is literally `f_requires(args)`: a
-    // lemma (or broadcast lemma triggered on that term) about the view then
-    // matches it. The view is a definition of the same formula, so the contract
-    // is unchanged. Public contracts stay inline for cross-crate importers.
-    for f in functions.iter_mut().filter(|f| f.x.attrs.infer) {
-        let Some(view) = filled_requires.get(&f.x.name) else { continue };
-        if f.x.visibility.restricted_to.is_none()
-            || f.x.require.is_empty()
-            || format_contract_parts(f).0.chars().count() <= LARGE_CLAUSE_CHARS
+        // A view's body is declared visible wherever the view is. If the
+        // contract reads state that is hidden somewhere in that scope (a `pub`
+        // getter over private fields, say), the body can only be visible inside
+        // the module, like a closed spec function.
+        let clauses = if requires { &f.x.require } else { &f.x.ensure.0 };
+        if let (Some(module), BodyVisibility::Visibility(within)) =
+            (&x.owning_module, &x.body_visibility)
         {
-            continue;
+            if mentions_hidden(clauses, within, &datatypes, &visibilities) {
+                let private = Visibility { restricted_to: Some(module.clone()) };
+                x.body_visibility = BodyVisibility::Visibility(private.clone());
+                x.opaqueness = Opaqueness::Revealed { visibility: private };
+                narrowed.insert((f.x.name.clone(), requires));
+            }
         }
-        let call = view_call(f, view);
+        *view = view.new_x(x);
+        filled.insert((f.x.name.clone(), requires), view.clone());
+    }
+    for f in functions.iter_mut().filter(|f| f.x.attrs.infer) {
         let mut x = f.x.clone();
-        x.require = Arc::new(vec![call]);
+        // A clause that reads state hidden from some of the function's callers
+        // cannot be written in its contract. It is installed as a call to its
+        // module-private view instead: callers inside the module see the same
+        // formula, callers outside see an abstract predicate.
+        //
+        // A large precondition of a crate-private function is installed as a
+        // call to its view too, so a caller's obligation is literally
+        // `f_requires(args)`: a lemma (or broadcast lemma triggered on that
+        // term) about the view then matches it. The view is a definition of the
+        // same formula, so the contract is unchanged. Other public contracts
+        // stay inline for cross-crate importers.
+        if let Some(view) = filled.get(&(f.x.name.clone(), true)) {
+            let hidden = narrowed.contains(&(f.x.name.clone(), true));
+            let large = f.x.visibility.restricted_to.is_some()
+                && format_contract_parts(f).0.chars().count() > LARGE_CLAUSE_CHARS;
+            if !f.x.require.is_empty() && (hidden || large) {
+                x.require = Arc::new(vec![view_call(f, view, None)]);
+            }
+        }
+        if let Some(view) = filled.get(&(f.x.name.clone(), false)) {
+            if narrowed.contains(&(f.x.name.clone(), false)) && !f.x.ensure.0.is_empty() {
+                let ret = &f.x.inner_ret;
+                let ret = SpannedTyped::new(&f.span, &ret.x.typ, ExprX::Var(ret.x.name.clone()));
+                x.ensure = (Arc::new(vec![view_call(f, view, Some(ret))]), x.ensure.1.clone());
+            }
+        }
         *f = f.new_x(x);
     }
     Ok(())
 }
 
-/// `view(f's type parameters)(f's parameters)`, typed as a boolean.
-fn view_call(f: &Function, view: &Function) -> Expr {
+/// `view(f's type parameters)(f's parameters, ret?)`, typed as a boolean.
+fn view_call(f: &Function, view: &Function, ret: Option<Expr>) -> Expr {
     let span = &f.span;
     let typs: Vec<Typ> =
         f.x.typ_params.iter().map(|t| Arc::new(TypX::TypParam(t.clone()))).collect();
@@ -151,6 +224,7 @@ fn view_call(f: &Function, view: &Function) -> Expr {
         f.x.params
             .iter()
             .map(|p| SpannedTyped::new(span, &p.x.typ, ExprX::Var(p.x.name.clone())))
+            .chain(ret)
             .collect();
     SpannedTyped::new(
         span,
@@ -176,6 +250,16 @@ fn view_call(f: &Function, view: &Function) -> Expr {
 
 pub fn is_view(f: &Function) -> bool {
     f.x.attrs.infer_view.is_some()
+}
+
+/// Whether a clause of `f`'s contract was installed as a call to one of its
+/// named views (`is_view` says which functions are views). Such a contract is
+/// what callers rely on, but it is not a summary another crate's inference
+/// can use: a hidden clause must stay abstract there.
+pub fn installed_through_view(f: &Function, is_view: impl Fn(&Fun) -> bool) -> bool {
+    f.x.require.iter().chain(f.x.ensure.0.iter()).any(|clause| {
+        matches!(&clause.x, ExprX::Call { target: CallTarget::Fun(_, name, ..), .. } if is_view(name))
+    })
 }
 
 /// Above this many characters, a formatted clause is reported as large.

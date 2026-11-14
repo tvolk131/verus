@@ -1,4 +1,4 @@
-//! Native fixed-eight-byte little-endian APIs. Only canonical core identities
+//! Native little-endian APIs of `u16`, `u32` and `u64`. Only canonical core identities
 //! with the matching vstd proxy and concrete value signatures enter this model.
 //! Generated array/bitwise relations remain subject to all exact-mode checks.
 use super::*;
@@ -9,12 +9,27 @@ pub(super) enum Model {
     FromLe,
 }
 
-fn word() -> Typ {
-    Arc::new(TypX::Int(IntRange::U(64)))
+fn word(bits: u32) -> Typ {
+    Arc::new(TypX::Int(IntRange::U(bits)))
 }
 
-fn bytes() -> Typ {
-    arrays::typ(Arc::new(TypX::Int(IntRange::U(8))), 8).unwrap()
+fn bytes(bits: u32) -> Typ {
+    arrays::typ(Arc::new(TypX::Int(IntRange::U(8))), (bits / 8) as usize).unwrap()
+}
+
+/// The modelled word widths.
+const WIDTHS: [u32; 3] = [16, 32, 64];
+
+/// The word width of a recognized model, read from its integer side.
+fn width(function: &Function, model: Model) -> Option<u32> {
+    let typ = match model {
+        Model::ToLe => &function.x.params[0].x.typ,
+        Model::FromLe => &function.x.inner_ret.x.typ,
+    };
+    match &**typ {
+        TypX::Int(IntRange::U(bits)) if WIDTHS.contains(bits) => Some(*bits),
+        _ => None,
+    }
 }
 
 pub(super) fn recognize(function: &Function) -> Option<Model> {
@@ -43,10 +58,15 @@ pub(super) fn recognize(function: &Function) -> Option<Model> {
     {
         return None;
     }
-    let (model, input, output, suffix) = match function_path.segments[2].as_str() {
-        "to_le_bytes" => (Model::ToLe, word(), bytes(), "_to__le__bytes"),
-        "from_le_bytes" => (Model::FromLe, bytes(), word(), "_from__le__bytes"),
+    let (model, suffix) = match function_path.segments[2].as_str() {
+        "to_le_bytes" => (Model::ToLe, "_to__le__bytes"),
+        "from_le_bytes" => (Model::FromLe, "_from__le__bytes"),
         _ => return None,
+    };
+    let bits = width(function, model)?;
+    let (input, output) = match model {
+        Model::ToLe => (word(bits), bytes(bits)),
+        Model::FromLe => (bytes(bits), word(bits)),
     };
     if !models::spec_proxy(&function_data.proxy.as_ref()?.x, &["bytes"], suffix)
         || !crate::ast_util::types_equal(&function_data.params[0].x.typ, &input)
@@ -94,6 +114,10 @@ pub(super) fn value(
     {
         return Err(unsupported(span, "byte conversion argument types or count"));
     }
+    let bits = width(function_data, model)
+        .ok_or_else(|| unsupported(span, "unapproved byte conversion model"))?;
+    let (word, bytes) = (|| word(bits), || bytes(bits));
+    let count = (bits / 8) as usize;
     let number = |number: usize| term(span, &word(), ExprX::Const(Constant::Int(number.into())), 1);
     let binary = |op, left, right| {
         summary::binary(span, BinaryOp::Bitwise(op, BitshiftBehavior::Allow), left, right)
@@ -106,7 +130,7 @@ pub(super) fn value(
     match model {
         Model::ToLe => {
             let mut elements = Vec::new();
-            for index in 0..8 {
+            for index in 0..count {
                 let shifted = if index == 0 {
                     arg.clone()
                 } else {
@@ -123,7 +147,7 @@ pub(super) fn value(
         }
         Model::FromLe => {
             let mut output = None;
-            for index in 0..8 {
+            for index in 0..count {
                 let array_index = term(
                     span,
                     &Arc::new(TypX::Int(IntRange::USize)),
@@ -136,7 +160,7 @@ pub(super) fn value(
                     byte
                 } else {
                     binary(
-                        BitwiseOp::Shl(IntegerTypeBitwidth::Width(64), false),
+                        BitwiseOp::Shl(IntegerTypeBitwidth::Width(bits), false),
                         byte,
                         number(index * 8)?,
                     )?
@@ -163,6 +187,11 @@ mod tests {
     }
 
     fn model(kind: Model) -> Function {
+        model_of(kind, 64)
+    }
+
+    fn model_of(kind: Model, bits: u32) -> Function {
+        let (word, bytes) = (|| word(bits), || bytes(bits));
         let original = function("model", input("x"));
         let mut function_data = original.x.clone();
         let (name, proxy, input, output) = match kind {
@@ -210,7 +239,7 @@ mod tests {
                     3 => function_data.require = Arc::new(vec![boolean(&span(), false).expr]),
                     4 => {
                         let mut parameter = function_data.params[0].x.clone();
-                        parameter.typ = Arc::new(TypX::Int(IntRange::U(32)));
+                        parameter.typ = Arc::new(TypX::Int(IntRange::U(128)));
                         function_data.params =
                             Arc::new(vec![function_data.params[0].new_x(parameter)]);
                     }
@@ -222,7 +251,7 @@ mod tests {
                     }
                     6 => {
                         let mut ret = function_data.inner_ret.x.clone();
-                        ret.typ = arrays::typ(Arc::new(TypX::Int(IntRange::U(8))), 4).unwrap();
+                        ret.typ = arrays::typ(Arc::new(TypX::Int(IntRange::U(8))), 3).unwrap();
                         function_data.inner_ret = function_data.inner_ret.new_x(ret);
                     }
                     7 => Arc::make_mut(&mut function_data.attrs).is_unsafe = true,
@@ -236,35 +265,51 @@ mod tests {
 
     #[test]
     fn generated_values_match_native_rust_at_every_byte_boundary() {
-        let to = model(Model::ToLe);
-        let from = model(Model::FromLe);
-        let arg = |typ: Typ| Term {
-            expr: SpannedTyped::new(&span(), &typ, input("x").x.clone()),
-            size: 1,
-            view: None,
-        };
-        let encoded = value(&span(), &to, vec![arg(word())]).unwrap();
-        let decoded = value(&span(), &from, vec![arg(bytes())]).unwrap();
-        let array = |xs: [u8; 8]| {
-            Value::Array(xs.into_iter().map(|byte| Value::Int(byte.into())).collect())
-        };
-        for position in 0..8 {
-            for byte in 0..=255u64 {
-                for background in [0, u64::MAX, 0x0123456789abcdef] {
-                    let number = (background & !(255 << (position * 8))) | (byte << (position * 8));
-                    let expected = number.to_le_bytes();
-                    assert_eq!(
-                        evaluate_with(&encoded.expr, &|_| Value::Int(number.into())),
-                        array(expected)
-                    );
-                    assert_eq!(
-                        evaluate_with(&decoded.expr, &|_| array(expected)),
-                        Value::Int(u64::from_le_bytes(expected).into())
-                    );
+        for bits in WIDTHS {
+            let (word, bytes) = (|| word(bits), || bytes(bits));
+            let count = (bits / 8) as usize;
+            let mask = u64::MAX >> (64 - bits);
+            let to = model_of(Model::ToLe, bits);
+            let from = model_of(Model::FromLe, bits);
+            let arg = |typ: Typ| Term {
+                expr: SpannedTyped::new(&span(), &typ, input("x").x.clone()),
+                size: 1,
+                view: None,
+            };
+            let encoded = value(&span(), &to, vec![arg(word())]).unwrap();
+            let decoded = value(&span(), &from, vec![arg(bytes())]).unwrap();
+            let array = |xs: &[u8]| {
+                Value::Array(xs.iter().map(|byte| Value::Int((*byte).into())).collect())
+            };
+            for position in 0..count {
+                for byte in 0..=255u64 {
+                    for background in [0, u64::MAX, 0x0123456789abcdef] {
+                        let number = ((background & !(255 << (position * 8)))
+                            | (byte << (position * 8)))
+                            & mask;
+                        // The low `count` bytes are the narrower word's encoding.
+                        let expected = &number.to_le_bytes()[..count];
+                        assert_eq!(
+                            evaluate_with(&encoded.expr, &|_| Value::Int(number.into())),
+                            array(expected)
+                        );
+                        assert_eq!(
+                            evaluate_with(&decoded.expr, &|_| array(expected)),
+                            Value::Int(number.into())
+                        );
+                    }
                 }
             }
+            assert!(value(&span(), &to, vec![arg(bytes())]).is_err());
+            assert!(value(&span(), &from, vec![arg(word())]).is_err());
         }
-        assert!(value(&span(), &to, vec![arg(bytes())]).is_err());
-        assert!(value(&span(), &from, vec![arg(word())]).is_err());
+    }
+
+    #[test]
+    fn unmodelled_widths_are_not_recognized() {
+        for bits in [8, 128] {
+            assert!(recognize(&model_of(Model::FromLe, bits)).is_none());
+            assert!(recognize(&model_of(Model::ToLe, bits)).is_none());
+        }
     }
 }

@@ -1,9 +1,9 @@
 """Expected current engine identity for live transfer receipt acceptance."""
 
-CACHE_VERSION = "verus-infer-v84:functional-callee-specs:4096"
+CACHE_VERSION = "verus-infer-v85:functional-callee-specs:4096"
 INTERFACE_POLICY = "candidate-bound-evidence-v80"
 INTERFACE_SCHEMA = 40
-ENGINE_IDENTITY = (84, 80, 40)
+ENGINE_IDENTITY = (85, 80, 40)
 
 
 def require_no_foreign_dependencies(certificate):

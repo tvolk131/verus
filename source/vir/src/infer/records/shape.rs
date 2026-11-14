@@ -368,14 +368,24 @@ pub(super) fn shape(
         depth: usize,
         all: &HashMap<Fun, Function>,
     ) -> Result<(), VirErr> {
-        let bad = || {
+        // Name the place and the reason, so the rejection says what to change.
+        let bad = |why: &str| {
+            let place = if path.is_empty() {
+                "the record".to_string()
+            } else {
+                let fields: Vec<_> = path.iter().map(|p| p.op.field.to_string()).collect();
+                format!("field `{}`", fields.join("."))
+            };
             unsupported(
                 &f.span,
-                "record state requires visible transparent record fields or a certified direct sequence view, bounded depth and at most sixteen leaves",
+                &format!(
+                    "record state requires visible transparent record fields or a certified direct sequence view, bounded depth and at most sixteen leaves ({place}, of type `{}`: {why})",
+                    crate::ast_util::typ_to_diagnostic_str(t)
+                ),
             )
         };
         if depth == 0 || out.len() >= 16 {
-            return Err(bad());
+            return Err(bad("more than sixteen fields in total, or nesting deeper than five"));
         }
         if unused_external_value(t, ds) {
             if !matches!(&*f.x.params[0].x.typ, TypX::Decorate(TypDecoration::Ref, None, _))
@@ -399,7 +409,7 @@ pub(super) fn shape(
                 || !(value_type(&ts[0], &f.x.typ_params, ds, 4)
                     || !mutable(f) && opaque_value(&ts[0], ds, &f.x.owning_module))
             {
-                return Err(bad());
+                return Err(bad("a `Vec` of this element type is not supported"));
             }
             out.push(Field { path, typ: t.clone(), element: Some(ts[0].clone()), view: None });
             return Ok(());
@@ -419,7 +429,7 @@ pub(super) fn shape(
             // Whole opaque values can be framed inside a visible record.
             // Mutating an opaque root needs a supported state interface.
             if path.is_empty() && mutable(f) {
-                return Err(bad());
+                return Err(bad("its fields are not visible here, so it cannot be mutated"));
             }
             out.push(Field { path, typ: t.clone(), element: None, view: None });
             return Ok(());
@@ -434,18 +444,25 @@ pub(super) fn shape(
             || matches!(&**t,TypX::Datatype(Dt::Path(p),.. ) if models::path_is(p,CrateId::Core,&["option","Option"]))
         {
             if !value_type(t, &f.x.typ_params, ds, 4) {
-                return Err(bad());
+                return Err(bad("this type is not a supported value"));
             }
             out.push(Field { path, typ: t.clone(), element: None, view: None });
             return Ok(());
         }
-        let TypX::Datatype(dt, ..) = &**t else { return Err(bad()) };
-        let d = ds.iter().find(|d| &d.x.name == dt).ok_or_else(bad)?;
+        let TypX::Datatype(dt, ..) = &**t else {
+            return Err(bad(
+                "this type is not a struct, integer, `bool`, `Option`, tuple or `Vec`",
+            ));
+        };
+        let d = ds
+            .iter()
+            .find(|d| &d.x.name == dt)
+            .ok_or_else(|| bad("this type is not declared to Verus"))?;
         if !matches!(&d.x.transparency,DatatypeTransparency::WhenVisible(vis) if crate::ast_util::is_visible_to_opt(vis,&f.x.owning_module))
         {
-            return Err(bad());
+            return Err(bad("its fields are not visible to this function"));
         }
-        for (op, typ) in fields(t, ds).ok_or_else(bad)? {
+        for (op, typ) in fields(t, ds).ok_or_else(|| bad("its fields are not supported"))? {
             let mut path = path.clone();
             path.push(Projection { op, typ: typ.clone() });
             walk(f, &typ, ds, path, out, depth - 1, all)?;

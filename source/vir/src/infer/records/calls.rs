@@ -168,8 +168,7 @@ impl Interpreter<'_> {
                 }
             }
             _ => None,
-        }
-        .ok_or_else(bad)?;
+        };
         if mutable(callee) && !mutable(self.function) {
             return Err(bad());
         }
@@ -203,9 +202,15 @@ impl Interpreter<'_> {
             if !matches!(&lhs.x,ExprX::Var(n) if n==&callee.x.inner_ret.x.name) {
                 return Err(bad());
             }
+            // A receiver that is not a place inside the caller's own record
+            // (a value bound by a `match` arm, say) is read like any argument.
+            let receiver = match &prefix {
+                Some(_) => atom(observations::logical_value(&args[0]))?,
+                None => self.readonly(s, &args[0])?,
+            };
             let receiver = coerce(
                 &e.span,
-                atom(observations::logical_value(&args[0]))?,
+                receiver,
                 &crate::sst_util::subst_typ(&types, &callee.x.params[0].x.typ),
             )?;
             let mut vars = HashMap::from([(callee.x.params[0].x.name.clone(), receiver)]);
@@ -215,6 +220,7 @@ impl Interpreter<'_> {
             self.require(s, &e.span, substitute_value(&pre, &vars)?)?;
             return substitute_value(rhs, &vars);
         }
+        let prefix = prefix.ok_or_else(bad)?;
         let mut instantiated = callee.x.clone();
         instantiated.typ_params = self.function.x.typ_params.clone();
         instantiated.typ_bounds = self.function.x.typ_bounds.clone();

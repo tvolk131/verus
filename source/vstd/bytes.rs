@@ -13,7 +13,7 @@ verus! {
 broadcast use group_seq_lemmas;
 // Conversion between u16 and little-endian byte sequences
 
-pub closed spec fn spec_u16_to_le_bytes(x: u16) -> Seq<u8> {
+pub open spec fn spec_u16_to_le_bytes(x: u16) -> Seq<u8> {
     #[verusfmt::skip]
     seq![
         (x & 0xff) as u8,
@@ -21,7 +21,7 @@ pub closed spec fn spec_u16_to_le_bytes(x: u16) -> Seq<u8> {
     ]
 }
 
-pub closed spec fn spec_u16_from_le_bytes(s: Seq<u8>) -> u16
+pub open spec fn spec_u16_from_le_bytes(s: Seq<u8>) -> u16
     recommends
         s.len() == 2,
 {
@@ -123,7 +123,7 @@ pub exec fn u16_to_le_bytes(x: u16) -> (s: alloc::vec::Vec<u8>)
 }
 
 // Conversion between u32 and little-endian byte sequences
-pub closed spec fn spec_u32_to_le_bytes(x: u32) -> Seq<u8> {
+pub open spec fn spec_u32_to_le_bytes(x: u32) -> Seq<u8> {
     #[verusfmt::skip]
     seq![
         (x & 0xff) as u8,
@@ -133,7 +133,7 @@ pub closed spec fn spec_u32_to_le_bytes(x: u32) -> Seq<u8> {
     ]
 }
 
-pub closed spec fn spec_u32_from_le_bytes(s: Seq<u8>) -> u32
+pub open spec fn spec_u32_from_le_bytes(s: Seq<u8>) -> u32
     recommends
         s.len() == 4,
 {

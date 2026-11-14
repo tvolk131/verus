@@ -270,7 +270,8 @@ fn check_path_and_get_datatype<'a>(
                 ));
             } else {
                 let path_string = path_as_friendly_rust_name(path);
-                let msg = if is_known_external(ctxt, path) {
+                let known_external = is_known_external(ctxt, path);
+                let msg = if known_external {
                     format!(
                         "cannot use type `{path_string:}` which is ignored because it is either declared outside the verus! macro or it is marked as `external`.",
                     )
@@ -284,7 +285,12 @@ fn check_path_and_get_datatype<'a>(
                         },
                     )
                 };
-                emit.emit_boundary_err(path.clone(), error(span, msg));
+                let mut err = error(span, msg);
+                if known_external {
+                    err = err
+                        .help("to declare it to Verus, add `#[verus_verify]` to its declaration");
+                }
+                emit.emit_boundary_err(path.clone(), err);
 
                 Ok(Err(()))
             }
@@ -352,7 +358,11 @@ fn check_path_and_get_function<'a>(
                         },
                     )
                 };
-                emit.emit_boundary_err(x.path.clone(), error(span, &err_str));
+                let mut err = error(span, &err_str);
+                if locally_defined {
+                    err = err.help("to have Verus check it, add `#[verus_verify]` to its declaration (or `#[verus_infer]` to have its contract inferred)");
+                }
+                emit.emit_boundary_err(x.path.clone(), err);
                 Err(())
             }
         }
