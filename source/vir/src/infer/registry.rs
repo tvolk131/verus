@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v84:functional-callee-specs:4096";
+const VERSION: &str = "verus-infer-v85:functional-callee-specs:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -483,6 +483,13 @@ impl Registry {
             candidates.insert(f.x.name.clone(), f.clone());
         }
         for f in imported.iter().filter(|f| f.x.attrs.infer) {
+            // A contract installed through a view (it reads state hidden from
+            // this crate) is an ordinary contract here, not a summary.
+            if super::views::installed_through_view(f, |n| {
+                all.get(n).is_some_and(super::views::is_view)
+            }) {
+                continue;
+            }
             if is_owned_summary(f) {
                 owned::validate_summary(f, &all, &self.datatypes)?;
             } else if records::candidate(f) {
@@ -750,7 +757,10 @@ impl Registry {
                     let key = keys.get(name).ok_or_else(|| {
                         unsupported(
                             &e.span,
-                            "calls require an acyclic same-crate inferred callee or certified imported summary",
+                            &format!(
+                                "calls require an acyclic same-crate inferred callee or certified imported summary: `{}`",
+                                crate::ast_util::fun_as_friendly_rust_name(name)
+                            ),
                         )
                     })?;
                     dependencies.push(key.clone());

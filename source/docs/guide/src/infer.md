@@ -130,6 +130,22 @@ further rejections inside the same body are found by retrying with the rejected
 subexpression replaced by an opaque value (up to 16 per function). Reported
 follow-ups that only arise from that replacement are suppressed.
 
+Each rejection carries a `help` line saying what to change. The most common
+ones name the fix directly (declare a struct with `#[verus_verify]`, give a
+callee `#[verus_infer]` or a functional contract, keep only one of an inferred
+and a hand-written contract); every other rejection points to the fallback that
+always works, a hand-written contract on that one function. A rejected call
+names its callee, and a rejected record names the field and the reason.
+
+A `for` loop with no attribute is desugared in place, so annotating a function
+that contains one does not need `#![feature(proc_macro_hygiene)]`. Loops
+outside the counted-loop subset are ordinary rejections.
+
+Two rejections are still Rust compile errors that hide the rest of the run:
+`#[verus_infer]` on a method of a trait implementation (E0407, because its
+named views are not members of the trait), and a call to a std function Verus
+has no specification for. Remove the attribute from those functions first.
+
 An inferred function may call a function whose specification is *functional*:
 its preconditions plus either `returns E` or exactly one `ensures ret == E`.
 This covers `vstd` `assume_specification`s for std functions (for example
@@ -163,6 +179,20 @@ proof fn lemma_calculate(desired: u64, capacity: u32, header: u32, page: u32)
     ensures DatabaseLayout::calculate_requires(desired, capacity, header, page),
 { /* arithmetic proof */ }
 ```
+
+A contract that reads state hidden from some of the function's callers, such
+as a `pub` getter over private fields, cannot be written in the function's
+contract. Its views are then visible only inside the module (like a closed spec
+function), and the affected clause is installed as a call to the view. Callers
+inside the module see the same formula; callers outside see an abstract
+predicate. They can call a function that has no precondition; for one that has,
+the module must provide a lemma establishing `f_requires(..)`. Another crate
+imports such a function with this abstract contract; inferred functions in that
+crate cannot use it as a summary, so they are rejected if they call it.
+
+Only `#[verus_infer]` generates these views. Inside `verus!`,
+`#[verifier::infer]` generates none, so a `pub` function whose contract reads
+private fields is still rejected there.
 
 The views are generated for signatures a spec function can mirror: no
 `&mut`, `const`, `async` or `unsafe` functions and no pattern parameters. A

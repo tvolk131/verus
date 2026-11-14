@@ -12,6 +12,7 @@ use std::collections::HashMap;
 use std::sync::Arc;
 
 mod abstract_infer;
+mod advice;
 mod arithmetic;
 mod arrays;
 mod assistance;
@@ -360,7 +361,7 @@ fn conditional(span: &Span, c: Term, a: Term, b: Term) -> Result<Term, VirErr> {
 }
 
 fn unsupported(span: &Span, feature: &str) -> VirErr {
-    error(span, format!("Verus Infer unsupported: {feature}"))
+    error(span, format!("Verus Infer unsupported: {feature}")).help(advice::advice(feature))
 }
 
 fn value(summary: &Summary, span: &Span) -> Result<Term, VirErr> {
@@ -789,7 +790,7 @@ impl Engine<'_> {
                     .callees
                     .get(name)
                     .ok_or_else(|| {
-                        unsupported(span, "calls require an acyclic same-crate inferred callee or certified imported summary")
+                        unsupported(span, &format!("calls require an acyclic same-crate inferred callee or certified imported summary: `{}`", crate::ast_util::fun_as_friendly_rust_name(name)))
                     })?
                     .clone();
                 let byte_model = byte_models::recognize(&callee).is_some();
@@ -1074,7 +1075,7 @@ fn order_functions(
                         ));
                     }
                     let callee = all.get(name).filter(|f| f.x.attrs.infer || is_approved_model(f) || functional::is_functional(f)).ok_or_else(|| {
-                        unsupported(&e.span, &format!("calls require an acyclic same-crate inferred callee or certified imported summary: {name:?}"))
+                        unsupported(&e.span, &format!("calls require an acyclic same-crate inferred callee or certified imported summary: `{}`", crate::ast_util::fun_as_friendly_rust_name(name)))
                     })?;
                     if source && panics::model(callee).is_some() && !helper {
                         return Err(unsupported(
@@ -1381,7 +1382,7 @@ pub fn infer_functions_with_datatypes(
     report.failure = result.as_ref().err().map(|e| e.note.clone());
     report.failures = std::mem::take(&mut registry.failures);
     let mut result = result?;
-    views::fill(&mut result)?;
+    views::fill(&mut result, datatypes)?;
     Ok(result)
 }
 
@@ -1390,6 +1391,12 @@ pub fn validate_imported_summary_with_context(
     datatypes: &[Datatype],
     functions: &[Function],
 ) -> Result<(), VirErr> {
+    // Not offered to importers' inference; see `views::installed_through_view`.
+    let views: std::collections::HashSet<&Fun> =
+        functions.iter().filter(|f| views::is_view(f)).map(|f| &f.x.name).collect();
+    if views::installed_through_view(function, |n| views.contains(n)) {
+        return Ok(());
+    }
     let projected = newtypes::Newtypes::with_comparisons(datatypes, functions).project(function)?;
     if is_owned_summary(&projected) {
         return owned::validate_summary(
@@ -1561,34 +1568,42 @@ pub fn format_contract(function: &Function) -> String {
     format!("requires {pre}; ensures {post}{suffix}")
 }
 
+/// The postcondition with the return variable shown as `result`.
+fn with_result_name(function: &Function) -> Expr {
+    let result_name = VarIdent(Arc::new("result".into()), VarIdentDisambiguate::AirLocal);
+    let result = &function.x.inner_ret.x.name;
+    crate::ast_visitor::map_expr_place_visitor(
+        &function.x.ensure.0[0],
+        &|e| {
+            Ok(if matches!(&e.x, ExprX::Var(v) if v == result) {
+                e.new_x(ExprX::Var(result_name.clone()))
+            } else {
+                e.clone()
+            })
+        },
+        &|p| {
+            Ok(if matches!(&p.x, PlaceX::Local(v) if v == result) {
+                p.new_x(PlaceX::Local(result_name.clone()))
+            } else {
+                p.clone()
+            })
+        },
+    )
+    .expect("postcondition presentation")
+}
+
 /// Separate the checked predicates for structured presentation. Arithmetic is
 /// mathematical, with explicit machine casts and Rust signed division/remainder.
 pub fn format_contract_parts(function: &Function) -> (String, String) {
+    // A postcondition installed as a call to its named view, in any mode.
+    if matches!(&function.x.ensure.0[0].x, ExprX::Call { .. }) {
+        return (format_expr(&function.x.require[0]), format_expr(&with_result_name(function)));
+    }
     if collections::kind(function).is_some()
         || records::candidate(function)
         || is_owned_summary(function)
     {
-        let result_name = VarIdent(Arc::new("result".into()), VarIdentDisambiguate::AirLocal);
-        let result = &function.x.inner_ret.x.name;
-        let post = crate::ast_visitor::map_expr_place_visitor(
-            &function.x.ensure.0[0],
-            &|e| {
-                Ok(if matches!(&e.x, ExprX::Var(v) if v == result) {
-                    e.new_x(ExprX::Var(result_name.clone()))
-                } else {
-                    e.clone()
-                })
-            },
-            &|p| {
-                Ok(if matches!(&p.x, PlaceX::Local(v) if v == result) {
-                    p.new_x(PlaceX::Local(result_name.clone()))
-                } else {
-                    p.clone()
-                })
-            },
-        )
-        .expect("collection summary presentation");
-        return (format_expr(&function.x.require[0]), format_expr(&post));
+        return (format_expr(&function.x.require[0]), format_expr(&with_result_name(function)));
     }
     if function.x.attrs.infer_allow_approx {
         let result = Term {

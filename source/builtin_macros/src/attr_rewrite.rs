@@ -331,16 +331,27 @@ impl VisitMut for ExecReplacer {
         }
     }
 
-    fn visit_expr_for_loop_mut(&mut self, for_loop: &mut syn::ExprForLoop) {
-        syn::visit_mut::visit_expr_for_loop_mut(self, for_loop);
+    fn visit_expr_mut(&mut self, expr: &mut syn::Expr) {
+        syn::visit_mut::visit_expr_mut(self, expr);
 
         if !self.erase.keep() || self.inside_external_code {
             return;
         }
+        let syn::Expr::ForLoop(for_loop) = expr else { return };
 
         // In verification mode, even without verus spec on the loop, we still
-        // need to desugar the for loop.
-        // So, if there's no `verus_spec` attribute, we need to add an empty one.
+        // need to desugar the for loop. A loop with no attribute at all is
+        // desugared here, so plain loops do not need an attribute macro on an
+        // expression (an unstable Rust feature). A loop with attributes gets an
+        // empty `verus_spec` if it has none, and is desugared by that attribute.
+        if for_loop.attrs.is_empty() {
+            let spec: verus_syn::LoopSpec =
+                verus_syn::parse2(TokenStream::new()).expect("an empty loop specification parses");
+            let desugared =
+                crate::syntax::for_loop_spec_attr(self.erase.clone(), spec, for_loop.clone());
+            *expr = syn::Expr::Verbatim(desugared.to_token_stream());
+            return;
+        }
         let span = for_loop.span();
         add_verus_spec_if_needed(&mut for_loop.attrs, span);
     }
